@@ -1217,18 +1217,4 @@ const s4 = document.querctorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
 });
 
 // ── MAGNETIC BUTTON EFFECT ────────────────────────────────────────────────
-document.querySelectorAll('.btn-green').forEach(btn=>{
-  btn.addEventListener('mousemove',e=>{
-    const r=btn.getBoundingClientRect();
-    const x=(e.clientX-r.left-r.width/2)*.12;
-    const y=(e.clientY-r.top-r.height/2)*.12;
-    btn.style.transform=`translate(${x}px,${y}px) translateY(-2px)`;
-  });
-  btn.addEventListener('mouseleave',()=>{
-    btn.style.transform='';
-  });
-});
-</script>
-
-</body>
-</html>
+document.querySelectorAll('.bt
