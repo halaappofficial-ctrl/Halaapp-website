@@ -65,7 +65,7 @@ ul{list-style:none}
   letter-spacing:.2em;text-transform:uppercase;color:var(--g);
   margin-bottom:18px;display:flex;align-items:center;gap:12px;
 }
-.eyebrow::before{content:'';width:24px;height:1.5px;background:var(--g);flex-shrink:0}
+.eyebrow::before{display:none}
 .h2{
   font-family:var(--disp);font-size:clamp(2.4rem,4.5vw,3.8rem);
   line-height:1.06;letter-spacing:.01em;margin-bottom:20px;
@@ -1781,7 +1781,7 @@ if(sl){
 // ── FAILSAFE: Reveal all elements ─────────────────────────────────
 window.addEventListener('load', () => {
   setTimeout(() => {
-    ySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
+    ctorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
       el.classList.add('visible');
     });
   }, 300);
