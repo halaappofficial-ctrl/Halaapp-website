@@ -3,958 +3,1804 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HALA — Move Anything. Get There First.</title>
-<meta name="description" content="South Africa's logistics platform. Post a job, verified drivers bid in real time. Live GPS tracking. PayFast escrow. Available in Durban, KwaZulu-Natal.">
+<title>HALA MOVE  Move Anything. Get There First. | Durban's Verified Logistics Platform</title>
+<meta name="description" content="South Africa's technology platform for moving large items. Post a job, verified drivers bid in real time. Live GPS tracking. PayFast escrow. Available in Durban, KwaZulu-Natal.">
+<meta property="og:title" content="HALA MOVE   Move Anything. Get There First.">
+<meta property="og:description" content="Post a job, verified drivers bid in real time. Live GPS tracking. PayFast escrow. Launching in Durban, KwaZulu-Natal.">
+<meta property="og:type" content="website">
 <meta name="theme-color" content="#0A0A0A">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
+/* ─── ROOT ───────────────────────────────────────────────── */
 :root{
-  --g:#5CB558; --gd:#4A9947; --gmid:rgba(92,181,88,.08);
-  --bg:#0A0A0A; --bg2:#0D0D0D; --s:#141414; --s2:#1A1A1A; --s3:#222;
-  --b:#2A2A2A; --b2:#333;
-  --t:#FFFFFF; --t2:#AAAAAA; --t3:#666;
-  --gold:#FFD700;
-  --disp:'Syne',sans-serif; --body:'Plus Jakarta Sans',sans-serif;
+ --g:    #5CB558;
+ --gd:   #4A9947;
+ --gl:   #7DCB79;
+ --glow:  rgba(92,181,88,.16);
+ --gmid:  rgba(92,181,88,.08);
+ --bg:   #0A0A0A;
+ --bg2:   #0D0D0D;
+ --s:    #141414;
+ --s2:   #1A1A1A;
+ --s3:   #222;
+ --b:    #2A2A2A;
+ --b2:   #333;
+ --t:    #FFFFFF;
+ --t2:   #AAAAAA;
+ --t3:   #666;
+ --err:   #FF4444;
+ --warn:  #F59E0B;
+ --gold:  #FFD700;
+ --disp:  'Syne', sans-serif;
+ --body:  'Plus Jakarta Sans', sans-serif;
+ --r:    8px;
+ --rl:   14px;
+ --rll:   20px;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--t);font-family:var(--body);font-weight:400;line-height:1.65;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+ background:var(--bg);color:var(--t);
+ font-family:var(--body);font-weight:400;
+ line-height:1.65;overflow-x:hidden;
+ -webkit-font-smoothing:antialiased;
+}
+/* film grain overlay */
+body::after{
+ content:'';position:fixed;inset:0;pointer-events:none;z-index:9999;
+ opacity:.022;
+ background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+ background-size:180px 180px;
+}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;border:none;background:none;font-family:var(--body)}
 ul{list-style:none}
 .container{max-width:1180px;margin:0 auto;padding:0 24px}
 
-/* BUTTONS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 26px;border-radius:8px;font-family:var(--body);font-weight:600;font-size:.9rem;letter-spacing:.03em;transition:all .22s ease;cursor:pointer;white-space:nowrap}
-.btn-green{background:var(--g);color:#0A0A0A}
-.btn-green:hover{background:var(--gd);transform:translateY(-2px);box-shadow:0 10px 32px rgba(92,181,88,.3)}
+/* ─── UTILITY ────────────────────────────────────────────── */
+.eyebrow{
+ font-family:var(--body);font-size:.7rem;font-weight:600;
+ letter-spacing:.2em;text-transform:uppercase;color:var(--g);
+ margin-bottom:18px;display:flex;align-items:center;gap:12px;
+}
+.eyebrow::before{content:'';width:24px;height:1.5px;background:var(--g);flex-shrink:0}
+.h2{
+ font-family:var(--disp);font-size:clamp(2.4rem,4.5vw,3.8rem);
+ line-height:1.06;letter-spacing:.01em;margin-bottom:20px;
+}
+.sub{font-size:1.02rem;color:var(--t2);line-height:1.75;max-width:560px}
+.tag{
+ display:inline-flex;align-items:center;gap:6px;
+ background:var(--s2);border:1px solid var(--b);
+ border-radius:40px;padding:5px 14px;
+ font-size:.75rem;font-weight:600;letter-spacing:.06em;
+ text-transform:uppercase;color:var(--t2);
+}
+.tag.green{background:var(--gmid);border-color:rgba(92,181,88,.25);color:var(--g)}
+
+/* ─── BUTTONS ────────────────────────────────────────────── */
+.btn{
+ display:inline-flex;align-items:center;justify-content:center;gap:8px;
+ padding:14px 28px;border-radius:var(--r);
+ font-family:var(--body);font-weight:600;font-size:.9rem;
+ letter-spacing:.03em;transition:all .22s cubic-bezier(.4,0,.2,1);
+ cursor:pointer;position:relative;overflow:hidden;
+ white-space:nowrap;
+}
+.btn::after{
+ content:'';position:absolute;inset:0;
+ background:rgba(255,255,255,0);
+ transition:background .2s;
+}
+.btn:hover::after{background:rgba(255,255,255,.04)}
+.btn-green{
+ background:var(--g);color:#0A0A0A;
+ box-shadow:0 0 0 0 rgba(92,181,88,.4);
+}
+.btn-green:hover{
+ background:var(--gd);transform:translateY(-2px);
+ box-shadow:0 10px 32px rgba(92,181,88,.3),0 0 0 0 rgba(92,181,88,.4);
+}
 .btn-green:active{transform:scale(.97)}
-.btn-ghost{background:transparent;color:var(--t);border:1px solid var(--b2)}
+.btn-ghost{
+ background:transparent;color:var(--t);
+ border:1px solid var(--b2);
+}
 .btn-ghost:hover{border-color:var(--g);color:var(--g)}
-.btn-lg{padding:15px 34px;font-size:.95rem}
+.btn-ghost:active{transform:scale(.97)}
+.btn-lg{padding:16px 36px;font-size:.95rem}
 .btn-sm{padding:9px 18px;font-size:.8rem}
 .btn-wide{width:100%}
 
-/* EYEBROW */
-.eyebrow{font-family:var(--body);font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:18px}
-.h2{font-family:var(--disp);font-size:clamp(2.4rem,4.5vw,3.8rem);line-height:1.06;letter-spacing:.01em;margin-bottom:20px}
-.sub{font-size:1rem;color:var(--t2);line-height:1.75;max-width:560px}
+/* ─── REVEAL ANIMATIONS ──────────────────────────────────── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-l{opacity:0;transform:translateX(-28px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal-l.visible{opacity:1;transform:translateX(0)}
+.reveal-r{opacity:0;transform:translateX(-28px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.reveal-r.visible{opacity:1;transform:translateX(0)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+.d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
 
-/* ANNOUNCEMENT BAR */
-.ann-bar{background:var(--g);color:#0A0A0A;height:36px;overflow:hidden;display:flex;align-items:center}
-.ann-track{display:flex;animation:marquee 28s linear infinite;white-space:nowrap}
-.ann-item{display:inline-flex;align-items:center;gap:10px;font-size:.75rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:0 40px}
-.ann-dot{width:5px;height:5px;border-radius:50%;background:#0A0A0A;flex-shrink:0;animation:pdot 1.4s ease-in-out infinite}
+/* ─── ANNOUNCEMENT BAR ───────────────────────────────────── */
+.ann-bar{
+ background:var(--g);color:#0A0A0A;
+ height:36px;overflow:hidden;position:relative;
+ display:flex;align-items:center;z-index:910;
+}
+.ann-track{
+ display:flex;align-items:center;gap:0;
+ animation:marquee 28s linear infinite;
+ white-space:nowrap;
+}
+.ann-item{
+ display:inline-flex;align-items:center;gap:10px;
+ font-size:.76rem;font-weight:600;letter-spacing:.06em;
+ text-transform:uppercase;padding:0 40px;
+}
+.ann-dot{width:6px;height:6px;border-radius:50%;background:#0A0A0A;flex-shrink:0;animation:pulse-dot 1.4s ease-in-out infinite}
 @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes pdot{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:1;transform:scale(1.5)}}
+@keyframes pulse-dot{0%,100%{transform:scale(1);opacity:.6}50%{transform:scale(1.5);opacity:1}}
 
-/* NAV */
-nav{position:sticky;top:0;z-index:900;background:rgba(10,10,10,.94);backdrop-filter:blur(16px);border-bottom:1px solid var(--b);height:64px;display:flex;align-items:center}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1180px;margin:0 auto;padding:0 24px;gap:24px}
-.nav-logo{display:flex;align-items:center;flex-shrink:0}
-.nav-logo img{height:36px;width:auto;display:block}
-.nav-live{display:flex;align-items:center;gap:6px;font-size:.65rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--g);background:var(--gmid);border:1px solid rgba(92,181,88,.2);border-radius:40px;padding:3px 10px;flex-shrink:0}
-.nav-live-dot{width:5px;height:5px;border-radius:50%;background:var(--g);animation:pdot 1.2s ease-in-out infinite}
+/* ─── NAVIGATION ─────────────────────────────────────────── */
+nav{
+ position:sticky;top:0;left:0;right:0;z-index:900;
+ background:rgba(10,10,10,.92);backdrop-filter:blur(16px);
+ border-bottom:1px solid var(--b);height:64px;
+ display:flex;align-items:center;
+ transition:background .3s;
+}
+nav.scrolled{background:rgba(10,10,10,.98)}
+.nav-inner{
+ display:flex;align-items:center;justify-content:space-between;
+ width:100%;max-width:1180px;margin:0 auto;padding:0 24px;
+ gap:24px;
+}
+.nav-logo{
+ display:flex;align-items:center;
+ flex-shrink:0;
+}
+.nav-live{
+ display:flex;align-items:center;gap:6px;
+ font-size:.65rem;font-weight:600;letter-spacing:.1em;
+ text-transform:uppercase;color:var(--g);
+ background:var(--gmid);border:1px solid rgba(92,181,88,.2);
+ border-radius:40px;padding:3px 10px;
+ flex-shrink:0;
+}
+.nav-live-dot{
+ width:5px;height:5px;border-radius:50%;background:var(--g);
+ animation:pulse-dot 1.2s ease-in-out infinite;
+}
 .nav-links{display:none;gap:28px;align-items:center;flex:1;justify-content:center}
-.nav-links a{font-size:.85rem;font-weight:500;color:var(--t2);letter-spacing:.03em;transition:color .2s}
+.nav-links a{
+ font-size:.85rem;font-weight:500;color:var(--t2);
+ letter-spacing:.03em;transition:color .2s;
+}
 .nav-links a:hover{color:var(--t)}
 .nav-btns{display:flex;gap:8px;align-items:center;flex-shrink:0}
-.hamburger{display:flex;flex-direction:column;gap:5px;padding:8px;cursor:pointer}
-.hamburger span{width:22px;height:1.5px;background:var(--t);border-radius:2px;transition:all .28s ease}
+.hamburger{
+ display:flex;flex-direction:column;gap:5px;
+ padding:8px;cursor:pointer;
+}
+.hamburger span{width:22px;height:1.5px;background:var(--t);border-radius:2px;transition:all .28s cubic-bezier(.4,0,.2,1)}
 .hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
-.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
-.mobile-menu{position:fixed;inset:0;background:var(--bg);z-index:850;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:28px;transform:translateX(100%);transition:transform .38s ease;padding:40px}
+.mobile-menu{
+ position:fixed;inset:0;background:var(--bg);z-index:850;
+ display:flex;flex-direction:column;justify-content:center;
+ align-items:center;gap:28px;
+ transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);
+ padding:40px;
+}
 .mobile-menu.open{transform:translateX(0)}
-.mobile-menu a{font-family:var(--disp);font-size:2.6rem;letter-spacing:.04em;color:var(--t2);transition:color .2s}
+.mobile-menu a{
+ font-family:var(--disp);font-size:2.6rem;
+ letter-spacing:.04em;color:var(--t2);transition:color .2s;
+}
 .mobile-menu a:hover{color:var(--g)}
+.mobile-menu .btn{font-size:.95rem;padding:14px 40px;margin-top:12px}
 .mobile-menu-btns{display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;margin-top:8px}
-@media(min-width:768px){.nav-links{display:flex}.hamburger{display:none}.mobile-menu{display:none}}
+@media(min-width:768px){
+ .nav-links{display:flex}
+ .hamburger{display:none}
+ .mobile-menu{display:none}
+}
 
-/* HERO */
-.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:80px 0;overflow:hidden}
-#city-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
-.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:60px;align-items:center;width:100%}
-@media(min-width:900px){.hero-grid{grid-template-columns:1.1fr .9fr}}
-.hero-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--g);margin-bottom:20px}
-.hero-h1{font-family:var(--disp);font-size:clamp(3.8rem,8vw,7rem);line-height:.96;letter-spacing:.01em;margin-bottom:28px}
+/* ─── HERO ───────────────────────────────────────────────── */
+.hero{
+ position:relative;min-height:calc(100vh - 100px);
+ display:flex;align-items:center;padding:80px 0;overflow:hidden;
+}
+#city-canvas{
+ position:absolute;inset:0;width:100%;height:100%;
+ opacity:.55;pointer-events:none;
+}
+.hero-grid{
+ position:relative;z-index:2;display:grid;
+ grid-template-columns:1fr;gap:60px;align-items:center;
+}
+/* hero text stagger */
+.hero-eyebrow{animation:fadeUp .6s cubic-bezier(.4,0,.2,1) .1s both}
+.hero-h1{
+ font-family:var(--disp);font-size:clamp(3.6rem,8vw,7rem);
+ line-height:.96;letter-spacing:.01em;margin-bottom:28px;
+}
+.hero-h1 .line{display:block;overflow:hidden}
+.hero-h1 .line span{display:block;animation:slideUp .7s cubic-bezier(.4,0,.2,1) both}
+.hero-h1 .line:nth-child(1) span{animation-delay:.2s}
+.hero-h1 .line:nth-child(2) span{animation-delay:.3s}
+.hero-h1 .line:nth-child(3) span{animation-delay:.4s}
 .hero-h1 .accent{color:var(--g)}
-.hero-sub{font-size:clamp(.98rem,2vw,1.1rem);color:var(--t2);line-height:1.75;max-width:500px;margin-bottom:36px}
-.hero-btns{display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px}
-.trust-row{display:flex;flex-wrap:wrap;gap:18px;align-items:center;margin-bottom:28px}
-.trust-item{display:flex;align-items:center;gap:7px;font-size:.8rem;font-weight:500;color:var(--t3)}
+.hero-sub{
+ font-size:clamp(.98rem,2vw,1.12rem);color:var(--t2);
+ line-height:1.75;max-width:500px;margin-bottom:36px;
+ animation:fadeUp .7s cubic-bezier(.4,0,.2,1) .5s both;
+}
+.hero-btns{
+ display:flex;flex-wrap:wrap;gap:12px;margin-bottom:36px;
+ animation:fadeUp .7s cubic-bezier(.4,0,.2,1) .6s both;
+}
+.hero-trust{
+ display:flex;flex-wrap:wrap;gap:18px;align-items:center;
+ animation:fadeUp .7s cubic-bezier(.4,0,.2,1) .7s both;
+}
+.trust-item{
+ display:flex;align-items:center;gap:7px;
+ font-size:.8rem;font-weight:500;color:var(--t3);
+}
 .trust-item svg{flex-shrink:0}
-.store-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-.store-badge{display:flex;align-items:center;gap:10px;background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:11px 18px;transition:border-color .2s,transform .2s}
+.store-row{
+ display:flex;gap:12px;flex-wrap:wrap;align-items:center;
+ animation:fadeUp .7s cubic-bezier(.4,0,.2,1) .8s both;
+ margin-top:28px;
+}
+.store-badge{
+ display:flex;align-items:center;gap:10px;
+ background:var(--s2);border:1px solid var(--b);
+ border-radius:10px;padding:11px 18px;
+ transition:border-color .2s,transform .2s;
+}
 .store-badge:hover{border-color:rgba(92,181,88,.45);transform:translateY(-1px)}
-.badge-icon{font-size:1.4rem;line-height:1;display:flex;align-items:center}
+.badge-icon{font-size:1.5rem;line-height:1}
 .badge-txt small{display:block;font-size:.6rem;color:var(--t3);letter-spacing:.08em;text-transform:uppercase}
 .badge-txt strong{font-size:.85rem;font-weight:600;color:var(--t)}
-.store-note{font-size:.72rem;color:var(--t3)}
+.store-note{font-size:.72rem;color:var(--t3);letter-spacing:.04em;align-self:center}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 
-/* PHONE MOCKUP */
-.hero-phone-wrap{display:flex;justify-content:center;align-items:center;position:relative}
-.phone-glow{position:absolute;width:300px;height:400px;background:radial-gradient(ellipse at center,rgba(92,181,88,.18) 0%,transparent 70%);pointer-events:none}
-.phone{width:260px;background:#111;border-radius:36px;border:1.5px solid #2A2A2A;box-shadow:0 60px 120px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.04);overflow:hidden;animation:phoneFloat 4s ease-in-out infinite}
-@keyframes phoneFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.ph-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 18px 10px;background:#111}
-.ph-bar-time{font-size:.72rem;font-weight:600;color:var(--t)}
-.ph-header{background:#111;padding:12px 14px 12px;border-bottom:1px solid #1A1A1A}
-.ph-header-title{font-size:.8rem;font-weight:700;color:var(--t);margin-bottom:2px}
-.ph-header-sub{font-size:.67rem;color:var(--t3)}
-.ph-badge{display:inline-flex;align-items:center;gap:5px;margin-top:8px;background:rgba(92,181,88,.12);border:1px solid rgba(92,181,88,.25);border-radius:20px;padding:4px 10px;font-size:.65rem;font-weight:600;color:var(--g)}
-.ph-badge-dot{width:5px;height:5px;border-radius:50%;background:var(--g);animation:pdot 1.2s infinite}
-.ph-body{padding:10px 10px;background:#0D0D0D;min-height:320px}
-.bid-card{background:#141414;border:1px solid #222;border-radius:12px;padding:11px;margin-bottom:9px;position:relative;overflow:hidden}
-.bid-card.best::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g)}
-.bid-best-tag{position:absolute;top:9px;right:9px;background:rgba(92,181,88,.12);border:1px solid rgba(92,181,88,.3);border-radius:20px;padding:2px 8px;font-size:.58rem;font-weight:700;color:var(--g);letter-spacing:.06em;text-transform:uppercase}
-.bid-row{display:flex;align-items:center;gap:8px;margin-bottom:8px}
-.bid-av{width:30px;height:30px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:.72rem;font-weight:700;color:#0A0A0A;flex-shrink:0}
+/* ─── HERO PHONE MOCKUP ──────────────────────────────────── */
+.hero-phone-wrap{
+ display:flex;justify-content:center;align-items:center;
+ position:relative;
+ animation:fadeIn 1s cubic-bezier(.4,0,.2,1) .3s both;
+}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.phone-glow{
+ position:absolute;
+ width:300px;height:400px;
+ background:radial-gradient(ellipse at center,rgba(92,181,88,.18) 0%,transparent 70%);
+ pointer-events:none;
+}
+.phone{
+ width:250px;
+ background:#111;
+ border-radius:36px;
+ border:1.5px solid #2A2A2A;
+ box-shadow:
+  0 60px 120px rgba(0,0,0,.8),
+  0 0 0 1px rgba(255,255,255,.04),
+  0 0 60px rgba(92,181,88,.06);
+ overflow:hidden;position:relative;z-index:2;
+}
+.phone-bar{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:14px 20px 10px;
+ background:#111;
+}
+.phone-bar-time{font-size:.72rem;font-weight:600;color:var(--t);letter-spacing:.04em}
+.phone-bar-icons{display:flex;gap:4px;align-items:center}
+.phone-bar-icons span{font-size:.65rem;color:var(--t2)}
+.phone-header{
+ background:#111;padding:12px 16px 14px;
+ border-bottom:1px solid #1A1A1A;
+}
+.phone-header-title{font-size:.82rem;font-weight:700;color:var(--t);margin-bottom:2px}
+.phone-header-sub{font-size:.68rem;color:var(--t3)}
+.phone-header-badge{
+ display:inline-flex;align-items:center;gap:5px;margin-top:8px;
+ background:rgba(92,181,88,.12);border:1px solid rgba(92,181,88,.25);
+ border-radius:20px;padding:4px 10px;
+ font-size:.65rem;font-weight:600;color:var(--g);
+}
+.phone-body{padding:10px 12px;background:#0D0D0D;min-height:360px}
+.bid-card{
+ background:#141414;border:1px solid #222;
+ border-radius:12px;padding:12px;margin-bottom:10px;
+ position:relative;overflow:hidden;
+}
+.bid-card.best::before{
+ content:'';position:absolute;left:0;top:0;bottom:0;width:3px;
+ background:var(--g);border-radius:2px 0 0 2px;
+}
+.bid-best-tag{
+ position:absolute;top:10px;right:10px;
+ background:rgba(92,181,88,.12);border:1px solid rgba(92,181,88,.3);
+ border-radius:20px;padding:2px 8px;
+ font-size:.58rem;font-weight:700;color:var(--g);letter-spacing:.06em;text-transform:uppercase;
+}
+.bid-row{display:flex;align-items:center;gap:9px;margin-bottom:8px}
+.bid-avatar{
+ width:32px;height:32px;border-radius:50%;flex-shrink:0;
+ display:flex;align-items:center;justify-content:center;
+ font-size:.75rem;font-weight:700;color:#0A0A0A;
+ background:var(--g);
+}
 .bid-info{flex:1;min-width:0}
-.bid-name{font-size:.73rem;font-weight:600;color:var(--t);margin-bottom:2px}
-.bid-meta{font-size:.63rem;color:var(--t3)}
-.bid-amt{font-size:1.05rem;font-weight:800;color:var(--t);white-space:nowrap}
-.bid-btn{width:100%;padding:8px;border-radius:8px;font-size:.68rem;font-weight:600;letter-spacing:.04em;text-align:center;transition:all .2s;background:#1E1E1E;border:1px solid #2A2A2A;color:var(--t2);cursor:pointer}
-.bid-card.best .bid-btn{background:var(--g);color:#0A0A0A;border-color:var(--g)}
-.ph-timer{display:flex;align-items:center;justify-content:space-between;padding:9px 14px;background:#111;border-top:1px solid #1A1A1A}
-.ph-timer-label{font-size:.63rem;color:var(--t3)}
-.ph-timer-val{font-size:.73rem;font-weight:700;color:var(--g)}
-.ph-route{padding:9px 14px;background:#111;border-top:1px solid #1A1A1A}
-.ph-route-label{font-size:.58rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:5px}
-.ph-route-row{display:flex;align-items:center;gap:6px;font-size:.67rem;color:var(--t2)}
-.ph-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.ph-line{flex:1;height:1px;background:repeating-linear-gradient(to right,#333 0,#333 4px,transparent 4px,transparent 8px)}
-.bid-arrive1{animation:bidIn .5s cubic-bezier(.34,1.56,.64,1) .8s both}
-.bid-arrive2{animation:bidIn .5s cubic-bezier(.34,1.56,.64,1) 2s both}
-.bid-arrive3{animation:bidIn .5s cubic-bezier(.34,1.56,.64,1) 3.4s both}
-@keyframes bidIn{from{opacity:0;transform:translateY(18px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
+.bid-name{font-size:.75rem;font-weight:600;color:var(--t);margin-bottom:2px}
+.bid-meta{font-size:.65rem;color:var(--t3);display:flex;align-items:center;gap:5px}
+.bid-star{color:var(--gold);font-size:.65rem}
+.bid-amount{font-size:1.1rem;font-weight:800;color:var(--t);white-space:nowrap}
+.bid-accept{
+ width:100%;padding:9px;background:#1E1E1E;
+ border:1px solid #2A2A2A;border-radius:8px;
+ font-size:.7rem;font-weight:600;color:var(--t2);
+ text-align:center;letter-spacing:.04em;
+ transition:all .2s;
+}
+.bid-card.best .bid-accept{
+ background:var(--g);color:#0A0A0A;border-color:var(--g);
+}
+/* Bid arrival animations */
+.bid-card.arrive1{animation:bidArrive .5s cubic-bezier(.34,1.56,.64,1) .8s both}
+.bid-card.arrive2{animation:bidArrive .5s cubic-bezier(.34,1.56,.64,1) 2s both}
+.bid-card.arrive3{animation:bidArrive .5s cubic-bezier(.34,1.56,.64,1) 3.4s both}
+@keyframes bidArrive{
+ from{opacity:0;transform:translateY(20px) scale(.95)}
+ to{opacity:1;transform:translateY(0) scale(1)}
+}
+.timer-bar{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:10px 12px;
+ background:#111;border-top:1px solid #1A1A1A;
+}
+.timer-label{font-size:.65rem;color:var(--t3);font-weight:500}
+.timer-val{font-size:.75rem;font-weight:700;color:var(--g)}
+.phone-track{
+ position:relative;background:#111;
+ padding:10px 12px;
+ border-top:1px solid #1A1A1A;
+}
+.phone-track-label{
+ font-size:.6rem;font-weight:600;letter-spacing:.08em;
+ text-transform:uppercase;color:var(--t3);margin-bottom:6px;
+}
+.phone-route{
+ display:flex;align-items:center;gap:6px;
+ font-size:.68rem;color:var(--t2);
+}
+.phone-route-dot{
+ width:7px;height:7px;border-radius:50%;flex-shrink:0;
+}
+.route-line{flex:1;height:1px;background:repeating-linear-gradient(to right,#333 0,#333 4px,transparent 4px,transparent 8px)}
+/* Phone float animation */
+.phone{animation:phoneFloat 4s ease-in-out infinite}
+@keyframes phoneFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
-/* STATS BAR */
-.stats-bar{background:var(--s);border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:40px 0}
-.stats-inner{display:grid;grid-template-columns:repeat(2,1fr)}
-.stat-item{padding:20px 24px;text-align:center;position:relative}
-.stat-item:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;bottom:20%;width:1px;background:var(--b)}
-.stat-num{font-family:var(--disp);font-size:clamp(2.2rem,5vw,3rem);font-weight:800;color:var(--g);line-height:1;margin-bottom:6px}
-.stat-label{font-size:.82rem;color:var(--t3);font-weight:500}
-@media(min-width:640px){.stats-inner{grid-template-columns:repeat(4,1fr)}}
+/* Desktop layout for hero */
+@media(min-width:900px){
+ .hero-grid{grid-template-columns:1.1fr 0.9fr;gap:60px}
+ .phone{width:280px}
+}
 
-/* HOW IT WORKS */
+/* ─── STATS BAR ──────────────────────────────────────────── */
+.stats-bar{
+ background:var(--s);
+ border-top:1px solid var(--b);
+ border-bottom:1px solid var(--b);
+ padding:40px 0;
+}
+.stats-bar .stat-num,.stats-bar .stat-label{opacity:1!important;transform:none!important;}
+.stats-inner{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:0;
+}
+.stat-item{
+ padding:20px 24px;text-align:center;
+ position:relative;
+}
+.stat-item::after{
+ content:'';position:absolute;right:0;top:20%;bottom:20%;
+ width:1px;background:var(--b);
+}
+.stat-item:nth-child(even)::after{display:none}
+.stat-num{
+ font-family:var(--disp);font-size:clamp(2.2rem,5vw,3rem);
+ font-weight:800;color:var(--g);letter-spacing:.02em;
+ line-height:1;margin-bottom:6px;
+}
+.stat-label{font-size:.82rem;color:var(--t3);font-weight:500;letter-spacing:.04em}
+@media(min-width:640px){
+ .stats-inner{grid-template-columns:repeat(4,1fr)}
+ .stat-item::after{display:block}
+ .stat-item:last-child::after{display:none}
+}
+
+/* ─── HOW IT WORKS ───────────────────────────────────────── */
 .how{padding:100px 0}
 .how-header{text-align:center;margin-bottom:64px}
 .how-header .sub{margin:0 auto}
-.steps{display:grid;grid-template-columns:1fr;gap:24px;position:relative;z-index:2}
-.step{background:var(--s2);border:1px solid var(--b);border-radius:14px;padding:28px;transition:border-color .25s,transform .25s,box-shadow .25s;position:relative;overflow:hidden}
-.step::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:transparent;transition:background .25s}
+.steps-wrap{position:relative}
+.steps-line{
+ display:none;
+ position:absolute;top:40px;left:10%;right:10%;
+ height:1px;
+ background:repeating-linear-gradient(to right,var(--b) 0,var(--b) 6px,transparent 6px,transparent 14px);
+}
+.steps-line-fill{
+ position:absolute;inset:0;
+ background:repeating-linear-gradient(to right,var(--g) 0,var(--g) 6px,transparent 6px,transparent 14px);
+ transform:scaleX(0);transform-origin:left;
+ transition:transform 1.2s cubic-bezier(.4,0,.2,1);
+}
+.steps-line.animated .steps-line-fill{transform:scaleX(1)}
+.steps{
+ display:grid;grid-template-columns:1fr;gap:28px;
+ position:relative;z-index:2;
+}
+.step{
+ background:var(--s2);border:1px solid var(--b);
+ border-radius:var(--rl);padding:28px;
+ position:relative;overflow:hidden;
+ transition:border-color .25s,transform .25s,box-shadow .25s;
+}
+.step::before{
+ content:'';position:absolute;top:0;left:0;right:0;
+ height:2px;background:transparent;
+ transition:background .25s;
+}
 .step:hover{border-color:rgba(92,181,88,.35);transform:translateY(-3px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
 .step:hover::before{background:var(--g)}
-.step-num{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border-radius:10px;background:var(--gmid);border:1px solid rgba(92,181,88,.25);font-family:var(--disp);font-size:1.1rem;font-weight:800;color:var(--g);margin-bottom:16px}
-.step-icon{margin-bottom:12px;width:28px;height:28px}
-.step-title{font-size:1rem;font-weight:700;color:var(--t);margin-bottom:8px}
+.step-num{
+ display:inline-flex;align-items:center;justify-content:center;
+ width:40px;height:40px;border-radius:10px;
+ background:var(--gmid);border:1px solid rgba(92,181,88,.25);
+ font-family:var(--disp);font-size:1.1rem;font-weight:800;color:var(--g);
+ margin-bottom:16px;
+}
+.step-icon{font-size:1.6rem;margin-bottom:12px}
+.step-title{font-size:1.02rem;font-weight:700;color:var(--t);margin-bottom:8px}
 .step-desc{font-size:.88rem;color:var(--t2);line-height:1.65}
-@media(min-width:768px){.steps{grid-template-columns:repeat(2,1fr)}}
-@media(min-width:1024px){.steps{grid-template-columns:repeat(4,1fr)}}
+@media(min-width:768px){
+ .steps{grid-template-columns:repeat(2,1fr)}
+}
+@media(min-width:1024px){
+ .steps{grid-template-columns:repeat(4,1fr)}
+ .steps-line{display:block}
+}
 
-/* FEATURES */
+/* ─── FEATURES ───────────────────────────────────────────── */
 .features{padding:100px 0;background:var(--bg2)}
 .features-header{margin-bottom:64px}
-.features-grid{display:grid;grid-template-columns:1fr;gap:20px}
-.feat-card{background:var(--s2);border:1px solid var(--b);border-radius:14px;padding:32px;display:flex;flex-direction:column;gap:14px;transition:border-color .25s,transform .25s,box-shadow .25s}
+.features-grid{
+ display:grid;grid-template-columns:1fr;
+ gap:20px;
+}
+.feat-card{
+ background:var(--s2);border:1px solid var(--b);
+ border-radius:var(--rl);padding:32px;
+ display:flex;flex-direction:column;gap:14px;
+ transition:border-color .25s,transform .25s,box-shadow .25s;
+ position:relative;overflow:hidden;
+}
+.feat-card::after{
+ content:'';position:absolute;inset:0;
+ background:radial-gradient(circle at top right,rgba(92,181,88,.04) 0%,transparent 60%);
+ opacity:0;transition:opacity .3s;
+}
 .feat-card:hover{border-color:rgba(92,181,88,.3);transform:translateY(-4px);box-shadow:0 24px 64px rgba(0,0,0,.4)}
-.feat-icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:var(--gmid);border:1px solid rgba(92,181,88,.2);padding:11px}
+.feat-card:hover::after{opacity:1}
+.feat-icon{
+ display:inline-flex;align-items:center;justify-content:center;
+ width:48px;height:48px;border-radius:12px;
+ background:var(--gmid);border:1px solid rgba(92,181,88,.2);
+ font-size:1.4rem;
+}
 .feat-card h3{font-size:1rem;font-weight:700;color:var(--t)}
 .feat-card p{font-size:.88rem;color:var(--t2);line-height:1.65;flex:1}
-.feat-metric{font-size:.78rem;font-weight:600;color:var(--g);letter-spacing:.04em}
+.feat-metric{
+ font-size:.78rem;font-weight:600;color:var(--g);
+ letter-spacing:.04em;
+}
 @media(min-width:640px){.features-grid{grid-template-columns:repeat(2,1fr)}}
 @media(min-width:1024px){.features-grid{grid-template-columns:repeat(3,1fr)}}
 
-/* DRIVER SECTION */
+/* ─── DRIVER SECTION ─────────────────────────────────────── */
 .driver{padding:100px 0;position:relative;overflow:hidden}
-.driver::before{content:'80%';position:absolute;right:-60px;top:50%;transform:translateY(-50%);font-family:var(--disp);font-size:clamp(16rem,28vw,22rem);font-weight:800;color:rgba(92,181,88,.04);line-height:1;pointer-events:none;white-space:nowrap}
-.driver-inner{display:grid;grid-template-columns:1fr;gap:60px;align-items:start}
-@media(min-width:900px){.driver-inner{grid-template-columns:1fr 1fr}}
-.formula-box{background:var(--s3);border:1px solid var(--b);border-radius:14px;overflow:hidden;margin-bottom:28px}
-.formula-header{background:rgba(92,181,88,.07);border-bottom:1px solid var(--b);padding:14px 20px}
-.formula-label{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin-bottom:8px}
-.formula-text{font-family:var(--disp);font-size:clamp(1rem,2.5vw,1.3rem);font-weight:800;color:var(--t);letter-spacing:.01em;line-height:1.3}
-.formula-body{padding:14px 20px}
-.formula-body p{font-size:.87rem;color:var(--t2);line-height:1.65}
-.formula-stats{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--b)}
-.formula-stat{padding:14px 16px;text-align:center}
-.formula-stat:not(:last-child){border-right:1px solid var(--b)}
-.formula-stat-num{font-family:var(--disp);font-size:1.4rem;font-weight:800;color:var(--g)}
-.formula-stat-label{font-size:.7rem;color:var(--t3);margin-top:3px}
-.perks{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
-.perk{display:flex;align-items:flex-start;gap:12px;font-size:.9rem;color:var(--t2)}
-.perk-check{width:20px;height:20px;border-radius:50%;background:var(--gmid);border:1px solid rgba(92,181,88,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.calc-box{background:var(--s2);border:1px solid var(--b);border-radius:14px;padding:28px}
-.calc-title{font-size:.82rem;font-weight:700;color:var(--t2);margin-bottom:20px;letter-spacing:.06em;text-transform:uppercase}
-.calc-group{margin-bottom:20px}
-.calc-lbl{font-size:.8rem;font-weight:500;color:var(--t2);margin-bottom:10px;display:flex;justify-content:space-between}
-.calc-lbl span:last-child{color:var(--g);font-weight:700}
-input[type=range]{width:100%;height:4px;border-radius:2px;appearance:none;background:var(--b2);cursor:pointer}
-input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:var(--g);box-shadow:0 0 0 4px rgba(92,181,88,.15);cursor:pointer}
-.calc-result{background:var(--bg);border:1px solid rgba(92,181,88,.25);border-radius:10px;padding:20px;text-align:center;margin-top:20px}
-.calc-result-label{font-size:.72rem;color:var(--t3);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
-.calc-result-num{font-family:var(--disp);font-size:2.4rem;font-weight:800;color:var(--g);line-height:1}
-.calc-note{font-size:.68rem;color:var(--t3);margin-top:6px;line-height:1.5}
-.cta-sub{font-size:.78rem;color:var(--t3);text-align:left;margin-top:10px}
+.driver::before{
+ content:'80%';
+ position:absolute;right:-60px;top:50%;transform:translateY(-50%);
+ font-family:var(--disp);font-size:clamp(16rem,28vw,22rem);
+ font-weight:800;color:rgba(92,181,88,.04);
+ line-height:1;pointer-events:none;letter-spacing:.02em;
+ white-space:nowrap;
+}
+.driver-inner{
+ display:grid;grid-template-columns:1fr;
+ gap:60px;align-items:center;
+}
+.driver-content .sub{margin-bottom:32px}
+.earn-table{
+ background:var(--s2);border:1px solid var(--b);
+ border-radius:var(--rl);overflow:hidden;margin-bottom:28px;
+}
+.earn-row{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:14px 20px;border-bottom:1px solid var(--b);
+}
+.earn-row:last-child{border-bottom:none}
+.earn-row.header{background:var(--s3);padding:10px 20px}
+.earn-header-l,.earn-header-r{font-size:.7rem;font-weight:600;color:var(--t3);letter-spacing:.1em;text-transform:uppercase}
+.earn-label{font-size:.88rem;font-weight:500;color:var(--t2)}
+.earn-val{
+ font-size:.92rem;font-weight:700;color:var(--t);
+ text-align:right;
+}
+.earn-val.highlight{color:var(--g)}
+.driver-perks{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.perk{
+ display:flex;align-items:flex-start;gap:12px;
+ font-size:.9rem;color:var(--t2);
+}
+.perk-check{
+ width:20px;height:20px;border-radius:50%;
+ background:var(--gmid);border:1px solid rgba(92,181,88,.3);
+ display:flex;align-items:center;justify-content:center;
+ flex-shrink:0;margin-top:1px;
+ font-size:.7rem;color:var(--g);
+}
+/* Earnings calculator */
+.calc-box{
+ background:var(--s2);border:1px solid var(--b);
+ border-radius:var(--rl);padding:28px;
+}
+.calc-title{font-size:.85rem;font-weight:600;color:var(--t2);margin-bottom:20px;letter-spacing:.04em;text-transform:uppercase}
+.calc-input-group{margin-bottom:20px}
+.calc-input-label{
+ font-size:.8rem;font-weight:500;color:var(--t2);
+ margin-bottom:10px;display:flex;justify-content:space-between;
+}
+.calc-slider{
+ width:100%;height:4px;border-radius:2px;
+ appearance:none;background:var(--b2);cursor:pointer;
+}
+.calc-slider::-webkit-slider-thumb{
+ appearance:none;width:18px;height:18px;border-radius:50%;
+ background:var(--g);box-shadow:0 0 0 4px rgba(92,181,88,.15);
+ cursor:pointer;transition:box-shadow .2s;
+}
+.calc-slider::-webkit-slider-thumb:hover{box-shadow:0 0 0 6px rgba(92,181,88,.2)}
+.calc-result{
+ background:var(--bg);border:1px solid rgba(92,181,88,.25);
+ border-radius:var(--r);padding:20px;text-align:center;
+ margin-top:20px;
+}
+.calc-result-label{font-size:.75rem;color:var(--t3);margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
+.calc-result-num{
+ font-family:var(--disp);font-size:2.4rem;font-weight:800;color:var(--g);
+ line-height:1;
+}
+.calc-result-sub{font-size:.78rem;color:var(--t3);margin-top:6px}
+@media(min-width:900px){
+ .driver-inner{grid-template-columns:1fr 1fr}
+}
 
-/* B2B */
-.biz{padding:100px 0;background:var(--bg2);border-top:1px solid var(--b)}
-.biz-inner{display:grid;grid-template-columns:1fr;gap:60px;align-items:start}
-@media(min-width:900px){.biz-inner{grid-template-columns:1.1fr .9fr}}
+/* ─── B2B SECTION ────────────────────────────────────────── */
+.biz{
+ padding:100px 0;background:var(--bg2);
+ border-top:1px solid var(--b);
+}
+.biz-inner{
+ display:grid;grid-template-columns:1fr;
+ gap:60px;align-items:start;
+}
 .biz-features{display:flex;flex-direction:column;gap:16px;margin-bottom:32px}
-.biz-feat{display:flex;align-items:flex-start;gap:14px;padding:16px;background:var(--s2);border:1px solid var(--b);border-radius:10px;transition:border-color .2s}
+.biz-feat{
+ display:flex;align-items:flex-start;gap:14px;
+ padding:16px;background:var(--s2);border:1px solid var(--b);
+ border-radius:10px;transition:border-color .2s;
+}
 .biz-feat:hover{border-color:rgba(92,181,88,.3)}
-.biz-feat-icon{width:36px;height:36px;border-radius:8px;background:var(--gmid);border:1px solid rgba(92,181,88,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;padding:8px}
+.biz-feat-icon{
+ width:36px;height:36px;border-radius:8px;
+ background:var(--gmid);border:1px solid rgba(92,181,88,.2);
+ display:flex;align-items:center;justify-content:center;
+ flex-shrink:0;font-size:1rem;
+}
 .biz-feat h4{font-size:.88rem;font-weight:600;color:var(--t);margin-bottom:2px}
 .biz-feat p{font-size:.82rem;color:var(--t2)}
-.industry-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:20px}
-@media(min-width:900px){.industry-grid{grid-template-columns:repeat(3,1fr)}}
-.industry-card{background:var(--s2);border:1px solid var(--b);border-radius:10px;padding:18px 14px;text-align:center;transition:border-color .25s,background .25s,transform .25s}
-.industry-card:hover{border-color:rgba(92,181,88,.4);background:rgba(92,181,88,.05);transform:translateY(-2px)}
-.industry-icon{display:flex;width:32px;height:32px;margin:0 auto 8px}
+.industry-grid{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:12px;
+}
+.industry-card{
+ background:var(--s2);border:1px solid var(--b);
+ border-radius:var(--r);padding:20px 16px;
+ text-align:center;
+ transition:border-color .25s,background .25s,transform .25s;
+ cursor:default;
+}
+.industry-card:hover{
+ border-color:rgba(92,181,88,.4);
+ background:rgba(92,181,88,.05);
+ transform:translateY(-2px);
+}
+.industry-icon{font-size:1.8rem;margin-bottom:8px;display:block}
 .industry-name{font-size:.82rem;font-weight:600;color:var(--t);margin-bottom:2px}
 .industry-desc{font-size:.72rem;color:var(--t3)}
-.sla-box{background:var(--s2);border:1px solid var(--b);border-radius:14px;padding:22px}
-.sla-box-title{font-size:.72rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:16px}
-.sla-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--b)}
+.biz-sla{
+ background:var(--s2);border:1px solid var(--b);
+ border-radius:var(--rl);padding:24px;margin-top:20px;
+}
+.biz-sla-title{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:16px}
+.sla-row{
+ display:flex;align-items:center;justify-content:space-between;
+ padding:10px 0;border-bottom:1px solid var(--b);
+}
 .sla-row:last-child{border-bottom:none}
 .sla-label{font-size:.84rem;color:var(--t2)}
 .sla-val{font-size:.84rem;font-weight:600;color:var(--g)}
+@media(min-width:900px){
+ .biz-inner{grid-template-columns:1.1fr .9fr}
+ .industry-grid{grid-template-columns:repeat(3,1fr)}
+}
 
-/* TESTIMONIALS */
+/* ─── TESTIMONIALS ───────────────────────────────────────── */
 .testi{padding:100px 0}
 .testi-header{text-align:center;margin-bottom:64px}
-.testi-grid{display:grid;grid-template-columns:1fr;gap:20px}
-@media(min-width:768px){.testi-grid{grid-template-columns:repeat(3,1fr)}}
-.testi-card{background:var(--s2);border:1px solid var(--b);border-radius:14px;padding:32px;display:flex;flex-direction:column;gap:20px;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s}
+.testi-grid{
+ display:grid;grid-template-columns:1fr;
+ gap:20px;
+}
+.testi-card{
+ background:var(--s2);border:1px solid var(--b);
+ border-radius:var(--rl);padding:32px;
+ display:flex;flex-direction:column;gap:20px;
+ position:relative;overflow:hidden;
+ transition:transform .25s,box-shadow .25s;
+}
 .testi-card:hover{transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
-.testi-card::before{content:'"';position:absolute;top:20px;right:22px;font-family:var(--disp);font-size:6rem;line-height:1;color:rgba(92,181,88,.08);pointer-events:none}
+.testi-card::before{
+ content:'"';
+ position:absolute;top:20px;right:24px;
+ font-family:var(--disp);font-size:6rem;
+ line-height:1;color:rgba(92,181,88,.1);
+ pointer-events:none;
+}
 .testi-stars{display:flex;gap:3px}
 .testi-stars span{color:var(--gold);font-size:.9rem}
-.testi-quote{font-size:.93rem;color:var(--t2);line-height:1.75;font-style:italic;flex:1}
+.testi-quote{font-size:.95rem;color:var(--t2);line-height:1.75;font-style:italic;flex:1}
 .testi-author{display:flex;align-items:center;gap:12px}
-.testi-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:700;color:#0A0A0A;flex-shrink:0}
+.testi-avatar{
+ width:42px;height:42px;border-radius:50%;
+ display:flex;align-items:center;justify-content:center;
+ font-size:.88rem;font-weight:700;color:#0A0A0A;
+ flex-shrink:0;
+}
 .testi-name{font-size:.88rem;font-weight:600;color:var(--t)}
-.testi-role{font-size:.75rem;color:var(--t3);margin-top:2px}
-.testi-badge{margin-left:auto;background:var(--gmid);border:1px solid rgba(92,181,88,.2);border-radius:20px;padding:3px 10px;font-size:.65rem;font-weight:700;color:var(--g);letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.testi-role{font-size:.76rem;color:var(--t3);margin-top:2px}
+.testi-badge{
+ display:inline-flex;align-items:center;gap:5px;
+ background:var(--gmid);border:1px solid rgba(92,181,88,.2);
+ border-radius:20px;padding:3px 10px;
+ font-size:.65rem;font-weight:700;color:var(--g);
+ letter-spacing:.06em;text-transform:uppercase;
+}
+@media(min-width:768px){.testi-grid{grid-template-columns:repeat(3,1fr)}}
 
-/* DOWNLOAD CTA */
-.app-cta{padding:100px 0;position:relative;overflow:hidden;border-top:1px solid var(--b)}
-.app-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:400px;background:radial-gradient(ellipse at center,rgba(92,181,88,.1) 0%,transparent 65%);pointer-events:none}
-.cta-inner{position:relative;z-index:2;text-align:center;max-width:680px;margin:0 auto}
-.cta-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--g);margin-bottom:20px;display:flex;align-items:center;justify-content:center;gap:12px}
-.app-cta-h{font-family:var(--disp);font-size:clamp(2.8rem,6vw,5rem);line-height:1.05;letter-spacing:.01em;margin-bottom:20px}
-.app-cta-sub{font-size:1rem;color:var(--t2);line-height:1.7;margin-bottom:40px}
-.cta-badges{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;margin-bottom:20px}
-.cta-badge{display:flex;align-items:center;gap:12px;background:var(--s2);border:1px solid var(--b2);border-radius:12px;padding:14px 24px;transition:all .25s}
-.cta-badge:hover{border-color:var(--g);transform:translateY(-2px);box-shadow:0 12px 36px rgba(92,181,88,.15)}
-.cta-badge-icon{font-size:1.5rem;line-height:1;display:flex;align-items:center}
+/* ─── DOWNLOAD CTA ───────────────────────────────────────── */
+.app-cta{
+ padding:100px 0;
+ position:relative;overflow:hidden;
+ border-top:1px solid var(--b);
+}
+.app-cta::before{
+ content:'';position:absolute;
+ top:50%;left:50%;transform:translate(-50%,-50%);
+ width:800px;height:400px;
+ background:radial-gradient(ellipse at center,rgba(92,181,88,.1) 0%,transparent 65%);
+ pointer-events:none;
+}
+.cta-inner{
+ position:relative;z-index:2;
+ text-align:center;max-width:680px;margin:0 auto;
+}
+.cta-inner .eyebrow{justify-content:center}
+.cta-inner .eyebrow::before{display:none}
+.cta-inner .eyebrow::after{content:'';width:24px;height:1.5px;background:var(--g)}
+.app-cta-h{
+ font-family:var(--disp);font-size:clamp(2.8rem,6vw,5rem);
+ line-height:1.05;letter-spacing:.01em;margin-bottom:20px;
+}
+.app-cta-sub{font-size:1.02rem;color:var(--t2);line-height:1.7;margin-bottom:40px}
+.cta-badges{
+ display:flex;justify-content:center;gap:16px;
+ flex-wrap:wrap;margin-bottom:20px;
+}
+.cta-badge{
+ display:flex;align-items:center;gap:12px;
+ background:var(--s2);border:1px solid var(--b2);
+ border-radius:12px;padding:14px 24px;
+ transition:all .25s;
+}
+.cta-badge:hover{
+ border-color:var(--g);transform:translateY(-2px);
+ box-shadow:0 12px 36px rgba(92,181,88,.15);
+}
+.cta-badge-icon{font-size:1.6rem;line-height:1}
 .cta-badge-text small{display:block;font-size:.62rem;color:var(--t3);letter-spacing:.08em;text-transform:uppercase}
 .cta-badge-text strong{font-size:.9rem;font-weight:600;color:var(--t)}
-.cta-note{font-size:.78rem;color:var(--t3);margin-top:20px;letter-spacing:.04em}
+.cta-note{font-size:.78rem;color:var(--t3);letter-spacing:.04em}
+/* Rating stars below badges */
+.cta-rating{
+ display:flex;align-items:center;justify-content:center;
+ gap:10px;margin-top:24px;
+}
+.cta-rating-stars{display:flex;gap:3px}
+.cta-rating-stars span{color:var(--gold);font-size:.85rem}
+.cta-rating-text{font-size:.8rem;color:var(--t3)}
 
-/* FOOTER */
-footer{background:var(--bg2);border-top:1px solid var(--b);padding:64px 0 0}
-.footer-grid{display:grid;grid-template-columns:1fr;gap:40px;margin-bottom:56px}
-@media(min-width:640px){.footer-grid{grid-template-columns:1fr 1fr}}
-@media(min-width:1024px){.footer-grid{grid-template-columns:1.5fr 1fr 1fr 1fr}}
-.footer-brand-logo{margin-bottom:12px}
-.footer-brand-logo img{height:40px;width:auto;display:block}
-.footer-brand-tag{font-size:.82rem;color:var(--t3);line-height:1.65;max-width:280px;margin-bottom:20px}
+/* ─── FOOTER ─────────────────────────────────────────────── */
+footer{
+ background:var(--bg2);
+ border-top:1px solid var(--b);
+ padding:64px 0 0;
+}
+.footer-grid{
+ display:grid;grid-template-columns:1fr;
+ gap:40px;margin-bottom:56px;
+}
+.footer-brand-logo{
+ margin-bottom:10px;
+}
+.footer-brand-tag{
+ font-size:.82rem;color:var(--t3);line-height:1.65;
+ max-width:280px;margin-bottom:20px;
+}
 .social-links{display:flex;gap:8px}
-.social-btn{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border-radius:8px;background:var(--s2);border:1px solid var(--b);font-size:.75rem;font-weight:700;color:var(--t2);transition:all .2s}
+.social-btn{
+ display:flex;align-items:center;justify-content:center;
+ width:36px;height:36px;border-radius:8px;
+ background:var(--s2);border:1px solid var(--b);
+ font-size:.75rem;font-weight:700;color:var(--t2);
+ transition:all .2s;
+}
 .social-btn:hover{border-color:rgba(92,181,88,.4);color:var(--g)}
-.footer-col h4{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);margin-bottom:18px}
+.footer-col h4{
+ font-size:.75rem;font-weight:600;letter-spacing:.12em;
+ text-transform:uppercase;color:var(--t3);margin-bottom:18px;
+}
 .footer-links{display:flex;flex-direction:column;gap:11px}
-.footer-links a{font-size:.88rem;color:var(--t2);transition:color .2s}
+.footer-links a{
+ font-size:.88rem;color:var(--t2);transition:color .2s;
+}
 .footer-links a:hover{color:var(--g)}
-.footer-disclaimer{padding:16px 0;border-top:1px solid var(--b);font-size:.72rem;color:var(--t3);line-height:1.6;text-align:center}
-.footer-bottom{border-top:1px solid var(--b);padding:20px 0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-bottom{
+ border-top:1px solid var(--b);
+ padding:20px 0;
+ display:flex;align-items:center;justify-content:space-between;
+ flex-wrap:wrap;gap:12px;
+}
 .footer-bottom span{font-size:.8rem;color:var(--t3)}
 .footer-bottom-links{display:flex;gap:20px}
 .footer-bottom-links a{font-size:.8rem;color:var(--t3);transition:color .2s}
 .footer-bottom-links a:hover{color:var(--t2)}
+@media(min-width:640px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1024px){.footer-grid{grid-template-columns:1.5fr 1fr 1fr 1fr}}
 
-/* SCROLL TOP */
-.scroll-top{position:fixed;bottom:28px;right:28px;z-index:500;width:42px;height:42px;border-radius:10px;background:var(--s2);border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--t2);cursor:pointer;transition:all .25s;opacity:0;pointer-events:none;transform:translateY(10px)}
-.scroll-top.show{opacity:1;pointer-events:auto;transform:translateY(0)}
+/* ─── SCROLL TOP BTN ─────────────────────────────────────── */
+.scroll-top{
+ position:fixed;bottom:28px;right:28px;z-index:500;
+ width:42px;height:42px;border-radius:10px;
+ background:var(--s2);border:1px solid var(--b);
+ display:flex;align-items:center;justify-content:center;
+ font-size:1.1rem;color:var(--t2);
+ cursor:pointer;transition:all .25s;
+ opacity:0;pointer-events:none;
+ transform:translateY(10px);
+}
+.scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .scroll-top:hover{border-color:var(--g);color:var(--g)}
 
-/* WA FLOAT */
-.wa-float{position:fixed;bottom:80px;right:28px;z-index:500;display:flex;align-items:center;gap:10px;background:#25D366;border-radius:40px;padding:11px 18px 11px 14px;font-size:.82rem;font-weight:600;color:#fff;cursor:pointer;transition:all .25s;box-shadow:0 8px 28px rgba(37,211,102,.35);text-decoration:none}
+/* ─── WHATSAPP FLOAT ─────────────────────────────────────── */
+.wa-float{
+ position:fixed;bottom:80px;right:28px;z-index:500;
+ display:flex;align-items:center;gap:10px;
+ background:#25D366;border-radius:40px;
+ padding:11px 18px 11px 14px;
+ font-size:.82rem;font-weight:600;color:#fff;
+ cursor:pointer;transition:all .25s;
+ box-shadow:0 8px 28px rgba(37,211,102,.35);
+ animation:waBounce 2s ease-in-out 3s infinite;
+}
 .wa-float:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(37,211,102,.45)}
+.wa-icon{font-size:1.2rem}
+@keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
-/* ── MOBILE FIXES ──────────────────────────────────────────────────── */
-/* Phone mockup: hide on mobile, show on desktop */
-.hero-phone-wrap{display:none}
-@media(min-width:900px){.hero-phone-wrap{display:flex}}
-
-/* Hero padding on mobile */
-@media(max-width:599px){
-  .hero{padding:60px 0}
-  .hero-h1{font-size:3.2rem}
-  .hero-btns .btn-lg{padding:13px 22px;font-size:.88rem}
-  .hero-btns{gap:10px}
-  .trust-row{gap:12px}
-  .store-row{flex-direction:column;align-items:flex-start;gap:10px}
+/* ─── DIVIDER ────────────────────────────────────────────── */
+.section-divider{
+ height:1px;background:linear-gradient(to right,transparent,var(--b),transparent);
+ margin:0;
 }
 
-/* Sections padding on mobile */
-@media(max-width:767px){
-  .how,.features,.driver,.biz,.testi,.app-cta{padding:64px 0}
-  .how-header,.features-header,.testi-header{margin-bottom:40px}
-  .h2{font-size:2.2rem}
-  .calc-box{padding:20px}
-  .formula-box{font-size:.9rem}
+/* ─── MISC ───────────────────────────────────────────────── */
+.center{text-align:center}
+.mt-40{margin-top:40px}
+.cta-sub-text{
+ font-size:.82rem;color:var(--t3);text-align:center;margin-top:14px;
+ letter-spacing:.04em;
 }
-
-/* Stats bar: 2 cols on mobile, no overflow */
-@media(max-width:639px){
-  .stats-inner{grid-template-columns:repeat(2,1fr)}
-  .stat-item:nth-child(2)::after{display:none}
-  .stat-item:nth-child(4)::after{display:none}
-  .stat-num{font-size:1.8rem!important}
-}
-
-/* Nav on mobile */
-@media(max-width:767px){
-  .nav-btns .btn-ghost{display:none}
-  .nav-btns .btn-green{padding:9px 16px;font-size:.8rem}
-  .nav-live{display:none}
-}
-
-/* Steps: 1 col on mobile */
-@media(max-width:767px){
-  .steps{grid-template-columns:1fr}
-}
-
-/* Features: 1 col on mobile */
-@media(max-width:639px){
-  .features-grid{grid-template-columns:1fr}
-}
-
-/* Driver: stacked on mobile, calc full width */
-@media(max-width:899px){
-  .driver-inner{grid-template-columns:1fr}
-  .calc-box{width:100%}
-}
-
-/* B2B: stacked on mobile */
-@media(max-width:899px){
-  .biz-inner{grid-template-columns:1fr}
-}
-
-/* Industry grid: 2 cols on mobile */
-@media(max-width:599px){
-  .industry-grid{grid-template-columns:repeat(2,1fr)}
-}
-
-/* Footer: stacked on mobile */
-@media(max-width:639px){
-  .footer-grid{grid-template-columns:1fr}
-  .footer-bottom{flex-direction:column;align-items:flex-start;gap:8px}
-  .footer-bottom-links{flex-wrap:wrap;gap:12px}
-}
-
-/* Testi: 1 col on mobile */
-@media(max-width:767px){
-  .testi-grid{grid-template-columns:1fr}
-}
-
-/* Prevent overflow on all screens */
-img,svg,canvas{max-width:100%}
-.container{padding:0 16px}
-@media(min-width:640px){.container{padding:0 24px}}
-
 </style>
 </head>
 <body>
 
 <!-- ANNOUNCEMENT BAR -->
-<div class="ann-bar">
-  <div class="ann-track" aria-hidden="true">
-    <span class="ann-item"><span class="ann-dot"></span>Now live in Durban &mdash; verified drivers accepting jobs</span>
-    <span class="ann-item"><span class="ann-dot"></span>First drivers to join: zero platform fee on your first 20 jobs</span>
-    <span class="ann-item"><span class="ann-dot"></span>You keep 80% &mdash; paid the same day your job is done</span>
-    <span class="ann-item"><span class="ann-dot"></span>B2B transport contracts available &mdash; <a href="mailto:contact@halaapp.co.za">[email&#160;protected]</a></span>
-    <span class="ann-item"><span class="ann-dot"></span>Now live in Durban &mdash; verified drivers accepting jobs</span>
-    <span class="ann-item"><span class="ann-dot"></span>First drivers to join: zero platform fee on your first 20 jobs</span>
-    <span class="ann-item"><span class="ann-dot"></span>You keep 80% &mdash; paid the same day your job is done</span>
-    <span class="ann-item"><span class="ann-dot"></span>B2B transport contracts available &mdash; <a href="mailto:contact@halaapp.co.za">[email&#160;protected]</a></span>
-  </div>
+<div class="ann-bar" role="banner" aria-label="Site announcement">
+ <div class="ann-track" aria-hidden="true">
+  <span class="ann-item"><span class="ann-dot"></span>Now live in Durban  verified drivers accepting jobs</span>
+  <span class="ann-item"><span class="ann-dot"></span>First drivers to join: zero platform fee on your first 20 jobs</span>
+  <span class="ann-item"><span class="ann-dot"></span>You keep 80%  paid the same day your job is done</span>
+  <span class="ann-item"><span class="ann-dot"></span>B2B transport contracts available  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="20434f4e544143546048414c414150500e434f0e5a41">[email&#160;protected]</a></span>
+  <span class="ann-item"><span class="ann-dot"></span>Now live in Durban  verified drivers accepting jobs</span>
+  <span class="ann-item"><span class="ann-dot"></span>First drivers to join: zero platform fee on your first 20 jobs</span>
+  <span class="ann-item"><span class="ann-dot"></span>You keep 80%  paid the same day your job is done</span>
+  <span class="ann-item"><span class="ann-dot"></span>B2B transport contracts available  <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="3e5d51504a5f5d4a7e565f525f5f4e4e105d5110445f">[email&#160;protected]</a></span>
+ </div>
 </div>
 
-<!-- NAV -->
-<nav id="main-nav">
-  <div class="nav-inner">
-    <a href="#" class="nav-logo" aria-label="HALA home" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">
-      <img src="data:image/png;base64,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" alt="HALA">
-    </a>
-    <div class="nav-live"><div class="nav-live-dot"></div>Live &middot; Durban</div>
-    <ul class="nav-links">
-      <li><a href="#customers">For Customers</a></li>
-      <li><a href="#drivers">For Drivers</a></li>
-      <li><a href="#business">For Business</a></li>
-      <li><a href="#download">Download</a></li>
-    </ul>
-    <div class="nav-btns">
-      <a href="#download" class="btn btn-ghost btn-sm">Download App</a>
-      <a href="#download" class="btn btn-green btn-sm">Get Started</a>
-    </div>
-    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
+<!-- NAVIGATION -->
+<nav id="main-nav" role="navigation" aria-label="Main navigation">
+ <div class="nav-inner">
+  <a href="/" class="nav-logo" aria-label="HALA MOVE home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+   <!-- Truck icon: exact brand paths, 65×32px viewport -->
+   <svg width="65" height="32" viewBox="345 435 335 165" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink:0;">
+    <path d="M 354.408 469.552 C 356.245 466.203 359.123 466.381 362.556 466.379 C 365.871 466.377 369.186 466.392 372.5 466.394 C 390.003 466.408 407.504 466.51 425.002 466.57 C 429.837 466.586 434.676 466.537 439.51 466.636 C 441.93 466.687 444.547 466.88 445.793 464.316 C 446.102 463.68 446.166 462.895 446.148 462.198 C 446.004 456.53 439.356 457.76 435.463 457.754 C 426.321 457.738 417.179 457.749 408.038 457.766 C 403.808 457.773 398.737 458.523 394.611 457.515 C 387.378 455.748 391.404 445.554 396.237 443.505 C 399.764 442.01 404.737 442.817 408.499 442.818 C 416.999 442.821 425.498 442.792 433.998 442.805 C 463.498 442.848 492.998 442.747 522.498 442.834 C 530.831 442.858 539.163 442.854 547.495 442.855 C 552.6 442.856 557.811 442.853 561.49 447.001 C 565.848 451.916 564.32 459.941 564.317 466.001 C 564.307 481.501 564.312 497.001 564.306 512.501 C 564.301 525.5 564.316 538.5 564.36 551.499 C 564.371 554.831 564.372 558.163 564.383 561.494 C 564.386 562.335 564.688 564.369 564.149 565.031 C 561.832 565.44 559.35 565.213 557.005 565.224 C 552.672 565.244 548.338 565.233 544.005 565.235 C 530.838 565.241 517.672 565.248 504.505 565.235 C 497.673 565.229 490.84 565.242 484.007 565.2 C 480.969 565.181 477.146 565.701 474.224 564.881 C 472.645 557.317 470.884 550.739 465.652 544.756 C 453.899 531.318 432.774 529.677 419.256 541.464 C 414.632 545.497 411.154 550.625 409.227 556.459 C 408.576 558.431 407.969 560.414 407.721 562.484 C 407.679 562.84 407.755 564.195 407.467 564.333 C 403.829 564.493 400.161 564.369 396.517 564.383 C 394.223 564.392 391.57 564.658 389.388 563.83 C 384.049 561.806 382.98 553.899 385.66 549.451 C 386.694 547.734 388.353 547.184 389.8 545.957 C 391.013 542.138 389.88 536.921 390.049 532.92 C 390.157 530.359 390.817 527.776 393.364 526.579 C 395.306 525.666 397.916 526.091 400.005 526.086 C 404.985 526.074 410.058 526.389 415.026 526.045 C 418.104 525.831 420.585 522.804 419.083 519.703 C 417.57 516.576 412.844 517.431 410.004 517.413 C 401.361 517.356 392.709 517.544 384.069 517.372 C 382.539 517.341 380.684 517.505 379.255 516.871 C 376.44 515.623 375.298 511.637 376.907 509.016 C 379.23 505.233 385.258 506.435 389.002 506.441 C 400.336 506.458 411.669 506.412 423.002 506.44 C 426.196 506.448 430.309 507.14 433.388 506.222 C 435.68 505.539 436.263 502.49 435.663 500.514 C 434.225 495.781 425.586 497.424 421.866 497.419 C 407.579 497.403 393.292 497.338 379.005 497.312 C 374.035 497.303 362.43 499.334 362.914 491.33 C 363.236 486.009 368.732 486.4 372.668 486.449 C 383.776 486.588 394.89 486.585 406.001 486.599 C 410.485 486.604 418.966 488.343 418.661 481.525 C 418.572 479.542 417.062 477.97 415.191 477.424 C 411.99 476.489 407.834 477.118 404.51 477.091 C 391.118 476.983 377.715 476.942 364.324 476.966 C 360.335 476.973 354.539 477.44 354.164 472.029 C 354.105 471.187 354.181 470.363 354.408 469.552 Z" fill="#5CB558" fill-rule="evenodd"/>
+<path d="M 417.426 563.093 C 417.929 559.747 419.161 556.633 421.02 553.817 C 422.882 550.998 425.25 548.702 428.024 546.795 C 430.285 545.241 432.884 544.087 435.539 543.396 C 451.892 539.136 466.944 554.273 464.433 570.433 C 463.973 573.393 462.963 576.221 461.4 578.78 C 453.549 591.631 434.828 594.06 424.091 583.314 C 421.167 580.388 419.107 576.686 417.974 572.731 C 417.087 569.632 416.947 566.277 417.426 563.093 Z M 429.409 564.089 C 429.103 565.658 429.146 567.396 429.445 568.961 C 431.788 581.216 450.023 580.792 452.44 568.882 C 452.736 567.422 452.643 565.918 452.381 564.458 C 450.238 552.488 431.787 551.912 429.409 564.089 Z" fill="#5CB558" fill-rule="evenodd"/>
+<path d="M 573 475.626 C 573.083 474.973 573.101 474.324 573.105 473.666 C 581.317 472.513 590.196 473.309 598.497 473.272 C 601.315 473.26 605.962 472.456 608.452 473.998 C 611.659 475.984 614.299 479.742 616.808 482.516 C 621.574 487.785 626.439 492.979 631.314 498.147 C 633.79 500.773 636.137 503.934 639.091 506.034 C 647.222 511.814 660.889 511.17 666.461 520.583 C 669.794 526.214 669.209 532.937 669.159 539.239 C 669.141 541.496 668.527 544.962 669.366 547.052 C 670.65 548.095 672.18 548.7 673.002 550.224 C 675.517 554.887 673.623 561.246 669.13 563.762 C 666.914 565.003 663.961 564.714 661.518 564.71 C 659.891 564.708 658.267 564.725 656.641 564.747 C 656.08 564.754 655.2 564.967 654.759 564.62 C 653.359 539.086 621.429 524.334 601.422 540.542 C 596.475 544.55 592.687 549.874 590.746 555.956 C 590.091 558.01 589.574 560.172 589.396 562.325 C 589.346 562.931 589.527 564.54 589.096 564.977 C 583.929 565.512 578.474 565.078 573.282 565.043 C 572.368 548.606 573.077 531.963 573.069 515.5 C 573.065 507.17 573.141 498.822 573.058 490.501 C 573.009 485.57 572.699 480.556 573 475.626 Z M 581.939 483.085 C 581.479 485.137 581.748 487.41 581.761 489.501 C 581.784 493.167 581.747 496.834 581.752 500.501 C 581.755 502.649 581.207 505.782 582.131 507.744 C 582.871 508.565 583.978 508.442 585.001 508.436 C 587.126 508.424 589.252 508.463 591.377 508.45 C 599.987 508.398 608.656 508.168 617.26 508.5 C 619.828 508.6 622.721 508.854 625.268 508.533 C 626.061 508.434 627.226 508.394 627.519 507.512 C 627.616 506.511 625.945 505.208 625.31 504.496 C 623.077 501.995 620.752 499.582 618.509 497.093 C 615.413 493.657 612.369 490.18 609.2 486.809 C 607.887 485.413 606.326 483.186 604.552 482.373 C 602.922 481.627 600.274 482.035 598.507 482.029 C 594.984 482.017 591.462 482.027 587.939 482.035 C 586.019 482.039 584.006 481.725 582.172 482.409 C 582.095 482.634 582.017 482.859 581.939 483.085 Z" fill="#5CB558" fill-rule="evenodd"/>
+<path d="M 598.374 562.578 C 598.931 559.469 600.233 556.27 602.027 553.674 C 611.159 540.454 631.764 538.854 641.149 552.857 C 642.808 555.332 644.073 557.893 644.825 560.786 C 645.728 564.256 645.813 567.814 645.171 571.338 C 643.007 583.234 630.877 591.444 619.042 590.06 C 612.335 589.276 606.225 585.574 602.255 580.148 C 600.502 577.751 599.246 574.979 598.644 572.069 C 598.001 568.963 597.812 565.712 598.374 562.578 Z M 610.391 564.591 C 610.113 566.378 610.179 568.35 610.707 570.084 C 614.166 581.444 631.266 580.265 633.313 568.622 C 633.611 566.93 633.55 565.205 633.128 563.54 C 630.161 551.842 612.249 552.676 610.391 564.591 Z" fill="#5CB558" fill-rule="evenodd"/>
+   </svg>
+   <!-- HALA MOVE wordmark: Syne Black, split color -->
+   <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.25rem;letter-spacing:-0.02em;line-height:1;white-space:nowrap;">
+    <span style="color:#5CB558;">HALA</span><span style="color:#FFFFFF;"> MOVE</span>
+   </span>
+  </a>
+
+  <div class="nav-live" aria-label="Platform is live">
+   <div class="nav-live-dot"></div>
+   Live · Durban
   </div>
+
+  <ul class="nav-links" role="list">
+   <li><a href="#customers">For Customers</a></li>
+   <li><a href="#drivers">For Drivers</a></li>
+   <li><a href="#business">For Business</a></li>
+   <li><a href="#download">Download</a></li>
+  </ul>
+
+  <div class="nav-btns">
+   <a href="#download" class="btn btn-ghost btn-sm" aria-label="Download the app">Download App</a>
+   <a href="#download" class="btn btn-green btn-sm" id="nav-cta">Get Started</a>
+  </div>
+
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+   <span></span><span></span><span></span>
+  </button>
+ </div>
 </nav>
 
 <!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <a href="#customers" class="ml">Customers</a>
-  <a href="#drivers" class="ml">Drivers</a>
-  <a href="#business" class="ml">Business</a>
-  <div class="mobile-menu-btns">
-    <a href="#download" class="btn btn-ghost btn-wide ml">Download App</a>
-    <a href="#download" class="btn btn-green btn-wide ml">Get Started</a>
-  </div>
+<div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Navigation menu">
+ <a href="#customers" class="mobile-link">Customers</a>
+ <a href="#drivers" class="mobile-link">Drivers</a>
+ <a href="#business" class="mobile-link">Business</a>
+ <div class="mobile-menu-btns">
+  <a href="#download" class="btn btn-ghost btn-wide mobile-link">Download App</a>
+  <a href="#download" class="btn btn-green btn-wide mobile-link">Get Started →</a>
+ </div>
 </div>
 
 <!-- HERO -->
-<section class="hero" id="hero">
-  <canvas id="city-canvas"></canvas>
-  <div class="container">
-    <div class="hero-grid">
-      <div>
-        <div class="hero-eyebrow">South Africa&rsquo;s Logistics Platform</div>
-        <h1 class="hero-h1">Move<br><span class="accent">Anything.</span><br>Get There First.</h1>
-        <p class="hero-sub">Post your job. Verified drivers with bakkies, panel vans, H100s, 1-ton and 4-ton trucks bid in real time. You choose the best price and rating. GPS tracked. Documented. Delivered.</p>
-        <div class="hero-btns">
-          <a href="#download" class="btn btn-green btn-lg">Get Started &mdash; It&rsquo;s Free</a>
-          <a href="#customers" class="btn btn-ghost btn-lg">How It Works</a>
-        </div>
-        <div class="trust-row">
-          <span class="trust-item"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#5CB558" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#5CB558" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>ID-verified drivers</span>
-          <span class="trust-item"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#5CB558" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#5CB558" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>PayFast escrow</span>
-          <span class="trust-item"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#5CB558" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#5CB558" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Live GPS tracking</span>
-          <span class="trust-item"><svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#5CB558" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#5CB558" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Bakkies, vans &amp; trucks</span>
-        </div>
-        <div class="store-row">
-          <a href="#download" class="store-badge">
-            <span class="badge-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" width="22" height="22"><path d="M4.5 3.5l13 7-13 7V3.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <div class="badge-txt"><small>Get it on</small><strong>Google Play</strong></div>
-          </a>
-          <a href="#download" class="store-badge">
-            <span class="badge-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" width="22" height="22"><path d="M13.5 1C13.5 3 12 4.5 10.5 4.5 10.5 2.5 12 1 13.5 1z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 7.5c-1-1-2.5-1.5-3.5-1.5-1.5 0-2.5.5-3 .5-.7 0-1.8-.5-3-.5C5 6 3 7.5 3 11c0 3 2 8 4 8 1 0 1.5-.5 2.5-.5s1.5.5 2.5.5c2 0 4-5 4-8 0-1-.5-2.5-1.5-3.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-            <div class="badge-txt"><small>Download on the</small><strong>App Store</strong></div>
-          </a>
-          <span class="store-note">Free &middot; No subscription</span>
-        </div>
-      </div>
-      <div class="hero-phone-wrap" aria-hidden="true">
-        <div class="phone-glow"></div>
-        <div class="phone">
-          <div class="ph-bar"><span class="ph-bar-time">9:41</span><span style="font-size:.65rem;color:var(--t2)">&#9679;&#9679;&#9679;</span></div>
-          <div class="ph-header">
-            <div class="ph-header-title">Watch Bids &mdash; Glenwood to Berea</div>
-            <div class="ph-header-sub">2-bed flat &middot; ~4.2km &middot; Budget R600</div>
-            <div class="ph-badge"><span class="ph-badge-dot"></span>2 bids received</div>
-          </div>
-          <div class="ph-body">
-            <div class="bid-card best bid-arrive1">
-              <span class="bid-best-tag">&#9733; Best Match</span>
-              <div class="bid-row">
-                <div class="bid-av">S</div>
-                <div class="bid-info"><div class="bid-name">Sipho N.</div><div class="bid-meta">&#9733; 4.9 &middot; 142 jobs &middot; Bakkie</div></div>
-                <div class="bid-amt">R520</div>
-              </div>
-              <button class="bid-btn">Accept &mdash; R520</button>
-            </div>
-            <div class="bid-card bid-arrive2">
-              <div class="bid-row">
-                <div class="bid-av" style="background:#333;color:#aaa">T</div>
-                <div class="bid-info"><div class="bid-name">Thabo M.</div><div class="bid-meta">&#9733; 4.7 &middot; 88 jobs &middot; H100 Van</div></div>
-                <div class="bid-amt">R580</div>
-              </div>
-              <button class="bid-btn">Accept &mdash; R580</button>
-            </div>
-            <div class="bid-card bid-arrive3" style="opacity:.45">
-              <div class="bid-row">
-                <div class="bid-av" style="background:#2a2a2a;color:#555">L</div>
-                <div class="bid-info"><div class="bid-name">Lungelo K.</div><div class="bid-meta" style="color:#444">&#9733; 4.6 &middot; 55 jobs &middot; Bakkie</div></div>
-                <div class="bid-amt" style="color:#555">R600</div>
-              </div>
-              <button class="bid-btn" style="color:#444">Accept &mdash; R600</button>
-            </div>
-          </div>
-          <div class="ph-timer"><span class="ph-timer-label">Bidding closes in</span><span class="ph-timer-val" id="phone-timer">14:22</span></div>
-          <div class="ph-route">
-            <div class="ph-route-label">Route</div>
-            <div class="ph-route-row">
-              <div class="ph-dot" style="background:#5CB558"></div>
-              <span>Glenwood</span>
-              <div class="ph-line"></div>
-              <div class="ph-dot" style="background:#FF4444"></div>
-              <span>Berea</span>
-            </div>
-          </div>
-        </div>
-      </div>
+<section class="hero" id="hero" aria-labelledby="hero-heading">
+ <canvas id="city-canvas" aria-hidden="true"></canvas>
+ <div class="container">
+  <div class="hero-grid">
+
+   <!-- Left: Text -->
+   <div>
+    <div class="hero-eyebrow eyebrow">
+     South Africa's Logistics Platform
     </div>
+    <h1 class="hero-h1" id="hero-heading">
+     <span class="line"><span>Move</span></span>
+     <span class="line"><span><span class="accent">Anything.</span></span></span>
+     <span class="line"><span>Get There First.</span></span>
+    </h1>
+    <p class="hero-sub">
+     Post your job. Nearby verified drivers bid in real time.
+     You choose the best price and rating.
+     GPS tracked. Documented. Delivered.
+    </p>
+    <div class="hero-btns">
+     <a href="#download" class="btn btn-green btn-lg">Get Started  It's Free</a>
+     <a href="#customers" class="btn btn-ghost btn-lg">How It Works</a>
+    </div>
+    <div class="hero-trust">
+     <div class="trust-item">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#5CB558" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#5CB558" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ID-verified drivers
+     </div>
+     <div class="trust-item">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#5CB558" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#5CB558" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      PayFast escrow
+     </div>
+     <div class="trust-item">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#5CB558" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#5CB558" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Live GPS tracking
+     </div>
+    </div>
+    <div class="store-row">
+     <a href="#download" class="store-badge" aria-label="Get HALA on Google Play">
+      <span class="badge-icon">&#9654;</span>
+      <div class="badge-txt"><small>Get it on</small><strong>Google Play</strong></div>
+     </a>
+     <a href="#download" class="store-badge" aria-label="Download HALA on App Store">
+      <span class="badge-icon">&#8984;</span>
+      <div class="badge-txt"><small>Download on the</small><strong>App Store</strong></div>
+     </a>
+     <span class="store-note">Free · No subscription</span>
+    </div>
+   </div>
+
+   <!-- Right: Phone Mockup -->
+   <div class="hero-phone-wrap" aria-hidden="true">
+    <div class="phone-glow"></div>
+    <div class="phone">
+     <!-- Status bar -->
+     <div class="phone-bar">
+      <span class="phone-bar-time">9:41</span>
+      <div class="phone-bar-icons">
+       <span>&#9679;&#9679;&#9679;&#9679;</span>
+       <span>&#9646;</span>
+      </div>
+     </div>
+     <!-- Header -->
+     <div class="phone-header">
+      <div class="phone-header-title">Watch Bids  Glenwood to Berea</div>
+      <div class="phone-header-sub">2-bed flat · ~4.2km · Budget R600</div>
+      <div class="phone-header-badge">
+       <span style="width:6px;height:6px;border-radius:50%;background:var(--g);display:inline-block;animation:pulse-dot 1.2s infinite"></span>
+       2 bids received
+      </div>
+     </div>
+     <!-- Bids -->
+     <div class="phone-body">
+      <div class="bid-card best arrive1">
+       <div class="bid-best-tag">&#9733; Best Match</div>
+       <div class="bid-row">
+        <div class="bid-avatar">S</div>
+        <div class="bid-info">
+         <div class="bid-name">Sipho N.</div>
+         <div class="bid-meta">
+          <span class="bid-star">&#9733;</span>
+          <span>4.9 · 142 jobs · Bakkie</span>
+         </div>
+        </div>
+        <div class="bid-amount">R520</div>
+       </div>
+       <div class="bid-accept">Accept  R520</div>
+      </div>
+
+      <div class="bid-card arrive2">
+       <div class="bid-row">
+        <div class="bid-avatar" style="background:#444;color:#aaa">T</div>
+        <div class="bid-info">
+         <div class="bid-name">Thabo M.</div>
+         <div class="bid-meta">
+          <span class="bid-star">&#9733;</span>
+          <span>4.7 · 88 jobs · H100 Van</span>
+         </div>
+        </div>
+        <div class="bid-amount">R580</div>
+       </div>
+       <div class="bid-accept">Accept  R580</div>
+      </div>
+
+      <div class="bid-card arrive3" style="opacity:.5">
+       <div class="bid-row">
+        <div class="bid-avatar" style="background:#2a2a2a;color:#666">L</div>
+        <div class="bid-info">
+         <div class="bid-name">Lungelo K.</div>
+         <div class="bid-meta">
+          <span class="bid-star" style="color:#555">&#9733;</span>
+          <span>4.6 · 55 jobs · Bakkie</span>
+         </div>
+        </div>
+        <div class="bid-amount" style="color:#777">R600</div>
+       </div>
+       <div class="bid-accept">Accept  R600</div>
+      </div>
+     </div>
+     <!-- Timer -->
+     <div class="timer-bar">
+      <span class="timer-label">Bidding closes in</span>
+      <span class="timer-val" id="phone-timer">14:22</span>
+     </div>
+     <!-- Route -->
+     <div class="phone-track">
+      <div class="phone-track-label">Route</div>
+      <div class="phone-route">
+       <div class="phone-route-dot" style="background:var(--g)"></div>
+       <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px">Glenwood</span>
+       <div class="route-line"></div>
+       <div class="phone-route-dot" style="background:var(--err)"></div>
+       <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px">Berea</span>
+      </div>
+     </div>
+    </div>
+   </div>
+
   </div>
+ </div>
 </section>
 
 <!-- STATS BAR -->
-<div class="stats-bar">
-  <div class="container">
-    <div class="stats-inner">
-      <div class="stat-item"><div class="stat-num" id="s1">0%</div><div class="stat-label">Your share of every job</div></div>
-      <div class="stat-item"><div class="stat-num" style="font-size:clamp(1.4rem,3vw,2rem);padding-top:6px">Same Day</div><div class="stat-label">Payout on completed jobs</div></div>
-      <div class="stat-item"><div class="stat-num" style="font-size:clamp(1.4rem,3vw,2.2rem);padding-top:4px">R0</div><div class="stat-label">Monthly fee to drive</div></div>
-      <div class="stat-item"><div class="stat-num" style="font-size:clamp(1.4rem,3vw,2rem);padding-top:6px">24 hrs</div><div class="stat-label">Driver verification time</div></div>
-    </div>
+<div class="stats-bar" aria-label="Platform statistics">
+ <div class="container">
+  <div class="stats-inner">
+   <div class="stat-item">
+    <div class="stat-num" data-count="80" data-suffix="%">0%</div>
+    <div class="stat-label">Your share of every job</div>
+   </div>
+   <div class="stat-item">
+    <div class="stat-num" style="font-size:clamp(1.4rem,3vw,2rem);padding-top:4px">Same Day</div>
+    <div class="stat-label">Payout on completed jobs</div>
+   </div>
+   <div class="stat-item">
+    <div class="stat-num" style="font-size:clamp(1.4rem,3vw,2rem);padding-top:4px">R0</div>
+    <div class="stat-label">Monthly fee to drive</div>
+   </div>
+   <div class="stat-item">
+    <div class="stat-num" style="font-size:clamp(1.4rem,3vw,2rem);padding-top:4px">24 hrs</div>
+    <div class="stat-label">Driver verification time</div>
+   </div>
   </div>
+ </div>
 </div>
 
 <!-- HOW IT WORKS -->
-<section class="how" id="customers">
-  <div class="container">
-    <div class="how-header">
-      <div class="eyebrow" style="justify-content:center;display:flex">For Customers</div>
-      <h2 class="h2" style="text-align:center">From job post to<br>delivery in minutes</h2>
-      <p class="sub" style="margin:0 auto;text-align:center">No phone calls. No chasing drivers. No price surprises. Post once and let verified drivers compete for your job.</p>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 4.17 4.42 9.92 6.24 12.11a1 1 0 0 0 1.52 0C14.58 18.92 19 13.17 19 9c0-3.87-3.13-7-7-7z" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="9" r="2.5" stroke="#5CB558" stroke-width="1.75"/></svg></div>
-        <div class="step-title">Post Your Job</div>
-        <p class="step-desc">Enter pickup and dropoff. Describe your items or let the AI camera scan them. Our Smart Quote shows a fair price range before anyone bids.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M13 2 4.5 13.5h7l-1.5 8.5 9.5-12h-7.5L13 2z" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="step-title">Watch Bids Arrive</div>
-        <p class="step-desc">Nearby verified drivers see your job and bid in real time. AI ranks them by price, rating, distance, and experience &mdash; best match first.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#5CB558" stroke-width="1.75"/><path d="M8.5 12.5l2.5 2.5 5-5" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="step-title">Accept Your Driver</div>
-        <p class="step-desc">See their photo, vehicle, star rating, and bid. Your payment is held securely in escrow &mdash; it only moves when delivery is confirmed.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M3 11l19-9-9 19-2-8-8-2z" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <div class="step-title">Track and Confirm</div>
-        <p class="step-desc">Watch your driver live on the map. Photo proof of delivery at both ends. Rate your driver. Money released. Done in one tap.</p>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:40px">
-      <a href="#download" class="btn btn-green btn-lg">Post Your First Job</a>
-      <p style="font-size:.78rem;color:var(--t3);margin-top:12px">Free to post &middot; No subscription &middot; Available in Durban, KZN</p>
-    </div>
+<section class="how" id="customers" aria-labelledby="how-heading">
+ <div class="container">
+  <div class="how-header">
+   <div class="eyebrow" style="justify-content:center">For Customers</div>
+   <h2 class="h2" id="how-heading" style="text-align:center">From job post to<br>delivery in minutes</h2>
+   <p class="sub center">No phone calls. No chasing drivers. No price surprises. Post once and let verified drivers compete for your job.</p>
   </div>
+  <div class="steps-wrap">
+   <div class="steps-line" id="steps-line">
+    <div class="steps-line-fill"></div>
+   </div>
+   <div class="steps">
+    <div class="step reveal d1">
+     <div class="step-num">01</div>
+     <div class="step-icon">📍</div>
+     <div class="step-title">Post Your Job</div>
+     <p class="step-desc">Enter pickup and dropoff. Describe your items or let the AI camera scan them. Our Smart Quote shows a fair price range before anyone bids.</p>
+    </div>
+    <div class="step reveal d2">
+     <div class="step-num">02</div>
+     <div class="step-icon">⚡</div>
+     <div class="step-title">Watch Bids Arrive</div>
+     <p class="step-desc">Nearby verified drivers see your job and bid in real time. AI ranks them by price, rating, distance, and experience  best match first.</p>
+    </div>
+    <div class="step reveal d3">
+     <div class="step-num">03</div>
+     <div class="step-icon">✅</div>
+     <div class="step-title">Accept Your Driver</div>
+     <p class="step-desc">See their photo, vehicle, star rating, and bid. Your payment is held securely in escrow  it only moves when delivery is confirmed.</p>
+    </div>
+    <div class="step reveal d4">
+     <div class="step-num">04</div>
+     <div class="step-icon">🗺️</div>
+     <div class="step-title">Track and Confirm</div>
+     <p class="step-desc">Watch your driver live on the map. Photo proof of delivery at both ends. Rate your driver. Money released. Done in one tap.</p>
+    </div>
+   </div>
+  </div>
+  <div class="center mt-40 reveal">
+   <a href="#download" class="btn btn-green btn-lg">Post Your First Job →</a>
+   <p class="cta-sub-text">Free to post · No subscription · Available in Durban, KZN</p>
+  </div>
+ </div>
 </section>
 
 <!-- FEATURES -->
-<section class="features" id="features">
-  <div class="container">
-    <div class="features-header">
-      <div class="eyebrow">Why HALA</div>
-      <h2 class="h2">Built for trust.<br>Designed for speed.</h2>
-      <p class="sub">Every feature protects your items, your money, and your time.</p>
-    </div>
-    <div class="features-grid">
-      <div class="feat-card">
-        <div class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M12 2.5L4 6v6c0 4.97 3.53 9.63 8 10.93 4.47-1.3 8-5.96 8-10.93V6L12 2.5z" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M9 12l2 2 4-4" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-        <h3>ID-Verified Drivers</h3>
-        <p>Every driver&rsquo;s South African ID is checked against the government database before they see a single job.</p>
-        <div class="feat-metric">100% of drivers verified</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><rect x="7" y="7" width="10" height="10" rx="2" stroke="#5CB558" stroke-width="1.75"/><path d="M7 9.5H4M7 12H4M7 14.5H4M20 9.5h-3M20 12h-3M20 14.5h-3M9.5 7V4M12 7V4M14.5 7V4M9.5 20v-3M12 20v-3M14.5 20v-3" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round"/><circle cx="12" cy="12" r="2" stroke="#5CB558" stroke-width="1.5" fill="rgba(92,181,88,0.2)"/></svg></div>
-        <h3>AI Smart Quote</h3>
-        <p>Before anyone bids, HALA&rsquo;s AI calculates a fair price range based on distance, floor level, item type, and time of day.</p>
-        <div class="feat-metric">Typical accuracy within ~8%</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="13" r="4" stroke="#5CB558" stroke-width="1.75"/><circle cx="12" cy="13" r="1.5" fill="#5CB558"/></svg></div>
-        <h3>Photo Proof of Delivery</h3>
-        <p>Timestamped photos at every pickup and dropoff. Every item documented before loading. Your protection against damage disputes.</p>
-        <div class="feat-metric">Every job. No exceptions.</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><rect x="1" y="5" width="22" height="14" rx="3" stroke="#5CB558" stroke-width="1.75"/><line x1="1" y1="10" x2="23" y2="10" stroke="#5CB558" stroke-width="1.75"/><path d="M6 15h4" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round"/><circle cx="19" cy="15" r="1.5" fill="#5CB558"/></svg></div>
-        <h3>PayFast Escrow</h3>
-        <p>Your payment is held securely until delivery is confirmed by you. The driver only gets paid when you say the job is done.</p>
-        <div class="feat-metric">Zero payment risk</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="#5CB558" stroke-width="1.75"/><path d="M12 5a7 7 0 0 1 7 7M12 19a7 7 0 0 1-7-7M12 2v2M12 20v2M2 12h2M20 12h2" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round"/></svg></div>
-        <h3>Live GPS Tracking</h3>
-        <p>Watch your driver move toward you in real time &mdash; exactly like watching an Uber arrive. Know where they are every second.</p>
-        <div class="feat-metric">Updates every 10 seconds</div>
-      </div>
-      <div class="feat-card">
-        <div class="feat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M17 8C8 10 5.9 16.17 3.82 19.73a1 1 0 1 0 1.73 1C8 17 14 14 21 14c-1-6-4-6-4-6z" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M3.82 19.73L8.5 15" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round"/></svg></div>
-        <h3>Carbon Footprint Tracking</h3>
-        <p>Every job&rsquo;s CO&#x2082; footprint calculated automatically. Offset any job for R20. Monthly carbon reports for corporate clients.</p>
-        <div class="feat-metric">Full ESG reporting included</div>
-      </div>
-    </div>
+<section class="features" id="features" aria-labelledby="features-heading">
+ <div class="container">
+  <div class="features-header">
+   <div class="eyebrow">Why HALA</div>
+   <h2 class="h2" id="features-heading">Built for trust.<br>Designed for speed.</h2>
+   <p class="sub">Every feature exists to protect your items, your money, and your time. This is what "verified" actually means.</p>
   </div>
+  <div class="features-grid">
+   <div class="feat-card reveal d1">
+    <div class="feat-icon">🛡️</div>
+    <h3>ID-Verified Drivers</h3>
+    <p>Every driver's South African ID is verified against the government database before they see a single job. No unverified driver ever works on HALA.</p>
+    <div class="feat-metric">100% of drivers verified</div>
+   </div>
+   <div class="feat-card reveal d2">
+    <div class="feat-icon">🤖</div>
+    <h3>AI Smart Quote</h3>
+    <p>Before anyone bids, HALA's AI calculates a fair price range based on distance, floor level, item type, and time of day. No surprises. No negotiation anxiety.</p>
+    <div class="feat-metric">Typical price accuracy within ~8%</div>
+   </div>
+   <div class="feat-card reveal d3">
+    <div class="feat-icon">📸</div>
+    <h3>Photo Proof of Delivery</h3>
+    <p>Timestamped photos at every pickup and dropoff, stored in the cloud. Every item documented before loading. Your protection against damage disputes.</p>
+    <div class="feat-metric">Every job. No exceptions.</div>
+   </div>
+   <div class="feat-card reveal d4">
+    <div class="feat-icon">💳</div>
+    <h3>PayFast Escrow</h3>
+    <p>Your payment is held securely until delivery is confirmed by you. The driver only gets paid when you say the job is done. Your money, your control.</p>
+    <div class="feat-metric">Zero payment risk</div>
+   </div>
+   <div class="feat-card reveal d5">
+    <div class="feat-icon">🗺️</div>
+    <h3>Live GPS Tracking</h3>
+    <p>Watch your driver move toward you in real time  exactly like watching an Uber arrive. Know where they are at every second of the job.</p>
+    <div class="feat-metric">Updates every 10 seconds</div>
+   </div>
+   <div class="feat-card reveal d6">
+    <div class="feat-icon">🌱</div>
+    <h3>Carbon Footprint Tracking</h3>
+    <p>Every job's CO2 footprint is calculated automatically. Offset any job for R20. Monthly carbon reports for corporate clients. Africa's first carbon-aware logistics platform.</p>
+    <div class="feat-metric">Full ESG reporting included</div>
+   </div>
+  </div>
+ </div>
 </section>
 
 <!-- DRIVER SECTION -->
-<section class="driver" id="drivers">
-  <div class="container">
-    <div class="driver-inner">
-      <div>
-        <div class="eyebrow">For Drivers</div>
-        <h2 class="h2">Your Bakkie.<br>Your Schedule.<br><span style="color:var(--g)">Your 80%.</span></h2>
-        <p class="sub" style="margin-bottom:32px">Got a bakkie, panel van, H100, 1-ton or 4-ton truck? HALA connects you to a constant stream of verified customers. You set your price. You choose your jobs. You get paid the same day.</p>
-        <div class="formula-box">
-          <div class="formula-header">
-            <div class="formula-label">How your earnings work</div>
-            <div class="formula-text">Jobs completed &times; Your bid price &times; 80%</div>
-          </div>
-          <div class="formula-body"><p>You set your price. HALA takes 20% as a platform fee. You keep 80%. What you earn depends entirely on your availability, how you price your bids, your vehicle type, and your rating.</p></div>
-          <div class="formula-stats">
-            <div class="formula-stat"><div class="formula-stat-num">80%</div><div class="formula-stat-label">Your share</div></div>
-            <div class="formula-stat"><div class="formula-stat-num">R0</div><div class="formula-stat-label">Monthly fee</div></div>
-            <div class="formula-stat"><div class="formula-stat-num" style="font-size:1rem;line-height:1.3">Same<br>Day</div><div class="formula-stat-label">Payout</div></div>
-          </div>
-        </div>
-        <div class="perks">
-          <div class="perk"><div class="perk-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="#5CB558" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span><strong style="color:var(--t)">No monthly fee.</strong> No registration cost. No minimum jobs required.</span></div>
-          <div class="perk"><div class="perk-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="#5CB558" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span><strong style="color:var(--t)">First drivers to join:</strong> zero platform fee on your first 20 completed jobs.</span></div>
-          <div class="perk"><div class="perk-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="#5CB558" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span><strong style="color:var(--t)">Same-day payout</strong> for jobs completed before 5pm. No waiting until Friday.</span></div>
-          <div class="perk"><div class="perk-check"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5 4-4" stroke="#5CB558" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><span><strong style="color:var(--t)">Fleet owners</strong> unlock B2B contract access with construction, retail, and medical clients.</span></div>
-        </div>
-        <a href="#download" class="btn btn-green btn-lg">Register as a Driver</a>
-        <p class="cta-sub">Verification typically within 24 hours &middot; No registration fee</p>
+<section class="driver" id="drivers" aria-labelledby="driver-heading">
+ <div class="container">
+  <div class="driver-inner">
+   <div class="driver-content">
+    <div class="eyebrow reveal">For Drivers</div>
+    <h2 class="h2 reveal d1" id="driver-heading">Your Bakkie.<br>Your Schedule.<br><span style="color:var(--g)">Your 80%.</span></h2>
+    <p class="sub reveal d2">Stop waiting for word-of-mouth jobs. HALA connects you to a constant stream of verified customers who are ready to pay. You set your price. You choose your jobs. You can get paid on the same day your job is completed.</p>
+
+    <div class="reveal d3" style="margin-bottom:28px">
+     <div style="background:var(--s3);border:1px solid var(--b);border-radius:var(--rl);overflow:hidden;">
+      <div style="background:rgba(92,181,88,.07);border-bottom:1px solid var(--b);padding:12px 20px;">
+       <div style="font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin-bottom:8px">How your earnings work</div>
+       <div style="font-family:'Syne',sans-serif;font-size:clamp(1rem,2.5vw,1.35rem);font-weight:800;color:var(--t);letter-spacing:.01em;line-height:1.3">
+        Jobs completed &times; Your bid price &times; 80%
+       </div>
       </div>
-      <div class="calc-box">
-        <div class="calc-title">Earnings Calculator</div>
-        <div class="calc-group">
-          <div class="calc-lbl"><span>Jobs per day</span><span id="jv">5 jobs</span></div>
-          <input type="range" id="js" min="1" max="15" value="5">
-        </div>
-        <div class="calc-group">
-          <div class="calc-lbl"><span>Average job value</span><span id="rv">R500</span></div>
-          <input type="range" id="rs" min="200" max="1200" step="50" value="500">
-        </div>
-        <div class="calc-group">
-          <div class="calc-lbl"><span>Working days per week</span><span id="dv">5 days</span></div>
-          <input type="range" id="ds" min="1" max="7" value="5">
-        </div>
-        <div class="calc-result">
-          <div class="calc-result-label">Illustrative monthly earnings (80%)</div>
-          <div class="calc-result-num" id="cr">R40,000</div>
-          <div class="calc-note" id="csub">5 jobs &times; R500 &times; 5 days &times; 4 weeks &times; 80% &mdash; illustrative only. Actual earnings vary.</div>
-        </div>
-        <a href="#download" class="btn btn-green btn-wide" style="margin-top:16px">Register as a Driver</a>
-        <p style="font-size:.68rem;color:var(--t3);margin-top:10px;line-height:1.55;text-align:center">Illustrative only. Actual earnings vary based on your availability, location, vehicle type, and market conditions. HALA does not guarantee any level of income.</p>
+      <div style="padding:14px 20px;">
+       <p style="font-size:.87rem;color:var(--t2);line-height:1.65">You set your price. You choose your jobs. HALA takes 20%  you keep the rest. What you earn depends on your availability, your vehicle, your location, and how you use the platform.</p>
       </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--b);">
+       <div style="padding:14px 16px;text-align:center;border-right:1px solid var(--b)">
+        <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--g)">80%</div>
+        <div style="font-size:.72rem;color:var(--t3);margin-top:3px">Your share</div>
+       </div>
+       <div style="padding:14px 16px;text-align:center;border-right:1px solid var(--b)">
+        <div style="font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:800;color:var(--t)">R0</div>
+        <div style="font-size:.72rem;color:var(--t3);margin-top:3px">Monthly fee</div>
+       </div>
+       <div style="padding:14px 16px;text-align:center;">
+        <div style="font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--t);line-height:1.2">Same<br>Day</div>
+        <div style="font-size:.72rem;color:var(--t3);margin-top:3px">Payout</div>
+       </div>
+      </div>
+     </div>
     </div>
+
+    <div class="driver-perks reveal d4">
+     <div class="perk">
+      <div class="perk-check">✓</div>
+      <span><strong style="color:var(--t)">No monthly fee.</strong> No registration cost. No minimum jobs required. Nothing to lose before your first rand.</span>
+     </div>
+     <div class="perk">
+      <div class="perk-check">✓</div>
+      <span><strong style="color:var(--t)">First drivers to join:</strong> zero platform fee on your first 20 completed jobs.</span>
+     </div>
+     <div class="perk">
+      <div class="perk-check">✓</div>
+      <span><strong style="color:var(--t)">Same-day payout</strong> for jobs completed before 5pm. No waiting until Friday. No payment cycles.</span>
+     </div>
+     <div class="perk">
+      <div class="perk-check">✓</div>
+      <span><strong style="color:var(--t)">Fleet owners</strong> access B2B contracts worth R15,000–R200,000/month.</span>
+     </div>
+    </div>
+
+    <div class="reveal d5">
+     <a href="#download" class="btn btn-green btn-lg">Register as a Driver</a>
+     <p class="cta-sub-text" style="text-align:left">Verification typically within 24 hours · No registration fee · Start on your own schedule</p>
+    </div>
+   </div>
+
+   <!-- Earnings Calculator -->
+   <div class="calc-box reveal-r d2">
+    <div class="calc-title">Earnings Calculator</div>
+    <div class="calc-input-group">
+     <div class="calc-input-label">
+      <span>Jobs per day</span>
+      <span id="jobs-val" style="color:var(--g);font-weight:700">5 jobs</span>
+     </div>
+     <input type="range" class="calc-slider" id="jobs-slider" min="1" max="15" value="5" aria-label="Jobs per day">
+    </div>
+    <div class="calc-input-group">
+     <div class="calc-input-label">
+      <span>Average job value</span>
+      <span id="rate-val" style="color:var(--g);font-weight:700">R500</span>
+     </div>
+     <input type="range" class="calc-slider" id="rate-slider" min="200" max="1200" step="50" value="500" aria-label="Average job value">
+    </div>
+    <div class="calc-input-group">
+     <div class="calc-input-label">
+      <span>Working days per week</span>
+      <span id="days-val" style="color:var(--g);font-weight:700">5 days</span>
+     </div>
+     <input type="range" class="calc-slider" id="days-slider" min="1" max="7" value="5" aria-label="Working days per week">
+    </div>
+    <div class="calc-result">
+     <div class="calc-result-label">Illustrative monthly earnings (80%)</div>
+     <div class="calc-result-num" id="calc-result">R8,000</div>
+     <div class="calc-result-sub" id="calc-sub">Based on 5 jobs × R500 × 5 days × 4 weeks × 80%</div>
+    </div>
+    <a href="#download" class="btn btn-green btn-wide" style="margin-top:16px">Register as a Driver</a>
+    <p style="font-size:.68rem;color:var(--t3);margin-top:12px;line-height:1.55;text-align:center">Illustrative only. Actual earnings vary based on your availability, location, vehicle type, and job market conditions. HALA does not guarantee any level of income.</p>
+   </div>
+
   </div>
+ </div>
 </section>
 
 <!-- B2B SECTION -->
-<section class="biz" id="business">
-  <div class="container">
-    <div class="biz-inner">
+<section class="biz" id="business" aria-labelledby="biz-heading">
+ <div class="container">
+  <div class="biz-inner">
+   <div>
+    <div class="eyebrow reveal">For Business</div>
+    <h2 class="h2 reveal d1" id="biz-heading">One Contract.<br>Tracked Deliveries.<br>A Single Invoice.</h2>
+    <p class="sub reveal d2" style="margin-bottom:36px">Construction companies, medical facilities, retailers, manufacturers  if your business needs regular transport, HALA offers formal B2B contracts with SLA terms, live fleet tracking, and consolidated monthly billing.</p>
+
+    <div class="biz-features reveal d3">
+     <div class="biz-feat">
+      <div class="biz-feat-icon">📊</div>
       <div>
-        <div class="eyebrow">For Business</div>
-        <h2 class="h2">One Contract.<br>Tracked Deliveries.<br>A Single Invoice.</h2>
-        <p class="sub" style="margin-bottom:36px">Construction companies, medical facilities, retailers, manufacturers &mdash; if your business needs regular transport, HALA offers formal B2B contracts with SLA terms, live fleet tracking, and consolidated monthly billing.</p>
-        <div class="biz-features">
-          <div class="biz-feat">
-            <div class="biz-feat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><rect x="2" y="14" width="4" height="7" rx="1" stroke="#5CB558" stroke-width="1.75"/><rect x="10" y="9" width="4" height="12" rx="1" stroke="#5CB558" stroke-width="1.75"/><rect x="18" y="3" width="4" height="18" rx="1" stroke="#5CB558" stroke-width="1.75"/><path d="M2 21h20" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round"/></svg></div>
-            <div><h4>Live Operations Dashboard</h4><p>See every vehicle on a real-time map. Job status. ETAs. Proof of delivery. All in one screen your ops team uses daily.</p></div>
-          </div>
-          <div class="biz-feat">
-            <div class="biz-feat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><rect x="9" y="3" width="6" height="4" rx="1" stroke="#5CB558" stroke-width="1.75"/><path d="M9 12l2 2 4-4" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-            <div><h4>Accountability Built Into Every Job</h4><p>GPS trail, timestamped photos at pickup and delivery, digital proof of delivery on every single job.</p></div>
-          </div>
-          <div class="biz-feat">
-            <div class="biz-feat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M2 22c2.67-3.33 5.33-6.67 9-8 3-1 6 0 8-3 2-3 2-7 0-9-2.5 0-6 1-8 5s-2 7-2 7" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 22c0-5 2.5-8 6-10" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round"/></svg></div>
-            <div><h4>Carbon Report for ESG Compliance</h4><p>Monthly CO&#x2082; footprint data per vehicle, per route, per delivery. Formatted for JSE and international ESG disclosure.</p></div>
-          </div>
-        </div>
-        <a href="mailto:contact@halaapp.co.za" class="btn btn-green btn-lg">Talk to Our Contracts Team</a>
-        <p class="cta-sub"><a href="mailto:contact@halaapp.co.za">[email&#160;protected]</a> &middot; We respond to every enquiry</p>
+       <h4>Live Operations Dashboard</h4>
+       <p>See every vehicle on a real-time map. Job status. ETAs. Proof of delivery. All in one screen your ops team actually uses.</p>
       </div>
+     </div>
+     <div class="biz-feat">
+      <div class="biz-feat-icon">📋</div>
       <div>
-        <div class="industry-grid">
-          <div class="industry-card"><div class="industry-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M2 17h20M5 13v-2.2C5 8.14 8.13 5 12 5s7 3.14 7 5.8V13M12 2v3M2 17v2a1 1 0 0 0 1 1h18a1 1 0 0 0 1-1v-2" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="industry-name">Construction</div><div class="industry-desc">Site materials &amp; waste</div></div>
-          <div class="industry-card"><div class="industry-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="4" stroke="#5CB558" stroke-width="1.75"/><path d="M12 7v10M7 12h10" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round"/></svg></div><div class="industry-name">Medical</div><div class="industry-desc">Supply transfers</div></div>
-          <div class="industry-card"><div class="industry-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><line x1="3" y1="6" x2="21" y2="6" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round"/><path d="M16 10a4 4 0 0 1-8 0" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="industry-name">Retail &amp; FMCG</div><div class="industry-desc">Route deliveries</div></div>
-          <div class="industry-card"><div class="industry-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M2 20h20M2 20V9l6 4V9l6 4V9l6 4V4h2v16" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><rect x="14" y="14" width="4" height="6" rx="1" stroke="#5CB558" stroke-width="1.75"/></svg></div><div class="industry-name">Manufacturing</div><div class="industry-desc">Flexible capacity</div></div>
-          <div class="industry-card"><div class="industry-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><polyline points="3.27 6.96 12 12.01 20.73 6.96" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="22.08" x2="12" y2="12" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round"/></svg></div><div class="industry-name">E-Commerce</div><div class="industry-desc">Bulky goods</div></div>
-          <div class="industry-card"><div class="industry-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M3 22h18M2 11h20M12 2L3 11h18L12 2z" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 11v11M10 11v11M14 11v11M18 11v11" stroke="#5CB558" stroke-width="1.75" stroke-linecap="round"/></svg></div><div class="industry-name">Government</div><div class="industry-desc">BEE certified</div></div>
-        </div>
-        <div class="sla-box">
-          <div class="sla-box-title">What HALA Guarantees You</div>
-          <div class="sla-row"><span class="sla-label">On-time delivery rate</span><span class="sla-val">Agreed per contract</span></div>
-          <div class="sla-row"><span class="sla-label">Contract setup time</span><span class="sla-val">24 hours</span></div>
-          <div class="sla-row"><span class="sla-label">Complaint response</span><span class="sla-val">2 business hours</span></div>
-          <div class="sla-row"><span class="sla-label">Minimum contract</span><span class="sla-val">From R5,000/month</span></div>
-          <div class="sla-row"><span class="sla-label">Long-term discount (90+ days)</span><span class="sla-val">5&ndash;15% off</span></div>
-        </div>
+       <h4>Accountability Built Into Every Job</h4>
+       <p>GPS trail, timestamped photos at pickup and delivery, and digital proof of delivery on every job. Your records are complete before the driver leaves your site.</p>
       </div>
+     </div>
+     <div class="biz-feat">
+      <div class="biz-feat-icon">🌿</div>
+      <div>
+       <h4>Carbon Report for ESG Compliance</h4>
+       <p>Monthly CO2 footprint data per vehicle, per route, per delivery. Formatted for JSE and international ESG disclosure requirements.</p>
+      </div>
+     </div>
     </div>
+
+    <div class="reveal d4">
+     <a href="/cdn-cgi/l/email-protection#40232f2e342123340028212c212130306e232f6e3a21" class="btn btn-green btn-lg">Talk to Our Contracts Team →</a>
+     <p class="cta-sub-text" style="text-align:left"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="ff9c90918b9e9c8bbf979e939e9e8f8fd19c90d1859e">[email&#160;protected]</a> · Response within 4 hours</p>
+    </div>
+   </div>
+
+   <div>
+    <div class="reveal-r d1">
+     <div class="industry-grid" style="margin-bottom:20px">
+      <div class="industry-card">
+       <span class="industry-icon">🏗️</span>
+       <div class="industry-name">Construction</div>
+       <div class="industry-desc">Approx. R15K–R80K/month</div>
+      </div>
+      <div class="industry-card">
+       <span class="industry-icon">🏥</span>
+       <div class="industry-name">Medical</div>
+       <div class="industry-desc">Approx. R8K–R80K/month</div>
+      </div>
+      <div class="industry-card">
+       <span class="industry-icon">🛒</span>
+       <div class="industry-name">Retail & FMCG</div>
+       <div class="industry-desc">Approx. R20K–R60K/month</div>
+      </div>
+      <div class="industry-card">
+       <span class="industry-icon">🏭</span>
+       <div class="industry-name">Manufacturing</div>
+       <div class="industry-desc">Variable capacity</div>
+      </div>
+      <div class="industry-card">
+       <span class="industry-icon">📦</span>
+       <div class="industry-name">E-Commerce</div>
+       <div class="industry-desc">Approx. R10K–R50K/month</div>
+      </div>
+      <div class="industry-card">
+       <span class="industry-icon">🏛️</span>
+       <div class="industry-name">Government</div>
+       <div class="industry-desc">BEE certified</div>
+      </div>
+     </div>
+
+     <div class="biz-sla">
+      <div class="biz-sla-title">What HALA Guarantees You</div>
+      <div class="sla-row">
+       <span class="sla-label">On-time delivery rate</span>
+       <span class="sla-val">Agreed per contract</span>
+      </div>
+      <div class="sla-row">
+       <span class="sla-label">Contract setup time</span>
+       <span class="sla-val">24 hours</span>
+      </div>
+      <div class="sla-row">
+       <span class="sla-label">Complaint response</span>
+       <span class="sla-val">2 business hours</span>
+      </div>
+      <div class="sla-row">
+       <span class="sla-label">Minimum contract</span>
+       <span class="sla-val">R5,000/month</span>
+      </div>
+      <div class="sla-row">
+       <span class="sla-label">Long-term discount (90+ days)</span>
+       <span class="sla-val">5–15% off</span>
+      </div>
+     </div>
+    </div>
+   </div>
   </div>
+ </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testi" id="testimonials">
-  <div class="container">
-    <div class="testi-header">
-      <div class="eyebrow" style="justify-content:center;display:flex">The HALA Experience</div>
-      <h2 class="h2" style="text-align:center">What using HALA<br>actually looks like.</h2>
-    </div>
-    <div class="testi-grid">
-      <div class="testi-card">
-        <div class="testi-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
-        <p class="testi-quote">&ldquo;I moved my entire flat from Glenwood to Berea for R650. The driver was at my door in 11 minutes. Proof of delivery photo. Rating done. I&rsquo;ve used it four times since. Never calling a random bakkie again.&rdquo;</p>
-        <div class="testi-author">
-          <div class="testi-av" style="background:var(--g)">Z</div>
-          <div><div class="testi-name">Zanele M.</div><div class="testi-role">Durban, KZN</div></div>
-          <span class="testi-badge">Customer</span>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
-        <p class="testi-quote">&ldquo;I used to sit waiting for jobs to call me. Now I go online and they come to me. I did 7 jobs last Saturday alone. 80% is fair. Same-day payout is real. I&rsquo;m not going back to how it was.&rdquo;</p>
-        <div class="testi-author">
-          <div class="testi-av" style="background:#3A7A38">S</div>
-          <div><div class="testi-name">Sipho N.</div><div class="testi-role">KwaMashu, Durban</div></div>
-          <span class="testi-badge">Driver</span>
-        </div>
-      </div>
-      <div class="testi-card">
-        <div class="testi-stars"><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span></div>
-        <p class="testi-quote">&ldquo;We have a 3-month contract for site deliveries. The live dashboard means I don&rsquo;t have to call drivers to find out where they are. The proof of delivery has saved us twice in disputes already.&rdquo;</p>
-        <div class="testi-author">
-          <div class="testi-av" style="background:#2A5A28">T</div>
-          <div><div class="testi-name">Thabo K.</div><div class="testi-role">Site Manager &middot; Durban North</div></div>
-          <span class="testi-badge">Business</span>
-        </div>
-      </div>
-    </div>
-    <p style="text-align:center;font-size:.72rem;color:var(--t3);margin-top:32px;letter-spacing:.04em">Representative experiences from our early driver and customer network.</p>
+<section class="testi" id="testimonials" aria-labelledby="testi-heading">
+ <div class="container">
+  <div class="testi-header">
+   <div class="eyebrow" style="justify-content:center">The HALA experience</div>
+   <h2 class="h2" id="testi-heading" style="text-align:center">What using HALA<br>actually looks like.</h2>
   </div>
+  <div class="testi-grid">
+   <div class="testi-card reveal d1">
+    <div class="testi-stars">
+     <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+    </div>
+    <p class="testi-quote">"I moved my entire flat from Glenwood to Berea for R650. The driver was at my door in 11 minutes. Proof of delivery photo. Rating done. I've used it four times since. Never calling a random bakkie again."</p>
+    <div class="testi-author">
+     <div class="testi-avatar" style="background:var(--g)">Z</div>
+     <div>
+      <div class="testi-name">Zanele M.</div>
+      <div class="testi-role">Durban, KZN</div>
+     </div>
+     <div style="margin-left:auto">
+      <span class="testi-badge">Customer</span>
+     </div>
+    </div>
+   </div>
+
+   <div class="testi-card reveal d2">
+    <div class="testi-stars">
+     <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+    </div>
+    <p class="testi-quote">"I used to sit waiting for jobs to call me. Now I go online and they come to me. I did 7 jobs last Saturday alone. 80% is fair. Same-day payout is real. I'm not going back to how it was."</p>
+    <div class="testi-author">
+     <div class="testi-avatar" style="background:#3A7A38">S</div>
+     <div>
+      <div class="testi-name">Sipho N.</div>
+      <div class="testi-role">KwaMashu, Durban</div>
+     </div>
+     <div style="margin-left:auto">
+      <span class="testi-badge">Driver</span>
+     </div>
+    </div>
+   </div>
+
+   <div class="testi-card reveal d3">
+    <div class="testi-stars">
+     <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
+    </div>
+    <p class="testi-quote">"We have a 3-month contract for site deliveries. The live dashboard means I don't have to call drivers to find out where they are. The proof of delivery has saved us twice in disputes already."</p>
+    <div class="testi-author">
+     <div class="testi-avatar" style="background:#2A5A28">T</div>
+     <div>
+      <div class="testi-name">Thabo K.</div>
+      <div class="testi-role">Site Manager · Durban North</div>
+     </div>
+     <div style="margin-left:auto">
+      <span class="testi-badge">Business</span>
+     </div>
+    </div>
+   </div>
+  </div>
+ <p style="text-align:center;font-size:.72rem;color:var(--t3);margin-top:32px;letter-spacing:.04em">Representative experiences from our early driver and customer network.</p>
+ </div>
 </section>
 
 <!-- DOWNLOAD CTA -->
-<section class="app-cta" id="download">
-  <div class="container">
-    <div class="cta-inner">
-      <div class="cta-eyebrow">Download HALA</div>
-      <h2 class="app-cta-h">Ready to<br><span style="color:var(--g)">Move?</span></h2>
-      <p class="app-cta-sub">Download HALA and post your first job in minutes. Free to download. No subscription. Available on Android and iOS.</p>
-      <div class="cta-badges">
-        <a href="#" class="cta-badge">
-          <span class="cta-badge-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" width="22" height="22"><path d="M4.5 3.5l13 7-13 7V3.5z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <div class="cta-badge-text"><small>GET IT ON</small><strong>Google Play</strong></div>
-        </a>
-        <a href="#" class="cta-badge">
-          <span class="cta-badge-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" width="22" height="22"><path d="M13.5 1C13.5 3 12 4.5 10.5 4.5 10.5 2.5 12 1 13.5 1z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M16.5 7.5c-1-1-2.5-1.5-3.5-1.5-1.5 0-2.5.5-3 .5-.7 0-1.8-.5-3-.5C5 6 3 7.5 3 11c0 3 2 8 4 8 1 0 1.5-.5 2.5-.5s1.5.5 2.5.5c2 0 4-5 4-8 0-1-.5-2.5-1.5-3.5z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-          <div class="cta-badge-text"><small>DOWNLOAD ON THE</small><strong>App Store</strong></div>
-        </a>
-      </div>
-      <p class="cta-note">Made in South Africa &#127487;&#127462; &middot; Launching in Durban, KwaZulu-Natal &middot; Expanding across South Africa</p>
+<section class="app-cta" id="download" aria-labelledby="cta-heading">
+ <div class="container">
+  <div class="cta-inner">
+   <div class="eyebrow">Download HALA</div>
+   <h2 class="app-cta-h" id="cta-heading">Ready to<br><span style="color:var(--g)">Move?</span></h2>
+   <p class="app-cta-sub">Download HALA and post your first job in minutes. Free to download. No subscription. Available on Android and iOS.</p>
+   <div class="cta-badges">
+    <a href="#" class="cta-badge" aria-label="Get HALA on Google Play">
+     <span class="cta-badge-icon">&#9654;</span>
+     <div class="cta-badge-text"><small>GET IT ON</small><strong>Google Play</strong></div>
+    </a>
+    <a href="#" class="cta-badge" aria-label="Download HALA on the App Store">
+     <span class="cta-badge-icon">&#8984;</span>
+     <div class="cta-badge-text"><small>DOWNLOAD ON THE</small><strong>App Store</strong></div>
+    </a>
+   </div>
+   <div class="cta-rating">
+    <div class="cta-rating-stars">
+     <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
     </div>
+    <span class="cta-rating-text">Approximately 4.8 stars · Growing driver network · Free · No subscription</span>
+   </div>
+   <p class="cta-note" style="margin-top:20px">Made in South Africa 🇿🇦 · Launching in Durban, KwaZulu-Natal · Expanding across South Africa</p>
   </div>
+ </div>
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand-logo"><a href="#" aria-label="HALA home" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;"><img src="data:image/png;base64,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" alt="HALA"></a></div>
-        <p class="footer-brand-tag">Verified. Tracked. Accountable.<br><br>South Africa&rsquo;s logistics marketplace. Verified drivers. Live GPS tracking. PayFast escrow. Built in Durban. Growing across Africa.</p>
-        <div class="social-links">
-          <a href="#" class="social-btn" aria-label="X">X</a>
-          <a href="#" class="social-btn" aria-label="Instagram">IG</a>
-          <a href="#" class="social-btn" aria-label="LinkedIn">in</a>
-          <a href="#" class="social-btn" aria-label="Facebook">FB</a>
-          <a href="https://wa.me/27000000000" class="social-btn" aria-label="WhatsApp" style="background:#1A2E1A;border-color:#25D366;color:#25D366">WA</a>
-        </div>
-      </div>
-      <div class="footer-col">
-        <h4>Platform</h4>
-        <ul class="footer-links">
-          <li><a href="#customers">For Customers</a></li>
-          <li><a href="#drivers">For Drivers</a></li>
-          <li><a href="#business">For Business</a></li>
-          <li><a href="#customers">How It Works</a></li>
-          <li><a href="#download">Download App</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Company</h4>
-        <ul class="footer-links">
-          <li><a href="./about.html">About HALA</a></li>
-          <li><a href="./faq.html">FAQs</a></li>
-          <li><a href="mailto:contact@halaapp.co.za">Contact Us</a></li>
-          <li><a href="mailto:contact@halaapp.co.za">Support</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h4>Legal &amp; Info</h4>
-        <ul class="footer-links">
-          <li><a href="./about.html">About HALA</a></li>
-          <li><a href="./faq.html">FAQs</a></li>
-          <li><a href="./privacy.html">Privacy Policy</a></li>
-          <li><a href="./terms.html">Terms of Service</a></li>
-          <li><a href="./driver-agreement.html">Driver Agreement</a></li>
-          <li><a href="./cookie-policy.html">Cookie Policy</a></li>
-        </ul>
-      </div>
+<footer role="contentinfo">
+ <div class="container">
+  <div class="footer-grid">
+   <div>
+    <div class="footer-brand-logo" style="display:flex;flex-direction:column;gap:10px;margin-bottom:12px;">
+      <!-- Truck icon -->
+      <svg width="80" height="39" viewBox="345 435 335 165" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+       <path d="M 354.408 469.552 C 356.245 466.203 359.123 466.381 362.556 466.379 C 365.871 466.377 369.186 466.392 372.5 466.394 C 390.003 466.408 407.504 466.51 425.002 466.57 C 429.837 466.586 434.676 466.537 439.51 466.636 C 441.93 466.687 444.547 466.88 445.793 464.316 C 446.102 463.68 446.166 462.895 446.148 462.198 C 446.004 456.53 439.356 457.76 435.463 457.754 C 426.321 457.738 417.179 457.749 408.038 457.766 C 403.808 457.773 398.737 458.523 394.611 457.515 C 387.378 455.748 391.404 445.554 396.237 443.505 C 399.764 442.01 404.737 442.817 408.499 442.818 C 416.999 442.821 425.498 442.792 433.998 442.805 C 463.498 442.848 492.998 442.747 522.498 442.834 C 530.831 442.858 539.163 442.854 547.495 442.855 C 552.6 442.856 557.811 442.853 561.49 447.001 C 565.848 451.916 564.32 459.941 564.317 466.001 C 564.307 481.501 564.312 497.001 564.306 512.501 C 564.301 525.5 564.316 538.5 564.36 551.499 C 564.371 554.831 564.372 558.163 564.383 561.494 C 564.386 562.335 564.688 564.369 564.149 565.031 C 561.832 565.44 559.35 565.213 557.005 565.224 C 552.672 565.244 548.338 565.233 544.005 565.235 C 530.838 565.241 517.672 565.248 504.505 565.235 C 497.673 565.229 490.84 565.242 484.007 565.2 C 480.969 565.181 477.146 565.701 474.224 564.881 C 472.645 557.317 470.884 550.739 465.652 544.756 C 453.899 531.318 432.774 529.677 419.256 541.464 C 414.632 545.497 411.154 550.625 409.227 556.459 C 408.576 558.431 407.969 560.414 407.721 562.484 C 407.679 562.84 407.755 564.195 407.467 564.333 C 403.829 564.493 400.161 564.369 396.517 564.383 C 394.223 564.392 391.57 564.658 389.388 563.83 C 384.049 561.806 382.98 553.899 385.66 549.451 C 386.694 547.734 388.353 547.184 389.8 545.957 C 391.013 542.138 389.88 536.921 390.049 532.92 C 390.157 530.359 390.817 527.776 393.364 526.579 C 395.306 525.666 397.916 526.091 400.005 526.086 C 404.985 526.074 410.058 526.389 415.026 526.045 C 418.104 525.831 420.585 522.804 419.083 519.703 C 417.57 516.576 412.844 517.431 410.004 517.413 C 401.361 517.356 392.709 517.544 384.069 517.372 C 382.539 517.341 380.684 517.505 379.255 516.871 C 376.44 515.623 375.298 511.637 376.907 509.016 C 379.23 505.233 385.258 506.435 389.002 506.441 C 400.336 506.458 411.669 506.412 423.002 506.44 C 426.196 506.448 430.309 507.14 433.388 506.222 C 435.68 505.539 436.263 502.49 435.663 500.514 C 434.225 495.781 425.586 497.424 421.866 497.419 C 407.579 497.403 393.292 497.338 379.005 497.312 C 374.035 497.303 362.43 499.334 362.914 491.33 C 363.236 486.009 368.732 486.4 372.668 486.449 C 383.776 486.588 394.89 486.585 406.001 486.599 C 410.485 486.604 418.966 488.343 418.661 481.525 C 418.572 479.542 417.062 477.97 415.191 477.424 C 411.99 476.489 407.834 477.118 404.51 477.091 C 391.118 476.983 377.715 476.942 364.324 476.966 C 360.335 476.973 354.539 477.44 354.164 472.029 C 354.105 471.187 354.181 470.363 354.408 469.552 Z" fill="#5CB558" fill-rule="evenodd"/>
+<path d="M 417.426 563.093 C 417.929 559.747 419.161 556.633 421.02 553.817 C 422.882 550.998 425.25 548.702 428.024 546.795 C 430.285 545.241 432.884 544.087 435.539 543.396 C 451.892 539.136 466.944 554.273 464.433 570.433 C 463.973 573.393 462.963 576.221 461.4 578.78 C 453.549 591.631 434.828 594.06 424.091 583.314 C 421.167 580.388 419.107 576.686 417.974 572.731 C 417.087 569.632 416.947 566.277 417.426 563.093 Z M 429.409 564.089 C 429.103 565.658 429.146 567.396 429.445 568.961 C 431.788 581.216 450.023 580.792 452.44 568.882 C 452.736 567.422 452.643 565.918 452.381 564.458 C 450.238 552.488 431.787 551.912 429.409 564.089 Z" fill="#5CB558" fill-rule="evenodd"/>
+<path d="M 573 475.626 C 573.083 474.973 573.101 474.324 573.105 473.666 C 581.317 472.513 590.196 473.309 598.497 473.272 C 601.315 473.26 605.962 472.456 608.452 473.998 C 611.659 475.984 614.299 479.742 616.808 482.516 C 621.574 487.785 626.439 492.979 631.314 498.147 C 633.79 500.773 636.137 503.934 639.091 506.034 C 647.222 511.814 660.889 511.17 666.461 520.583 C 669.794 526.214 669.209 532.937 669.159 539.239 C 669.141 541.496 668.527 544.962 669.366 547.052 C 670.65 548.095 672.18 548.7 673.002 550.224 C 675.517 554.887 673.623 561.246 669.13 563.762 C 666.914 565.003 663.961 564.714 661.518 564.71 C 659.891 564.708 658.267 564.725 656.641 564.747 C 656.08 564.754 655.2 564.967 654.759 564.62 C 653.359 539.086 621.429 524.334 601.422 540.542 C 596.475 544.55 592.687 549.874 590.746 555.956 C 590.091 558.01 589.574 560.172 589.396 562.325 C 589.346 562.931 589.527 564.54 589.096 564.977 C 583.929 565.512 578.474 565.078 573.282 565.043 C 572.368 548.606 573.077 531.963 573.069 515.5 C 573.065 507.17 573.141 498.822 573.058 490.501 C 573.009 485.57 572.699 480.556 573 475.626 Z M 581.939 483.085 C 581.479 485.137 581.748 487.41 581.761 489.501 C 581.784 493.167 581.747 496.834 581.752 500.501 C 581.755 502.649 581.207 505.782 582.131 507.744 C 582.871 508.565 583.978 508.442 585.001 508.436 C 587.126 508.424 589.252 508.463 591.377 508.45 C 599.987 508.398 608.656 508.168 617.26 508.5 C 619.828 508.6 622.721 508.854 625.268 508.533 C 626.061 508.434 627.226 508.394 627.519 507.512 C 627.616 506.511 625.945 505.208 625.31 504.496 C 623.077 501.995 620.752 499.582 618.509 497.093 C 615.413 493.657 612.369 490.18 609.2 486.809 C 607.887 485.413 606.326 483.186 604.552 482.373 C 602.922 481.627 600.274 482.035 598.507 482.029 C 594.984 482.017 591.462 482.027 587.939 482.035 C 586.019 482.039 584.006 481.725 582.172 482.409 C 582.095 482.634 582.017 482.859 581.939 483.085 Z" fill="#5CB558" fill-rule="evenodd"/>
+<path d="M 598.374 562.578 C 598.931 559.469 600.233 556.27 602.027 553.674 C 611.159 540.454 631.764 538.854 641.149 552.857 C 642.808 555.332 644.073 557.893 644.825 560.786 C 645.728 564.256 645.813 567.814 645.171 571.338 C 643.007 583.234 630.877 591.444 619.042 590.06 C 612.335 589.276 606.225 585.574 602.255 580.148 C 600.502 577.751 599.246 574.979 598.644 572.069 C 598.001 568.963 597.812 565.712 598.374 562.578 Z M 610.391 564.591 C 610.113 566.378 610.179 568.35 610.707 570.084 C 614.166 581.444 631.266 580.265 633.313 568.622 C 633.611 566.93 633.55 565.205 633.128 563.54 C 630.161 551.842 612.249 552.676 610.391 564.591 Z" fill="#5CB558" fill-rule="evenodd"/>
+      </svg>
+      <!-- HALA MOVE wordmark -->
+      <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.5rem;letter-spacing:-0.02em;line-height:1;">
+       <span style="color:#5CB558;">HALA</span><span style="color:#FFFFFF;"> MOVE</span>
+      </span>
+     </div></div>
+    <p class="footer-brand-tag">Verified. Tracked. Accountable.<br><br>South Africa's logistics marketplace. Verified drivers. Live GPS tracking. PayFast escrow. Built in Durban. Growing across Africa.</p>
+    <div class="social-links" aria-label="Social media links">
+     <a href="#" class="social-btn" aria-label="HALA MOVE on X">X</a>
+     <a href="#" class="social-btn" aria-label="HALA MOVE on Instagram">IG</a>
+     <a href="#" class="social-btn" aria-label="HALA MOVE on LinkedIn">in</a>
+     <a href="#" class="social-btn" aria-label="HALA MOVE on Facebook">FB</a>
+     <a href="https://wa.me/27000000000" class="social-btn" aria-label="HALA MOVE on WhatsApp" style="background:#1A2E1A;border-color:#25D366;color:#25D366">WA</a>
     </div>
-    <div class="footer-disclaimer">All earnings figures shown are illustrative examples only and do not represent typical or guaranteed results. Actual driver earnings vary based on individual availability, vehicle type, job volume, location, and market conditions. HALA (Pty) Ltd makes no guarantee of income. Driver payouts are subject to the platform&rsquo;s terms of service. HALA is a technology platform &mdash; drivers are independent service providers, not employees of HALA.</div>
-    <div class="footer-bottom">
-      <span>&copy; 2026 HALA (Pty) Ltd &middot; Made in South Africa &#127487;&#127462;</span>
-      <div class="footer-bottom-links">
-        <a href="./privacy.html">Privacy</a>
-        <a href="./terms.html">Terms</a>
-        <a href="mailto:contact@halaapp.co.za">contact@halaapp.co.za</a>
-      </div>
-    </div>
+   </div>
+   <div class="footer-col">
+    <h4>Platform</h4>
+    <ul class="footer-links" role="list">
+     <li><a href="#customers">For Customers</a></li>
+     <li><a href="#drivers">For Drivers</a></li>
+     <li><a href="#business">For Business</a></li>
+     <li><a href="#customers">How It Works</a></li>
+     <li><a href="#download">Download App</a></li>
+    </ul>
+   </div>
+   <div class="footer-col">
+    <h4>Company</h4>
+    <ul class="footer-links" role="list">
+     <li><a href="./about.html">About HALA</a></li>
+     <li><a href="./faq.html">FAQs</a></li>
+     <li><a href="/cdn-cgi/l/email-protection#30535f5e445153447058515c515140401e535f1e4a51">Contact Us</a></li>
+     <li><a href="/cdn-cgi/l/email-protection#e784888993868493a78f868b86869797c98488c99d86">Support</a></li>
+    </ul>
+   </div>
+   <div class="footer-col">
+    <h4>Legal &amp; Info</h4>
+    <ul class="footer-links" role="list">
+     <li><a href="./about.html">About HALA</a></li>
+     <li><a href="./faq.html">FAQs</a></li>
+     <li><a href="./privacy.html">Privacy Policy</a></li>
+     <li><a href="./terms.html">Terms of Service</a></li>
+     <li><a href="./driver-agreement.html">Driver Agreement</a></li>
+     <li><a href="./cookie-policy.html">Cookie Policy</a></li>
+    </ul>
+   </div>
   </div>
+  <div style="padding:16px 0;border-top:1px solid var(--b);font-size:.72rem;color:var(--t3);line-height:1.6;text-align:center">
+   All earnings figures shown are illustrative examples only and do not represent typical or guaranteed results. Actual driver earnings vary based on individual availability, vehicle type, job volume, location, and market conditions. HALA MOVE (Pty) Ltd makes no guarantee of income. Driver payouts are subject to the platform's terms of service. HALA is a technology platform  drivers are independent service providers, not employees of HALA.
+  </div>
+  <div class="footer-bottom">
+   <span>© 2026 HALA MOVE (Pty) Ltd · Made in South Africa 🇿🇦</span>
+   <div class="footer-bottom-links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="/cdn-cgi/l/email-protection#7f1c10110b1e1c0b3f171e131e1e0f0f511c1051051e" < a>
+   </div>
+  </div>
+ </div>
 </footer>
 
-<button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">&uarr;</button>
+<!-- SCROLL TOP -->
+<button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
-<a href="https://wa.me/27000000000" class="wa-float" aria-label="Chat on WhatsApp">
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M17.5 10c0 4.14-3.36 7.5-7.5 7.5-1.38 0-2.67-.38-3.78-1.03L2.5 17.5l1.03-3.72A7.46 7.46 0 0 1 2.5 10C2.5 5.86 5.86 2.5 10 2.5s7.5 3.36 7.5 7.5z" stroke="white" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.5 10h5M7.5 12.5h3.5" stroke="white" stroke-width="1.4" stroke-linecap="round"/></svg>
-  <span>Chat with us</span>
+<!-- WHATSAPP FLOAT -->
+<a href="https://wa.me/27000000000" class="wa-float" aria-label="Chat on WhatsApp" rel="noopener noreferrer">
+ <span class="wa-icon">💬</span>
+ <span>Chat with us</span>
 </a>
 
-<script>
-// HAMBURGER
-var hbg=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');
-hbg.addEventListener('click',function(){
-  var o=hbg.classList.toggle('open');
-  mm.classList.toggle('open');
-  hbg.setAttribute('aria-expanded',o);
-  document.body.style.overflow=o?'hidden':'';
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── HAMBURGER ─────────────────────────────────────────────
+const hbg = document.getElementById('hamburger');
+const mm = document.getElementById('mobileMenu');
+hbg.addEventListener('click', () => {
+ const o = hbg.classList.toggle('open');
+ mm.classList.toggle('open');
+ hbg.setAttribute('aria-expanded', o);
+ document.body.style.overflow = o ? 'hidden' : '';
 });
-document.querySelectorAll('.ml,.mobile-menu .btn').forEach(function(el){
-  el.addEventListener('click',function(){
-    hbg.classList.remove('open');mm.classList.remove('open');
-    hbg.setAttribute('aria-expanded','false');document.body.style.overflow='';
+document.querySelectorAll('.mobile-link,.mobile-menu .btn').forEach(el => {
+ el.addEventListener('click', () => {
+  hbg.classList.remove('open');
+  mm.classList.remove('open');
+  hbg.setAttribute('aria-expanded','false');
+  document.body.style.overflow = '';
+ });
+});
+
+// ── NAV SCROLL STATE ──────────────────────────────────────
+const nav = document.getElementById('main-nav');
+window.addEventListener('scroll', () => {
+ nav.classList.toggle('scrolled', window.scrollY > 60);
+ document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 500);
+}, {passive:true});
+
+// ── SCROLL TOP ────────────────────────────────────────────
+document.getElementById('scrollTopBtn').addEventListener('click', () => {
+ window.scrollTo({top:0,behavior:'smooth'});
+});
+
+// ── REVEAL OBSERVER ───────────────────────────────────────
+function activateReveals() {
+ document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
+  el.classList.add('visible');
+ });
+}
+// Primary: IntersectionObserver with 0 threshold + rootMargin
+if ('IntersectionObserver' in window) {
+ const ro = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+   if(e.isIntersecting){
+    e.target.classList.add('visible');
+    ro.unobserve(e.target);
+   }
   });
-});
+ }, {threshold: 0, rootMargin: '0px 0px -40px 0px'});
+ document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => ro.observe(el));
+ // Failsafe: if observer hasn't fired within 1.5s, reveal everything
+ setTimeout(() => {
+  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
+   el.classList.add('visible');
+  });
+ }, 1500);
+} else {
+ // Fallback for browsers without IntersectionObserver
+ activateReveals();
+}
 
-// NAV SCROLL
-var nav=document.getElementById('main-nav'),stb=document.getElementById('scrollTopBtn');
-window.addEventListener('scroll',function(){
-  nav.style.background=window.scrollY>60?'rgba(10,10,10,.98)':'rgba(10,10,10,.94)';
-  stb.classList.toggle('show',window.scrollY>500);
-},{passive:true});
-stb.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
-
-// STATS COUNTER — 80% only
-(function(){
-  var el=document.getElementById('s1');
-  if(!el)return;
-  var done=false;
-  function runAnim(){
-    if(done)return;
-    done=true;
-    var start=performance.now();
-    (function run(now){
-      var p=Math.min((now-start)/1600,1);
-      var ease=1-Math.pow(1-p,3);
-      el.textContent=Math.floor(80*ease)+'%';
-      if(p<1)requestAnimationFrame(run);
-      else el.textContent='80%';
-    })(performance.now());
+// ── COUNTER ANIMATION ─────────────────────────────────────
+function animateNum(el) {
+ const target = parseFloat(el.dataset.count);
+ const suffix = el.dataset.suffix || '';
+ const dec   = parseInt(el.dataset.decimal) || 0;
+ const dur   = 1600;
+ const start  = performance.now();
+ const run = now => {
+  const p  = Math.min((now - start) / dur, 1);
+  const ease = 1 - Math.pow(1 - p, 3);
+  const v  = target * ease;
+  el.textContent = (dec ? v.toFixed(dec) : Math.floor(v)) + suffix;
+  if(p < 1) requestAnimationFrame(run);
+  };
+  requestAnimationFrame(run);
+}
+const co = new IntersectionObserver(entries => {
+ entries.forEach(e => {
+  if(e.isIntersecting && e.target.dataset.count !== undefined) {
+   animateNum(e.target);
+   co.unobserve(e.target);
   }
-  // Try IntersectionObserver first
-  if('IntersectionObserver' in window){
-    var ob=new IntersectionObserver(function(e){if(e[0].isIntersecting){ob.disconnect();runAnim()}},{threshold:0});
-    ob.observe(el);
-  }
-  // Guaranteed fallback: run after 1 second no matter what
-  setTimeout(runAnim,1000);
-})();
+ });
+}, {threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
 
-// CALCULATOR
-(function(){
-  var js=document.getElementById('js'),rs=document.getElementById('rs'),ds=document.getElementById('ds');
-  var jv=document.getElementById('jv'),rv=document.getElementById('rv'),dv=document.getElementById('dv');
-  var cr=document.getElementById('cr'),csub=document.getElementById('csub');
-  function upd(){
-    var j=parseInt(js.value),r=parseInt(rs.value),d=parseInt(ds.value);
-    jv.textContent=j+(j===1?' job':' jobs');
-    rv.textContent='R'+r;
-    dv.textContent=d+(d===1?' day':' days');
-    var m=Math.round(j*r*d*4*.8);
-    cr.textContent='R'+m.toLocaleString('en-ZA');
-    csub.textContent=j+' jobs × R'+r+' × '+d+' days × 4 weeks × 80% — illustrative only. Actual earnings vary.';
-  }
-  js.addEventListener('input',upd);rs.addEventListener('input',upd);ds.addEventListener('input',upd);
-  upd();
-})();
+// Fix R0 stat counter (target 0, just show 'R0')
+const s4 = document.querySelector('[data-count="0"]');
+if(s4) { s4.textContent = 'R0'; }
 
-// PHONE TIMER
+// ── STEPS LINE ANIMATION ──────────────────────────────────
+const sl = document.getElementById('steps-line');
+if(sl){
+ const slo = new IntersectionObserver(entries => {
+  if(entries[0].isIntersecting){
+   sl.classList.add('animated');
+   slo.disconnect();
+  }
+ }, {threshold:.3});
+ slo.observe(sl);
+}
+
+// ── CITY GRID CANVAS ──────────────────────────────────────
 (function(){
-  var secs=14*60+22,el=document.getElementById('phone-timer');
-  setInterval(function(){
-    if(secs>0)secs--;
-    el.textContent=Math.floor(secs/60)+':'+(secs%60<10?'0':'')+secs%60;
+ const canvas = document.getElementById('city-canvas');
+ if(!canvas) return;
+ const ctx = canvas.getContext('2d');
+ let W, H, nodes, routes, dots, raf;
+
+ function resize(){
+  W = canvas.width = canvas.offsetWidth;
+  H = canvas.height = canvas.offsetHeight;
+  init();
+ }
+ function init(){
+  nodes = [];
+  const gap = 88;
+  const cols = Math.ceil(W/gap)+2;
+  const rows = Math.ceil(H/gap)+2;
+  for(let r=0;r<rows;r++){
+      for(let c=0;c<cols;c++){
+        nodes.push({
+          x: c*gap + (Math.random()-.5)*26,
+          y: r*gap + (Math.random()-.5)*26,
+          pulse:0
+        });
+      }
+    }
+    routes = [];
+    nodes.forEach((n,i) => {
+   nodes.forEach((m,j) => {
+    if(i>=j) return;
+    const d = Math.hypot(m.x-n.x, m.y-n.y);
+    if(d < 120 && Math.random() < .25) routes.push({from:i,to:j,d});
+      });
+    });
+    dots = Array.from({length:16},()=>{
+   const r = routes[Math.floor(Math.random()*routes.length)];
+   if(!r) return null;
+   return {route:r, t:Math.random(), speed:.0005+Math.random()*.0007, size:2.8+Math.random()*2};
+  }).filter(Boolean);
+ }
+
+ function draw(){
+  ctx.clearRect(0,0,W,H);
+
+  // Routes (dashed lines)
+  ctx.lineWidth=.8;
+  ctx.setLineDash([4,9]);
+  routes.forEach(({from,to})=>{
+   const a=nodes[from], b=nodes[to];
+   ctx.beginPath();
+   ctx.moveTo(a.x,a.y);
+   ctx.lineTo(b.x,b.y);
+   ctx.strokeStyle='rgba(92,181,88,0.07)';
+   ctx.stroke();
+  });
+  ctx.setLineDash([]);
+
+  // Nodes
+  nodes.forEach(n=>{
+   if(n.pulse > 0){
+    ctx.beginPath();
+    ctx.arc(n.x,n.y, 3+n.pulse*14, 0, Math.PI*2);
+    ctx.fillStyle=`rgba(92,181,88,${0.1*(1-n.pulse)})`;
+    ctx.fill();
+    n.pulse += .035;
+    if(n.pulse>1) n.pulse=0;
+   }
+   ctx.beginPath();
+   ctx.arc(n.x,n.y,2,0,Math.PI*2);
+   ctx.fillStyle='rgba(92,181,88,0.18)';
+   ctx.fill();
+  });
+
+  // Moving dots
+  dots.forEach(d=>{
+   d.t += d.speed;
+   if(d.t>=1){
+    d.t=0;
+    nodes[d.route.to].pulse=0.01;
+    const conn = routes.filter(r=>r.from===d.route.to||r.to===d.route.to);
+    if(conn.length){
+     const pick=conn[Math.floor(Math.random()*conn.length)];
+     d.route={from:d.route.to, to:pick.from===d.route.to?pick.to:pick.from};
+    }
+   }
+   const a=nodes[d.route.from], b=nodes[d.route.to];
+   const x=a.x+(b.x-a.x)*d.t;
+   const y=a.y+(b.y-a.y)*d.t;
+   // Glow
+   const g=ctx.createRadialGradient(x,y,0,x,y,d.size*3.5);
+   g.addColorStop(0,'rgba(92,181,88,0.65)');
+   g.addColorStop(1,'rgba(92,181,88,0)');
+   ctx.beginPath();ctx.arc(x,y,d.size*3.5,0,Math.PI*2);
+   ctx.fillStyle=g;ctx.fill();
+   // Core
+   ctx.beginPath();ctx.arc(x,y,d.size,0,Math.PI*2);
+   ctx.fillStyle='#5CB558';ctx.fill();
+  });
+
+  raf = requestAnimationFrame(draw);
+ }
+
+ window.addEventListener('resize',()=>{
+  cancelAnimationFrame(raf);resize();draw();
+ },{passive:true});
+ resize();draw();
+}());
+
+// ── PHONE TIMER ───────────────────────────────────────────
+(function(){
+ let secs = 14*60+22;
+ const el = document.getElementById('phone-timer');
+ if(!el) return;
+ setInterval(()=>{
+  if(secs > 0) secs--;
+  const m = Math.floor(secs/60);
+  const s = secs%60;
+  el.textContent = m+':'+(s<10?'0':'')+s;
   },1000);
-})();
+}());
 
-// CITY CANVAS
+// ── EARNINGS CALCULATOR ───────────────────────────────────
 (function(){
-  var c=document.getElementById('city-canvas');
-  if(!c)return;
-  var ctx=c.getContext('2d'),W,H,nodes,routes,dots,raf;
-  function resize(){W=c.width=c.offsetWidth;H=c.height=c.offsetHeight;init()}
-  function init(){
-    nodes=[];var g=88,cols=Math.ceil(W/g)+2,rows=Math.ceil(H/g)+2;
-    for(var r=0;r<rows;r++)for(var col=0;col<cols;col++)nodes.push({x:col*g+(Math.random()-.5)*26,y:r*g+(Math.random()-.5)*26,p:0});
-    routes=[];
-    nodes.forEach(function(n,i){nodes.forEach(function(m,j){
-      if(i>=j)return;var d=Math.hypot(m.x-n.x,m.y-n.y);
-      if(d<120&&Math.random()<.25)routes.push({f:i,t:j});
-    })});
-    dots=[];for(var i=0;i<16;i++){var rx=routes[Math.floor(Math.random()*routes.length)];if(rx)dots.push({r:rx,t:Math.random(),s:.0005+Math.random()*.0007,sz:2.8+Math.random()*2})}
+  const js = document.getElementById('jobs-slider');
+  const rs = document.getElementById('rate-slider');
+  const ds = document.getElementById('days-slider');
+  const jv = document.getElementById('jobs-val');
+  const rv = document.getElementById('rate-val');
+  const dv = document.getElementById('days-val');
+  const re = document.getElementById('calc-result');
+  const su = document.getElementById('calc-sub');
+  if(!js||!rs||!ds) return;
+
+  function update(){
+    const j=parseInt(js.value);
+    const r=parseInt(rs.value);
+    const d=parseInt(ds.value);
+    jv.textContent=j+' job'+(j===1?'':'s');
+    rv.textContent='R'+r;
+    dv.textContent=d+' day'+(d===1?'':'s');
+    const monthly=Math.round(j*r*d*4*.8);
+    re.textContent='R'+monthly.toLocaleString('en-ZA');
+    su.textContent=j+' jobs × R'+r+' × '+d+' days × 4 weeks × 80%   illustrative only. Actual earnings vary.';
   }
-  function draw(){
-    ctx.clearRect(0,0,W,H);
-    ctx.lineWidth=.8;ctx.setLineDash([4,9]);
-    routes.forEach(function(r){var a=nodes[r.f],b=nodes[r.t];ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.strokeStyle='rgba(92,181,88,0.07)';ctx.stroke()});
-    ctx.setLineDash([]);
-    nodes.forEach(function(n){
-      if(n.p>0){ctx.beginPath();ctx.arc(n.x,n.y,3+n.p*14,0,Math.PI*2);ctx.fillStyle='rgba(92,181,88,'+(0.1*(1-n.p))+')';ctx.fill();n.p+=.035;if(n.p>1)n.p=0}
-      ctx.beginPath();ctx.arc(n.x,n.y,2,0,Math.PI*2);ctx.fillStyle='rgba(92,181,88,0.18)';ctx.fill();
-    });
-    dots.forEach(function(d){
-      d.t+=d.s;if(d.t>=1){d.t=0;nodes[d.r.t].p=0.01;var cn=routes.filter(function(r){return r.f===d.r.t||r.t===d.r.t});if(cn.length){var pk=cn[Math.floor(Math.random()*cn.length)];d.r={f:d.r.t,t:pk.f===d.r.t?pk.t:pk.f}}}
-      var a=nodes[d.r.f],b=nodes[d.r.t],x=a.x+(b.x-a.x)*d.t,y=a.y+(b.y-a.y)*d.t;
-      var g=ctx.createRadialGradient(x,y,0,x,y,d.sz*3.5);g.addColorStop(0,'rgba(92,181,88,0.65)');g.addColorStop(1,'rgba(92,181,88,0)');
-      ctx.beginPath();ctx.arc(x,y,d.sz*3.5,0,Math.PI*2);ctx.fillStyle=g;ctx.fill();
-      ctx.beginPath();ctx.arc(x,y,d.sz,0,Math.PI*2);ctx.fillStyle='#5CB558';ctx.fill();
-    });
-    raf=requestAnimationFrame(draw);
-  }
-  window.addEventListener('resize',function(){cancelAnimationFrame(raf);resize();draw()},{passive:true});
-  resize();draw();
-})();
-document.querySelectorAll('.btn-green').forEach(function(btn){
-  btn.addEventListener('mousemove',function(e){var r=btn.getBoundingClientRect();btn.style.transform='translate('+(((e.clientX-r.left-r.width/2)*.12))+'px,'+(((e.clientY-r.top-r.height/2)*.12))+'px) translateY(-2px)'});
-  btn.addEventListener('mouseleave',function(){btn.style.transform=''});
-});
-</script>
-</body>
-</html>
+  js.addEventListener('input',update);
+  rs.addEventListener('input',update);
+  ds.addEventListener('input',update);
+  update();
+}());
+
+// ── FAILSAFE: Reveal all elements ─────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.quer
