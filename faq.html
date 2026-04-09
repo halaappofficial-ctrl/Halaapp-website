@@ -848,17 +848,10 @@ footer{
 .page-meta{font-size:.8rem;color:var(--t3);display:flex;flex-wrap:wrap;gap:20px;margin-top:20px}
 .page-meta span{display:flex;align-items:center;gap:6px}
 .page-body{padding:72px 0 100px}
-.content-grid{display:grid;grid-template-columns:1fr;gap:48px;max-width:860px}
-@media(min-width:1024px){.content-grid{grid-template-columns:200px 1fr;gap:60px;max-width:1180px;align-items:start}}
+.content-grid{display:block;max-width:860px;margin:0 auto;padding:0 24px}
 .toc{display:none}
-@media(min-width:1024px){
- .toc{display:block;position:sticky;top:88px;padding:24px;background:var(--s2);border:1px solid var(--b);border-radius:14px}
- .toc h4{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--g);margin-bottom:16px}
- .toc a{display:block;font-size:.8rem;color:var(--t3);padding:10px 0;border-bottom:1px solid var(--b);transition:color .2s;line-height:1.4}
- .toc a:last-child{border-bottom:none}
- .toc a:hover{color:var(--g)}
-}
-.prose{max-width:720px}
+.page-content{width:100%}
+.prose{max-width:100%;width:100%}
 .prose h2{font-family:'Syne',sans-serif;font-size:clamp(1.4rem,3vw,1.8rem);font-weight:800;color:var(--t);margin:52px 0 16px;padding-top:20px;border-top:1px solid var(--b);letter-spacing:.01em}
 .prose h2:first-child{margin-top:0;border-top:none;padding-top:0}
 .prose h3{font-size:1.02rem;font-weight:700;color:var(--t);margin:28px 0 10px}
@@ -988,7 +981,7 @@ footer{
  margin-bottom:24px;padding-bottom:12px;
  border-bottom:1px solid var(--b);
 }
-.faq-group-title::before{content:'';width:20px;height:1.5px;background:var(--g);flex-shrink:0}
+.faq-group-title::before{content:none;display:none}
 .faq-item{
  border-bottom:1px solid var(--b);
 }
@@ -1216,7 +1209,7 @@ document.querySelectorAll('.faq-q').forEach(q=>{
    </div>
   </div>
   <div style="padding:16px 0;border-top:1px solid var(--b);font-size:.72rem;color:var(--t3);line-height:1.6;text-align:center">
-   All earnings figures shown are illustrative examples only and do not represent typical or guaranteed results. Actual driver earnings vary based on individual availability, vehicle type, job volume, location, and market conditions. HALA MOVE (Pty) Ltd makes no guarantee of income. Driver payouts are subject to the platform's terms of service. HALA is a technology platform; drivers are independent service providers, not employees of HALA.
+   All earnings figures shown are illustrative examples only and do not represent typical or guaranteed results. Actual driver earnings vary based on individual availability, vehicle type, job volume, location, and market conditions. HALA MOVE (Pty) Ltd makes no guarantee of income. Driver payouts are subject to the platform's terms of service. HALA MOVE is a technology platform; drivers are independent service providers, not employees of HALA MOVE.
   </div>
   <div class="footer-bottom">
    <span>© 2026 HALA MOVE (Pty) Ltd · Made in South Africa 🇿🇦</span>
