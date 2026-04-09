@@ -65,7 +65,7 @@ ul{list-style:none}
  letter-spacing:.2em;text-transform:uppercase;color:var(--g);
  margin-bottom:18px;display:flex;align-items:center;gap:12px;
 }
-.eyebrow::before{content:'';width:24px;height:1.5px;background:var(--g);flex-shrink:0}
+.eyebrow::before{content:none;display:none}
 .h2{
  font-family:var(--disp);font-size:clamp(2.4rem,4.5vw,3.8rem);
  line-height:1.1;letter-spacing:.01em;margin-bottom:20px;
@@ -1114,25 +1114,25 @@ footer{
     <div class="steps-line-fill"></div>
    </div>
    <div class="steps">
-    <div class="step reveal d1">
+    <div class="step reveal visible d1">
      <div class="step-num">01</div>
      <div class="step-icon">📍</div>
      <div class="step-title">Post Your Job</div>
      <p class="step-desc">Enter pickup and dropoff. Describe your items or let the AI camera scan them. Our Smart Quote shows a fair price range before anyone bids.</p>
     </div>
-    <div class="step reveal d2">
+    <div class="step reveal visible d2">
      <div class="step-num">02</div>
      <div class="step-icon">⚡</div>
      <div class="step-title">Watch Bids Arrive</div>
      <p class="step-desc">Nearby verified drivers see your job and bid in real time. AI ranks them by price, rating, distance, and experience  best match first.</p>
     </div>
-    <div class="step reveal d3">
+    <div class="step reveal visible d3">
      <div class="step-num">03</div>
      <div class="step-icon">✅</div>
      <div class="step-title">Accept Your Driver</div>
      <p class="step-desc">See their photo, vehicle, star rating, and bid. Your payment is held securely in escrow  it only moves when delivery is confirmed.</p>
     </div>
-    <div class="step reveal d4">
+    <div class="step reveal visible d4">
      <div class="step-num">04</div>
      <div class="step-icon">🗺️</div>
      <div class="step-title">Track and Confirm</div>
@@ -1156,37 +1156,37 @@ footer{
    <p class="sub">Every feature exists to protect your items, your money, and your time. This is what "verified" actually means.</p>
   </div>
   <div class="features-grid">
-   <div class="feat-card reveal d1">
+   <div class="feat-card reveal visible d1">
     <div class="feat-icon">🛡️</div>
     <h3>ID-Verified Drivers</h3>
     <p>Every driver's South African ID is verified against the government database before they see a single job. No unverified driver ever works on HALA.</p>
     <div class="feat-metric">100% of drivers verified</div>
    </div>
-   <div class="feat-card reveal d2">
+   <div class="feat-card reveal visible d2">
     <div class="feat-icon">🤖</div>
     <h3>AI Smart Quote</h3>
     <p>Before anyone bids, HALA's AI calculates a fair price range based on distance, floor level, item type, and time of day. No surprises. No negotiation anxiety.</p>
     <div class="feat-metric">Typical price accuracy within ~8%</div>
    </div>
-   <div class="feat-card reveal d3">
+   <div class="feat-card reveal visible d3">
     <div class="feat-icon">📸</div>
     <h3>Photo Proof of Delivery</h3>
     <p>Timestamped photos at every pickup and dropoff, stored in the cloud. Every item documented before loading. Your protection against damage disputes.</p>
     <div class="feat-metric">Every job. No exceptions.</div>
    </div>
-   <div class="feat-card reveal d4">
+   <div class="feat-card reveal visible d4">
     <div class="feat-icon">💳</div>
     <h3>PayFast Escrow</h3>
     <p>Your payment is held securely until delivery is confirmed by you. The driver only gets paid when you say the job is done. Your money, your control.</p>
     <div class="feat-metric">Zero payment risk</div>
    </div>
-   <div class="feat-card reveal d5">
+   <div class="feat-card reveal visible d5">
     <div class="feat-icon">🗺️</div>
     <h3>Live GPS Tracking</h3>
     <p>Watch your driver move toward you in real time  exactly like watching an Uber arrive. Know where they are at every second of the job.</p>
     <div class="feat-metric">Updates every 10 seconds</div>
    </div>
-   <div class="feat-card reveal d6">
+   <div class="feat-card reveal visible d6">
     <div class="feat-icon">🌱</div>
     <h3>Carbon Footprint Tracking</h3>
     <p>Every job's CO2 footprint is calculated automatically. Offset any job for R20. Monthly carbon reports for corporate clients. Africa's first carbon-aware logistics platform.</p>
@@ -1406,7 +1406,7 @@ footer{
    <h2 class="h2" id="testi-heading" style="text-align:center">What using HALA<br>actually looks like.</h2>
   </div>
   <div class="testi-grid">
-   <div class="testi-card reveal d1">
+   <div class="testi-card reveal visible d1">
     <div class="testi-stars">
      <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
     </div>
@@ -1423,7 +1423,7 @@ footer{
     </div>
    </div>
 
-   <div class="testi-card reveal d2">
+   <div class="testi-card reveal visible d2">
     <div class="testi-stars">
      <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
     </div>
@@ -1440,7 +1440,7 @@ footer{
     </div>
    </div>
 
-   <div class="testi-card reveal d3">
+   <div class="testi-card reveal visible d3">
     <div class="testi-stars">
      <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
     </div>
@@ -1529,7 +1529,7 @@ footer{
    <div class="footer-col">
     <h4>Company</h4>
     <ul class="footer-links" role="list">
-     <li><a href="./about.html">About HALA</a></li>
+     <li><a href="./about.html">About HALA MOVE</a></li>
      <li><a href="./faq.html">FAQs</a></li>
      <li><a href="/cdn-cgi/l/email-protection#30535f5e445153447058515c515140401e535f1e4a51">Contact Us</a></li>
      <li><a href="/cdn-cgi/l/email-protection#e784888993868493a78f868b86869797c98488c99d86">Support</a></li>
@@ -1538,8 +1538,6 @@ footer{
    <div class="footer-col">
     <h4>Legal &amp; Info</h4>
     <ul class="footer-links" role="list">
-     <li><a href="./about.html">About HALA</a></li>
-     <li><a href="./faq.html">FAQs</a></li>
      <li><a href="./privacy.html">Privacy Policy</a></li>
      <li><a href="./terms.html">Terms of Service</a></li>
      <li><a href="./driver-agreement.html">Driver Agreement</a></li>
@@ -1616,14 +1614,14 @@ if ('IntersectionObserver' in window) {
     ro.unobserve(e.target);
    }
   });
- }, {threshold: 0, rootMargin: '0px 0px -40px 0px'});
+ }, {threshold: 0, rootMargin: '0px 0px 0px 0px'});
  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => ro.observe(el));
  // Failsafe: if observer hasn't fired within 1.5s, reveal everything
  setTimeout(() => {
   document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
    el.classList.add('visible');
   });
- }, 1500);
+ }, 300);
 } else {
  // Fallback for browsers without IntersectionObserver
  activateReveals();
@@ -1652,7 +1650,7 @@ const co = new IntersectionObserver(entries => {
    co.unobserve(e.target);
   }
  });
-}, {threshold:.5});
+}, {threshold: 0, rootMargin: '0px 0px 0px 0px'});
 document.querySelectorAll('[data-count]').forEach(el => co.observe(el));
 
 // Fix R0 stat counter (target 0, just show 'R0')
@@ -1825,4 +1823,8 @@ if(sl){
 // ── FAILSAFE: Reveal all elements ─────────────────────────────────
 window.addEventListener('load', () => {
   setTimeout(() => {
-    document.quer
+    document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
+      el.classList.add('visible');
+    });
+  }, 100);
+});
