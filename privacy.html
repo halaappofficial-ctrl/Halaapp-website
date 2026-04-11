@@ -190,7 +190,7 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
 .hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
 .mobile-menu{
- position:fixed;inset:0;background:var(--bg);z-index:850;
+ position:fixed;inset:0;background:var(--bg);z-index:9999;
  display:flex;flex-direction:column;justify-content:center;
  align-items:center;gap:28px;
  transform:translateX(100%);transition:transform .38s cubic-bezier(.4,0,.2,1);
@@ -1215,21 +1215,26 @@ footer{
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
 // ── HAMBURGER ─────────────────────────────────────────────
-const hbg = document.getElementById('hamburger');
-const mm = document.getElementById('mobileMenu');
-hbg.addEventListener('click', () => {
- const o = hbg.classList.toggle('open');
- mm.classList.toggle('open');
- hbg.setAttribute('aria-expanded', o);
- document.body.style.overflow = o ? 'hidden' : '';
-});
-document.querySelectorAll('.mobile-link,.mobile-menu .btn').forEach(el => {
- el.addEventListener('click', () => {
+document.addEventListener('DOMContentLoaded', () => {
+ const hbg = document.getElementById('hamburger');
+ const mm  = document.getElementById('mobileMenu');
+ if (!hbg || !mm) return;
+ function closeMenu() {
   hbg.classList.remove('open');
   mm.classList.remove('open');
   hbg.setAttribute('aria-expanded','false');
   document.body.style.overflow = '';
+ }
+ hbg.addEventListener('click', () => {
+  const o = hbg.classList.toggle('open');
+  mm.classList.toggle('open');
+  hbg.setAttribute('aria-expanded', o);
+  document.body.style.overflow = o ? 'hidden' : '';
  });
+ document.querySelectorAll('.mobile-link,.mobile-menu .btn').forEach(el => {
+  el.addEventListener('click', closeMenu);
+ });
+ mm.addEventListener('click', (e) => { if (e.target === mm) closeMenu(); });
 });
 
 // ── NAV SCROLL STATE ──────────────────────────────────────
