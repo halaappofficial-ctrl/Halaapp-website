@@ -924,8 +924,9 @@ footer{
 }
 
 /* ─── MOBILE UX FIXES ────────────────────────────────────── */
-/* Issue 1: Explicit hamburger visibility on mobile */
+/* Issue 1: Explicit hamburger visibility on mobile — hide live badge that was pushing it off screen */
 @media(max-width:767px){
+  .nav-live{display:none}
   .hamburger{display:flex !important}
 }
 
