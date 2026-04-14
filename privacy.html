@@ -957,7 +957,7 @@ footer{
    <a href="#download" class="btn btn-green btn-sm" id="nav-cta">Get Started</a>
   </div>
 
-  <button type="button" class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
+  <button onclick="halaMenuToggle()" type="button" class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu">
    <span></span><span></span><span></span>
   </button>
  </div>
@@ -1218,30 +1218,37 @@ footer{
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 
 // ── HAMBURGER ─────────────────────────────────────────────
-// FIX: document-level capture delegation survives Cloudflare
-// DOM processing and works on every mobile browser without fail.
-(function() {
- var menuOpen = false;
- function setMenu(open) {
-  var hbg = document.getElementById('hamburger');
-  var mm  = document.getElementById('mobileMenu');
-  if (!hbg || !mm) return;
-  menuOpen = !!open;
-  hbg.classList.toggle('open', menuOpen);
-  mm.classList.toggle('open', menuOpen);
-  hbg.setAttribute('aria-expanded', String(menuOpen));
-  document.body.style.overflow = menuOpen ? 'hidden' : '';
- }
- document.addEventListener('click', function(ev) {
-  var t = ev.target;
-  while (t && t !== document.body) {
-   if (t.id === 'hamburger')  { setMenu(!menuOpen); return; }
-   if (t.id === 'mobileMenu' && ev.target === t) { setMenu(false); return; }
-   if (t.classList && t.classList.contains('mobile-link')) { setMenu(false); return; }
-   t = t.parentElement;
-  }
- }, true);
-}());
+// NUCLEAR FIX: global onclick — button calls halaMenuToggle() directly.
+// No delegation, no listeners, no IIFE. Survives Cloudflare Rocket Loader.
+window._halaOpen = false;
+function halaMenuToggle() {
+ var hbg = document.getElementById('hamburger');
+ var mm  = document.getElementById('mobileMenu');
+ if (!hbg || !mm) return;
+ window._halaOpen = !window._halaOpen;
+ hbg.classList.toggle('open', window._halaOpen);
+ mm.classList.toggle('open', window._halaOpen);
+ hbg.setAttribute('aria-expanded', String(window._halaOpen));
+ document.body.style.overflow = window._halaOpen ? 'hidden' : '';
+}
+function halaMenuClose() {
+ var hbg = document.getElementById('hamburger');
+ var mm  = document.getElementById('mobileMenu');
+ if (!hbg || !mm) return;
+ window._halaOpen = false;
+ hbg.classList.remove('open');
+ mm.classList.remove('open');
+ hbg.setAttribute('aria-expanded', 'false');
+ document.body.style.overflow = '';
+}
+document.addEventListener('DOMContentLoaded', function() {
+ var mm = document.getElementById('mobileMenu');
+ if (!mm) return;
+ mm.addEventListener('click', function(ev) {
+  if (ev.target === mm) { halaMenuClose(); return; }
+  if (ev.target && ev.target.classList && ev.target.classList.contains('mobile-link')) { halaMenuClose(); }
+ });
+});
 
 // ── NAV SCROLL STATE ──────────────────────────────────────
 const nav = document.getElementById('main-nav');
