@@ -128,4 +128,18 @@
     <priority>0.3</priority>
   </url>
 
+  <url>
+    <loc>https://www.halaapp.co.za/student-moving-durban</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <url>
+    <loc>https://www.halaapp.co.za/business-transport-durban</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.90</priority>
+  </url>
+
 </urlset>
