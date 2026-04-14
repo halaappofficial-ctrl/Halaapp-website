@@ -41,6 +41,18 @@
   </url>
 
   <url>
+    <loc>https://www.halaapp.co.za/same-day-delivery-durban</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.halaapp.co.za/og-image.svg</image:loc>
+      <image:title>HALA MOVE — Same Day Delivery Durban</image:title>
+      <image:caption>Same-day delivery in Durban with verified couriers, live GPS tracking, and PayFast escrow</image:caption>
+    </image:image>
+  </url>
+
+  <url>
     <loc>https://www.halaapp.co.za/bakkie-hire-durban</loc>
     <lastmod>2026-04-14</lastmod>
     <changefreq>weekly</changefreq>
@@ -49,6 +61,30 @@
       <image:loc>https://www.halaapp.co.za/og-image.svg</image:loc>
       <image:title>HALA MOVE — Bakkie Hire Durban</image:title>
       <image:caption>On-demand bakkie hire in Durban with verified drivers and live GPS tracking</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.halaapp.co.za/panel-van-hire-durban</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.halaapp.co.za/og-image.svg</image:loc>
+      <image:title>HALA MOVE — Panel Van Hire Durban</image:title>
+      <image:caption>Enclosed panel van hire in Durban with verified drivers and live GPS tracking</image:caption>
+    </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.halaapp.co.za/truck-hire-durban</loc>
+    <lastmod>2026-04-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <image:image>
+      <image:loc>https://www.halaapp.co.za/og-image.svg</image:loc>
+      <image:title>HALA MOVE — Truck Hire Durban</image:title>
+      <image:caption>4-ton and 8-ton truck hire in Durban with verified drivers and live GPS tracking</image:caption>
     </image:image>
   </url>
 
