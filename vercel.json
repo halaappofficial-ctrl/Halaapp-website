@@ -1,6 +1,13 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "redirects": [
+    {
+      "source": "/admin",
+      "destination": "https://hala-backend-production.up.railway.app/admin/",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
