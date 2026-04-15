@@ -1976,8 +1976,11 @@ if ('IntersectionObserver' in window) {
     ro.unobserve(e.target);
    }
   });
- }, {threshold: 0, rootMargin: '0px 0px 0px 0px'});
+ }, {threshold: 0, rootMargin: '200px 0px 0px 0px'});
  document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => ro.observe(el));
+ // Force-visible fix for Gap 3 audit — driver section reveals must always render
+ document.querySelectorAll('.driver .reveal, .driver .reveal-l, .driver .reveal-r')
+  .forEach(function(el){ el.classList.add('visible'); });
  // Failsafe: if observer hasn't fired within 1.5s, reveal everything
  setTimeout(() => {
   document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
