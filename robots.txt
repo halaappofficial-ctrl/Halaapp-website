@@ -1,4 +1,4 @@
-# HALA MOVE — halaapp.co.za
+# HALA MOVE — halamove.co.za
 # South Africa's real-time logistics marketplace
 # Bakkie hire and same-day delivery, Durban KwaZulu-Natal
 
@@ -31,4 +31,4 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
-Sitemap: https://www.halaapp.co.za/sitemap.xml
+Sitemap: https://www.halamove.co.za/sitemap.xml
