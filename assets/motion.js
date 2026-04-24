@@ -194,7 +194,34 @@
       });
     });
   }
-  function initReveals()  { /* Task 4.5 — generic .reveal handler (§8.4) */ }
+  // --------------------------------------------------------------
+  // §8.4 — Shared grammar: generic .reveal handler
+  // Applies to any element with class="reveal" that isn't already
+  // handled by initStats / initSteps / initHero.
+  // --------------------------------------------------------------
+  function initReveals() {
+    const all = document.querySelectorAll('.reveal');
+    if (all.length === 0) return;
+
+    const threshold = isMobile() ? MOTION_VOCAB.thresholdMobile : MOTION_VOCAB.thresholdDesktop;
+    const dist = isMobile() ? MOTION_VOCAB.translateMobilePx : MOTION_VOCAB.translateDesktopPx;
+    const dur = isMobile() ? MOTION_VOCAB.durationMobileMs : MOTION_VOCAB.durationDesktopMs;
+
+    all.forEach(function (el) {
+      // Skip elements handled by dedicated initializers
+      if (el.closest('.how') && el.classList.contains('step')) return; // handled by initSteps
+      if (el.closest('.hero') && el.hasAttribute('data-motion-hero-el')) return; // handled by initHero
+
+      // Pre-staging handled by CSS (install-motion-prestage.cjs).
+      onViewOnce(el, threshold, function (target) {
+        window.Motion.animate(
+          target,
+          { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
+          { duration: dur / 1000, easing: MOTION_VOCAB.easing, fill: 'forwards' }
+        );
+      });
+    });
+  }
   function initHero()     { /* Task 12 */ }
 
   // --------------------------------------------------------------
