@@ -66,18 +66,22 @@
   // the spec's "one new file" commitment holds.
   // --------------------------------------------------------------
   function injectCss() {
+    // Idempotency guard — setupMotion() may be re-invoked via window.__halaMotion
+    // from DevTools. Without this, each call appends another <style> element.
+    if (document.querySelector('style[data-source="motion.js"]')) return;
     const css = [
       '/* §7.4 button hover lift — desktop only, 150ms linear-out */',
       '@media (hover: hover) {',
       '  .btn { transition: transform 150ms cubic-bezier(0.22, 0.61, 0.36, 1); }',
       '  .btn:hover { transform: translateY(-1px); }',
       '}',
-      '/* §9.3 safety: if motion.js fails or reduced-motion is set, never hide anything */',
-      'html.motion-failed [data-motion-hero-el],',
-      'html.motion-reduced [data-motion-hero-el] { opacity: 1 !important; transform: none !important; }',
-      'html.motion-failed .step, html.motion-reduced .step { opacity: 1 !important; transform: none !important; }',
-      'html.motion-failed .stat-item, html.motion-reduced .stat-item { opacity: 1 !important; transform: none !important; }',
-      'html.motion-failed .reveal, html.motion-reduced .reveal { opacity: 1 !important; transform: none !important; }',
+      '/* §9.3 safety: if motion.js fails or reduced-motion is set, never hide anything. */',
+      '/* These !important rules also override the inline pre-stage CSS injected in the HTML head. */',
+      'html.motion-failed .stats-bar .stat-item, html.motion-reduced .stats-bar .stat-item,',
+      'html.motion-failed .how .step, html.motion-reduced .how .step,',
+      'html.motion-failed .reveal, html.motion-reduced .reveal,',
+      'html.motion-failed .hero [data-motion-hero-el], html.motion-reduced .hero [data-motion-hero-el]',
+      '{ opacity: 1 !important; transform: none !important; }',
     ].join('\n');
     const style = document.createElement('style');
     style.setAttribute('data-source', 'motion.js');

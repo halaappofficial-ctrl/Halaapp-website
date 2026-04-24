@@ -1077,6 +1077,22 @@ footer{
  #city-canvas{display:none}
 }
 </style>
+<!-- Motion pre-stage (spec §9.2) — prevents FOUC on above-the-fold animated elements. -->
+<script>document.documentElement.classList.add('js-ready')</script>
+<style>
+html.js-ready .stats-bar .stat-item,
+html.js-ready .how .step,
+html.js-ready .reveal,
+html.js-ready .hero [data-motion-hero-el]{opacity:0;transform:translateY(16px);transition:none}
+@media (max-width:768px){
+html.js-ready .stats-bar .stat-item,
+html.js-ready .how .step,
+html.js-ready .reveal,
+html.js-ready .hero [data-motion-hero-el]{transform:translateY(10px)}
+}
+</style>
+<!-- Motion One (animation library) - pinned -->
+<script defer src="https://cdn.jsdelivr.net/npm/motion@11.15.0/dist/motion.min.js"></script>
 </head>
 <body>
 <!-- NAVIGATION -->
