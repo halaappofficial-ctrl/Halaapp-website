@@ -61,6 +61,34 @@
   }
 
   // --------------------------------------------------------------
+  // Stats counter helper (used by initStats — §8.3)
+  // Animates an element's text content from 0 to data-count over 900ms
+  // with ease-out cubic. Preserves data-prefix and data-suffix.
+  // --------------------------------------------------------------
+  function animateCounter(el) {
+    const target = parseFloat(el.getAttribute('data-count'));
+    if (!isFinite(target)) return;
+
+    const prefix = el.getAttribute('data-prefix') || '';
+    const suffix = el.getAttribute('data-suffix') || '';
+    const duration = MOTION_VOCAB.counterDurationMs;
+    const start = performance.now();
+
+    function frame(now) {
+      const t = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+      const value = Math.round(target * eased);
+      el.textContent = prefix + value + suffix;
+      if (t < 1) {
+        requestAnimationFrame(frame);
+      } else {
+        el.textContent = prefix + target + suffix;
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+
+  // --------------------------------------------------------------
   // One-time CSS injection — button hover (§7.4) + motion-failed /
   // motion-reduced safety overrides (§9.3). Kept inside motion.js so
   // the spec's "one new file" commitment holds.
@@ -92,7 +120,36 @@
   // --------------------------------------------------------------
   // Section initializers (filled in by later tasks)
   // --------------------------------------------------------------
-  function initStats()    { /* Task 3 */ }
+  // --------------------------------------------------------------
+  // §8.3 — Stats counter
+  // --------------------------------------------------------------
+  function initStats() {
+    const bar = document.querySelector('.stats-bar');
+    if (!bar) return;
+
+    const counterEls = bar.querySelectorAll('[data-count]');
+    const tiles = bar.querySelectorAll('.stat-item');
+    const threshold = isMobile() ? MOTION_VOCAB.thresholdMobile : MOTION_VOCAB.thresholdDesktop;
+    const stagger = isMobile() ? MOTION_VOCAB.staggerMobileMs : MOTION_VOCAB.staggerDesktopMs;
+    const dist = isMobile() ? MOTION_VOCAB.translateMobilePx : MOTION_VOCAB.translateDesktopPx;
+    const dur = isMobile() ? MOTION_VOCAB.durationMobileMs : MOTION_VOCAB.durationDesktopMs;
+
+    // NOTE: CSS pre-staging handled in the HTML head inline <style> (installed
+    // via install-motion-prestage.cjs). Do NOT also pre-stage in JS — redundant.
+    // Every animate() uses `fill: 'forwards'` so the final keyframe value
+    // sticks after the animation ends.
+
+    onViewOnce(bar, threshold, function () {
+      counterEls.forEach(animateCounter);
+      tiles.forEach(function (tile, i) {
+        window.Motion.animate(
+          tile,
+          { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
+          { duration: dur / 1000, delay: (i * stagger) / 1000, easing: MOTION_VOCAB.easing, fill: 'forwards' }
+        );
+      });
+    });
+  }
   function initSteps()    { /* Task 4 */ }
   function initReveals()  { /* Task 4.5 — generic .reveal handler (§8.4) */ }
   function initHero()     { /* Task 12 */ }
