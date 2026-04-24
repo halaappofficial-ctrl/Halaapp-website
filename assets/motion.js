@@ -225,7 +225,37 @@
       });
     });
   }
-  function initHero()     { /* Task 12 */ }
+  // --------------------------------------------------------------
+  // §8.1 (revised) — Hero text-column reveal-on-load stagger.
+  // Phone mockup is NOT animated here — it has its own motion (bid
+  // arrivals, pulse-dot, city-canvas) preserved under §7.5 exceptions.
+  // --------------------------------------------------------------
+  function initHero() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+
+    const order = ['eyebrow', 'h1', 'sub', 'cta', 'trust'];
+    const staggerStartMs = [0, 60, 120, 180, 240];
+    const dist = isMobile() ? MOTION_VOCAB.translateMobilePx : MOTION_VOCAB.translateDesktopPx;
+    const dur = isMobile() ? MOTION_VOCAB.durationMobileMs : MOTION_VOCAB.durationDesktopMs;
+
+    // Pre-staging handled by CSS in HTML head (install-motion-prestage.cjs)
+    // via the `html.js-ready .hero [data-motion-hero-el]` selector.
+
+    // Fire the stagger after first paint so LCP isn't blocked
+    requestAnimationFrame(function () {
+      order.forEach(function (key, i) {
+        const el = hero.querySelector('[data-motion-hero-el="' + key + '"]');
+        if (!el) return;
+        const delay = staggerStartMs[i];
+        window.Motion.animate(
+          el,
+          { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
+          { duration: dur / 1000, delay: delay / 1000, easing: MOTION_VOCAB.easing, fill: 'forwards' }
+        );
+      });
+    });
+  }
 
   // --------------------------------------------------------------
   // Entry point
