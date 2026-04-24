@@ -58,7 +58,7 @@ Three sections get direct work; everything else on the 7 pages inherits the shar
 
 | # | Section | Location | Work type | Why |
 |---|---|---|---|---|
-| 1 | Hero (`.hero`) | `index.html:1238` | Redesign + animate | First-impression gate. Currently static. 21st.dev explores 2–3 phone-mockup "alive state" variants; frontend-design arbitrates; port to vanilla HTML; wire with Motion One. |
+| 1 | Hero (`.hero`) | `index.html:1254` | Wire reveal-on-load stagger on text column | First-impression gate. Phone mockup already has rich motion (bid arrivals, pulse-dot, city-canvas) that is kept as-is; see §7.5 "scoped exceptions." Only the text column (eyebrow → h1 → sub → CTA → trust) needs the shared §7 grammar added on page load. **Scope revised 2026-04-24** after discovering existing hero animations contradicted the original "static hero" assumption — see §14. |
 | 2 | How it works (`.how`) | `index.html:1404` | Wire existing markup | Storytelling gate. Markup already has `.reveal.visible.d1-d4` + `.steps-line-fill`. Zero layout change; pure wire-up. |
 | 3 | Stats bar (`.stats-bar`) | `index.html:1380` | Wire existing markup | Trust gate. Markup already has `data-count` / `data-suffix` attributes waiting for counter animation. Zero layout change. |
 
@@ -97,40 +97,48 @@ One shared language, applied everywhere. Consistency is the premium feel.
 - `transform: translateY(-1px)`, 150ms, linear-out.
 - Disabled on `(hover: none)` devices.
 
-### 7.5 Hard-blocked behaviours
+### 7.5 Hard-blocked behaviours (with scoped exceptions)
 
-- Springs, overshoots, bounces
-- Looping animations (infinite pulse, infinite shimmer)
+The Uber-restraint tone applies to **scroll/viewport reveal animations** — the shared grammar that fires across the site. It does NOT apply universally; specific product UX patterns are allowed spring/loop motion under tight gating:
+
+**Universally blocked** (for all reveal animations):
 - Autoplay carousels
-- Animations >500ms (outside the 2 documented exceptions)
+- Animations >500ms (outside the documented exceptions)
 - Any animation on `prefers-reduced-motion: reduce` (fall back to instant opacity change, show final state)
 - Movement >24px mobile / >32px desktop
 
+**Blocked for reveals; allowed for specific product contexts:**
+
+| Pattern | Blocked for | Allowed for | Reason |
+|---|---|---|---|
+| Springs / overshoots | Scroll reveals, page-load stagger | Discrete product events (e.g., `.bid-card.arriveN` in the hero phone mockup) that fire once | A spring on a bid-card landing reads as "a bid just arrived" — it punctuates a product moment, not a UI reveal. Uber restraint here would feel dead. Scope: `.bid-card.arrive*` at `index.html:550-552` is grandfathered. |
+| Infinite looping animations | Everything that isn't a live-status indicator | Elements conveying platform liveness (`.pulse-dot`), low-motion ambient backgrounds (`#city-canvas`) | Pulse-dot IS the feature — it communicates "platform is live" which the spec §2 identifies as Gate 2. Permitted with: (a) cycle ≥1.2s, (b) `aria-label` indicates live status, (c) CSS `prefers-reduced-motion` stops the loop. |
+
+Scope additions require spec update. This is not a blanket permission.
+
 ## 8. Per-section specs
 
-### 8.1 Hero (redesign + animate) — `index.html:1238`
+### 8.1 Hero (wire text-column reveal-on-load) — `index.html:1254`
 
-**Problem:** hero is structurally solid but static. Phone mockup at line 1288 just sits. Headline appears as one block. No signal that the product is live.
+**Revised 2026-04-24** — see §14. Original scope assumed the hero was static; code inspection during implementation revealed substantial existing motion (bid-card spring arrivals, infinite `pulse-dot`, `city-canvas` background animation, countdown timer). User confirmed the existing motion is the right feel for the product and the tone constraint was relaxed via §7.5 scoped exceptions. Scope narrows to adding reveal-on-load stagger for the text column only.
 
-**Redesign direction (explored via 21st.dev, arbitrated by frontend-design skill):**
+**In scope (Phase 1):**
 
-- Phone mockup becomes the motion anchor — a subtle "alive" signal (e.g., driver-bid card entering, route line drawing, map tile rendering). Resolves once, holds. No loop.
-- Headline region arrives as a 4-element stagger: eyebrow → h1 → sub → CTA.
-- Trust badges (`.hero-trust`) fade in after the CTA lands so the eye reads the primary action first.
-
-**Motion spec (bound by §7):**
-
-- Fires on page load (not scroll) — inside the first 400ms after first paint, so hero reveal does not delay LCP.
-- Stagger **start times** (measured from the sequence origin):
+- Text column reveals on page load as a 5-element stagger: eyebrow → h1 → sub → CTA → trust.
+- Uses the shared §7 grammar (linear-out, fire-once, transform + opacity only).
+- Fires on page load (not scroll), inside the first 400ms after first paint, so hero reveal does not delay LCP.
+- Stagger **start times** (measured from sequence origin):
   - eyebrow at 0ms
   - h1 at 60ms
   - sub at 120ms
   - CTA at 180ms
   - trust at 240ms
-  - phone micro-interaction *begins* at 300ms
-- Phone micro-interaction **duration**: up to 500ms (per §7.3 exception). So the last frame of hero reveal resolves at approximately 300ms + 500ms = 800ms after sequence start, ≈1200ms after first paint. Still well inside perceptual "instant" for a hero entrance.
 
-**Tool usage:** Motion One (runtime) · 21st.dev magic (2–3 React prototypes of the phone alive-state) · frontend-design skill (brief + arbitration).
+**Out of scope (Phase 1):**
+
+- Phone mockup (`.hero-phone-wrap`). Its existing motion — `.bid-card.arriveN` spring arrivals at `index.html:550-552`, `.pulse-dot` liveness indicator, `#city-canvas` ambient background — is preserved intact under §7.5 scoped exceptions. No port, no redesign, no 21st.dev exploration.
+
+**Tool usage:** Motion One only. 21st.dev magic and frontend-design skill are NOT used in Phase 1 (their planned roles were to explore a phone-mockup "alive state" that no longer needs exploration).
 
 ### 8.2 How it works (wire existing markup) — `index.html:1404`
 
@@ -211,27 +219,25 @@ Each item must pass before work is claimed complete:
 4. Mid-range Android smoke (real device or emulator) — verify no stutter.
 5. Keyboard tab-through on `index.html` — verify no focus traps in animating elements.
 
-## 10. Three-tool workflow
+## 10. Tool workflow (revised 2026-04-24 — see §14)
 
 ### 10.1 Which tools per section
 
 | Section | Motion One | 21st.dev magic | frontend-design |
 |---|---|---|---|
-| Hero (redesign) | ✅ runtime | ✅ 2–3 prototypes | ✅ brief + arbitration |
+| Hero (wire text-column stagger) | ✅ runtime | ❌ (scope dropped) | ❌ (scope dropped) |
 | How it works (wire-up) | ✅ runtime | ❌ | ❌ |
 | Stats counter (wire-up) | ✅ runtime | ❌ | ❌ |
 | Shared grammar | ✅ runtime | ❌ | ⚠️ spot-check only |
 
-Reaching for 21st.dev on a second section = scope creep; re-review §6.
+**Original spec committed to a 6-step hero redesign loop using all three tools. That loop was dropped** after code inspection revealed the hero phone mockup already has rich, product-appropriate motion that does not benefit from re-exploration (see §14). 21st.dev magic and frontend-design skill remain available for future phases (e.g., Phase 2 post-launch CTA optimization) but are not used in Phase 1.
 
-### 10.2 Hero redesign loop (6 gated steps)
+### 10.2 Hero wire-up (now a simple wire-up, not a 6-step loop)
 
-1. **frontend-design skill → write brief.** One-page brief: "restrained hero micro-interaction for SA logistics app, signal liveness without motion noise." User approves brief.
-2. **21st.dev magic → generate 2–3 React prototypes.** Input: brief + current hero screenshot + §7 vocabulary. Output: React+Tailwind components viewable in browser.
-3. **frontend-design skill → arbitrate.** Ranked pick + reasoning + pre-port adjustments. User confirms or overrides.
-4. **Port to vanilla HTML + CSS.** React output is reference only. Rewrite as plain HTML inside `index.html` using existing class conventions. No Tailwind, no React runtime, no build step.
-5. **Wire Motion One per §7.** Hero stagger sequence + phone micro-interaction.
-6. **Verify against §9.4.** All 5 checks pass or we don't ship.
+1. Read existing markup at `index.html:1254`.
+2. Add `data-motion-hero-el` attributes to the 5 text-column elements (eyebrow, h1, sub, cta, trust).
+3. Update `initHero()` in `assets/motion.js` to fire the page-load stagger per §8.1.
+4. Verify against §9.4.
 
 ### 10.3 Wire-up loop (how-it-works + stats)
 
@@ -250,21 +256,37 @@ One new file: `assets/motion.js` — approximately 120 lines. Handles all three 
 
 One file rationale: easier to audit, one Lighthouse diff to read, same file ports unchanged to all 7 pages.
 
-## 12. Ship order
+## 12. Ship order (revised)
 
-1. **Day 1–2:** Wire-ups (§8.2 + §8.3). Risk-free, ships visible value, validates the `assets/motion.js` pipeline before the hero.
-2. **Day 3–5:** Hero redesign loop (§10.2).
-3. **Day 5–6:** Propagate `motion.js` to the 6 landing pages + Lighthouse sweep.
-4. **Day 6:** §9.4 verification. Report actual numbers.
+1. Wire-ups (§8.2 + §8.3 + §8.4): stats counter, how-it-works, generic `.reveal`. ✅ **Shipped** as of 2026-04-24 commit cef92f5.
+2. Hero text-column stagger (§8.1 revised). Wire-up, not redesign.
+3. Final §9.4 verification and any cleanup.
 
-If days 1–2 surface an unforeseen CWV regression, stop and reassess before touching the hero. §9 takes priority over the timeline.
+## 13. Open questions (deferred / resolved)
 
-## 13. Open questions (deferred to implementation-plan stage)
+- ✅ **Resolved:** tile 3 ("R150+") stays as text-only reveal, not a counter. YAGNI default held.
+- ✅ **Resolved:** existing mobile CSS for `.steps-line` already handled orientation — no extra work needed (confirmed during Task 5 browser verification).
+- ✅ **Dropped:** phone-mockup "alive state" motif. The phone mockup already has rich, product-appropriate motion (bid arrivals, pulse-dot, city-canvas) that is preserved under §7.5 scoped exceptions.
+- Gitignore of `*.html.bak` installer artifacts — handled in plan Task 14.
 
-- Whether the existing mobile CSS for `.steps-line` already handles the vertical orientation, or we need to add it.
-- Exact phone-mockup "alive state" motif — resolved in §10.2 step 3 via 21st.dev + frontend-design.
-- Whether tile 3 ("R150+") in the stats bar should become a counter (add `data-count="150"` + prefix/suffix attributes) or stay as a text-only reveal. Implementation-plan decision.
-- Whether to gitignore `*.html.bak` (from the Motion One installer) now or after the spec is committed. Side task.
+## 14. Scope revision log
+
+### 2026-04-24 — Hero redesign scope dropped
+
+**What changed:** §6 (hero row), §7.5 (scoped exceptions added), §8.1 (rewritten as wire-up), §10 (6-step loop replaced with 4-step wire-up), §12 (ship order simplified).
+
+**Why:** Before dispatching the hero brief (plan Task 8), code inspection of `index.html` at lines 340, 370, 410, 550-552, 1255, 1320, 2078, 2188 revealed the hero already contains:
+
+- `bidArrive` keyframe animation with spring easing `cubic-bezier(.34,1.56,.64,1)` on `.bid-card.arriveN` (violates original tone A "no springs")
+- `pulse-dot` infinite loop on `.phone-header-badge` (violates original §7.5 "no looping animations")
+- `#city-canvas` JS-driven ambient background animation (low-motion but continuous)
+- `phone-timer` countdown driven by JS
+
+The original design assumption — "hero is static; needs motion added via 21st.dev + frontend-design exploration" — was wrong. The hero is already animated, and the existing motion is product-appropriate (bid landing = spring punctuation; pulse-dot = liveness signal; both tie to Gate 2 "first impression + platform liveness" in §2).
+
+**Decision (confirmed by user 2026-04-24):** relax the universal tone constraint via §7.5 scoped exceptions, preserve existing hero motion intact, narrow Phase 1 hero work to adding the reveal-on-load stagger on the text column to match the shared §7 grammar. 21st.dev magic MCP and frontend-design skill are not used in Phase 1.
+
+**Implication for downstream phases:** if Phase 2 introduces new animation (e.g., on CTAs or conversion micro-interactions), the §7.5 exception list is the governing reference — not the original tone A blanket rule.
 
 ## 14. Explicit non-decisions
 

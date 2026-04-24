@@ -875,7 +875,30 @@ git commit -m "docs: Lighthouse comparison after wire-ups (Tasks 3-6)"
 
 ---
 
-## Task 8: Hero redesign — write brief via frontend-design skill
+## Tasks 8, 9, 10, 11 — DROPPED (scope revision 2026-04-24)
+
+**Status:** Obsolete. See spec §14 for the scope-revision log.
+
+**Summary:** The hero phone mockup at `index.html:1254` already has rich, product-appropriate motion (bid-card spring arrivals, `pulse-dot` liveness indicator, `city-canvas` ambient background). Original plan assumed the hero was static and committed to a 6-step redesign loop using 21st.dev magic + frontend-design skill. Code inspection before Task 8 showed this assumption was wrong — the hero doesn't need redesign, only a reveal-on-load stagger on its text column to match the shared §7 grammar.
+
+**Spec changes:**
+- §6 hero row: "Wire reveal-on-load stagger on text column" (was "Redesign + animate")
+- §7.5: added scoped exceptions for springs-on-product-events and loops-for-liveness
+- §8.1: rewritten as a wire-up spec, not a redesign
+- §10: dropped the 6-step hero loop, simplified to 4-step wire-up
+- §14: full revision log
+
+**Tools not used in Phase 1:** 21st.dev magic MCP, frontend-design skill. They remain available for Phase 2.
+
+Task 12 below is the whole remaining hero-implementation surface and already targets `[data-motion-hero-el]` text-column attributes, so its content is unchanged by this revision.
+
+---
+
+## Task 8 — OBSOLETE (original content preserved below for audit)
+
+This and Tasks 9, 10, 11 are preserved verbatim below ONLY so the git history remains honest about what was planned and why it was dropped. Execution skips straight to Task 12. If reviewing this plan later, stop here and jump to Task 12.
+
+### ORIGINAL Task 8: Hero redesign — write brief via frontend-design skill
 
 **Purpose:** Establish the visual direction for the hero redesign (spec §10.2 step 1). This is human-in-the-loop — the frontend-design skill writes a one-page brief; user approves before 21st.dev is invoked.
 
@@ -1044,9 +1067,11 @@ git commit -m "feat(hero): port redesigned hero to vanilla HTML (spec §10.2.4)"
 
 ---
 
-## Task 12: Hero redesign — wire Motion One animation
+## Task 12: Hero text-column reveal-on-load stagger
 
-**Purpose:** Spec §10.2 step 5. Fill in `initHero()` in `motion.js`. Implement the stagger sequence (eyebrow → h1 → sub → CTA → trust → phone) firing on page load, not scroll.
+**Purpose:** Spec §8.1 (revised). Fill in `initHero()` in `motion.js`. Add `data-motion-hero-el` attributes to the 5 text-column elements in the hero, then fire the stagger (eyebrow → h1 → sub → CTA → trust) on page load, not scroll.
+
+**Scope reduction from original:** No "phone micro-interaction" — the phone mockup already has its own motion (bid-card arrivals, pulse-dot, city-canvas) and is preserved intact under §7.5 scoped exceptions. Task 12's code happens to already omit phone animation from the loop; the scope change is about the HTML-attribute side (don't add `data-motion-hero-el="phone"` anywhere).
 
 **Files:**
 - Modify: `assets/motion.js` (replace `initHero` stub)
@@ -1057,14 +1082,16 @@ In `assets/motion.js`, replace `function initHero() { /* Task 12 */ }` with:
 
 ```js
   // --------------------------------------------------------------
-  // §8.1 — Hero stagger + phone micro-interaction
+  // §8.1 (revised) — Hero text-column reveal-on-load stagger.
+  // Phone mockup is NOT animated here — it has its own motion (bid
+  // arrivals, pulse-dot, city-canvas) preserved under §7.5 exceptions.
   // --------------------------------------------------------------
   function initHero() {
     const hero = document.querySelector('.hero');
     if (!hero) return;
 
-    const order = ['eyebrow', 'h1', 'sub', 'cta', 'trust', 'phone'];
-    const staggerStartMs = [0, 60, 120, 180, 240, 300];
+    const order = ['eyebrow', 'h1', 'sub', 'cta', 'trust'];
+    const staggerStartMs = [0, 60, 120, 180, 240];
     const dist = isMobile() ? MOTION_VOCAB.translateMobilePx : MOTION_VOCAB.translateDesktopPx;
     const dur = isMobile() ? MOTION_VOCAB.durationMobileMs : MOTION_VOCAB.durationDesktopMs;
 
@@ -1076,16 +1103,11 @@ In `assets/motion.js`, replace `function initHero() { /* Task 12 */ }` with:
       order.forEach(function (key, i) {
         const el = hero.querySelector('[data-motion-hero-el="' + key + '"]');
         if (!el) return;
-
         const delay = staggerStartMs[i];
-        const thisDur = (key === 'phone')
-          ? MOTION_VOCAB.heroMaxDurationMs / 1000
-          : dur / 1000;
-
         window.Motion.animate(
           el,
           { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
-          { duration: thisDur, delay: delay / 1000, easing: MOTION_VOCAB.easing, fill: 'forwards' }
+          { duration: dur / 1000, delay: delay / 1000, easing: MOTION_VOCAB.easing, fill: 'forwards' }
         );
       });
     });
