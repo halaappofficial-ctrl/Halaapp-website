@@ -20,7 +20,7 @@ const IN_SCOPE = [
   'same-day-delivery-durban.html',
 ];
 
-const TAG = '<!-- HALA motion wiring -->\r\n<script defer src="assets/motion.js"></script>\r\n';
+const TAG = '<!-- HALA motion wiring -->\r\n<script defer src="assets/motion.js" onerror="document.documentElement.classList.add(\'motion-failed\')"></script>\r\n';
 const MARKER = 'assets/motion.js';
 // Insert immediately after the Motion One script tag so load order is correct.
 const ANCHOR = /(<script defer src="https:\/\/cdn\.jsdelivr\.net\/npm\/motion@[^"]+"><\/script>)(\r?\n)/;

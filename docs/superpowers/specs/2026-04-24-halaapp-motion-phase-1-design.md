@@ -200,14 +200,22 @@ Scope additions require spec update. This is not a blanket permission.
 - **Keyboard focus** — elements are interactable from `opacity ≥ 0.01`, not after animation completes. Never trap focus inside a mid-animation element.
 - **Screen readers** — counters use `aria-live="off"`; DOM text content is final value. Assistive tech reads `80%`, not "0" during animation.
 
-### 9.3 Fallback (Motion One CDN failure)
+### 9.3 Fallback (Motion One CDN failure OR motion.js load/parse failure)
 
-Progressive enhancement, not dependency.
+Progressive enhancement with a three-layer safety net. Covers both the Motion One CDN being blocked/slow AND the `assets/motion.js` file itself 404-ing or throwing at parse time.
 
-- Hero elements: `opacity: 1` in CSS by default. Runtime script applies `opacity: 0` only after Motion One confirms loaded (via a `js-ready` class on `<html>`).
-- How-it-works steps: already have `.visible` class in CSS — visible by default. CDN failure = steps stay visible.
-- Stats counters: DOM text content is already final value. CDN failure = user sees the final number, no counter effect.
-- `<script>` tag gets an `onerror` handler adding a `motion-failed` class to `<html>` so CSS can force final states as a safety net.
+**Layer 1 — Pre-stage hiding is gated on JS being able to run at all.** Inline `<script>document.documentElement.classList.add('js-ready')</script>` in each page's `<head>` runs synchronously before first paint. If scripts are disabled entirely, the `js-ready` class never gets added, the pre-stage CSS selectors don't match, and elements render visible by CSS default.
+
+**Layer 2 — `onerror` handlers on BOTH script tags.** The Motion One CDN `<script>` AND the `assets/motion.js` `<script>` each carry `onerror="document.documentElement.classList.add('motion-failed')"`. If either script 404s or fails to parse, the handler fires synchronously and the `motion-failed` class lands before rendering animated elements.
+
+**Layer 3 — `:not(.motion-failed)` gates on the pre-stage selectors.** The inline `<style>` block injected by `install-motion-prestage.cjs` uses `html.js-ready:not(.motion-failed) [selector] { opacity: 0; transform: ... }` rather than `html.js-ready [selector]`. When `onerror` adds `motion-failed`, the pre-stage rule stops matching and elements revert to their default visible state — no override rules needed. This keeps the safety net CSS-driven even when motion.js never runs.
+
+**Layer 4 — motion.js runtime detection.** If both scripts load but the Motion One global `window.Motion.animate` is missing, `motionOneAvailable()` returns false and `setupMotion()` adds `motion-failed` itself before bailing. The `:not(.motion-failed)` selector then unhides elements the same way. motion.js also injects `html.motion-failed ... { opacity: 1 !important }` rules via `injectCss()` as a belt-and-braces redundancy, though this is strictly unnecessary given Layer 3.
+
+**Per-section behaviour on failure:**
+- Hero text column + stats tiles + steps + `.reveal` elements: pre-stage rule stops matching on `motion-failed` → elements revert to visible.
+- Stats counters: DOM text content is already the final value. CDN failure = user sees the final number, no counter effect.
+- Hero phone mockup (`.bid-card`, `.pulse-dot`, `#city-canvas`): independent of Motion One; keeps working per its own CSS/JS.
 
 ### 9.4 Verification checklist
 
@@ -288,7 +296,7 @@ The original design assumption — "hero is static; needs motion added via 21st.
 
 **Implication for downstream phases:** if Phase 2 introduces new animation (e.g., on CTAs or conversion micro-interactions), the §7.5 exception list is the governing reference — not the original tone A blanket rule.
 
-## 14. Explicit non-decisions
+## 15. Explicit non-decisions
 
 - Which React variant wins the hero — decided at §10.2 step 3, not now.
 - Colour, typography, spacing changes — out of scope. This spec is about motion, not visual redesign. The one exception (hero phone mockup) is bounded to that mockup area only.

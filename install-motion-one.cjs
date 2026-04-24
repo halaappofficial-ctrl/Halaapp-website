@@ -9,7 +9,7 @@ const ROOT = __dirname;
 const VERSION = '11.15.0';
 const SCRIPT_TAG =
   '<!-- Motion One (animation library) - pinned -->\r\n' +
-  '<script defer src="https://cdn.jsdelivr.net/npm/motion@' + VERSION + '/dist/motion.min.js"></script>\r\n';
+  '<script defer src="https://cdn.jsdelivr.net/npm/motion@' + VERSION + '/dist/motion.min.js" onerror="document.documentElement.classList.add(\'motion-failed\')"></script>\r\n';
 
 const MARKER = 'cdn.jsdelivr.net/npm/motion@';
 

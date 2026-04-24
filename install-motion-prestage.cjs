@@ -32,19 +32,23 @@ const IN_SCOPE = [
 //   - .how .step              (Task 4)
 //   - .reveal                 (Task 4.5, anywhere in body)
 //   - .hero [data-motion-hero-el]  (Task 11 + 12)
+// `.js-ready:not(.motion-failed)` — when motion.js fails to load (onerror
+// on the <script> tag adds `motion-failed`), the selector stops matching
+// and the pre-staged elements revert to their default CSS (visible). No
+// override-rule duplication needed.
 const BLOCK =
-  '<!-- Motion pre-stage (spec §9.2) — prevents FOUC on above-the-fold animated elements. -->\r\n' +
+  '<!-- Motion pre-stage (spec §9.2 / §9.3) — prevents FOUC on above-the-fold animated elements. -->\r\n' +
   '<script>document.documentElement.classList.add(\'js-ready\')</script>\r\n' +
   '<style>\r\n' +
-  'html.js-ready .stats-bar .stat-item,\r\n' +
-  'html.js-ready .how .step,\r\n' +
-  'html.js-ready .reveal,\r\n' +
-  'html.js-ready .hero [data-motion-hero-el]{opacity:0;transform:translateY(16px);transition:none}\r\n' +
+  'html.js-ready:not(.motion-failed) .stats-bar .stat-item,\r\n' +
+  'html.js-ready:not(.motion-failed) .how .step,\r\n' +
+  'html.js-ready:not(.motion-failed) .reveal,\r\n' +
+  'html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{opacity:0;transform:translateY(16px);transition:none}\r\n' +
   '@media (max-width:768px){\r\n' +
-  'html.js-ready .stats-bar .stat-item,\r\n' +
-  'html.js-ready .how .step,\r\n' +
-  'html.js-ready .reveal,\r\n' +
-  'html.js-ready .hero [data-motion-hero-el]{transform:translateY(10px)}\r\n' +
+  'html.js-ready:not(.motion-failed) .stats-bar .stat-item,\r\n' +
+  'html.js-ready:not(.motion-failed) .how .step,\r\n' +
+  'html.js-ready:not(.motion-failed) .reveal,\r\n' +
+  'html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translateY(10px)}\r\n' +
   '}\r\n' +
   '</style>\r\n';
 
