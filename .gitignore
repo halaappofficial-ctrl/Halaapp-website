@@ -1,0 +1,10 @@
+.vercel
+
+# HALA motion Phase 1 — installer artifacts
+# Created by install-motion-one.cjs / install-motion-js.cjs / install-motion-prestage.cjs
+# as per-file rollback copies. Use git history for canonical state.
+*.html.bak
+
+# Lighthouse raw JSON outputs. Markdown summaries are committed to
+# docs/superpowers/plans/baselines/ for auditability.
+baselines/
