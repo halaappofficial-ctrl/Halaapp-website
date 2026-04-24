@@ -150,7 +150,50 @@
       });
     });
   }
-  function initSteps()    { /* Task 4 */ }
+  // --------------------------------------------------------------
+  // §8.2 — How it works: progress line + step reveals
+  // --------------------------------------------------------------
+  function initSteps() {
+    const section = document.querySelector('.how');
+    if (!section) return;
+    const line = section.querySelector('.steps-line-fill');
+    const steps = section.querySelectorAll('.step');
+    if (!line || steps.length === 0) return;
+
+    // Line needs width:0 start — not covered by the CSS pre-stage (which is
+    // only opacity/transform for other elements). Set synchronously.
+    line.style.width = '0';
+    line.style.transformOrigin = 'left center';
+
+    const threshold = isMobile() ? MOTION_VOCAB.thresholdMobile : MOTION_VOCAB.thresholdDesktop;
+    const dist = isMobile() ? MOTION_VOCAB.translateMobilePx : MOTION_VOCAB.translateDesktopPx;
+    const dur = isMobile() ? MOTION_VOCAB.durationMobileMs : MOTION_VOCAB.durationDesktopMs;
+
+    // Pre-staging for .step elements handled by CSS in HTML head.
+    // All animate() calls below use fill: 'forwards'.
+
+    onViewOnce(section, threshold, function () {
+      const lineDur = MOTION_VOCAB.progressLineDurationMs / 1000;
+
+      // Animate the progress line (width is an intentional exception per spec §7.3).
+      window.Motion.animate(
+        line,
+        { width: ['0%', '100%'] },
+        { duration: lineDur, easing: MOTION_VOCAB.easing, fill: 'forwards' }
+      );
+
+      // Schedule each step at its proportional point along the line
+      const fractions = [0, 0.33, 0.66, 1.0];
+      steps.forEach(function (step, i) {
+        const delay = (fractions[i] || (i / Math.max(1, steps.length - 1))) * MOTION_VOCAB.progressLineDurationMs;
+        window.Motion.animate(
+          step,
+          { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
+          { duration: dur / 1000, delay: delay / 1000, easing: MOTION_VOCAB.easing, fill: 'forwards' }
+        );
+      });
+    });
+  }
   function initReveals()  { /* Task 4.5 — generic .reveal handler (§8.4) */ }
   function initHero()     { /* Task 12 */ }
 
