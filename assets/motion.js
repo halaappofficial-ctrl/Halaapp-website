@@ -157,11 +157,6 @@
     const steps = section.querySelectorAll('.step');
     if (!line || steps.length === 0) return;
 
-    // Line needs width:0 start — not covered by the CSS pre-stage (which is
-    // only opacity/transform for other elements). Set synchronously.
-    line.style.width = '0';
-    line.style.transformOrigin = 'left center';
-
     const threshold = isMobile() ? MOTION_VOCAB.thresholdMobile : MOTION_VOCAB.thresholdDesktop;
     const dist = isMobile() ? MOTION_VOCAB.translateMobilePx : MOTION_VOCAB.translateDesktopPx;
     const dur = isMobile() ? MOTION_VOCAB.durationMobileMs : MOTION_VOCAB.durationDesktopMs;
@@ -170,6 +165,12 @@
     // All animate() calls below use fill: 'forwards'.
 
     onViewOnce(section, threshold, function () {
+      // Line needs width:0 start — not covered by CSS pre-stage (which targets
+      // only opacity/transform). Set synchronously at animation start so a debug
+      // re-invoke doesn't re-zero an already-animated line on every setupMotion call.
+      line.style.width = '0';
+      line.style.transformOrigin = 'left center';
+
       const lineDur = MOTION_VOCAB.progressLineDurationMs / 1000;
 
       // Animate the progress line (width is an intentional exception per spec §7.3).
@@ -179,10 +180,13 @@
         { duration: lineDur, easing: MOTION_VOCAB.easing, fill: 'forwards' }
       );
 
-      // Schedule each step at its proportional point along the line
+      // Schedule each step at its proportional point along the line.
+      // Explicit lookup-with-fallback to avoid the `0 || fallback` anti-pattern
+      // that masks i=0 through a coincidence of both values being 0.
       const fractions = [0, 0.33, 0.66, 1.0];
       steps.forEach(function (step, i) {
-        const delay = (fractions[i] || (i / Math.max(1, steps.length - 1))) * MOTION_VOCAB.progressLineDurationMs;
+        const frac = (i < fractions.length) ? fractions[i] : (i / Math.max(1, steps.length - 1));
+        const delay = frac * MOTION_VOCAB.progressLineDurationMs;
         window.Motion.animate(
           step,
           { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
@@ -205,9 +209,11 @@
     const dur = isMobile() ? MOTION_VOCAB.durationMobileMs : MOTION_VOCAB.durationDesktopMs;
 
     all.forEach(function (el) {
-      // Skip elements handled by dedicated initializers
+      // Skip elements handled by dedicated initializers. These skip-rules
+      // must stay in sync with the selectors each dedicated initializer claims.
       if (el.closest('.how') && el.classList.contains('step')) return; // handled by initSteps
       if (el.closest('.hero') && el.hasAttribute('data-motion-hero-el')) return; // handled by initHero
+      if (el.closest('.stats-bar') && el.classList.contains('stat-item')) return; // handled by initStats (defensive — markup-drift safe)
 
       // Pre-staging handled by CSS (install-motion-prestage.cjs).
       onViewOnce(el, threshold, function (target) {
