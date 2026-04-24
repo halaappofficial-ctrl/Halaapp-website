@@ -374,12 +374,11 @@ In `assets/motion.js`, replace the stub `function initStats() { /* Task 3 */ }` 
     const dist = isMobile() ? MOTION_VOCAB.translateMobilePx : MOTION_VOCAB.translateDesktopPx;
     const dur = isMobile() ? MOTION_VOCAB.durationMobileMs : MOTION_VOCAB.durationDesktopMs;
 
-    // Pre-stage synchronously so elements are hidden BEFORE the IO fires.
-    // Without this, elements in the initial viewport flicker visible → invisible → animate.
-    tiles.forEach(function (tile) {
-      tile.style.opacity = '0';
-      tile.style.transform = 'translateY(' + dist + 'px)';
-    });
+    // NOTE: CSS pre-staging handled in the HTML head inline <style> (installed
+    // via install-motion-prestage.cjs). Do NOT also pre-stage in JS — redundant.
+    // Every animate() must use `fill: 'forwards'` so the final keyframe value
+    // sticks after the animation ends. Without it, the CSS pre-stage rule
+    // re-matches and elements snap back to opacity: 0.
 
     onViewOnce(bar, threshold, function () {
       counterEls.forEach(animateCounter);
@@ -387,7 +386,7 @@ In `assets/motion.js`, replace the stub `function initStats() { /* Task 3 */ }` 
         window.Motion.animate(
           tile,
           { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
-          { duration: dur / 1000, delay: (i * stagger) / 1000, easing: MOTION_VOCAB.easing }
+          { duration: dur / 1000, delay: (i * stagger) / 1000, easing: MOTION_VOCAB.easing, fill: 'forwards' }
         );
       });
     });
@@ -465,20 +464,19 @@ In `assets/motion.js`, replace `function initSteps() { /* Task 4 */ }` with:
     const dist = isMobile() ? MOTION_VOCAB.translateMobilePx : MOTION_VOCAB.translateDesktopPx;
     const dur = isMobile() ? MOTION_VOCAB.durationMobileMs : MOTION_VOCAB.durationDesktopMs;
 
-    // Pre-stage step opacity so they don't pop in before the progress line arrives
-    steps.forEach(function (s) {
-      s.style.opacity = '0';
-      s.style.transform = 'translateY(' + dist + 'px)';
-    });
+    // Pre-staging handled by CSS in HTML head (install-motion-prestage.cjs).
+    // All animate() calls below use fill: 'forwards' so values stick after completion.
 
     onViewOnce(section, threshold, function () {
       const lineDur = MOTION_VOCAB.progressLineDurationMs / 1000;
 
-      // Animate the progress line
+      // Animate the progress line.
+      // The `width` transition is intentional here (not in the shared vocab) because
+      // this is the one dedicated progress-line element that uses width per spec §7.3.
       window.Motion.animate(
         line,
         { width: ['0%', '100%'] },
-        { duration: lineDur, easing: MOTION_VOCAB.easing }
+        { duration: lineDur, easing: MOTION_VOCAB.easing, fill: 'forwards' }
       );
 
       // Schedule each step at its proportional point along the line
@@ -488,7 +486,7 @@ In `assets/motion.js`, replace `function initSteps() { /* Task 4 */ }` with:
         window.Motion.animate(
           step,
           { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
-          { duration: dur / 1000, delay: delay / 1000, easing: MOTION_VOCAB.easing }
+          { duration: dur / 1000, delay: delay / 1000, easing: MOTION_VOCAB.easing, fill: 'forwards' }
         );
       });
     });
@@ -553,15 +551,12 @@ In `assets/motion.js`, replace `function initReveals()  { /* Task 4.5 — generi
       if (el.closest('.how') && el.classList.contains('step')) return; // handled by initSteps
       if (el.closest('.hero') && el.hasAttribute('data-motion-hero-el')) return; // handled by initHero
 
-      // Pre-stage synchronously
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(' + dist + 'px)';
-
+      // Pre-staging handled by CSS (install-motion-prestage.cjs).
       onViewOnce(el, threshold, function (target) {
         window.Motion.animate(
           target,
           { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
-          { duration: dur / 1000, easing: MOTION_VOCAB.easing }
+          { duration: dur / 1000, easing: MOTION_VOCAB.easing, fill: 'forwards' }
         );
       });
     });
@@ -1073,13 +1068,8 @@ In `assets/motion.js`, replace `function initHero() { /* Task 12 */ }` with:
     const dist = isMobile() ? MOTION_VOCAB.translateMobilePx : MOTION_VOCAB.translateDesktopPx;
     const dur = isMobile() ? MOTION_VOCAB.durationMobileMs : MOTION_VOCAB.durationDesktopMs;
 
-    // Pre-stage opacity/transform on elements we're animating
-    order.forEach(function (key) {
-      const el = hero.querySelector('[data-motion-hero-el="' + key + '"]');
-      if (!el) return;
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(' + dist + 'px)';
-    });
+    // Pre-staging handled by CSS in HTML head (install-motion-prestage.cjs)
+    // via the `html.js-ready .hero [data-motion-hero-el]` selector.
 
     // Fire the stagger after first paint so LCP isn't blocked
     requestAnimationFrame(function () {
@@ -1088,21 +1078,15 @@ In `assets/motion.js`, replace `function initHero() { /* Task 12 */ }` with:
         if (!el) return;
 
         const delay = staggerStartMs[i];
+        const thisDur = (key === 'phone')
+          ? MOTION_VOCAB.heroMaxDurationMs / 1000
+          : dur / 1000;
 
-        if (key === 'phone') {
-          // Phone gets a longer duration (hero exception per §7.3)
-          window.Motion.animate(
-            el,
-            { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
-            { duration: MOTION_VOCAB.heroMaxDurationMs / 1000, delay: delay / 1000, easing: MOTION_VOCAB.easing }
-          );
-        } else {
-          window.Motion.animate(
-            el,
-            { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
-            { duration: dur / 1000, delay: delay / 1000, easing: MOTION_VOCAB.easing }
-          );
-        }
+        window.Motion.animate(
+          el,
+          { opacity: [0, 1], transform: ['translateY(' + dist + 'px)', 'translateY(0)'] },
+          { duration: thisDur, delay: delay / 1000, easing: MOTION_VOCAB.easing, fill: 'forwards' }
+        );
       });
     });
   }
