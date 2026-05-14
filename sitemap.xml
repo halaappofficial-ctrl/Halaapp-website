@@ -4,7 +4,7 @@
 
   <url>
     <loc>https://www.halamove.co.za/</loc>
-    <lastmod>2026-04-14</lastmod>
+    <lastmod>2026-05-14</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -24,6 +24,13 @@
       <image:loc>https://www.halamove.co.za/images/fleet-truck-8t.jpg</image:loc>
       <image:title>HALA MOVE 8-ton truck fleet</image:title>
     </image:image>
+  </url>
+
+  <url>
+    <loc>https://www.halamove.co.za/download</loc>
+    <lastmod>2026-05-14</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.98</priority>
   </url>
 
   <url>
