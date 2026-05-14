@@ -18,10 +18,16 @@
 <!-- ============================================================ -->
 <!-- ==== PIONEER APK URLS — UPDATE AFTER EACH EAS BUILD     ==== -->
 <!-- ============================================================ -->
-<!-- DRIVER APK   : update href on a#driver-apk-cta + a#driver-apk-copy -->
-<!-- CUSTOMER APK : update href on a#customer-apk-cta + a#customer-apk-copy -->
-<!-- Build version: update span.build-version on each card -->
-<!-- Build date   : update span.build-date on each card -->
+<!-- Current build (live 2026-05-14):                            -->
+<!-- Driver   : 9146310c-120e-441d-b44a-9721add0d2c4 (SDK 54)    -->
+<!-- Customer : 387166f2-f6bd-4a77-b7da-7102d8cb1a5b (SDK 51)    -->
+<!--                                                              -->
+<!-- After each rebuild, swap the build UUID in:                  -->
+<!-- - a#driver-apk-cta href                                      -->
+<!-- - button#driver-apk-copy data-url                            -->
+<!-- - a#customer-apk-cta href                                    -->
+<!-- - button#customer-apk-copy data-url                          -->
+<!-- - span.build-date (set to new build date)                    -->
 <!-- ============================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -341,6 +347,8 @@ a { color: inherit; text-decoration: none; }
   border-top: 1px solid var(--border);
   font-size: 12px;
   color: var(--text-faint);
+  gap: 12px;
+  flex-wrap: wrap;
 }
 .copy-link {
   background: none;
@@ -353,6 +361,7 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   transition: all 0.2s;
   font-family: inherit;
+  flex-shrink: 0;
 }
 .copy-link:hover {
   background: var(--surface-hi);
@@ -573,9 +582,10 @@ footer {
         <li>Free to join. R30 commission per completed job.</li>
       </ul>
       <a id="driver-apk-cta"
-         href="https://expo.dev/artifacts/eas/REPLACE_DRIVER_APK_UUID_HERE.apk"
+         href="https://expo.dev/accounts/hala-app/projects/hala-driver/builds/9146310c-120e-441d-b44a-9721add0d2c4"
          class="cta-btn"
-         download="HALA-MOVE-Driver-Pioneer.apk">
+         target="_blank"
+         rel="noopener noreferrer">
         <svg class="cta-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download Driver APK
       </a>
@@ -583,7 +593,7 @@ footer {
         <span><span class="build-version">v1.0.0 Pioneer</span> · <span class="build-date">14 May 2026</span> · Android</span>
         <button id="driver-apk-copy"
                 class="copy-link"
-                data-url="https://expo.dev/artifacts/eas/REPLACE_DRIVER_APK_UUID_HERE.apk">
+                data-url="https://expo.dev/accounts/hala-app/projects/hala-driver/builds/9146310c-120e-441d-b44a-9721add0d2c4">
           Copy link
         </button>
       </div>
@@ -602,9 +612,10 @@ footer {
         <li>Free to download. Pay per move, not per click.</li>
       </ul>
       <a id="customer-apk-cta"
-         href="https://expo.dev/artifacts/eas/REPLACE_CUSTOMER_APK_UUID_HERE.apk"
+         href="https://expo.dev/accounts/hala-app/projects/hala-customer/builds/387166f2-f6bd-4a77-b7da-7102d8cb1a5b"
          class="cta-btn"
-         download="HALA-MOVE-Customer-Pioneer.apk">
+         target="_blank"
+         rel="noopener noreferrer">
         <svg class="cta-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download Customer APK
       </a>
@@ -612,7 +623,7 @@ footer {
         <span><span class="build-version">v1.0.0 Pioneer</span> · <span class="build-date">14 May 2026</span> · Android</span>
         <button id="customer-apk-copy"
                 class="copy-link"
-                data-url="https://expo.dev/artifacts/eas/REPLACE_CUSTOMER_APK_UUID_HERE.apk">
+                data-url="https://expo.dev/accounts/hala-app/projects/hala-customer/builds/387166f2-f6bd-4a77-b7da-7102d8cb1a5b">
           Copy link
         </button>
       </div>
@@ -623,12 +634,12 @@ footer {
   <!-- INSTALL INSTRUCTIONS -->
   <div id="install" class="install">
     <h2>How to install on Android</h2>
-    <p class="install-sub">Since this is pioneer release, you'll install the APK directly. The process takes about a minute.</p>
+    <p class="install-sub">Since HALA MOVE is in pioneer release, you'll install the APK directly. The process takes about a minute.</p>
     <div class="steps">
       <div class="step">
         <div class="step-num">STEP 1</div>
-        <h4>Download the APK</h4>
-        <p>Tap the green or blue button above. Your phone may ask you to confirm the download — tap "Download anyway".</p>
+        <h4>Tap Download above</h4>
+        <p>The green or blue button opens the secure install page. Tap "Install" on that page to download the APK to your phone.</p>
       </div>
       <div class="step">
         <div class="step-num">STEP 2</div>
@@ -637,13 +648,13 @@ footer {
       </div>
       <div class="step">
         <div class="step-num">STEP 3</div>
-        <h4>Open the file</h4>
-        <p>Once downloaded, tap the file from your notification bar or Downloads folder. Confirm install.</p>
+        <h4>Open the downloaded file</h4>
+        <p>Tap the file in your notification bar or Downloads folder. Confirm "Install" when Android asks.</p>
       </div>
       <div class="step">
         <div class="step-num">STEP 4</div>
         <h4>Sign up &amp; go</h4>
-        <p>Open HALA MOVE, enter your phone number, verify the OTP, and you're in. Drivers complete the verification wizard.</p>
+        <p>Open HALA MOVE, enter your phone number, verify the OTP, and you're in. Drivers complete the quick verification wizard.</p>
       </div>
     </div>
 
