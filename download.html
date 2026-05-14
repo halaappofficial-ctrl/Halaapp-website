@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>Pioneer Access — Download HALA MOVE | halamove.co.za</title>
+<meta name="description" content="Get early access to HALA MOVE — South Africa's AI-ranked logistics marketplace. Direct APK downloads for verified pioneer drivers and customers. Durban launch.">
+<meta property="og:title" content="HALA MOVE Pioneer Access — Download Now">
+<meta property="og:description" content="Be among the first to experience real-time bidding logistics in South Africa. Driver and Customer apps live for Android.">
+<meta property="og:image" content="https://halamove.co.za/og-image.svg">
+<meta property="og:url" content="https://halamove.co.za/download.html">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="canonical" href="https://halamove.co.za/download.html">
+
+<!-- ============================================================ -->
+<!-- ==== PIONEER APK URLS — UPDATE AFTER EACH EAS BUILD     ==== -->
+<!-- ============================================================ -->
+<!-- DRIVER APK   : update href on a#driver-apk-cta + a#driver-apk-copy -->
+<!-- CUSTOMER APK : update href on a#customer-apk-cta + a#customer-apk-copy -->
+<!-- Build version: update span.build-version on each card -->
+<!-- Build date   : update span.build-date on each card -->
+<!-- ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --primary: #5CB558;
+  --primary-bright: #6EC76A;
+  --primary-dim: #4A9A47;
+  --bg: #0A0A0A;
+  --surface: #1A1A1A;
+  --surface-hi: #242424;
+  --surface-elevated: #2A2A2A;
+  --border: #2E2E2E;
+  --border-bright: #3A3A3A;
+  --text: #F5F5F5;
+  --text-dim: #A0A0A0;
+  --text-faint: #707070;
+  --customer-accent: #4A9DE8;
+  --warning: #F5A623;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+a { color: inherit; text-decoration: none; }
+
+/* ===== Top bar ===== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 16px 24px;
+}
+.topbar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.brand {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.brand span { color: var(--primary); }
+.nav-links {
+  display: flex;
+  gap: 28px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.nav-links a {
+  color: var(--text-dim);
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--primary); }
+@media (max-width: 640px) {
+  .nav-links { display: none; }
+}
+
+/* ===== Hero ===== */
+.hero {
+  padding: 64px 24px 48px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(92, 181, 88, 0.15) 0%, transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.pioneer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba(92, 181, 88, 0.12);
+  border: 1px solid rgba(92, 181, 88, 0.4);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--primary-bright);
+  margin-bottom: 24px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.pioneer-badge::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  background: var(--primary);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(92, 181, 88, 0.7); }
+  50% { opacity: 0.6; box-shadow: 0 0 0 8px rgba(92, 181, 88, 0); }
+}
+.hero h1 {
+  font-size: clamp(36px, 6vw, 64px);
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #B0B0B0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero h1 .accent {
+  background: linear-gradient(135deg, var(--primary-bright) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-sub {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--text-dim);
+  max-width: 640px;
+  margin: 0 auto 32px;
+  font-weight: 400;
+}
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  font-size: 13px;
+  color: var(--text-faint);
+}
+.hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.hero-meta-item svg { flex-shrink: 0; }
+
+/* ===== Download Cards ===== */
+.downloads {
+  padding: 48px 24px 96px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  gap: 24px;
+  margin-bottom: 64px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 36px 32px;
+  transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--primary);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-bright);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+}
+.card:hover::before { opacity: 1; }
+
+.card-driver::before { background: var(--primary); }
+.card-customer::before { background: var(--customer-accent); }
+
+.card-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 28px;
+  color: var(--bg);
+}
+.card-driver .card-icon { background: var(--primary); }
+.card-customer .card-icon { background: var(--customer-accent); }
+
+.card h2 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+.card-tagline {
+  color: var(--text-dim);
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+.card-features {
+  list-style: none;
+  margin-bottom: 28px;
+}
+.card-features li {
+  padding: 10px 0;
+  color: var(--text);
+  font-size: 14.5px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.card-features li:last-child { border-bottom: none; }
+.card-features li::before {
+  content: "";
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(92, 181, 88, 0.15);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235CB558' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.card-customer .card-features li::before {
+  background-color: rgba(74, 157, 232, 0.15);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234A9DE8' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+.cta-btn {
+  display: block;
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: center;
+  transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.01em;
+  margin-bottom: 16px;
+}
+.card-driver .cta-btn {
+  background: var(--primary);
+  color: var(--bg);
+  box-shadow: 0 6px 20px rgba(92, 181, 88, 0.3);
+}
+.card-customer .cta-btn {
+  background: var(--customer-accent);
+  color: #FFFFFF;
+  box-shadow: 0 6px 20px rgba(74, 157, 232, 0.3);
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.1);
+}
+.cta-btn:active { transform: translateY(0); }
+.cta-btn-icon {
+  display: inline-block;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+
+.card-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 12px;
+  color: var(--text-faint);
+}
+.copy-link {
+  background: none;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.copy-link:hover {
+  background: var(--surface-hi);
+  border-color: var(--primary);
+  color: var(--primary-bright);
+}
+.copy-link.copied {
+  background: rgba(92, 181, 88, 0.15);
+  border-color: var(--primary);
+  color: var(--primary-bright);
+}
+
+/* ===== Install Instructions ===== */
+.install {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 48px 40px;
+  margin-bottom: 48px;
+}
+@media (max-width: 640px) {
+  .install { padding: 32px 24px; }
+}
+.install h2 {
+  font-size: 28px;
+  margin-bottom: 12px;
+}
+.install-sub {
+  color: var(--text-dim);
+  margin-bottom: 32px;
+  font-size: 15px;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.step {
+  background: var(--surface-hi);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 20px;
+  position: relative;
+}
+.step-num {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  color: var(--primary);
+  margin-bottom: 8px;
+  letter-spacing: 0.08em;
+}
+.step h4 {
+  font-size: 16px;
+  margin-bottom: 8px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+}
+.step p {
+  color: var(--text-dim);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+
+.safety-note {
+  margin-top: 28px;
+  padding: 16px 20px;
+  background: rgba(245, 166, 35, 0.08);
+  border: 1px solid rgba(245, 166, 35, 0.3);
+  border-radius: 12px;
+  font-size: 13.5px;
+  color: var(--text);
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.safety-note strong { color: var(--warning); }
+
+/* ===== Coming Soon ===== */
+.coming-soon {
+  text-align: center;
+  padding: 32px 24px;
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  background: linear-gradient(135deg, rgba(92, 181, 88, 0.05) 0%, rgba(74, 157, 232, 0.05) 100%);
+  margin-bottom: 48px;
+}
+.coming-soon h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+}
+.coming-soon p {
+  color: var(--text-dim);
+  max-width: 540px;
+  margin: 0 auto 20px;
+  font-size: 14.5px;
+}
+.store-badges {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.store-badge {
+  padding: 10px 18px;
+  background: var(--surface-hi);
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== Footer ===== */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  text-align: center;
+}
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.footer-links {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 20px;
+  font-size: 13.5px;
+}
+.footer-links a {
+  color: var(--text-dim);
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--primary); }
+.footer-meta {
+  color: var(--text-faint);
+  font-size: 12.5px;
+}
+.footer-meta strong { color: var(--text-dim); font-weight: 600; }
+
+/* ===== Toast ===== */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(80px);
+  background: var(--primary);
+  color: var(--bg);
+  padding: 14px 24px;
+  border-radius: 100px;
+  font-weight: 700;
+  font-size: 14px;
+  box-shadow: 0 8px 32px rgba(92, 181, 88, 0.4);
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 1000;
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a href="/" class="brand">HALA <span>MOVE</span></a>
+    <nav class="nav-links">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="#install">How to install</a>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="pioneer-badge">Pioneer Access · Now Open</div>
+    <h1>The future of South African logistics starts <span class="accent">here.</span></h1>
+    <p class="hero-sub">Be among the first to use HALA MOVE — the real-time bidding marketplace where verified drivers compete for your delivery, and you pick the price that's right for you.</p>
+    <div class="hero-meta">
+      <span class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 21.7C17.3 17 20 13 20 10a8 8 0 1 0-16 0c0 3 2.7 7 8 11.7z"/></svg>
+        Durban first · expanding nationally
+      </span>
+      <span class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14 0"/><path d="M1.42 9a16 16 0 0 1 21.16 0"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
+        Real-time bids
+      </span>
+      <span class="hero-meta-item">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Payment held in escrow
+      </span>
+    </div>
+  </div>
+</section>
+
+<section class="downloads">
+  <div class="cards-grid">
+
+    <!-- DRIVER CARD -->
+    <article class="card card-driver">
+      <div class="card-icon">D</div>
+      <h2>HALA MOVE for Drivers</h2>
+      <p class="card-tagline">Pick the bids. Set your price. Get paid faster.</p>
+      <ul class="card-features">
+        <li>Set your own bid on every job — no race to the bottom</li>
+        <li>AI ranks the most competitive offers fairly</li>
+        <li>Payments held in escrow, released on delivery</li>
+        <li>Build your rating, earn premium pricing</li>
+        <li>Free to join. R30 commission per completed job.</li>
+      </ul>
+      <a id="driver-apk-cta"
+         href="https://expo.dev/artifacts/eas/REPLACE_DRIVER_APK_UUID_HERE.apk"
+         class="cta-btn"
+         download="HALA-MOVE-Driver-Pioneer.apk">
+        <svg class="cta-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Driver APK
+      </a>
+      <div class="card-meta">
+        <span><span class="build-version">v1.0.0 Pioneer</span> · <span class="build-date">14 May 2026</span> · Android</span>
+        <button id="driver-apk-copy"
+                class="copy-link"
+                data-url="https://expo.dev/artifacts/eas/REPLACE_DRIVER_APK_UUID_HERE.apk">
+          Copy link
+        </button>
+      </div>
+    </article>
+
+    <!-- CUSTOMER CARD -->
+    <article class="card card-customer">
+      <div class="card-icon">C</div>
+      <h2>HALA MOVE for Customers</h2>
+      <p class="card-tagline">Post your move. Watch bids roll in. Pick the one that's right for you.</p>
+      <ul class="card-features">
+        <li>AI suggests a fair price upfront — no guessing</li>
+        <li>Verified Durban drivers bid in real time</li>
+        <li>Track your driver live from pickup to drop-off</li>
+        <li>Pay only when delivery is confirmed</li>
+        <li>Free to download. Pay per move, not per click.</li>
+      </ul>
+      <a id="customer-apk-cta"
+         href="https://expo.dev/artifacts/eas/REPLACE_CUSTOMER_APK_UUID_HERE.apk"
+         class="cta-btn"
+         download="HALA-MOVE-Customer-Pioneer.apk">
+        <svg class="cta-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download Customer APK
+      </a>
+      <div class="card-meta">
+        <span><span class="build-version">v1.0.0 Pioneer</span> · <span class="build-date">14 May 2026</span> · Android</span>
+        <button id="customer-apk-copy"
+                class="copy-link"
+                data-url="https://expo.dev/artifacts/eas/REPLACE_CUSTOMER_APK_UUID_HERE.apk">
+          Copy link
+        </button>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- INSTALL INSTRUCTIONS -->
+  <div id="install" class="install">
+    <h2>How to install on Android</h2>
+    <p class="install-sub">Since this is pioneer release, you'll install the APK directly. The process takes about a minute.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">STEP 1</div>
+        <h4>Download the APK</h4>
+        <p>Tap the green or blue button above. Your phone may ask you to confirm the download — tap "Download anyway".</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 2</div>
+        <h4>Allow installs from your browser</h4>
+        <p>If prompted, go to Settings &gt; Apps &gt; Special access &gt; Install unknown apps. Allow your browser (Chrome, Brave, etc.).</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 3</div>
+        <h4>Open the file</h4>
+        <p>Once downloaded, tap the file from your notification bar or Downloads folder. Confirm install.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">STEP 4</div>
+        <h4>Sign up &amp; go</h4>
+        <p>Open HALA MOVE, enter your phone number, verify the OTP, and you're in. Drivers complete the verification wizard.</p>
+      </div>
+    </div>
+
+    <div class="safety-note">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--warning)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div>
+        <strong>Safe to install.</strong> HALA MOVE is built and signed by PROFITSAGE PTY LTD (CIPC-registered, DUNS 366869273). The pioneer APK is the same code being submitted to Google Play. If your Play Protect shows a warning, tap "Install anyway" — this is standard for pre-store apps.
+      </div>
+    </div>
+  </div>
+
+  <!-- COMING SOON -->
+  <div class="coming-soon">
+    <h3>Coming soon to the stores</h3>
+    <p>HALA MOVE for iPhone is in Apple App Store review. The Android version is queued for Google Play Store. Pioneer access via direct APK gets you first.</p>
+    <div class="store-badges">
+      <span class="store-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
+        App Store · In review
+      </span>
+      <span class="store-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.25-.84-.76-.84-1.35zm10.81-7.79l2.36 2.36-9.66 5.6 7.3-7.96zm5.92-2.7c.43.25.72.72.72 1.27 0 .55-.29 1.02-.72 1.27l-2.69 1.55-2.53-2.83 2.52-2.84 2.7 1.58zM5.5 2.15l9.66 5.6-2.36 2.36L5.5 2.15z"/></svg>
+        Play Store · Queued
+      </span>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="/terms.html">Terms</a>
+      <a href="/driver-agreement.html">Driver Agreement</a>
+    </div>
+    <p class="footer-meta">
+      &copy; 2026 <strong>HALA MOVE</strong> by PROFITSAGE PTY LTD. CIPC Registered. Built in South Africa. Made for Africa.
+    </p>
+  </div>
+</footer>
+
+<div id="toast" class="toast">Link copied to clipboard</div>
+
+<script>
+(function() {
+  'use strict';
+
+  // Copy-link buttons
+  var copyButtons = document.querySelectorAll('.copy-link');
+  var toast = document.getElementById('toast');
+  var toastTimeout = null;
+
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('show');
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(function() {
+      toast.classList.remove('show');
+    }, 2200);
+  }
+
+  copyButtons.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var url = btn.getAttribute('data-url');
+      var fallbackCopy = function() {
+        var ta = document.createElement('textarea');
+        ta.value = url;
+        ta.style.position = 'fixed';
+        ta.style.opacity = '0';
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(function() {
+          btn.classList.add('copied');
+          btn.textContent = 'Copied!';
+          showToast('Link copied to clipboard');
+          setTimeout(function() {
+            btn.classList.remove('copied');
+            btn.textContent = 'Copy link';
+          }, 2000);
+        }).catch(function() {
+          fallbackCopy();
+          showToast('Link copied');
+        });
+      } else {
+        fallbackCopy();
+        showToast('Link copied');
+      }
+    });
+  });
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
