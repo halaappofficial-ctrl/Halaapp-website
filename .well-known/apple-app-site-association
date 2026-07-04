@@ -1,0 +1,9 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      { "appID": "REPLACE_WITH_APPLE_TEAM_ID.com.hala.customer", "paths": ["/invite/*"] },
+      { "appID": "REPLACE_WITH_APPLE_TEAM_ID.com.hala.driver", "paths": ["/driver-invite/*"] }
+    ]
+  }
+}

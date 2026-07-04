@@ -1,6 +1,10 @@
 {
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    { "source": "/invite/:code", "destination": "/invite.html" },
+    { "source": "/driver-invite/:code", "destination": "/driver-invite.html" }
+  ],
   "redirects": [
     {
       "source": "/admin",
@@ -9,6 +13,12 @@
     }
   ],
   "headers": [
+    {
+      "source": "/.well-known/apple-app-site-association",
+      "headers": [
+        { "key": "Content-Type", "value": "application/json" }
+      ]
+    },
     {
       "source": "/(.*)",
       "headers": [

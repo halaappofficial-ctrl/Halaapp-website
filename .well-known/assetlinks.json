@@ -1,0 +1,18 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.hala.customer",
+      "sha256_cert_fingerprints": ["REPLACE_WITH_CUSTOMER_APP_SHA256_FROM_eas_credentials"]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.hala.driver",
+      "sha256_cert_fingerprints": ["REPLACE_WITH_DRIVER_APP_SHA256_FROM_eas_credentials"]
+    }
+  }
+]
