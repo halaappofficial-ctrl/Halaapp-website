@@ -32,7 +32,7 @@
   <g transform="translate(600, 310)">
     <text text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
           font-size="34" font-weight="600" fill="#FFFFFF" letter-spacing="1">
-      Move Anything. Get There First.
+      Post. Choose. Move.
     </text>
   </g>
 
@@ -65,5 +65,5 @@
   </g>
 
   <text x="600" y="576" text-anchor="middle" font-family="Arial, Helvetica, sans-serif"
-        font-size="18" font-weight="500" fill="#666666" letter-spacing="3">halaapp.co.za</text>
+        font-size="18" font-weight="500" fill="#666666" letter-spacing="3">halamove.co.za</text>
 </svg>
