@@ -8,7 +8,7 @@
   "redirects": [
     {
       "source": "/admin",
-      "destination": "https://hala-backend-production.up.railway.app/admin/",
+      "destination": "https://admin.halamove.co.za/admin/",
       "permanent": false
     }
   ],
