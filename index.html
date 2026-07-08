@@ -559,6 +559,48 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
  </div>
 </section>
 
+<!-- EARLY ACCESS -->
+<section id="early-access" style="background:var(--bg);padding:8px 0 76px;position:relative;z-index:2">
+ <div class="container">
+  <style>
+   .ea-wrap{background:var(--s);border:1px solid rgba(92,181,88,.28);border-radius:var(--rl);padding:30px 26px;max-width:540px;margin:0 auto}
+   .ea-h{font-family:var(--disp);font-size:1.5rem;line-height:1.15;text-align:center;margin:0 0 8px}
+   .ea-sub{font-size:.88rem;color:var(--t2);text-align:center;line-height:1.6;margin:0 0 22px}
+   .ea-toggle{display:flex;gap:10px;margin-bottom:14px}
+   .ea-pill{flex:1;text-align:center;padding:12px 8px;border:1px solid var(--b2);border-radius:12px;background:var(--s2);color:var(--t2);font-weight:600;font-size:.82rem;cursor:pointer;transition:all .2s;user-select:none}
+   .ea-pill.active{border-color:var(--g);background:rgba(92,181,88,.12);color:var(--t)}
+   .ea-input{width:100%;padding:13px 15px;margin-bottom:12px;background:var(--bg);border:1px solid var(--b2);border-radius:12px;color:var(--t);font-size:.95rem;font-family:var(--body)}
+   .ea-input:focus{outline:none;border-color:var(--g)}
+   .ea-input::placeholder{color:var(--t3)}
+   .ea-hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+   .ea-submit{width:100%;padding:15px;font-size:.95rem;font-weight:800;border:none;border-radius:12px;cursor:pointer;background:var(--g);color:#0A0A0A;transition:all .2s;font-family:var(--body)}
+   .ea-submit:hover{background:var(--gl)}
+   .ea-submit:disabled{opacity:.6;cursor:default}
+   .ea-consent{font-size:.72rem;color:var(--t3);text-align:center;margin-top:14px;line-height:1.5}
+   .ea-consent a{color:var(--t2);text-decoration:underline}
+   .ea-msg{text-align:center;font-size:.88rem;margin-top:14px;font-weight:600;min-height:1.1em}
+   .ea-msg.ok{color:var(--g)}
+   .ea-msg.err{color:var(--err)}
+  </style>
+  <div class="ea-wrap">
+   <h3 class="ea-h">Not on your phone yet? <span style="color:var(--g)">Get early access.</span></h3>
+   <p class="ea-sub">Leave your email or number and we'll tell you the moment HALA MOVE lands on Google Play and the App Store.</p>
+   <form id="eaForm" novalidate>
+    <div class="ea-toggle" role="group" aria-label="I am a">
+     <span class="ea-pill active" data-role="customer" role="button" tabindex="0" aria-pressed="true">I need to move</span>
+     <span class="ea-pill" data-role="driver" role="button" tabindex="0" aria-pressed="false">I'm a driver</span>
+    </div>
+    <input class="ea-input" type="email" id="eaEmail" name="email" placeholder="Email address" autocomplete="email" inputmode="email">
+    <input class="ea-input" type="tel" id="eaPhone" name="phone" placeholder="Phone number" autocomplete="tel" inputmode="tel">
+    <input class="ea-hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button type="submit" class="ea-submit" id="eaSubmit">Notify me at launch</button>
+    <p class="ea-msg" id="eaMsg" role="status" aria-live="polite"></p>
+    <p class="ea-consent">By joining, you agree HALA MOVE may contact you about the app. See our <a href="/privacy">Privacy Policy</a>.</p>
+   </form>
+  </div>
+ </div>
+</section>
+
 <!-- STATS BAR -->
 <div class="stats-bar" aria-label="Platform statistics">
  <div class="container">
@@ -896,5 +938,40 @@ if(sl){
 }());
 </script>
 
+<script>
+/* Early-access / interest capture -> POST /api/interest */
+(function(){
+ var form=document.getElementById('eaForm'); if(!form) return;
+ var API='https://hala-backend-production.up.railway.app/api/interest';
+ var role='customer';
+ var pills=document.querySelectorAll('.ea-pill');
+ function select(p){
+  for(var i=0;i<pills.length;i++){ pills[i].classList.remove('active'); pills[i].setAttribute('aria-pressed','false'); }
+  p.classList.add('active'); p.setAttribute('aria-pressed','true'); role=p.getAttribute('data-role');
+ }
+ for(var i=0;i<pills.length;i++){ (function(p){
+  p.addEventListener('click',function(){ select(p); });
+  p.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); select(p); } });
+ })(pills[i]); }
+ var msg=document.getElementById('eaMsg'), btn=document.getElementById('eaSubmit');
+ form.addEventListener('submit',function(e){
+  e.preventDefault();
+  if(form.querySelector('.ea-hp').value.trim()!==''){ return; }
+  var email=document.getElementById('eaEmail').value.trim();
+  var phone=document.getElementById('eaPhone').value.trim();
+  msg.className='ea-msg';
+  if(!email && !phone){ msg.textContent='Please enter your email or phone number.'; msg.className='ea-msg err'; return; }
+  if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent='Please enter a valid email address.'; msg.className='ea-msg err'; return; }
+  btn.disabled=true; btn.textContent='Sending...';
+  fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,phone:phone,interested_as:role})})
+   .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }, function(){ return {ok:r.ok,d:{}}; }); })
+   .then(function(res){
+    if(res.ok){ msg.textContent="You're on the list - we'll be in touch at launch."; msg.className='ea-msg ok'; form.reset(); btn.textContent='Done'; }
+    else { msg.textContent=(res.d&&res.d.error)||'Something went wrong. Please try again.'; msg.className='ea-msg err'; btn.disabled=false; btn.textContent='Notify me at launch'; }
+   })
+   .catch(function(){ msg.textContent='Network error. Please try again.'; msg.className='ea-msg err'; btn.disabled=false; btn.textContent='Notify me at launch'; });
+ });
+})();
+</script>
 </body>
 </html>
