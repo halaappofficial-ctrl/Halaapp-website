@@ -944,6 +944,11 @@ if(sl){
  var form=document.getElementById('eaForm'); if(!form) return;
  var API='https://hala-backend-production.up.railway.app/api/interest';
  var role='customer';
+ /* Campaign attribution from the flyer QR: ?r=driver|customer preselects the toggle,
+    ?s=<code> (e.g. durban-umlazi-d2) is captured as the signup source. Organic -> 'website'. */
+ var qs=new URLSearchParams(location.search);
+ var source=(qs.get('s')||'').replace(/[^a-zA-Z0-9:_-]/g,'').slice(0,60)||'website';
+ var rParam=(qs.get('r')||'').toLowerCase();
  var pills=document.querySelectorAll('.ea-pill');
  function select(p){
   for(var i=0;i<pills.length;i++){ pills[i].classList.remove('active'); pills[i].setAttribute('aria-pressed','false'); }
@@ -953,6 +958,7 @@ if(sl){
   p.addEventListener('click',function(){ select(p); });
   p.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); select(p); } });
  })(pills[i]); }
+ if(rParam==='driver'||rParam==='customer'){ for(var k=0;k<pills.length;k++){ if(pills[k].getAttribute('data-role')===rParam){ select(pills[k]); break; } } }
  var msg=document.getElementById('eaMsg'), btn=document.getElementById('eaSubmit');
  form.addEventListener('submit',function(e){
   e.preventDefault();
@@ -963,7 +969,7 @@ if(sl){
   if(!email && !phone){ msg.textContent='Please enter your email or phone number.'; msg.className='ea-msg err'; return; }
   if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent='Please enter a valid email address.'; msg.className='ea-msg err'; return; }
   btn.disabled=true; btn.textContent='Sending...';
-  fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,phone:phone,interested_as:role})})
+  fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,phone:phone,interested_as:role,source:source})})
    .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; }, function(){ return {ok:r.ok,d:{}}; }); })
    .then(function(res){
     if(res.ok){ msg.textContent="You're on the list - we'll be in touch at launch."; msg.className='ea-msg ok'; form.reset(); btn.textContent='Done'; }
