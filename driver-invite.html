@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
 <title>You're invited to drive with HALA MOVE</title>
-<meta name="description" content="Use your referral code to join HALA MOVE Driver — you both earn R50 when you complete your first job.">
+<meta name="description" content="Use your referral code to join HALA MOVE Driver — the driver who invited you earns R50 when you complete your first job.">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -62,8 +62,8 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
 <main>
   <div class="card">
     <div class="badge">You've been invited to drive</div>
-    <h1>Earn on your schedule, and <span class="accent">get R50</span></h1>
-    <p class="sub" id="sub">A driver invited you to HALA MOVE — set your own bid on every job. Use their code and <strong>you both earn R50</strong> when you complete your first job.</p>
+    <h1>Earn on your schedule, <span class="accent">own your route</span></h1>
+    <p class="sub" id="sub">A driver invited you to HALA MOVE — set your own price on every job. Use their code when you sign up, and <strong>the driver who invited you earns R50</strong> when you complete your first job.</p>
     <div class="code-label" id="codeLabel">Your referral code</div>
     <div class="code-card" id="codeCard" role="button" tabindex="0"><span class="code-text" id="codeText">—</span></div>
     <p class="copy-hint" id="copyHint">Tap the code to copy it</p>
@@ -71,7 +71,7 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
     <ul class="steps">
       <li>Download &amp; install HALA MOVE for Drivers</li>
       <li>Complete the quick verification, and paste your code in the "Referral code" field</li>
-      <li>Complete your first job &mdash; you both earn R50</li>
+      <li>Complete your first job &mdash; the driver who invited you earns R50</li>
     </ul>
   </div>
 </main>
@@ -91,7 +91,7 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
 
   // Graceful empty state (someone hit /driver-invite with no code).
   if (!raw || raw === 'DRIVER-INVITE') {
-    document.getElementById('sub').innerHTML = "HALA MOVE Driver &mdash; set your own bid on every job. Download the app to get started.";
+    document.getElementById('sub').innerHTML = "HALA MOVE Driver &mdash; set your own price on every job. Download the app to get started.";
     document.getElementById('codeLabel').style.display = 'none';
     codeCard.style.display = 'none';
     copyHint.style.display = 'none';
