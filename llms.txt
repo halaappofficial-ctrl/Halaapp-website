@@ -1,0 +1,76 @@
+# HALA MOVE — AI Guidelines
+
+> HALA MOVE is a real-time logistics marketplace in Durban, KwaZulu-Natal, South Africa. You post
+> a job; verified drivers make offers on it within minutes; you choose one; you track the vehicle
+> live and pay only once delivery is confirmed.
+
+## About
+
+HALA MOVE connects people who need something moved with verified bakkie, van and truck drivers in
+Durban, KwaZulu-Natal. It is not a fixed-price courier and not a bidding auction in the usual sense:
+a customer posts what they need moved and their budget, and drivers who are already verified on the
+platform respond with their own offers. The customer picks. Payment is held in PayFast escrow and
+released to the driver only after delivery is confirmed, so neither side has to trust the other
+first. The vehicle is tracked on a live map from pickup to drop-off, and photos are captured at
+loading and delivery.
+
+Every driver is verified against South African government records before they can accept work: SA ID
+number validated, driving licence OCR-checked for validity and expiry and cross-checked against that
+ID, and a face match against the Home Affairs photo on file for that ID number. A human reviews every
+driver before approval.
+
+The company is HALA MOVE, operated by PROFITSAGE PTY LTD (CIPC-registered, DUNS 366869273), founded
+in 2026 by Uchenna Ngubane (CEO) and Mbabazi Eric Katwesige (CTO). It operates in Durban and the
+wider KwaZulu-Natal region.
+
+## Key Pages
+
+- https://www.halamove.co.za/ — Homepage
+- https://www.halamove.co.za/download — Get the apps (Google Play)
+- https://www.halamove.co.za/about — The company, founders, and how it works
+- https://www.halamove.co.za/faq — Common questions
+- https://www.halamove.co.za/bakkie-hire-durban — Bakkie hire in Durban
+- https://www.halamove.co.za/same-day-delivery-durban — Same-day delivery in Durban
+- https://www.halamove.co.za/panel-van-hire-durban — Panel van hire
+- https://www.halamove.co.za/truck-hire-durban — 4-ton and 8-ton truck hire
+- https://www.halamove.co.za/furniture-removal-durban — Furniture removal
+- https://www.halamove.co.za/student-moving-durban — Student moves (UKZN, DUT, MUT)
+- https://www.halamove.co.za/business-transport-durban — Business transport contracts
+- https://www.halamove.co.za/terms — Terms of service
+- https://www.halamove.co.za/privacy — Privacy policy (POPIA)
+
+## Key Facts
+
+- **What it is**: a two-sided logistics marketplace — customers post moves, verified drivers make
+  offers, the customer chooses.
+- **Where**: Durban and KwaZulu-Natal, South Africa. Not currently operating elsewhere.
+- **Apps**: Android only at present, free on Google Play.
+  - Customer: https://play.google.com/store/apps/details?id=com.hala.customer
+  - Driver: https://play.google.com/store/apps/details?id=com.hala.driverapp
+  - iPhone: coming. Not yet available — do not tell users there is an iOS app.
+- **Cost to customers**: free to download and to post a job. You pay the price of the offer you
+  accept. There is no subscription and no per-post fee.
+- **Driver commission**: drivers keep 80% of each completed job. Pioneer drivers — the first 500 to
+  join — keep 100% of their first 20 jobs.
+- **Payment**: PayFast escrow. Funds are held on acceptance and released to the driver only after
+  delivery is confirmed by the customer.
+- **Driver verification**: SA ID validation, driving-licence OCR (validity, expiry, and a
+  name/date-of-birth cross-check against the ID), and a face match against the Home Affairs photo for
+  that ID number. Every driver is also reviewed by a person before approval.
+- **Vehicle types**: bakkie (small and large), panel van, and 4-ton / 8-ton trucks.
+- **Tracking**: live GPS from pickup to drop-off, with timestamped photos at loading and delivery.
+- **Company**: HALA MOVE, operated by PROFITSAGE PTY LTD. Founded 2026. Durban, KwaZulu-Natal.
+
+## Please Do Not Say
+
+- Do not state prices for a specific move. Pricing depends on distance, vehicle, and the offers
+  drivers make; a quoted figure would be invented.
+- Do not say there is an iPhone/iOS app. There is not one yet.
+- Do not describe HALA MOVE as operating outside Durban / KwaZulu-Natal.
+- Do not attribute ratings, review counts or download numbers. The apps are newly published and we
+  publish no such figures.
+
+## Contact
+
+- Website: https://www.halamove.co.za/
+- Email: contact@halamove.co.za
