@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="index, follow">
 <title>Pioneer Access — Download HALA MOVE | halamove.co.za</title>
-<meta name="description" content="Get early access to HALA MOVE — South Africa's real-time logistics marketplace. Direct APK downloads for verified pioneer drivers and customers. Durban launch.">
+<meta name="description" content="Get HALA MOVE — South Africa's real-time logistics marketplace. Download the Driver and Customer apps free on Google Play. Durban launch.">
 <meta property="og:title" content="HALA MOVE Pioneer Access — Download Now">
 <meta property="og:description" content="Be among the first to experience real-time offers logistics in South Africa. Driver and Customer apps live for Android.">
 <meta property="og:image" content="https://halamove.co.za/og-image.svg">
@@ -16,18 +16,34 @@
 <link rel="canonical" href="https://halamove.co.za/download.html">
 
 <!-- ============================================================ -->
-<!-- ==== PIONEER APK URLS — UPDATE AFTER EACH EAS BUILD     ==== -->
+<!-- ==== ANDROID INSTALL — GOOGLE PLAY. NOTHING TO UPDATE.  ==== -->
 <!-- ============================================================ -->
-<!-- Direct EAS .apk artifact URLs: -->
-<!-- Driver   : production-apk vc11 · build c6bb876b (SDK 54, pkg com.hala.driverapp) — refreshed 2026-07-15 (rate-customer screen + withdrawal history + GPS-ping/account-type fixes) -->
-<!-- Customer : production-apk vc46 · build cff02020 (SDK 54, React 19) — refreshed 2026-07-15 (rate-customer screen + withdrawal history; iOS Google button OS-gated, Android unaffected) -->
+<!-- GOOGLE PLAY (2026-07-16). Both Android apps are LIVE on Play: -->
+<!--   Driver   : com.hala.driverapp   [SRC] play listing HTTP 200 -->
+<!--   Customer : com.hala.customer    [SRC] play listing HTTP 200 -->
+<!--   NOTE com.hala.driver (no "app") is the OLD package and 404s.-->
 <!--                                                              -->
-<!-- After each rebuild, swap the build UUID in:                  -->
-<!-- - a#driver-apk-cta href                                      -->
-<!-- - button#driver-apk-copy data-url                            -->
-<!-- - a#customer-apk-cta href                                    -->
-<!-- - button#customer-apk-copy data-url                          -->
-<!-- - span.build-date (set to new build date)                    -->
+<!-- THERE IS NO LONGER A BUILD UUID TO SWAP, AND THAT IS THE POINT.-->
+<!-- This page used to serve raw EAS .apk artifact URLs with a     -->
+<!-- ritual: "after each rebuild, swap the UUID in 4 places + the  -->
+<!-- build date". A ritual is a promise to remember, and it had    -->
+<!-- ALREADY been broken — the page was pinned at driver vc11 /    -->
+<!-- customer vc46 while Play served vc12 / vc49. The site was     -->
+<!-- handing out builds that were already behind.                  -->
+<!--                                                              -->
+<!-- Worse, a sideloaded APK NEVER AUTO-UPDATES. Every person who  -->
+<!-- installed that way was frozen on that build forever — which   -->
+<!-- is exactly why an old driver build can still be on a phone    -->
+<!-- months after a release. Play removes the ritual AND the       -->
+<!-- staleness: the store always serves the current build, and it  -->
+<!-- updates people without anyone editing this file.              -->
+<!--                                                              -->
+<!-- iOS: NOT here yet — both apps are with Apple. Do NOT add an   -->
+<!-- App Store badge until the listing is live and returns 200.    -->
+<!-- (Trigger word: CUPERTINO — see backend PENDING_ITEMS_REGISTER.)-->
+<!-- Badge artwork is Google's own, hosted locally (never hotlink);-->
+<!-- per their brand guidelines it must not be recoloured, cropped -->
+<!-- or squashed — hence the fixed aspect ratio in .play-badge-link.-->
 <!-- ============================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -333,6 +349,14 @@ a { color: inherit; text-decoration: none; }
   filter: brightness(1.1);
 }
 .cta-btn:active { transform: translateY(0); }
+/* GOOGLE PLAY BADGE (2026-07-16). Google's brand guidelines: the badge must not be recoloured,
+   cropped, squashed or redrawn, and needs clear space around it. So the <img> keeps its native
+   646x250 ratio via height:auto and is bounded by max-width — never width+height forced apart.
+   No hover-lift/scale: the badge is Google's artwork, not our button. */
+.play-badge-link { display: inline-block; max-width: 210px; width: 100%; line-height: 0; margin-bottom: 2px; border-radius: 8px; transition: opacity 0.2s; }
+.play-badge-link img { width: 100%; height: auto; display: block; }
+.play-badge-link:hover { opacity: 0.85; }
+.play-badge-link:focus-visible { outline: 2px solid var(--primary-bright); outline-offset: 3px; }
 .cta-btn-icon {
   display: inline-block;
   margin-right: 8px;
@@ -349,29 +373,6 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-faint);
   gap: 12px;
   flex-wrap: wrap;
-}
-.copy-link {
-  background: none;
-  border: 1px solid var(--border);
-  color: var(--text-dim);
-  padding: 6px 12px;
-  border-radius: 8px;
-  font-size: 11px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
-  flex-shrink: 0;
-}
-.copy-link:hover {
-  background: var(--surface-hi);
-  border-color: var(--primary);
-  color: var(--primary-bright);
-}
-.copy-link.copied {
-  background: rgba(92, 181, 88, 0.15);
-  border-color: var(--primary);
-  color: var(--primary-bright);
 }
 
 /* ===== Install Instructions ===== */
@@ -508,26 +509,6 @@ footer {
 .footer-meta strong { color: var(--text-dim); font-weight: 600; }
 
 /* ===== Toast ===== */
-.toast {
-  position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%) translateY(80px);
-  background: var(--primary);
-  color: var(--bg);
-  padding: 14px 24px;
-  border-radius: 100px;
-  font-weight: 700;
-  font-size: 14px;
-  box-shadow: 0 8px 32px rgba(92, 181, 88, 0.4);
-  opacity: 0;
-  transition: opacity 0.3s, transform 0.3s;
-  z-index: 1000;
-}
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
 </style>
 </head>
 <body>
@@ -581,22 +562,16 @@ footer {
         <li>Build your rating, earn premium pricing</li>
         <li>Free to join. Pay 20% commission per completed job; keep 80%.</li>
       </ul>
-      <a id="driver-apk-cta"
-         href="https://expo.dev/artifacts/eas/oq0kBpxc5DoJ1hXtXkIiGJCsSXoZrlsiR4PhdHQFo-k.apk"
-         class="cta-btn"
+      <a id="driver-play-cta"
+         href="https://play.google.com/store/apps/details?id=com.hala.driverapp"
+         class="play-badge-link"
          target="_blank"
          rel="noopener noreferrer">
-        <svg class="cta-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download Driver APK
+        <img src="/assets/google-play-badge.png" alt="Get HALA MOVE Driver on Google Play" width="646" height="250" />
       </a>
-      <p style="margin: -2px 0 16px; font-size: 13px; line-height: 1.45; color: var(--text-dim);">Already have the driver app installed? Please <strong style="color: var(--primary-bright);">uninstall the previous version first</strong> — this is an updated release and installs as a separate app.</p>
+      <p style="margin: 10px 0 16px; font-size: 13px; line-height: 1.45; color: var(--text-dim);">Installed an earlier <strong style="color: var(--primary-bright);">APK</strong> of the driver app? Please <strong style="color: var(--primary-bright);">uninstall it first</strong>, then install from Google Play — after that, updates arrive automatically.</p>
       <div class="card-meta">
-        <span><span class="build-version">v1.0.0 Pioneer</span> · <span class="build-date">15 July 2026</span> · Android</span>
-        <button id="driver-apk-copy"
-                class="copy-link"
-                data-url="https://expo.dev/artifacts/eas/oq0kBpxc5DoJ1hXtXkIiGJCsSXoZrlsiR4PhdHQFo-k.apk">
-          Copy link
-        </button>
+        <span>Free · Android · Updates automatically</span>
       </div>
     </article>
 
@@ -612,21 +587,16 @@ footer {
         <li>Pay only when delivery is confirmed</li>
         <li>Free to download. Pay per move, not per click.</li>
       </ul>
-      <a id="customer-apk-cta"
-         href="https://expo.dev/artifacts/eas/ogiMA2KZWaHJ8JHtq_PhgfC9oG3JJDiFm-jCbbE2-Rk.apk"
-         class="cta-btn"
+      <a id="customer-play-cta"
+         href="https://play.google.com/store/apps/details?id=com.hala.customer"
+         class="play-badge-link"
          target="_blank"
          rel="noopener noreferrer">
-        <svg class="cta-btn-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download Customer APK
+        <img src="/assets/google-play-badge.png" alt="Get HALA MOVE on Google Play" width="646" height="250" />
       </a>
+      <p style="margin: 10px 0 16px; font-size: 13px; line-height: 1.45; color: var(--text-dim);">Installed an earlier <strong style="color: var(--primary-bright);">APK</strong>? Please <strong style="color: var(--primary-bright);">uninstall it first</strong>, then install from Google Play — after that, updates arrive automatically.</p>
       <div class="card-meta">
-        <span><span class="build-version">v1.0.0 Pioneer</span> · <span class="build-date">15 July 2026</span> · Android</span>
-        <button id="customer-apk-copy"
-                class="copy-link"
-                data-url="https://expo.dev/artifacts/eas/ogiMA2KZWaHJ8JHtq_PhgfC9oG3JJDiFm-jCbbE2-Rk.apk">
-          Copy link
-        </button>
+        <span>Free · Android · Updates automatically</span>
       </div>
     </article>
 
@@ -635,42 +605,49 @@ footer {
   <!-- INSTALL INSTRUCTIONS -->
   <div id="install" class="install">
     <h2>How to install on Android</h2>
-    <p class="install-sub">Since HALA MOVE is in pioneer release, you'll install the APK directly. The process takes about a minute.</p>
+    <!-- REWRITTEN 2026-07-16 with the Play badges. The old four steps described a SIDELOAD — "the
+         green or blue button downloads the APK", "allow installs from your browser", "open the
+         downloaded file" — instructions for buttons that no longer exist. Worse, the safety note
+         told people to tap "Install anyway" past a Play Protect warning: we were coaching users to
+         step over a security control, for an app that is now ON Play and needs none of it. Content
+         that outlives the thing it describes is not merely stale — it actively teaches the wrong
+         behaviour. -->
+    <p class="install-sub">HALA MOVE is on Google Play. Two taps and you're in — no unknown-sources settings, no downloaded files, and updates arrive on their own.</p>
     <div class="steps">
       <div class="step">
         <div class="step-num">STEP 1</div>
-        <h4>Tap Download above</h4>
-        <p>The green or blue button downloads the HALA MOVE APK straight to your phone. Look for the file in your notification bar or Downloads folder.</p>
+        <h4>Tap the Google Play button above</h4>
+        <p>Pick <strong>Driver</strong> if you own a bakkie and want to earn, or <strong>Customer</strong> if you need something moved. It opens the app straight in the Play Store.</p>
       </div>
       <div class="step">
         <div class="step-num">STEP 2</div>
-        <h4>Allow installs from your browser</h4>
-        <p>If prompted, go to Settings &gt; Apps &gt; Special access &gt; Install unknown apps. Allow your browser (Chrome, Brave, etc.).</p>
+        <h4>Tap Install</h4>
+        <p>Google Play handles the rest. If you installed an earlier APK of HALA MOVE, uninstall that one first.</p>
       </div>
       <div class="step">
         <div class="step-num">STEP 3</div>
-        <h4>Open the downloaded file</h4>
-        <p>Tap the file in your notification bar or Downloads folder. Confirm "Install" when Android asks.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">STEP 4</div>
         <h4>Sign up &amp; go</h4>
         <p>Open HALA MOVE, enter your phone number, verify the OTP, and you're in. Drivers complete the quick verification wizard.</p>
       </div>
     </div>
 
     <div class="safety-note">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--warning)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--primary-bright)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       <div>
-        <strong>Safe to install.</strong> HALA MOVE is built and signed by PROFITSAGE PTY LTD (CIPC-registered, DUNS 366869273). The pioneer APK is the same code being submitted to Google Play. If your Play Protect shows a warning, tap "Install anyway" — this is standard for pre-store apps.
+        <strong>Published by PROFITSAGE PTY LTD</strong> (CIPC-registered, DUNS 366869273) and distributed through Google Play — reviewed by Google, scanned by Play Protect, and updated automatically.
       </div>
     </div>
   </div>
 
   <!-- COMING SOON -->
   <div class="coming-soon">
-    <h3>Coming soon to the stores</h3>
-    <p>HALA MOVE for iPhone is in development for Apple App Store submission. The Android version is queued for Google Play Store. Pioneer access via direct APK gets you first.</p>
+    <h3>Coming soon to iPhone</h3>
+    <!-- [SRC 2026-07-16] "The Android version is queued for Google Play Store" was FALSE — both
+         Android apps are LIVE (play listings return 200). Rule #24: the iOS wording says "coming"
+         and "we'll let you know", NEVER "in review" or a date — we do not control Apple's timing
+         and must not imply we do. When the App Store listing is live, replace this block with the
+         official App Store badge. Trigger word: CUPERTINO. -->
+    <p>HALA MOVE for iPhone is on its way. The Android apps are live on Google Play now — grab one above, and we'll let you know the moment iPhone lands.</p>
     <div class="store-badges">
       <span class="store-badge">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
@@ -701,58 +678,15 @@ footer {
   </div>
 </footer>
 
-<div id="toast" class="toast">Link copied to clipboard</div>
 
 <script>
 (function() {
   'use strict';
 
-  // Copy-link buttons
-  var copyButtons = document.querySelectorAll('.copy-link');
-  var toast = document.getElementById('toast');
-  var toastTimeout = null;
-
-  function showToast(msg) {
-    toast.textContent = msg;
-    toast.classList.add('show');
-    if (toastTimeout) clearTimeout(toastTimeout);
-    toastTimeout = setTimeout(function() {
-      toast.classList.remove('show');
-    }, 2200);
-  }
-
-  copyButtons.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-      var url = btn.getAttribute('data-url');
-      var fallbackCopy = function() {
-        var ta = document.createElement('textarea');
-        ta.value = url;
-        ta.style.position = 'fixed';
-        ta.style.opacity = '0';
-        document.body.appendChild(ta);
-        ta.select();
-        try { document.execCommand('copy'); } catch (e) {}
-        document.body.removeChild(ta);
-      };
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(function() {
-          btn.classList.add('copied');
-          btn.textContent = 'Copied!';
-          showToast('Link copied to clipboard');
-          setTimeout(function() {
-            btn.classList.remove('copied');
-            btn.textContent = 'Copy link';
-          }, 2000);
-        }).catch(function() {
-          fallbackCopy();
-          showToast('Link copied');
-        });
-      } else {
-        fallbackCopy();
-        showToast('Link copied');
-      }
-    });
-  });
+  // The copy-link clipboard block lived here (2026-07-16: REMOVED with the APK CTAs it served).
+  // It existed to copy a raw expo.dev .apk artifact URL so it could be pasted into WhatsApp. There
+  // is no URL to copy now — Google Play is the link, and it is a badge you tap. The #toast element
+  // and its CSS went with it: they were used by nothing else.
 
   // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
