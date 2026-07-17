@@ -10,6 +10,29 @@
       "source": "/admin",
       "destination": "https://admin.halamove.co.za/admin/",
       "permanent": false
+    },
+
+    {
+      "source": "/get",
+      "has": [{ "type": "query", "key": "s", "value": "(?<src>[A-Za-z0-9_-]{1,32})" }],
+      "destination": "https://play.google.com/store/apps/details?id=com.hala.customer&referrer=utm_source%3Dhalamove%26utm_medium%3Dqr%26utm_content%3D:src",
+      "permanent": false
+    },
+    {
+      "source": "/get",
+      "destination": "https://play.google.com/store/apps/details?id=com.hala.customer&referrer=utm_source%3Dhalamove%26utm_medium%3Dqr",
+      "permanent": false
+    },
+    {
+      "source": "/drive",
+      "has": [{ "type": "query", "key": "s", "value": "(?<src>[A-Za-z0-9_-]{1,32})" }],
+      "destination": "https://play.google.com/store/apps/details?id=com.hala.driverapp&referrer=utm_source%3Dhalamove%26utm_medium%3Dqr%26utm_content%3D:src",
+      "permanent": false
+    },
+    {
+      "source": "/drive",
+      "destination": "https://play.google.com/store/apps/details?id=com.hala.driverapp&referrer=utm_source%3Dhalamove%26utm_medium%3Dqr",
+      "permanent": false
     }
   ],
   "headers": [
