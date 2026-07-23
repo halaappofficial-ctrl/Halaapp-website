@@ -38,12 +38,15 @@
 <!-- staleness: the store always serves the current build, and it  -->
 <!-- updates people without anyone editing this file.              -->
 <!--                                                              -->
-<!-- iOS: NOT here yet — both apps are with Apple. Do NOT add an   -->
-<!-- App Store badge until the listing is live and returns 200.    -->
+<!-- iOS: DRIVER live on the App Store 2026-07-23 ([SRC] listing    -->
+<!-- id6789447581 -> HTTP 200 vs byte-404 nonsense-id control) —    -->
+<!-- its badge sits on the driver card. CUSTOMER iOS is NOT live:   -->
+<!-- do NOT add its badge until ITS listing returns 200.            -->
 <!-- (Trigger word: CUPERTINO — see backend PENDING_ITEMS_REGISTER.)-->
-<!-- Badge artwork is Google's own, hosted locally (never hotlink);-->
-<!-- per their brand guidelines it must not be recoloured, cropped -->
-<!-- or squashed — hence the fixed aspect ratio in .play-badge-link.-->
+<!-- Badge artwork (Google's AND Apple's) is hosted locally (never  -->
+<!-- hotlink); per both brands' guidelines it must not be           -->
+<!-- recoloured, cropped or squashed — hence the fixed aspect       -->
+<!-- ratios in .play-badge-link / .appstore-badge-link.             -->
 <!-- ============================================================ -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -357,6 +360,14 @@ a { color: inherit; text-decoration: none; }
 .play-badge-link img { width: 100%; height: auto; display: block; }
 .play-badge-link:hover { opacity: 0.85; }
 .play-badge-link:focus-visible { outline: 2px solid var(--primary-bright); outline-offset: 3px; }
+/* APP STORE BADGE (2026-07-23, CUPERTINO item 3 — driver listing live, HTTP 200 vs 404 control).
+   Apple's own artwork, hosted locally, never recoloured or squashed: natural 119.66x40 ratio,
+   bounded by max-width exactly like the Play badge above. The customer card gets its badge
+   only when ITS listing returns 200. */
+.appstore-badge-link { display: inline-block; max-width: 186px; width: 100%; line-height: 0; margin: 8px 0 2px; border-radius: 8px; transition: opacity 0.2s; }
+.appstore-badge-link img { width: 100%; height: auto; display: block; }
+.appstore-badge-link:hover { opacity: 0.85; }
+.appstore-badge-link:focus-visible { outline: 2px solid var(--primary-bright); outline-offset: 3px; }
 .cta-btn-icon {
   display: inline-block;
   margin-right: 8px;
@@ -569,9 +580,16 @@ footer {
          rel="noopener noreferrer">
         <img src="/assets/google-play-badge.png" alt="Get HALA MOVE Driver on Google Play" width="646" height="250" />
       </a>
+      <a id="driver-appstore-cta"
+         href="https://apps.apple.com/za/app/id6789447581"
+         class="appstore-badge-link"
+         target="_blank"
+         rel="noopener noreferrer">
+        <img src="/assets/app-store-badge.svg" alt="Download HALA MOVE Driver on the App Store" width="120" height="40" />
+      </a>
       <p style="margin: 10px 0 16px; font-size: 13px; line-height: 1.45; color: var(--text-dim);">Installed an earlier <strong style="color: var(--primary-bright);">APK</strong> of the driver app? Please <strong style="color: var(--primary-bright);">uninstall it first</strong>, then install from Google Play — after that, updates arrive automatically.</p>
       <div class="card-meta">
-        <span>Free · Android · Updates automatically</span>
+        <span>Free · Android &amp; iPhone · Updates automatically</span>
       </div>
     </article>
 
@@ -639,23 +657,21 @@ footer {
     </div>
   </div>
 
-  <!-- COMING SOON -->
+  <!-- COMING SOON (customer iOS only — driver iOS went LIVE 2026-07-23) -->
   <div class="coming-soon">
-    <h3>Coming soon to iPhone</h3>
-    <!-- [SRC 2026-07-16] "The Android version is queued for Google Play Store" was FALSE — both
-         Android apps are LIVE (play listings return 200). Rule #24: the iOS wording says "coming"
-         and "we'll let you know", NEVER "in review" or a date — we do not control Apple's timing
-         and must not imply we do. When the App Store listing is live, replace this block with the
-         official App Store badge. Trigger word: CUPERTINO. -->
-    <p>HALA MOVE for iPhone is on its way. The Android apps are live on Google Play now — grab one above, and we'll let you know the moment iPhone lands.</p>
+    <h3>Customer app coming soon to iPhone</h3>
+    <!-- [SRC 2026-07-23] Driver iOS listing LIVE (apps.apple.com/za/app/id6789447581 -> HTTP 200;
+         nonsense-id control 404s, so the 200 is real) — its badge now sits on the driver card
+         above. Customer iOS is still with Apple: per Rule #24 the wording stays "coming" and
+         "we'll let you know", NEVER "in review" or a date — we do not control Apple's timing and
+         must not imply we do. When the CUSTOMER listing (id6789445062) returns 200, add its badge
+         to the customer card above and retire this block. The stale "Play Store · Queued" chip
+         was removed 2026-07-23 — both Android apps have been live on Play since 2026-07-15. -->
+    <p>HALA MOVE Driver is now on the App Store — the badge on the driver card above takes you straight there. The customer app for iPhone is on its way; Android customers can grab it on Google Play now, and we'll let you know the moment it lands.</p>
     <div class="store-badges">
       <span class="store-badge">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-        App Store · Coming soon
-      </span>
-      <span class="store-badge">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.25-.84-.76-.84-1.35zm10.81-7.79l2.36 2.36-9.66 5.6 7.3-7.96zm5.92-2.7c.43.25.72.72.72 1.27 0 .55-.29 1.02-.72 1.27l-2.69 1.55-2.53-2.83 2.52-2.84 2.7 1.58zM5.5 2.15l9.66 5.6-2.36 2.36L5.5 2.15z"/></svg>
-        Play Store · Queued
+        Customer app · Coming soon to iPhone
       </span>
     </div>
   </div>
