@@ -38,11 +38,20 @@
 <!-- staleness: the store always serves the current build, and it  -->
 <!-- updates people without anyone editing this file.              -->
 <!--                                                              -->
-<!-- iOS: DRIVER live on the App Store 2026-07-23 ([SRC] listing    -->
-<!-- id6789447581 -> HTTP 200 vs byte-404 nonsense-id control) —    -->
-<!-- its badge sits on the driver card. CUSTOMER iOS is NOT live:   -->
-<!-- do NOT add its badge until ITS listing returns 200.            -->
-<!-- (Trigger word: CUPERTINO — see backend PENDING_ITEMS_REGISTER.)-->
+<!-- iOS: BOTH apps are now live on the App Store. Driver          -->
+<!-- 2026-07-23 (id6789447581), CUSTOMER 2026-07-24 (id6789445062) -->
+<!-- — [SRC 2026-07-31] both HTTP 200 with matching og:title;      -->
+<!-- itunes lookup gives v1.0 + those release dates; a nonsense    -->
+<!-- App Store id 404s, which is what proves the 200s are real.    -->
+<!-- All four store listings (2 Play + 2 App Store) are LIVE.      -->
+<!--                                                              -->
+<!-- THE COST OF LEARNING THIS LATE: the customer badge and the    -->
+<!-- /get iOS redirect were both gated on "ITS listing returns     -->
+<!-- 200" — correct gates, but nothing ever CHECKED them. The      -->
+<!-- listing went live 07-24 and this page kept saying "coming     -->
+<!-- soon to iPhone" until 07-31 while middleware.js sent every    -->
+<!-- iPhone /get scan here to read it. A gate with no sensor       -->
+<!-- behind it is a note. Probe the store, never our own files.    -->
 <!-- Badge artwork (Google's AND Apple's) is hosted locally (never  -->
 <!-- hotlink); per both brands' guidelines it must not be           -->
 <!-- recoloured, cropped or squashed — hence the fixed aspect       -->
@@ -360,10 +369,10 @@ a { color: inherit; text-decoration: none; }
 .play-badge-link img { width: 100%; height: auto; display: block; }
 .play-badge-link:hover { opacity: 0.85; }
 .play-badge-link:focus-visible { outline: 2px solid var(--primary-bright); outline-offset: 3px; }
-/* APP STORE BADGE (2026-07-23, CUPERTINO item 3 — driver listing live, HTTP 200 vs 404 control).
-   Apple's own artwork, hosted locally, never recoloured or squashed: natural 119.66x40 ratio,
-   bounded by max-width exactly like the Play badge above. The customer card gets its badge
-   only when ITS listing returns 200. */
+/* APP STORE BADGE (driver 2026-07-23, customer 2026-07-31 — each added only after ITS OWN listing
+   was probed HTTP 200 against a 404 nonsense-id control; a badge over a dead link is worse than
+   no badge). Apple's own artwork, hosted locally, never recoloured or squashed: natural
+   119.66x40 ratio, bounded by max-width exactly like the Play badge above. */
 .appstore-badge-link { display: inline-block; max-width: 186px; width: 100%; line-height: 0; margin: 8px 0 2px; border-radius: 8px; transition: opacity 0.2s; }
 .appstore-badge-link img { width: 100%; height: auto; display: block; }
 .appstore-badge-link:hover { opacity: 0.85; }
@@ -452,7 +461,7 @@ a { color: inherit; text-decoration: none; }
 }
 .safety-note strong { color: var(--warning); }
 
-/* ===== Coming Soon ===== */
+/* ===== Store-availability callout (was "Coming Soon" until 2026-07-31) ===== */
 .coming-soon {
   text-align: center;
   padding: 32px 24px;
@@ -612,9 +621,16 @@ footer {
          rel="noopener noreferrer">
         <img src="/assets/google-play-badge.png" alt="Get HALA MOVE on Google Play" width="646" height="250" />
       </a>
+      <a id="customer-appstore-cta"
+         href="https://apps.apple.com/za/app/id6789445062"
+         class="appstore-badge-link"
+         target="_blank"
+         rel="noopener noreferrer">
+        <img src="/assets/app-store-badge.svg" alt="Download HALA MOVE on the App Store" width="120" height="40" />
+      </a>
       <p style="margin: 10px 0 16px; font-size: 13px; line-height: 1.45; color: var(--text-dim);">Installed an earlier <strong style="color: var(--primary-bright);">APK</strong>? Please <strong style="color: var(--primary-bright);">uninstall it first</strong>, then install from Google Play — after that, updates arrive automatically.</p>
       <div class="card-meta">
-        <span>Free · Android · Updates automatically</span>
+        <span>Free · Android &amp; iPhone · Updates automatically</span>
       </div>
     </article>
 
@@ -622,7 +638,7 @@ footer {
 
   <!-- INSTALL INSTRUCTIONS -->
   <div id="install" class="install">
-    <h2>How to install on Android</h2>
+    <h2>How to install</h2>
     <!-- REWRITTEN 2026-07-16 with the Play badges. The old four steps described a SIDELOAD — "the
          green or blue button downloads the APK", "allow installs from your browser", "open the
          downloaded file" — instructions for buttons that no longer exist. Worse, the safety note
@@ -630,17 +646,19 @@ footer {
          step over a security control, for an app that is now ON Play and needs none of it. Content
          that outlives the thing it describes is not merely stale — it actively teaches the wrong
          behaviour. -->
-    <p class="install-sub">HALA MOVE is on Google Play. Two taps and you're in — no unknown-sources settings, no downloaded files, and updates arrive on their own.</p>
+    <!-- Heading was "How to install on Android" until 2026-07-31: correct while iPhone had nothing
+         to install, wrong from the moment the customer app joined the driver app on the App Store. -->
+    <p class="install-sub">HALA MOVE is on Google Play and the App Store. Two taps and you're in — no unknown-sources settings, no downloaded files, and updates arrive on their own.</p>
     <div class="steps">
       <div class="step">
         <div class="step-num">STEP 1</div>
-        <h4>Tap the Google Play button above</h4>
-        <p>Pick <strong>Driver</strong> if you own a bakkie and want to earn, or <strong>Customer</strong> if you need something moved. It opens the app straight in the Play Store.</p>
+        <h4>Tap your store button above</h4>
+        <p>Pick <strong>Driver</strong> if you own a bakkie and want to earn, or <strong>Customer</strong> if you need something moved — then tap <strong>Google Play</strong> on Android or <strong>App Store</strong> on iPhone. It opens the app straight in your store.</p>
       </div>
       <div class="step">
         <div class="step-num">STEP 2</div>
-        <h4>Tap Install</h4>
-        <p>Google Play handles the rest. If you installed an earlier APK of HALA MOVE, uninstall that one first.</p>
+        <h4>Tap Install (or Get)</h4>
+        <p>Your store handles the rest. If you installed an earlier APK of HALA MOVE on Android, uninstall that one first.</p>
       </div>
       <div class="step">
         <div class="step-num">STEP 3</div>
@@ -652,26 +670,31 @@ footer {
     <div class="safety-note">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;color:var(--primary-bright)"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       <div>
-        <strong>Published by PROFITSAGE PTY LTD</strong> (CIPC-registered, DUNS 366869273) and distributed through Google Play — reviewed by Google, scanned by Play Protect, and updated automatically.
+        <strong>Published by PROFITSAGE PTY LTD</strong> (CIPC-registered, DUNS 366869273) and distributed through Google Play and the Apple App Store — reviewed by Google and Apple, scanned by Play Protect, and updated automatically.
       </div>
     </div>
   </div>
 
-  <!-- COMING SOON (customer iOS only — driver iOS went LIVE 2026-07-23) -->
+  <!-- BOTH APPS, BOTH STORES (2026-07-31). This block was "Customer app coming soon to iPhone"
+       from 2026-07-23 — TRUE when written, FALSE from 2026-07-24T07:00Z when Apple released the
+       customer app, and it kept saying it for a week. It is kept as a positive confirmation
+       instead of being deleted, because /download is where the /get iOS redirect used to land
+       and some printed QR traffic still arrives here.
+       [SRC 2026-07-31] customer id6789445062 -> 200 (v1.0, released 2026-07-24), driver
+       id6789447581 -> 200 (v1.0, released 2026-07-23), nonsense-id control -> 404.
+       RULE FOR THE NEXT EDITOR: never write a store-availability claim here that you have not
+       just probed. "Coming soon" and "now available" are both state, and state decays. -->
   <div class="coming-soon">
-    <h3>Customer app coming soon to iPhone</h3>
-    <!-- [SRC 2026-07-23] Driver iOS listing LIVE (apps.apple.com/za/app/id6789447581 -> HTTP 200;
-         nonsense-id control 404s, so the 200 is real) — its badge now sits on the driver card
-         above. Customer iOS is still with Apple: per Rule #24 the wording stays "coming" and
-         "we'll let you know", NEVER "in review" or a date — we do not control Apple's timing and
-         must not imply we do. When the CUSTOMER listing (id6789445062) returns 200, add its badge
-         to the customer card above and retire this block. The stale "Play Store · Queued" chip
-         was removed 2026-07-23 — both Android apps have been live on Play since 2026-07-15. -->
-    <p>HALA MOVE Driver is now on the App Store — the badge on the driver card above takes you straight there. The customer app for iPhone is on its way; Android customers can grab it on Google Play now, and we'll let you know the moment it lands.</p>
+    <h3>Both apps. Both stores. Available now.</h3>
+    <p>HALA MOVE and HALA MOVE Driver are live on Google Play <em>and</em> the App Store. Pick your card above and the badge takes you straight to the right store for your phone.</p>
     <div class="store-badges">
       <span class="store-badge">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.05 20.28c-.98.95-2.05.8-3.08.35-1.09-.46-2.09-.48-3.24 0-1.44.62-2.2.44-3.06-.35C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/></svg>
-        Customer app · Coming soon to iPhone
+        On the App Store · iPhone
+      </span>
+      <span class="store-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M3.6 20.6 12 12.2l2.5 2.5-8.4 8.4a1.8 1.8 0 0 1-2.5-2.5zM14.9 9.6 3.6 3.4a1.8 1.8 0 0 1 2.5-2.5l8.8 8.7zM17.4 12.1l3.4-1.8a1.8 1.8 0 0 1 0 3.4l-3.4-1.6z"/></svg>
+        On Google Play · Android
       </span>
     </div>
   </div>

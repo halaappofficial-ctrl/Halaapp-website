@@ -99,7 +99,7 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.halamove.co.za/">
 <meta property="og:title" content="Pioneer Access Now Open | HALA MOVE">
-<meta property="og:description" content="Real-time offers logistics in Durban. Get HALA MOVE free on Google Play. iPhone coming soon.">
+<meta property="og:description" content="Real-time offers logistics in Durban. Get HALA MOVE free on Google Play and the App Store.">
 <meta property="og:image" content="https://www.halamove.co.za/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Pioneer Access Now Open | HALA MOVE">
@@ -200,6 +200,14 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .play-badge-link img{width:100%;height:auto;display:block}
 .play-badge-link:hover{opacity:.85}
 .play-badge-link:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+/* APP STORE BADGE (2026-07-31 — customer iOS live). Apple's own artwork, hosted locally, never
+   recoloured or squashed: intrinsic 119.66x40. The max-width holds the SAME badge-width ratio to
+   the Play badge that download.html already ships (186:210), because the two vendors' assets carry
+   different built-in clear space and equal bounding boxes would render Apple's visibly larger. */
+.appstore-badge-link{display:inline-block;max-width:161px;width:100%;line-height:0;border-radius:8px;transition:opacity .2s}
+.appstore-badge-link img{width:100%;height:auto;display:block}
+.appstore-badge-link:hover{opacity:.85}
+.appstore-badge-link:focus-visible{outline:2px solid var(--g);outline-offset:3px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .hero-phone-wrap{display:flex;justify-content:center;align-items:center;position:relative;animation:fadeIn 1s cubic-bezier(.4,0,.2,1) .3s both}
@@ -515,13 +523,20 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
          "APK" (the one word that triggers sideload suspicion), and it linked to our own page rather
          than the store. A badge that reads "Get it on Google Play" must GO to Google Play, or the
          promise it makes is broken on the click. Now: Google's own artwork, straight to the listing.
-         No App Store badge — the iOS listing is not live, and a badge over a dead link is worse than
-         a sentence. Rule #24 wording: "coming", never "in review", never a date. -->
+         APP STORE BADGE ADDED 2026-07-31 — the customer iOS listing went live 2026-07-24T07:00Z and
+         this page said "iPhone coming soon" for the seven days in between. [SRC 2026-07-31]
+         apps.apple.com/za/app/id6789445062 -> HTTP 200 (v1.0), nonsense-id control -> 404. The old
+         rule stands and is why the badge waited: a badge over a dead link is worse than a sentence.
+         The new rule is the other half of it: a "coming soon" over a LIVE link costs installs. Probe
+         before you write either one. Rule #24 wording: never "in review", never a date. -->
     <div class="store-row">
      <a href="https://play.google.com/store/apps/details?id=com.hala.customer" class="play-badge-link" target="_blank" rel="noopener noreferrer" aria-label="Get HALA MOVE on Google Play">
       <img src="/assets/google-play-badge.png" alt="Get HALA MOVE on Google Play" width="646" height="250">
      </a>
-     <span class="store-note">Free on Google Play · iPhone coming soon</span>
+     <a href="https://apps.apple.com/za/app/id6789445062" class="appstore-badge-link" target="_blank" rel="noopener noreferrer" aria-label="Download HALA MOVE on the App Store">
+      <img src="/assets/app-store-badge.svg" alt="Download HALA MOVE on the App Store" width="120" height="40">
+     </a>
+     <span class="store-note">Free on Android &amp; iPhone</span>
     </div>
    </div>
 
@@ -617,14 +632,19 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
   <div class="cta-inner">
    <div class="eyebrow">Download HALA MOVE</div>
    <h2 class="app-cta-h" id="cta-heading">Pioneer Access<br><span style="color:var(--g)">now open.</span></h2>
-   <p class="app-cta-sub">Be among the first to use HALA MOVE in Durban. Post a job in 60 seconds. Verified drivers make offers in real time. PayFast escrow protects every rand. Free on Google Play. iPhone coming soon.</p>
+   <p class="app-cta-sub">Be among the first to use HALA MOVE in Durban. Post a job in 60 seconds. Verified drivers make offers in real time. PayFast escrow protects every rand. Free on Google Play and the App Store.</p>
    <!-- "Pioneer APK live for Android. iPhone version in App Store review." — BOTH claims were false
         by 2026-07-16. The APK is gone (Play serves the app now), and "in App Store review" is the
         Rule #24 violation Eric already ruled on: we do not control Apple's timing, so we never imply
-        a schedule. Badges replaced with Google's own artwork; the fake &#9654;/&#8984; glyph badges are gone. -->
+        a schedule. Badges replaced with Google's own artwork; the fake &#9654;/&#8984; glyph badges are gone.
+        2026-07-31: the App Store badge joins it — the wait was correct, its LENGTH was not. Nothing
+        watched the listing, so the page under-sold a shipped app for a week. -->
    <div class="cta-badges">
     <a href="https://play.google.com/store/apps/details?id=com.hala.customer" class="play-badge-link" target="_blank" rel="noopener noreferrer" aria-label="Get HALA MOVE on Google Play">
      <img src="/assets/google-play-badge.png" alt="Get HALA MOVE on Google Play" width="646" height="250">
+    </a>
+    <a href="https://apps.apple.com/za/app/id6789445062" class="appstore-badge-link" target="_blank" rel="noopener noreferrer" aria-label="Download HALA MOVE on the App Store">
+     <img src="/assets/app-store-badge.svg" alt="Download HALA MOVE on the App Store" width="120" height="40">
     </a>
    </div>
    <div class="cta-rating">
@@ -663,7 +683,10 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
   </style>
   <div class="ea-wrap">
    <h3 class="ea-h">Not on your phone yet? <span style="color:var(--g)">Get early access.</span></h3>
-   <p class="ea-sub">Leave your email or number and we'll tell you the moment HALA MOVE lands on Google Play and the App Store.</p>
+   <!-- 2026-07-31: this promised to tell people "the moment HALA MOVE lands on Google Play and the
+        App Store". It has landed on both. A waitlist for a shipped app is a broken promise, so the
+        ask is now what it actually is: send me the links and keep me posted on the Durban rollout. -->
+   <p class="ea-sub">HALA MOVE is out on both stores. Leave your email or number and we'll send you the download links plus what's happening with the Durban rollout.</p>
    <form id="eaForm" novalidate>
     <div class="ea-toggle" role="group" aria-label="I am a">
      <span class="ea-pill active" data-role="customer" role="button" tabindex="0" aria-pressed="true">I need to move</span>

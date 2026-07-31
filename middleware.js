@@ -15,11 +15,23 @@
 // ?s= source code is preserved: as Google Play install `referrer` UTMs (utm_campaign/utm_content,
 // same shape the old redirects produced) and as an Apple `ct` campaign token on iOS.
 //
-// CUSTOMER iOS IS NOT LIVE YET (in App Review). So /get on iOS goes to the /download page (Android
-// badge + a "coming to iPhone" note) — never to a customer App Store URL that does not exist.
-// When the customer app ships on iOS, set APP_STORE['/get'] to its listing and this starts routing
-// iPhone customers there automatically. Verify the driver listing id against mobile/driver-app/
-// app.json, never a doc (the driver package was renamed once and a dead id rode a doc for 10 days).
+// 2026-07-31 — CUSTOMER iOS IS NOW LIVE, and this file was the last thing that did not know it.
+// [SRC 2026-07-31] apps.apple.com/za/app/id6789445062 -> HTTP 200, og:title "HALA Move App";
+// itunes lookup: bundleId com.hala.customer, version 1.0, releaseDate 2026-07-24T07:00:00Z. Control:
+// a nonsense App Store id returns 404, which is what proves the 200 is real and not a catch-all.
+//
+// SO FOR SEVEN DAYS THIS REDIRECT LIED. APP_STORE['/get'] was null, so every iPhone that scanned a
+// /get QR or tapped a /get link between 2026-07-24 and 2026-07-31 was sent to /download — a page
+// whose own copy said the customer app was "coming soon to iPhone" — while it sat live in the App
+// Store. The listing was reachable; nothing routed to it. A live listing that no link points at is
+// functionally not live, and NOTHING in the system noticed: the fix below was written as a comment
+// ("when the customer app ships, set this"), and a comment is a note, not a control. The durable
+// lesson is the one the ten-day dead driver id already taught, one level out — there it was a doc
+// carrying an id that 404s, here it is a redirect carrying an absence that had ended. Both were
+// discovered by PROBING the live store, never by reading our own files.
+//
+// Verify each listing id against the app's own app.json + a live 200 (with a 404 control), never a
+// doc — the driver package was renamed once and a dead id rode a doc for 10 days.
 
 export const config = { matcher: ['/drive', '/get'] };
 
@@ -32,9 +44,11 @@ const PLAY = {
 // iOS App Store destination per path. null = no live App Store listing yet -> IOS_FALLBACK.
 const APP_STORE = {
   '/drive': 'https://apps.apple.com/za/app/id6789447581', // HALA Move Driver — LIVE 2026-07-23
-  '/get': null,                                            // HALA Move (customer) — still in App Review
+  '/get': 'https://apps.apple.com/za/app/id6789445062',   // HALA Move (customer) — LIVE 2026-07-24
 };
-const IOS_FALLBACK = 'https://halamove.co.za/download';    // honest landing while customer iOS is pending
+// Kept deliberately: it is the correct behaviour for any FUTURE app whose listing is not live yet.
+// Both current entries are non-null, so nothing reaches it today.
+const IOS_FALLBACK = 'https://halamove.co.za/download';
 
 function redirect(location) {
   return new Response(null, { status: 307, headers: { Location: location, 'Cache-Control': 'no-store' } });

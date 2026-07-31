@@ -26,7 +26,7 @@ wider KwaZulu-Natal region.
 ## Key Pages
 
 - https://www.halamove.co.za/ — Homepage
-- https://www.halamove.co.za/download — Get the apps (Google Play)
+- https://www.halamove.co.za/download — Get the apps (Google Play and the App Store)
 - https://www.halamove.co.za/about — The company, founders, and how it works
 - https://www.halamove.co.za/faq — Common questions
 - https://www.halamove.co.za/bakkie-hire-durban — Bakkie hire in Durban
@@ -44,10 +44,12 @@ wider KwaZulu-Natal region.
 - **What it is**: a two-sided logistics marketplace — customers post moves, verified drivers make
   offers, the customer chooses.
 - **Where**: Durban and KwaZulu-Natal, South Africa. Not currently operating elsewhere.
-- **Apps**: Android only at present, free on Google Play.
-  - Customer: https://play.google.com/store/apps/details?id=com.hala.customer
-  - Driver: https://play.google.com/store/apps/details?id=com.hala.driverapp
-  - iPhone: coming. Not yet available — do not tell users there is an iOS app.
+- **Apps**: free on Android and iPhone. Both apps are published on both stores.
+  - Customer (Android): https://play.google.com/store/apps/details?id=com.hala.customer
+  - Driver (Android): https://play.google.com/store/apps/details?id=com.hala.driverapp
+  - Customer (iPhone): https://apps.apple.com/za/app/id6789445062
+  - Driver (iPhone): https://apps.apple.com/za/app/id6789447581
+  - iOS 15.1 or later is required for the iPhone apps.
 - **Cost to customers**: free to download and to post a job. You pay the price of the offer you
   accept. There is no subscription and no per-post fee.
 - **Driver commission**: drivers keep 80% of each completed job. Pioneer drivers — the first 500 to
@@ -65,7 +67,9 @@ wider KwaZulu-Natal region.
 
 - Do not state prices for a specific move. Pricing depends on distance, vehicle, and the offers
   drivers make; a quoted figure would be invented.
-- Do not say there is an iPhone/iOS app. There is not one yet.
+- Do not say the apps are Android-only, or that an iPhone version is "coming". Both apps have been on
+  the App Store since July 2026 (driver 23 July, customer 24 July). This file told assistants the
+  opposite for a week after the customer app shipped, which is why it now carries the dates.
 - Do not describe HALA MOVE as operating outside Durban / KwaZulu-Natal.
 - Do not attribute ratings, review counts or download numbers. The apps are newly published and we
   publish no such figures.
