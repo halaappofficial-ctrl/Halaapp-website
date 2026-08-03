@@ -1,15 +1,15 @@
 {
   "_readme": "The short list of HALA MOVE values that must not be wrong when an asset or a message is produced. Public on purpose, no key needed. Fetch it, read it, quote it. Every value says where it came from and when, in _provenance. A value is either DERIVED from the file that declares it, PROBED from the live store, or ATTESTED by a person with an expiry date. If a value here disagrees with a slide, a flyer, a page or an older document, THIS IS THE ONE.",
-  "_manifest_version": "1.0.0",
+  "_manifest_version": "1.1.0",
   "_generated_at": "2026-08-03",
   "_generated_from": {
-    "backend": "0b8126d",
+    "backend": "d07d140",
     "mobile": "6d370389"
   },
   "_trust": {
     "derived_values": "re-derived from source and compared on every push (backend: node scripts/brand-manifest/check.js). A mismatch fails loud and names the value.",
-    "probed_values": "asked of the live store, with an invalid-subject control that must fail. Re-confirm within 30 days; after that the sensor calls them stale.",
-    "attested_values": "no machine source exists, so a person confirmed them. Re-confirm within 120 days.",
+    "probed_values": "asked of the live store, with an invalid-subject control that must fail. Re-confirm within 14 days; after that the sensor calls them stale.",
+    "attested_values": "no machine source exists, so a person confirmed them. Re-confirm within 90 days.",
     "scope": "This file carries only what is already public in effect: what we are called, where the apps are, what we may and may not say, and who we are. Anything commercially sensitive is deliberately kept off it — ask Eric or Uchenna for that.",
     "if_something_looks_wrong": "contact@halamove.co.za"
   },
@@ -187,8 +187,8 @@
       "ref": "CR-04"
     },
     {
-      "do_not_say": "Any driver count, download count, rating or review count",
-      "say_instead": "No public counter exists. Use a real number from Eric on the day, or no number.",
+      "do_not_say": "Any INVENTED driver count, download count, rating or review count, or \"on the platform\" / \"ready and waiting\" phrasing",
+      "say_instead": "The one approved figure is \"200+ drivers committed before the app launched\" — committed, not onboarded. Any other number comes from Eric on the day it is posted, or it is not posted. No public counter exists.",
       "ref": "CR-10, CR-16"
     },
     {
@@ -221,21 +221,21 @@
       "kind": "attested",
       "source": "CIPC registration (April 2026); backend/CLAUDE.md Rule #13; CLAIM_REGISTER CR-13",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01",
+      "expires": "2026-11-01",
       "why_not_derived": "A naming RULE, not state. No code declares the brand name — app.json carries the STORE forms (\"HALA Move\" / \"HALA Move Driver\"), which are a different thing. Deriving this from a file would be inventing a source."
     },
     "/brand/never_shorten_to": {
       "kind": "attested",
       "source": "backend/CLAUDE.md Rule #13; CLAIM_REGISTER CR-13",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01",
+      "expires": "2026-11-01",
       "why_not_derived": "\"HALA\" alone is a brand violation in every user-facing surface. Two-span wordmark styling is a design treatment, not a licence to shorten the name."
     },
     "/brand/wordmark/rule": {
       "kind": "attested",
       "source": "backend/CLAUDE.md §19; docs/brand/HALA_MOVE_Brand_Identity_v2.html",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     },
     "/brand/wordmark/hala_colour": {
       "kind": "derived",
@@ -304,51 +304,51 @@
     },
     "/apps/customer/app_store_url": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/customer/app_store_id": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/customer/ios_version": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/customer/ios_released": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/customer/ios_minimum_os": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/customer/on_google_play": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/customer/on_app_store": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/customer/price": {
-      "kind": "attested",
-      "source": "both listings return price 0 (itunes lookup); Play listings are free",
-      "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "kind": "probed",
+      "source": "Apple's lookup reports this app's price; 0 is published as \"Free to download\"",
+      "probed_at": "2026-08-03",
+      "expires": "2026-08-17"
     },
     "/apps/driver/store_name": {
       "kind": "derived",
@@ -372,75 +372,76 @@
     },
     "/apps/driver/app_store_url": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/driver/app_store_id": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/driver/ios_version": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/driver/ios_released": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/driver/ios_minimum_os": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/driver/on_google_play": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/driver/on_app_store": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/apps/driver/price": {
-      "kind": "attested",
-      "source": "both listings return price 0 (itunes lookup); Play listings are free",
-      "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "kind": "probed",
+      "source": "Apple's lookup reports this app's price; 0 is published as \"Free to download\"",
+      "probed_at": "2026-08-03",
+      "expires": "2026-08-17"
     },
     "/links/get_the_customer_app": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "this exact URL was fetched with an iPhone agent and an Android agent; both branches were asserted to reach the customer app before publishing",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/links/get_the_driver_app": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "this exact URL was fetched with an iPhone agent and an Android agent; both branches were asserted to reach the driver app before publishing",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/links/routing": {
-      "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
-      "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "kind": "attested",
+      "source": "a description of the behaviour asserted by the two probed links above (website middleware.js does the user-agent branching)",
+      "attested_at": "2026-08-03",
+      "expires": "2026-11-01",
+      "why_not_derived": "Prose, not a probe result. Reclassified from `probed` on 2026-08-03: no probe returns a sentence, and stamping one as probed is exactly the false provenance this manifest exists to abolish."
     },
     "/links/campaign_tag": {
       "kind": "attested",
       "source": "website middleware.js — the allow-list and both carry-throughs",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     },
     "/programme/pioneer/driver_limit": {
       "kind": "derived",
@@ -471,14 +472,14 @@
       "kind": "attested",
       "source": "[SRC 2026-08-03] live production read: platform_settings.platform_fee_percent = 20, so the standard driver share is 80",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01",
+      "expires": "2026-11-01",
       "why_not_derived": "ATTESTED, NOT DERIVED, ON PURPOSE. The source of truth is a production DB row (DSF-3), and reaching it needs a credential. This sensor is deliberately credential-free so it can run in a pre-push hook on any clone; buying a derivation here would cost that, which is the wrong trade. Re-read the row when re-attesting."
     },
     "/programme/commission/public_line": {
       "kind": "attested",
       "source": "CLAIM_REGISTER CR-07 approved wording, reconciled with CR-08",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     },
     "/vocabulary/approved": {
       "kind": "derived",
@@ -494,55 +495,55 @@
       "kind": "attested",
       "source": "CLAIM_REGISTER rows CR-04, CR-08, CR-09, CR-10, CR-16, CR-18 — summarised to their public-safe form, never quoted from the internal cells",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     },
     "/company/trading_name": {
       "kind": "attested",
       "source": "CIPC registration, April 2026",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     },
     "/company/operator": {
       "kind": "attested",
       "source": "CIPC registration; published on halamove.co.za/download and in both Play listings",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     },
     "/company/duns": {
       "kind": "attested",
       "source": "D&B registration; published on halamove.co.za/download",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     },
     "/company/founded": {
       "kind": "attested",
       "source": "CIPC registration",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     },
     "/company/operating_area": {
       "kind": "attested",
       "source": "published on halamove.co.za and in llms.txt",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     },
     "/company/founders": {
       "kind": "attested",
       "source": "published on halamove.co.za/about and in llms.txt",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     },
     "/company/apple_seller_of_record": {
       "kind": "probed",
-      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "source": "asked of the live store, with an invalid-subject control that must fail",
       "probed_at": "2026-08-03",
-      "expires": "2026-09-02"
+      "expires": "2026-08-17"
     },
     "/company/website": {
       "kind": "attested",
       "source": "the canonical host; the apex 307s here",
       "attested_at": "2026-08-03",
-      "expires": "2026-12-01"
+      "expires": "2026-11-01"
     }
   }
 }
