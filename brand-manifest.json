@@ -3,7 +3,7 @@
   "_manifest_version": "1.1.0",
   "_generated_at": "2026-08-03",
   "_generated_from": {
-    "backend": "d07d140",
+    "backend": "f71b1e1",
     "mobile": "6d370389"
   },
   "_trust": {
@@ -162,6 +162,11 @@
       {
         "rule": "\"HALA\" alone",
         "term": "HALA"
+      },
+      {
+        "rule": "\"platform fee\" (say \"commission\")",
+        "term": "platform fee",
+        "say_instead": "commission"
       }
     ]
   },
