@@ -67,7 +67,10 @@
      push. A unique string cannot pre-exist, so finding it in the served bytes is
      proof of a fresh build and not of a cache.
      Left in place deliberately: the next person who changes hosting, branch or repo
-     visibility can re-run the same one-line check instead of trusting that it works. -->
+     visibility can re-run the same one-line check instead of trusting that it works.
+     Retry 2 (real file change, to tell "Vercel skips empty commits" apart from
+     "the git integration is severed" — the empty commit c907b65 produced no
+     deployment at all, where every commit before it did). -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
