@@ -58,6 +58,17 @@
 <!-- ratios in .play-badge-link / .appstore-badge-link.             -->
 <!-- ============================================================ -->
 
+<!-- DEPLOY PATH RE-PROVEN AFTER THE REPO WENT PRIVATE — 2026-08-03.
+     Marker: DEPLOY-PROOF-DDC1ECAC9D84
+     Making the source repo private is the kind of change that can silently sever a
+     Vercel git integration: the site keeps serving the LAST successful build, so
+     "the site is up" proves nothing about whether new work can still reach it. The
+     only way to know is to push something and go look for it. This token is that
+     push. A unique string cannot pre-exist, so finding it in the served bytes is
+     proof of a fresh build and not of a cache.
+     Left in place deliberately: the next person who changes hosting, branch or repo
+     visibility can re-run the same one-line check instead of trusting that it works. -->
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
