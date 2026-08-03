@@ -1,0 +1,548 @@
+{
+  "_readme": "The short list of HALA MOVE values that must not be wrong when an asset or a message is produced. Public on purpose, no key needed. Fetch it, read it, quote it. Every value says where it came from and when, in _provenance. A value is either DERIVED from the file that declares it, PROBED from the live store, or ATTESTED by a person with an expiry date. If a value here disagrees with a slide, a flyer, a page or an older document, THIS IS THE ONE.",
+  "_manifest_version": "1.0.0",
+  "_generated_at": "2026-08-03",
+  "_generated_from": {
+    "backend": "0b8126d",
+    "mobile": "6d370389"
+  },
+  "_trust": {
+    "derived_values": "re-derived from source and compared on every push (backend: node scripts/brand-manifest/check.js). A mismatch fails loud and names the value.",
+    "probed_values": "asked of the live store, with an invalid-subject control that must fail. Re-confirm within 30 days; after that the sensor calls them stale.",
+    "attested_values": "no machine source exists, so a person confirmed them. Re-confirm within 120 days.",
+    "scope": "This file carries only what is already public in effect: what we are called, where the apps are, what we may and may not say, and who we are. Anything commercially sensitive is deliberately kept off it — ask Eric or Uchenna for that.",
+    "if_something_looks_wrong": "contact@halamove.co.za"
+  },
+  "brand": {
+    "name": "HALA MOVE",
+    "never_shorten_to": "HALA",
+    "wordmark": {
+      "rule": "Two spans: \"HALA\" in brand green, \"MOVE\" in white, Outfit Black 900. Rendered output always reads \"HALA MOVE\" in full.",
+      "hala_colour": "#5CB558",
+      "move_colour": "#FFFFFF"
+    },
+    "colours": {
+      "primary": "#5CB558",
+      "background": "#0A0A0A",
+      "surface": "#1A1A1A",
+      "text": "#FFFFFF",
+      "never_use": [
+        "#FF6B00",
+        "#1DB954",
+        "#22C55E",
+        "#00D4FF"
+      ]
+    },
+    "domain": "halamove.co.za",
+    "contact_email": "contact@halamove.co.za"
+  },
+  "apps": {
+    "customer": {
+      "store_name": "HALA Move",
+      "android_package": "com.hala.customer",
+      "ios_bundle_id": "com.hala.customer",
+      "play_url": "https://play.google.com/store/apps/details?id=com.hala.customer",
+      "app_store_url": "https://apps.apple.com/za/app/id6789445062",
+      "app_store_id": "6789445062",
+      "ios_version": "1.0",
+      "ios_released": "2026-07-24T07:00:00Z",
+      "ios_minimum_os": "15.1",
+      "on_google_play": true,
+      "on_app_store": true,
+      "price": "Free to download"
+    },
+    "driver": {
+      "store_name": "HALA Move Driver",
+      "android_package": "com.hala.driverapp",
+      "ios_bundle_id": "com.hala.driverapp",
+      "play_url": "https://play.google.com/store/apps/details?id=com.hala.driverapp",
+      "app_store_url": "https://apps.apple.com/za/app/id6789447581",
+      "app_store_id": "6789447581",
+      "ios_version": "1.0",
+      "ios_released": "2026-07-23T07:00:00Z",
+      "ios_minimum_os": "15.1",
+      "on_google_play": true,
+      "on_app_store": true,
+      "price": "Free to download"
+    }
+  },
+  "links": {
+    "get_the_customer_app": "https://www.halamove.co.za/get",
+    "get_the_driver_app": "https://www.halamove.co.za/drive",
+    "routing": "One link per app. iPhone is sent to the App Store, everything else to Google Play. Safe to print — the destination can be re-pointed without reprinting.",
+    "campaign_tag": "Append ?s=<code> (letters, numbers, _ or -, max 32) to either link. It survives as an Apple campaign token on iPhone and a Google Play install referrer on Android."
+  },
+  "programme": {
+    "pioneer": {
+      "driver_limit": 500,
+      "free_jobs": 20,
+      "public_line": "Pioneer Program: the first 500 drivers are charged zero commission on their first 20 completed jobs — they keep 100%."
+    },
+    "referral": {
+      "reward_zar": 50,
+      "public_line": "When their first move completes, you BOTH earn R50 — the referrer and the referred person each get the reward. T&Cs apply."
+    },
+    "commission": {
+      "driver_keeps_percent": 80,
+      "public_line": "Keep up to 80% of every job. Pioneer drivers currently keep 100%."
+    }
+  },
+  "vocabulary": {
+    "approved": {
+      "customer": [
+        "Post a move in 30 seconds",
+        "Verified drivers send offers — you choose the price",
+        "Bakkies, panel vans and trucks — from a small bakkie to a 4-ton truck",
+        "Escrow-protected payments (PayFast), released only after delivery / when your delivery is confirmed",
+        "You get a suggested fair price",
+        "Track your driver live",
+        "Moves from R150",
+        "Every move saved in your in-app history"
+      ],
+      "driver": [
+        "Turn your bakkie, van or truck into income",
+        "Set your price on every job",
+        "Keep up to 80%",
+        "Same-day payout for jobs completed before 5pm",
+        "Cash out to your bank whenever you want (min R50, 2–3 business days)",
+        "Pioneer Program — zero commission for the first 500 drivers on their first 20 completed jobs (they keep 100%)",
+        "Go online, see jobs near you",
+        "Verified, rated profile",
+        "SOS button + proof-of-delivery"
+      ],
+      "trust": [
+        "Identity-verified drivers: SA ID checked against the government database, selfie face-match, licence, vehicle registration, roadworthy certificate, bank account — typically within 24 hours",
+        "Every item photographed before loading and at delivery — timestamped. No he-said-she-said.",
+        "Disputes reviewed with a finding within 24 hours",
+        "One-tap SOS on every active job"
+      ],
+      "positioning": [
+        "South Africa's real-time logistics marketplace",
+        "Verified. Tracked. Accountable.",
+        "Earn on your schedule. Own your route.",
+        "Post. Choose. Move.",
+        "Moving, on demand.",
+        "A bakkie, van or truck can't drive for Uber or Bolt — those move people. HALA MOVE is the only way that vehicle earns on demand."
+      ],
+      "coverage": [
+        "Live in Durban — CBD, Umhlanga, Umlazi, Pinetown, Westville and the metro — plus inter-city trips across KwaZulu-Natal. Johannesburg and Cape Town next."
+      ],
+      "b2b": [
+        "Fleet contracts from R5,000/month (typical range R15,000–R200,000/month) · contract setup in 24 hours · complaint response within 2 business hours"
+      ]
+    },
+    "forbidden": [
+      {
+        "rule": "\"low commission / cheaper than Uber-Bolt-movers\"",
+        "term": "low commission / cheaper than Uber-Bolt-movers"
+      },
+      {
+        "rule": "\"AI / algorithm\" (say \"smart pricing\")",
+        "term": "AI / algorithm",
+        "say_instead": "smart pricing"
+      },
+      {
+        "rule": "\"background-checked\" (say \"identity-verified\")",
+        "term": "background-checked",
+        "say_instead": "identity-verified"
+      },
+      {
+        "rule": "any insurance promise"
+      },
+      {
+        "rule": "any income/work guarantee"
+      },
+      {
+        "rule": "invented numbers"
+      },
+      {
+        "rule": "\"bid\"",
+        "term": "bid"
+      },
+      {
+        "rule": "\"HALA\" alone",
+        "term": "HALA"
+      }
+    ]
+  },
+  "not_yet": [
+    {
+      "do_not_say": "Goods are insured / fully covered",
+      "say_instead": "Escrow-protected payments. Every item photographed before loading and at delivery, timestamped. Disputes reviewed with a finding within 24 hours.",
+      "ref": "CR-18"
+    },
+    {
+      "do_not_say": "Guaranteed work or guaranteed income",
+      "say_instead": "HALA MOVE makes no guarantee of income. Quote the Pioneer commission terms instead.",
+      "ref": "CR-08"
+    },
+    {
+      "do_not_say": "A percentage discount on a first move",
+      "say_instead": "There is no discount mechanism. The referral reward is the only credit rail.",
+      "ref": "CR-09"
+    },
+    {
+      "do_not_say": "A live creator dashboard exists",
+      "say_instead": "Numbers are sent to creators weekly.",
+      "ref": "CR-04"
+    },
+    {
+      "do_not_say": "Any driver count, download count, rating or review count",
+      "say_instead": "No public counter exists. Use a real number from Eric on the day, or no number.",
+      "ref": "CR-10, CR-16"
+    },
+    {
+      "do_not_say": "HALA MOVE operates outside Durban / KwaZulu-Natal",
+      "say_instead": "Live in Durban and the wider KwaZulu-Natal region.",
+      "ref": "llms.txt"
+    }
+  ],
+  "company": {
+    "trading_name": "HALA MOVE",
+    "operator": "PROFITSAGE PTY LTD",
+    "duns": "366869273",
+    "founded": 2026,
+    "operating_area": "Durban and the wider KwaZulu-Natal region, South Africa",
+    "founders": [
+      {
+        "name": "Uchenna Ngubane",
+        "role": "CEO"
+      },
+      {
+        "name": "Mbabazi Eric Katwesige",
+        "role": "CTO"
+      }
+    ],
+    "apple_seller_of_record": "Zanele Penelope Mhlanga",
+    "website": "https://www.halamove.co.za/"
+  },
+  "_provenance": {
+    "/brand/name": {
+      "kind": "attested",
+      "source": "CIPC registration (April 2026); backend/CLAUDE.md Rule #13; CLAIM_REGISTER CR-13",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01",
+      "why_not_derived": "A naming RULE, not state. No code declares the brand name — app.json carries the STORE forms (\"HALA Move\" / \"HALA Move Driver\"), which are a different thing. Deriving this from a file would be inventing a source."
+    },
+    "/brand/never_shorten_to": {
+      "kind": "attested",
+      "source": "backend/CLAUDE.md Rule #13; CLAIM_REGISTER CR-13",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01",
+      "why_not_derived": "\"HALA\" alone is a brand violation in every user-facing surface. Two-span wordmark styling is a design treatment, not a licence to shorten the name."
+    },
+    "/brand/wordmark/rule": {
+      "kind": "attested",
+      "source": "backend/CLAUDE.md §19; docs/brand/HALA_MOVE_Brand_Identity_v2.html",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/brand/wordmark/hala_colour": {
+      "kind": "derived",
+      "source": "mobile/customer-app/src/utils/theme.js — COLORS.primary",
+      "read_at": "2026-08-03"
+    },
+    "/brand/wordmark/move_colour": {
+      "kind": "derived",
+      "source": "mobile/customer-app/src/utils/theme.js — COLORS.textPrimary",
+      "read_at": "2026-08-03"
+    },
+    "/brand/colours/primary": {
+      "kind": "derived",
+      "source": "mobile/customer-app/src/utils/theme.js — COLORS.primary",
+      "read_at": "2026-08-03"
+    },
+    "/brand/colours/background": {
+      "kind": "derived",
+      "source": "mobile/customer-app/src/utils/theme.js — COLORS.background",
+      "read_at": "2026-08-03"
+    },
+    "/brand/colours/surface": {
+      "kind": "derived",
+      "source": "mobile/customer-app/src/utils/theme.js — COLORS.surface",
+      "read_at": "2026-08-03"
+    },
+    "/brand/colours/text": {
+      "kind": "derived",
+      "source": "mobile/customer-app/src/utils/theme.js — COLORS.textPrimary",
+      "read_at": "2026-08-03"
+    },
+    "/brand/colours/never_use": {
+      "kind": "derived",
+      "source": "mobile/customer-app/src/utils/theme.js — the \"NEVER use:\" declaration at the head of the file",
+      "read_at": "2026-08-03"
+    },
+    "/brand/domain": {
+      "kind": "derived",
+      "source": "mobile/customer-app/app.json — expo.ios.associatedDomains (the domain Apple + Google actually verify)",
+      "read_at": "2026-08-03"
+    },
+    "/brand/contact_email": {
+      "kind": "derived",
+      "source": "backend/src/routes/whatsapp.js — the address the platform actually sends to users",
+      "read_at": "2026-08-03"
+    },
+    "/apps/customer/store_name": {
+      "kind": "derived",
+      "source": "mobile/customer-app/app.json — expo.name",
+      "read_at": "2026-08-03"
+    },
+    "/apps/customer/android_package": {
+      "kind": "derived",
+      "source": "mobile/customer-app/app.json — expo.android.package",
+      "read_at": "2026-08-03"
+    },
+    "/apps/customer/ios_bundle_id": {
+      "kind": "derived",
+      "source": "mobile/customer-app/app.json — expo.ios.bundleIdentifier",
+      "read_at": "2026-08-03"
+    },
+    "/apps/customer/play_url": {
+      "kind": "derived",
+      "source": "mobile/customer-app/app.json — BUILT from expo.android.package — never copied from a doc",
+      "read_at": "2026-08-03"
+    },
+    "/apps/customer/app_store_url": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/customer/app_store_id": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/customer/ios_version": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/customer/ios_released": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/customer/ios_minimum_os": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/customer/on_google_play": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/customer/on_app_store": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/customer/price": {
+      "kind": "attested",
+      "source": "both listings return price 0 (itunes lookup); Play listings are free",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/apps/driver/store_name": {
+      "kind": "derived",
+      "source": "mobile/driver-app/app.json — expo.name",
+      "read_at": "2026-08-03"
+    },
+    "/apps/driver/android_package": {
+      "kind": "derived",
+      "source": "mobile/driver-app/app.json — expo.android.package",
+      "read_at": "2026-08-03"
+    },
+    "/apps/driver/ios_bundle_id": {
+      "kind": "derived",
+      "source": "mobile/driver-app/app.json — expo.ios.bundleIdentifier",
+      "read_at": "2026-08-03"
+    },
+    "/apps/driver/play_url": {
+      "kind": "derived",
+      "source": "mobile/driver-app/app.json — BUILT from expo.android.package — never copied from a doc",
+      "read_at": "2026-08-03"
+    },
+    "/apps/driver/app_store_url": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/driver/app_store_id": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/driver/ios_version": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/driver/ios_released": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/driver/ios_minimum_os": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/driver/on_google_play": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/driver/on_app_store": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/apps/driver/price": {
+      "kind": "attested",
+      "source": "both listings return price 0 (itunes lookup); Play listings are free",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/links/get_the_customer_app": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/links/get_the_driver_app": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/links/routing": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/links/campaign_tag": {
+      "kind": "attested",
+      "source": "website middleware.js — the allow-list and both carry-throughs",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/programme/pioneer/driver_limit": {
+      "kind": "derived",
+      "source": "backend/src/utils/pioneerStatus.js — PIONEER_DRIVER_LIMIT",
+      "read_at": "2026-08-03"
+    },
+    "/programme/pioneer/free_jobs": {
+      "kind": "derived",
+      "source": "backend/src/utils/pioneerStatus.js — FREE_JOB_LIMIT",
+      "read_at": "2026-08-03"
+    },
+    "/programme/pioneer/public_line": {
+      "kind": "derived",
+      "source": "backend/src/utils/pioneerStatus.js — sentence BUILT from PIONEER_DRIVER_LIMIT + FREE_JOB_LIMIT, so the copy cannot outlive the code",
+      "read_at": "2026-08-03"
+    },
+    "/programme/referral/reward_zar": {
+      "kind": "derived",
+      "source": "backend/src/services/referralService.js — REFERRAL_CREDIT_ZAR",
+      "read_at": "2026-08-03"
+    },
+    "/programme/referral/public_line": {
+      "kind": "derived",
+      "source": "backend/src/services/referralService.js — sentence BUILT from REFERRAL_CREDIT_ZAR; the two-sided rail shipped 2026-07-14 (CR-02 BACKED)",
+      "read_at": "2026-08-03"
+    },
+    "/programme/commission/driver_keeps_percent": {
+      "kind": "attested",
+      "source": "[SRC 2026-08-03] live production read: platform_settings.platform_fee_percent = 20, so the standard driver share is 80",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01",
+      "why_not_derived": "ATTESTED, NOT DERIVED, ON PURPOSE. The source of truth is a production DB row (DSF-3), and reaching it needs a credential. This sensor is deliberately credential-free so it can run in a pre-push hook on any clone; buying a derivation here would cost that, which is the wrong trade. Re-read the row when re-attesting."
+    },
+    "/programme/commission/public_line": {
+      "kind": "attested",
+      "source": "CLAIM_REGISTER CR-07 approved wording, reconciled with CR-08",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/vocabulary/approved": {
+      "kind": "derived",
+      "source": "backend/docs/marketing/CLAIM_REGISTER.md — the Appendix \"always-approved bank\"",
+      "read_at": "2026-08-03"
+    },
+    "/vocabulary/forbidden": {
+      "kind": "derived",
+      "source": "backend/docs/marketing/CLAIM_REGISTER.md — the Appendix \"Forbidden everywhere\" line",
+      "read_at": "2026-08-03"
+    },
+    "/not_yet": {
+      "kind": "attested",
+      "source": "CLAIM_REGISTER rows CR-04, CR-08, CR-09, CR-10, CR-16, CR-18 — summarised to their public-safe form, never quoted from the internal cells",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/company/trading_name": {
+      "kind": "attested",
+      "source": "CIPC registration, April 2026",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/company/operator": {
+      "kind": "attested",
+      "source": "CIPC registration; published on halamove.co.za/download and in both Play listings",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/company/duns": {
+      "kind": "attested",
+      "source": "D&B registration; published on halamove.co.za/download",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/company/founded": {
+      "kind": "attested",
+      "source": "CIPC registration",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/company/operating_area": {
+      "kind": "attested",
+      "source": "published on halamove.co.za and in llms.txt",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/company/founders": {
+      "kind": "attested",
+      "source": "published on halamove.co.za/about and in llms.txt",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    },
+    "/company/apple_seller_of_record": {
+      "kind": "probed",
+      "source": "asked of the live store / redirect, with an invalid-subject control",
+      "probed_at": "2026-08-03",
+      "expires": "2026-09-02"
+    },
+    "/company/website": {
+      "kind": "attested",
+      "source": "the canonical host; the apex 307s here",
+      "attested_at": "2026-08-03",
+      "expires": "2026-12-01"
+    }
+  }
+}
