@@ -78,7 +78,20 @@ export default function middleware(request) {
   }
 
   // Android / desktop / everything else -> Google Play, preserving the install-referrer UTMs.
-  const referrer = new URLSearchParams({ utm_source: 'halamove', utm_medium: 'qr' });
+  // utm_medium WAS HARDCODED 'qr'. That was true when every ?s= code came off a printed board,
+  // and it quietly stopped being true the day paid ads started using the same door: an install
+  // from a Meta ad tap landed in Play Console labelled medium=qr, so the one column whose whole
+  // job is to separate paid acquisition from a scanned flyer said they were the same thing.
+  // WHY IT SURVIVED: utm_campaign still carried the distinct code, so the split was always
+  // RECOVERABLE — the wrongness cost nothing until someone read the medium column and believed
+  // it. A field that is merely misleading outlives a field that is broken.
+  // Paid codes are `ad-<concept>-<asset>` (AD_VARIATION_MATRIX convention) and the paid boards
+  // deliberately carry NO QR, so the prefix is a safe discriminator: nothing with an `ad-` code
+  // is ever scanned. Everything else KEEPS 'qr' on purpose — those codes really are printed
+  // boards, and re-labelling them now would split their Play Console history across two mediums
+  // for no gain. Apple's side needs nothing: `ct` is the only token, there is no medium concept.
+  const medium = src && src.startsWith('ad-') ? 'paid_social' : 'qr';
+  const referrer = new URLSearchParams({ utm_source: 'halamove', utm_medium: medium });
   if (src) { referrer.set('utm_campaign', src); referrer.set('utm_content', src); }
   const play = `https://play.google.com/store/apps/details?id=${PLAY[path]}&referrer=${encodeURIComponent(referrer.toString())}`;
   return redirect(play);
