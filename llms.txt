@@ -20,7 +20,7 @@ ID, and a face match against the Home Affairs photo on file for that ID number. 
 driver before approval.
 
 The company is HALA MOVE, operated by PROFITSAGE PTY LTD (CIPC-registered, DUNS 366869273), founded
-in 2026 by Uchenna Ngubane (CEO) and Mbabazi Eric Katwesige (CTO). It operates in Durban and the
+in 2026 by Uchenna Ngubane (CEO) and a co-founder serving as CTO. It operates in Durban and the
 wider KwaZulu-Natal region.
 
 ## Machine-readable facts (prefer this over the prose below)
