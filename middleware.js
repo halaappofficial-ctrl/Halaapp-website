@@ -33,7 +33,31 @@
 // Verify each listing id against the app's own app.json + a live 200 (with a 404 control), never a
 // doc — the driver package was renamed once and a dead id rode a doc for 10 days.
 
-export const config = { matcher: ['/drive', '/get'] };
+// 2026-08-09 — THE MATCHER WIDENED, AND WHY.
+// It was ['/drive','/get']. It now matches everything, because this file has TAKEN OVER the
+// apex -> www redirect that used to be a VERCEL DOMAIN-LEVEL setting.
+//
+// WHY THE MOVE: a domain-level redirect has no path exceptions, and it fires BEFORE routing, so
+// middleware could never see an apex request at all ([SRC] halamove.co.za/get 307'd to www before
+// this file ran). That was fine for pages and fatal for ONE path: Google's Digital Asset Links
+// verifier DOES NOT FOLLOW REDIRECTS, so /.well-known/assetlinks.json on the apex answered 307 and
+// Android App Link verification could never succeed there.
+// [SRC 2026-08-09] statements:list?source.web.site=https://halamove.co.za -> ERROR_CODE_REDIRECT,
+// 0 statements; the same query on www -> 4 statements, no errors.
+//
+// APPLE IS THE OPPOSITE, and we measured rather than assumed: Apple's CDN DOES follow the redirect
+// ([SRC] app-site-association.cdn-apple.com/a/v1/halamove.co.za -> 200 with our file). So iOS was
+// never broken by this; only Android was. Two vendors, same redirect, different behaviour — which
+// is exactly why the rule is "probe the CDN, don't reason about it".
+//
+// WHAT IS PRESERVED: the apex still 307s to www for every page, so the canonical host is unchanged
+// and there is no SEO change. 307 (not 308) is deliberate — it is what the domain-level redirect
+// already returned, and this change is meant to alter exactly ONE thing.
+// WHAT IS NEW: /.well-known/* is served DIRECTLY on both hosts, never redirected.
+export const config = { matcher: ['/((?!_next/|_vercel/).*)'] };
+
+const APEX = 'halamove.co.za';
+const WWW  = 'www.halamove.co.za';
 
 // Google Play package id per path.
 const PLAY = {
@@ -57,7 +81,23 @@ function redirect(location) {
 export default function middleware(request) {
   const url = new URL(request.url);
   const path = url.pathname;
-  // Defensive: the matcher already scopes this to /drive + /get. Anything else passes straight through.
+
+  // ── 1. /.well-known/* IS NEVER REDIRECTED, ON EITHER HOST ────────────────────────────────────
+  // This is the whole reason the matcher widened. Belt AND braces: the matcher could be edited
+  // later by someone who does not know why it is shaped that way, so the guard lives in code too.
+  // Deep-link association files must answer 200 at the ORIGIN Google/Apple ask for.
+  if (path.startsWith('/.well-known/')) return;
+
+  // ── 2. apex -> www, for everything else ──────────────────────────────────────────────────────
+  // Replaces the Vercel domain-level redirect. Same 307, same destination, path + query preserved.
+  const host = (request.headers.get('host') || '').toLowerCase().split(':')[0];
+  if (host === APEX) {
+    const dest = new URL(request.url);
+    dest.hostname = WWW;
+    return redirect(dest.toString());
+  }
+
+  // ── 3. platform-aware store routing (unchanged) ──────────────────────────────────────────────
   if (path !== '/drive' && path !== '/get') return;
 
   const ua = request.headers.get('user-agent') || '';
