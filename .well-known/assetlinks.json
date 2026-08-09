@@ -4,7 +4,10 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.hala.customer",
-      "sha256_cert_fingerprints": ["REPLACE_WITH_CUSTOMER_APP_SHA256_FROM_eas_credentials"]
+      "sha256_cert_fingerprints": [
+        "5B:47:69:41:C7:B7:9E:E7:08:7C:42:9B:B5:3E:FF:77:53:19:FF:8F:28:63:BF:D8:99:E4:19:03:2B:D5:00:3F",
+        "23:42:3D:BB:59:2C:D2:F8:E5:89:7A:8B:91:02:81:03:53:B5:A6:A2:46:0E:EE:68:1C:9B:ED:16:3C:52:0B:37"
+      ]
     }
   },
   {
@@ -12,7 +15,10 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.hala.driverapp",
-      "sha256_cert_fingerprints": ["REPLACE_WITH_DRIVER_APP_SHA256_FROM_eas_credentials"]
+      "sha256_cert_fingerprints": [
+        "9E:71:B5:91:77:69:DC:C1:2E:DB:52:CA:D8:A1:CE:38:13:D8:8D:EB:F6:60:AF:D1:42:87:BB:36:09:73:EE:0D",
+        "9E:E2:1B:08:5A:78:A1:BB:5B:04:9F:EB:A6:01:95:5D:DD:10:6B:10:5F:A4:94:1A:A9:BC:5D:D2:DC:67:BE:83"
+      ]
     }
   }
 ]

@@ -2,8 +2,14 @@
   "applinks": {
     "apps": [],
     "details": [
-      { "appID": "REPLACE_WITH_APPLE_TEAM_ID.com.hala.customer", "paths": ["/invite/*"] },
-      { "appID": "REPLACE_WITH_APPLE_TEAM_ID.com.hala.driverapp", "paths": ["/driver-invite/*"] }
+      {
+        "appID": "72U65HN6DA.com.hala.customer",
+        "paths": ["/invite/*"]
+      },
+      {
+        "appID": "72U65HN6DA.com.hala.driverapp",
+        "paths": ["/driver-invite/*"]
+      }
     ]
   }
 }
