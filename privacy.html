@@ -1040,6 +1040,7 @@ footer{
    <a href="#who-we-share">Who We Share It With</a>
    <a href="#location-data">Location Data</a>
    <a href="#driver-data">Driver Identity & Financial Data</a>
+   <a href="#service-messages">Service Messages & Check-Ins</a>
    <a href="#your-rights">Your Rights Under POPIA</a>
    <a href="#cookies">Cookies</a>
    <a href="#retention">Retention Periods</a>
@@ -1084,7 +1085,8 @@ footer{
  <li><strong>Legitimate interest:</strong> We process job history and performance data to maintain your rating profile, which is a core feature of the platform&rsquo;s trust system.</li>
  <li><strong>Legitimate interest:</strong> We process GPS trail data and timestamped photos to investigate and resolve disputes between customers and drivers.</li>
  <li><strong>Legitimate interest:</strong> We process usage and device data to maintain the security and technical performance of the platform.</li>
- <li><strong>Consent:</strong> We send push notifications based on your consent, given when you first install and open the HALA MOVE app. You may withdraw this consent at any time through your device notification settings.</li>
+ <li><strong>Consent:</strong> We send push notifications based on your consent, given when you first install and open the HALA MOVE app. You may withdraw this consent at any time through your device notification settings, or through the &ldquo;Special messages&rdquo; setting inside the app.</li>
+ <li><strong>Legitimate interest (existing customers and drivers):</strong> We send occasional service messages about your own account &mdash; for example that your driver verification is still incomplete, that you have not been online recently, or that a newer version of the app is available. These go to people who already hold an account with us, they relate to the service you signed up for, and every one of them tells you how to stop receiving them. See &ldquo;Service Messages &amp; Check-Ins&rdquo; below.</li>
  <li><strong>Legal obligation:</strong> We may process and retain certain data where we are required to do so by applicable South African law, including for tax and regulatory purposes.</li>
  <li><strong>Legitimate interest:</strong> We use aggregated, anonymised data to understand platform usage patterns and improve our service. This data cannot be traced back to any individual user.</li>
 </ul>
@@ -1100,8 +1102,9 @@ footer{
 <h3>Cloud Infrastructure</h3>
 <p>HALA MOVE uses <strong>Supabase</strong> as its database and file storage provider. All data stored on Supabase is subject to Supabase&rsquo;s security standards and data processing agreement. Driver documents and job photos are stored in encrypted Supabase storage buckets.</p>
 
-<h3>SMS Service</h3>
-<p>We use <strong>Africa&rsquo;s Talking</strong> to deliver OTP verification codes via SMS. We share only your mobile number with Africa&rsquo;s Talking for this purpose.</p>
+<h3>SMS &amp; WhatsApp Messaging</h3>
+<p>We use <strong>Twilio</strong> (Twilio Inc.) to deliver SMS messages and WhatsApp messages. We share only your mobile number and the content of the message itself with Twilio, and only for the purposes described in this policy: sending you one-time verification codes when you sign in, sending you notifications about your jobs and payments, and sending the occasional service message described under &ldquo;Service Messages &amp; Check-Ins&rdquo; below.</p>
+<p>WhatsApp messages are delivered through the WhatsApp Business Platform, which means Meta Platforms processes the message in transit in the same way it would any WhatsApp message. We never send your South African ID number, your bank details, or your job photographs over SMS or WhatsApp.</p>
 
 <h3>Legal Compliance</h3>
 <p>We may disclose your personal information to law enforcement, regulatory authorities, or other third parties where we are legally required to do so, or where disclosure is necessary to protect the rights, property, or safety of HALA MOVE, its users, or the public.</p>
@@ -1130,6 +1133,29 @@ footer{
  <li>Bank account details are used solely for processing driver payouts through PayFast. They are not visible to any other party.</li>
  <li>Only authorised HALA MOVE team members with a legitimate operational need can access this data, and all such access is logged.</li>
 </ul>
+
+<h2 class="section-anchor" id="service-messages">Service Messages &amp; Check-Ins</h2>
+<p>From time to time HALA MOVE sends a short message about your own account. We call these check-ins. They are not advertising, we do not sell them to anyone, and they are never sent to people who do not hold a HALA MOVE account.</p>
+<p><strong>Every check-in is triggered by a fact about your account</strong>, never by a mailing list. Examples of what triggers one:</p>
+<ul>
+ <li>You started signing up as a driver and the verification step is still open.</li>
+ <li>Your driver documents are with our verification team.</li>
+ <li>You are approved to drive but have not been online recently, so you are not receiving job offers.</li>
+ <li>You created a customer profile but have not posted a job yet.</li>
+ <li>You completed a move with us some time ago.</li>
+ <li>A newer version of the app is available.</li>
+</ul>
+<p><strong>How they reach you.</strong> We send a check-in as a push notification wherever we can, because that costs you nothing and stays inside the app. We only fall back to SMS when we have no working push notification token for you.</p>
+<p><strong>Limits we hold ourselves to.</strong> You will receive at most one check-in in any seven-day period, counting every type of check-in together. They are only sent between 07:00 and 19:00 South African time. Every batch is read by a person at HALA MOVE before it is sent &mdash; nothing goes out automatically.</p>
+<p><strong>How to stop them.</strong> Any of the following works, and each one is permanent until you reverse it:</p>
+<ul>
+ <li>Turn off <strong>Special messages</strong> in the app&rsquo;s Settings screen.</li>
+ <li>Reply <strong>STOP</strong> to any check-in SMS. Every check-in SMS carries this instruction. You can reply START later if you change your mind.</li>
+ <li>Turn off notifications for HALA MOVE in your device settings (this stops push notifications).</li>
+ <li>Email <a href="mailto:contact@halamove.co.za">contact@halamove.co.za</a> and ask us to stop.</li>
+</ul>
+<p>Opting out of check-ins does <strong>not</strong> stop the messages you need in order to use the service &mdash; one-time verification codes when you sign in, and notifications about a job you are actually part of, such as a driver being on the way or a payment being released. Those are part of the service itself, not check-ins.</p>
+<p>This processing is carried out under section 69 of POPIA on the basis that you are an existing customer or driver, the messages concern the service you signed up for, and you are given a clear opportunity to object in every message we send.</p>
 
 <h2 class="section-anchor" id="your-rights">Your Rights Under POPIA</h2>
 <p>As a data subject under the Protection of Personal Information Act 4 of 2013 (POPIA), you have the following rights:</p>
