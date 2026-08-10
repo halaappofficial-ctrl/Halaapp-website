@@ -100,6 +100,8 @@ export default function middleware(request) {
   // ── 3. platform-aware store routing (unchanged) ──────────────────────────────────────────────
   if (path !== '/drive' && path !== '/get') return;
 
+  // (medium classification lives in mediumFor(), below the handler — see the table there.)
+
   const ua = request.headers.get('user-agent') || '';
   const isIOS = /iPhone|iPad|iPod/i.test(ua);
 
@@ -118,21 +120,67 @@ export default function middleware(request) {
   }
 
   // Android / desktop / everything else -> Google Play, preserving the install-referrer UTMs.
-  // utm_medium WAS HARDCODED 'qr'. That was true when every ?s= code came off a printed board,
-  // and it quietly stopped being true the day paid ads started using the same door: an install
-  // from a Meta ad tap landed in Play Console labelled medium=qr, so the one column whose whole
-  // job is to separate paid acquisition from a scanned flyer said they were the same thing.
-  // WHY IT SURVIVED: utm_campaign still carried the distinct code, so the split was always
-  // RECOVERABLE — the wrongness cost nothing until someone read the medium column and believed
-  // it. A field that is merely misleading outlives a field that is broken.
-  // Paid codes are `ad-<concept>-<asset>` (AD_VARIATION_MATRIX convention) and the paid boards
-  // deliberately carry NO QR, so the prefix is a safe discriminator: nothing with an `ad-` code
-  // is ever scanned. Everything else KEEPS 'qr' on purpose — those codes really are printed
-  // boards, and re-labelling them now would split their Play Console history across two mediums
-  // for no gain. Apple's side needs nothing: `ct` is the only token, there is no medium concept.
-  const medium = src && src.startsWith('ad-') ? 'paid_social' : 'qr';
+  const medium = mediumFor(src);
+  // utm_source stays 'halamove' deliberately: changing it would split every campaign's Play Console
+  // history, and the specific origin is already recoverable from utm_campaign (the ?s= code itself,
+  // e.g. `ig-d7` names Instagram). Medium is the field that describes the CHANNEL, and it is the one
+  // that was wrong.
   const referrer = new URLSearchParams({ utm_source: 'halamove', utm_medium: medium });
   if (src) { referrer.set('utm_campaign', src); referrer.set('utm_content', src); }
   const play = `https://play.google.com/store/apps/details?id=${PLAY[path]}&referrer=${encodeURIComponent(referrer.toString())}`;
   return redirect(play);
+}
+
+// ── utm_medium: WHICH DOOR DID THIS INSTALL COME THROUGH? ──────────────────────────────────────
+//
+// HISTORY. utm_medium was hardcoded 'qr'. That was true when every ?s= code came off a printed
+// board, and stopped being true the day paid ads used the same door — an install from a Meta ad tap
+// landed in Play Console labelled medium=qr, so the one column whose whole job is to separate paid
+// acquisition from a scanned flyer said they were the same thing. Commit 5493b29 fixed that with
+// `src.startsWith('ad-') ? 'paid_social' : 'qr'`.
+//
+// THAT FIX WAS RIGHT AND INCOMPLETE, and the shape of the incompleteness is worth naming: it treated
+// a MISSING DIMENSION as a single exception. Every code that was not `ad-` still fell to 'qr', so the
+// moment a third door existed it was mislabelled again — and two already did:
+//   [SRC] codes present in the asset pipeline, 2026-08-10:
+//     ig-14d-02, ig-14d-04, ig-cep-couch-a, ig-d7 …  Instagram   -> reported as QR SCANS
+//     tt-d9w1                                        TikTok      -> reported as a QR SCAN
+// So organic social has been landing in the same bucket as printed flyers this whole time. A fourth
+// door then arrived (check-in SMS, `ci-*`), which is what prompted looking.
+//
+// Hence a TABLE rather than another ternary. Adding a channel is now one line, and the default is
+// stated once instead of being whatever the last `else` happened to be.
+//
+// PRINT CODES KEEP 'qr' ON PURPOSE (ios-c, ios-d, kasi-umlazi, umlazi-d2 …). Those really are
+// scanned boards, and re-labelling them now would split their Play Console history across two
+// mediums for no gain.
+//
+// NO CODE AT ALL -> 'direct', which is a CHANGE. A bare /drive — typed, or shared in a WhatsApp
+// message — is not a scan, and calling it one inflated the QR column with traffic that never met a
+// QR code. Nothing is split by this: when there is no ?s= there is no utm_campaign either, so those
+// installs carry no campaign history to fragment.
+//
+// SAFE TO CHANGE AT ALL: a counted sweep of backend/src and both mobile src trees found NOTHING that
+// reads these UTMs back (no Install Referrer API use anywhere). Play Console is the only consumer, so
+// this changes a report, never behaviour. Apple's side needs nothing — `ct` is the only token it
+// takes and there is no medium concept.
+//
+// ⚠️ NOT GUARDED BY A LOOP. The backend invariant suite cannot reach this repo (separate repo, machine
+// -specific path), so this mapping is protected by its commit and by probing the live redirect —
+// `curl -A '<android UA>' 'https://www.halamove.co.za/drive?s=ci-dos'` and read utm_medium back.
+const MEDIUM_BY_PREFIX = [
+  ['ad-', 'paid_social'], // paid Meta/social buys — AD_VARIATION_MATRIX convention; these boards carry NO QR
+  ['ig-', 'social'],      // Instagram organic posts
+  ['tt-', 'social'],      // TikTok organic posts
+  ['ci-', 'sms'],         // check-in messages (backend checkinCampaigns.js, one code per campaign)
+];
+const MEDIUM_CODED_DEFAULT = 'qr';   // an unrecognised code is a printed board until proven otherwise
+const MEDIUM_NO_CODE = 'direct';     // no ?s= at all: typed, bookmarked, or shared as a bare link
+
+function mediumFor(src) {
+  if (!src) return MEDIUM_NO_CODE;
+  for (const [prefix, medium] of MEDIUM_BY_PREFIX) {
+    if (src.startsWith(prefix)) return medium;
+  }
+  return MEDIUM_CODED_DEFAULT;
 }
