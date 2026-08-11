@@ -172,7 +172,15 @@ const MEDIUM_BY_PREFIX = [
   ['ad-', 'paid_social'], // paid Meta/social buys — AD_VARIATION_MATRIX convention; these boards carry NO QR
   ['ig-', 'social'],      // Instagram organic posts
   ['tt-', 'social'],      // TikTok organic posts
-  ['ci-', 'sms'],         // check-in messages (backend checkinCampaigns.js, one code per campaign)
+  ['ci-', 'sms'],         // check-in messages, SMS channel (backend checkinCampaigns.js, one code per campaign)
+  // ['cp-', 'push'] ships WITH the backend change that emits these codes (2026-08-11). The store
+  // link went into check-in PUSH bodies too, because push is the channel most recipients actually
+  // resolve to. It needs its own prefix rather than reusing 'ci-': MEDIUM_CODED_DEFAULT below is
+  // 'qr', so an unrecognised code does not read as unknown — it reads as a PRINTED BOARD, which is
+  // the exact wrong answer and the same shape as the hardcoded-'qr' bug this table was built to end.
+  // The campaign half of the code mirrors the SMS one (ci-dos / cp-dos), so utm_campaign joins the
+  // two channels of one campaign instead of splitting it into two unrelated-looking campaigns.
+  ['cp-', 'push'],        // check-in messages, push channel
 ];
 const MEDIUM_CODED_DEFAULT = 'qr';   // an unrecognised code is a printed board until proven otherwise
 const MEDIUM_NO_CODE = 'direct';     // no ?s= at all: typed, bookmarked, or shared as a bare link
