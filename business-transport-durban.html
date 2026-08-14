@@ -1278,8 +1278,59 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
 <p>HALA MOVE business contracts cover Durban metro and the full KZN province including Umhlanga, Ballito, Umlazi, Chatsworth, Pinetown, Westville, Phoenix, Verulam, Hillcrest, Amanzimtoti, Pietermaritzburg, Richards Bay, Empangeni, Port Shepstone, and Howick. Inter-provincial contracts are available on request.</p>
 
 <h2 class="section-anchor" id="download">Talk to HALA MOVE business</h2>
-<p>Ready to scope a contract? Email <a href="mailto:business@halamove.co.za">business@halamove.co.za</a> with your routes, volume, and SLA needs and we will come back with a scoped proposal within two business days. Or download the HALA MOVE app on Android or iOS to see the platform your drivers and ops team will use every day.</p>
-<p><a href="mailto:business@halamove.co.za" class="btn btn-green">Contact HALA MOVE business</a> &nbsp; <a href="/#download" class="btn btn-ghost">Download the app</a></p>
+<p>Tell us your routes, volume and SLA needs and we will come back with a scoped proposal within two business days. Fleet owner with your own vehicles? Use the same form &mdash; we onboard fleets too.</p>
+
+<style>
+ .bl-form{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:26px;margin:22px 0;max-width:720px;}
+ .bl-row{display:flex;gap:14px;flex-wrap:wrap;}
+ .bl-f{flex:1 1 220px;margin-bottom:14px;}
+ .bl-f label{display:block;font-size:0.78rem;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
+ .bl-f input,.bl-f select,.bl-f textarea{width:100%;background:var(--bg);border:1px solid var(--b);border-radius:9px;color:var(--t);padding:11px 13px;font-size:0.95rem;font-family:inherit;outline:none;}
+ .bl-f input:focus,.bl-f select:focus,.bl-f textarea:focus{border-color:var(--g);}
+ .bl-f textarea{min-height:88px;resize:vertical;}
+ .bl-pills{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
+ .bl-pill{background:var(--bg);border:1px solid var(--b);border-radius:999px;padding:9px 18px;cursor:pointer;font-size:0.9rem;color:var(--t2);font-weight:600;}
+ .bl-pill.active{border-color:var(--g);color:var(--g);background:rgba(92,181,88,.1);}
+ .bl-hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden;}
+ .bl-msg{margin-top:14px;font-size:0.95rem;display:none;}
+ .bl-msg.ok{display:block;color:var(--g);} .bl-msg.err{display:block;color:var(--err);}
+ .bl-only-fleet{display:none;}
+ .bl-note{font-size:0.82rem;color:var(--t2);margin-top:-6px;margin-bottom:14px;}
+</style>
+
+<form class="bl-form" id="blForm" novalidate>
+ <div class="bl-pills" role="group" aria-label="Enquiry type">
+  <span class="bl-pill active" data-type="corporate" role="button" tabindex="0" aria-pressed="true">I need transport</span>
+  <span class="bl-pill" data-type="fleet" role="button" tabindex="0" aria-pressed="false">I own a fleet</span>
+ </div>
+
+ <div class="bl-row">
+  <div class="bl-f"><label for="blCompany">Company name</label><input type="text" id="blCompany" autocomplete="organization" required /></div>
+  <div class="bl-f"><label for="blContact">Your name</label><input type="text" id="blContact" autocomplete="name" /></div>
+ </div>
+ <div class="bl-row">
+  <div class="bl-f"><label for="blEmail">Email</label><input type="email" id="blEmail" autocomplete="email" /></div>
+  <div class="bl-f"><label for="blPhone">Phone</label><input type="tel" id="blPhone" autocomplete="tel" placeholder="+27..." /></div>
+ </div>
+ <div class="bl-row">
+  <div class="bl-f bl-only-corp"><label for="blVolume">Roughly how many deliveries a month?</label><input type="number" id="blVolume" min="0" inputmode="numeric" /></div>
+  <div class="bl-f bl-only-fleet"><label for="blVehicles">How many vehicles do you run?</label><input type="number" id="blVehicles" min="0" inputmode="numeric" /></div>
+  <div class="bl-f"><label for="blIndustry">Industry</label><input type="text" id="blIndustry" placeholder="Construction, retail, medical, e-commerce..." /></div>
+ </div>
+ <div class="bl-f bl-only-fleet">
+  <label for="blFridge">Do you run refrigerated vehicles?</label>
+  <select id="blFridge"><option value="">Prefer not to say</option><option value="true">Yes</option><option value="false">No</option></select>
+ </div>
+ <p class="bl-note bl-only-fleet">We are asked for cold-chain regularly and cannot currently carry it. If you run refrigerated vehicles, tell us &mdash; it moves you to the front of the queue.</p>
+ <div class="bl-f"><label for="blMessage">What do you need moved, and on what routes?</label><textarea id="blMessage" maxlength="2000"></textarea></div>
+
+ <div class="bl-hp"><label for="blWebsite">Website</label><input type="text" id="blWebsite" tabindex="-1" autocomplete="off" /></div>
+
+ <button type="submit" class="btn btn-green" id="blSubmit">Send enquiry</button>
+ <div class="bl-msg" id="blMsg" role="status" aria-live="polite"></div>
+</form>
+
+<p>Prefer email? <a href="mailto:business@halamove.co.za">business@halamove.co.za</a> &nbsp; &middot; &nbsp; <a href="/#download" class="btn btn-ghost">Download the app</a></p>
 <p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Questions? See our full <a href="./faq.html">FAQ</a>, read about <a href="./about.html">our story</a>, or WhatsApp us using the green button on the bottom-right of this page. HALA MOVE (Pty) Ltd is registered in South Africa and operates from Durban, KwaZulu-Natal.</p>
 </div>
   </div>
@@ -1604,6 +1655,94 @@ window.addEventListener('load', () => {
     });
   }, 100);
 });
+</script>
+
+<script>
+/* B2B / fleet lead capture -> POST /api/interest/business
+   Same shape as the consumer form on index.html: IIFE, ES5, honeypot, disabled button.
+   Writes to business_leads, NOT interest_signups: that table dedupes on email and returns
+   idempotent success, so an enquiry from someone already on the consumer waitlist would be
+   silently swallowed. A lost B2B lead is the most expensive silent failure we have. */
+(function(){
+ var form=document.getElementById('blForm'); if(!form) return;
+ var API='https://hala-backend-production.up.railway.app/api/interest/business';
+ var type='corporate';
+ var qs=new URLSearchParams(location.search);
+ var source=(qs.get('s')||'').replace(/[^a-zA-Z0-9:_-]/g,'').slice(0,60)||'business_page';
+ /* ?t=fleet lets outreach to fleet owners land on the right form already selected. */
+ var tParam=(qs.get('t')||'').toLowerCase();
+
+ var pills=document.querySelectorAll('.bl-pill');
+ function applyType(t){
+  type=t;
+  for(var i=0;i<pills.length;i++){
+   var on=pills[i].getAttribute('data-type')===t;
+   pills[i].classList.toggle('active',on);
+   pills[i].setAttribute('aria-pressed',on?'true':'false');
+  }
+  var fleet=document.querySelectorAll('.bl-only-fleet'), corp=document.querySelectorAll('.bl-only-corp');
+  for(var f=0;f<fleet.length;f++){ fleet[f].style.display=(t==='fleet')?'block':'none'; }
+  for(var c=0;c<corp.length;c++){ corp[c].style.display=(t==='fleet')?'none':'block'; }
+ }
+ for(var i=0;i<pills.length;i++){ (function(p){
+  p.addEventListener('click',function(){ applyType(p.getAttribute('data-type')); });
+  p.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); applyType(p.getAttribute('data-type')); } });
+ })(pills[i]); }
+ applyType(tParam==='fleet'?'fleet':'corporate');
+
+ var msg=document.getElementById('blMsg'), btn=document.getElementById('blSubmit');
+ function fail(t){ msg.textContent=t; msg.className='bl-msg err'; }
+
+ form.addEventListener('submit',function(e){
+  e.preventDefault();
+  if(document.getElementById('blWebsite').value.trim()!==''){ return; }
+
+  var company=document.getElementById('blCompany').value.trim();
+  var email=document.getElementById('blEmail').value.trim();
+  var phone=document.getElementById('blPhone').value.trim();
+  msg.className='bl-msg';
+
+  if(!company){ return fail('Please enter your company name.'); }
+  if(!email && !phone){ return fail('Please give us an email or a phone number so we can reply.'); }
+  if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ return fail('Please enter a valid email address.'); }
+
+  /* Empty string, not 0 — an unanswered number must reach the server as absent, never as a
+     figure the prospect never gave. */
+  var vehicles=document.getElementById('blVehicles').value.trim();
+  var volume=document.getElementById('blVolume').value.trim();
+  var fridge=document.getElementById('blFridge').value;
+
+  var payload={
+   lead_type:type, company_name:company,
+   contact_name:document.getElementById('blContact').value.trim(),
+   email:email, phone:phone,
+   industry:document.getElementById('blIndustry').value.trim(),
+   message:document.getElementById('blMessage').value.trim(),
+   source:source
+  };
+  if(type==='fleet'){
+   if(vehicles!==''){ payload.vehicle_count=vehicles; }
+   if(fridge!==''){ payload.has_refrigerated=fridge; }
+  } else if(volume!==''){ payload.monthly_volume=volume; }
+
+  btn.disabled=true; btn.textContent='Sending...';
+  fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
+   .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; },function(){ return {ok:r.ok,d:{}}; }); })
+   .then(function(res){
+    if(res.ok){
+     msg.textContent='Thank you - we have your enquiry and will come back within two business days.';
+     msg.className='bl-msg ok'; form.reset(); applyType(type); btn.textContent='Sent';
+    } else {
+     fail((res.d&&res.d.error)||'Something went wrong. Please email business@halamove.co.za and we will pick it up.');
+     btn.disabled=false; btn.textContent='Send enquiry';
+    }
+   })
+   .catch(function(){
+    fail('Network error. Please email business@halamove.co.za and we will pick it up.');
+    btn.disabled=false; btn.textContent='Send enquiry';
+   });
+ });
+})();
 </script>
 </body>
 </html>

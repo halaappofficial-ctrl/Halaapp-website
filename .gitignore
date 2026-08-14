@@ -8,3 +8,4 @@
 # Lighthouse raw JSON outputs. Markdown summaries are committed to
 # docs/superpowers/plans/baselines/ for auditability.
 baselines/
+.gstack/
