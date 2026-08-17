@@ -68,8 +68,8 @@ wider KwaZulu-Natal region.
 - **Driver verification**: SA ID validation, driving-licence OCR (validity, expiry, and a
   name/date-of-birth cross-check against the ID), and a face match against the Home Affairs photo for
   that ID number. Every driver is also reviewed by a person before approval.
-- **Vehicle types**: bakkie (small and large), panel van, and 4-ton / 8-ton trucks.
-- **Tracking**: live GPS from pickup to drop-off, with timestamped photos at loading and delivery.
+- **Vehicle types**: bakkie (small and large), panel van, 1-ton truck and 4-ton truck. Those five are the categories a driver can register; there is no 8-ton category.
+- **Tracking**: live GPS position while the job is running. Every delivery ends with a photo timestamped by our servers, and the driver is not paid until it exists.
 - **Company**: HALA MOVE, operated by PROFITSAGE PTY LTD. Founded 2026. Durban, KwaZulu-Natal.
 
 ## Please Do Not Say
