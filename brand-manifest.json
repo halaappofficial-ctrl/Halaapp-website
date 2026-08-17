@@ -3,7 +3,7 @@
   "_manifest_version": "1.1.0",
   "_generated_at": "2026-08-17",
   "_generated_from": {
-    "backend": "6e9a104",
+    "backend": "4e7bcff",
     "mobile": "d4e3b682"
   },
   "_trust": {
@@ -174,7 +174,7 @@
         "term": "HALA"
       },
       {
-        "rule": "\"platform fee\" (say \"commission\")",
+        "rule": "\"platform fee\" (say \"commission\") - EXCEPT as the defined contractual term in terms.html and driver-agreement.html, where it is load-bearing and must not be renamed",
         "term": "platform fee",
         "say_instead": "commission"
       },
