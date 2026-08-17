@@ -10,6 +10,11 @@
       "source": "/admin",
       "destination": "https://admin.halamove.co.za/admin/",
       "permanent": false
+    },
+    {
+      "source": "/business",
+      "destination": "/business-transport-durban",
+      "permanent": false
     }
   ],
   "headers": [
