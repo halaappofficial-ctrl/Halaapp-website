@@ -1,10 +1,10 @@
 {
   "_readme": "The short list of HALA MOVE values that must not be wrong when an asset or a message is produced. Public on purpose, no key needed. Fetch it, read it, quote it. Every value says where it came from and when, in _provenance. A value is either DERIVED from the file that declares it, PROBED from the live store, or ATTESTED by a person with an expiry date. If a value here disagrees with a slide, a flyer, a page or an older document, THIS IS THE ONE.",
   "_manifest_version": "1.1.0",
-  "_generated_at": "2026-08-05",
+  "_generated_at": "2026-08-17",
   "_generated_from": {
-    "backend": "f42367d",
-    "mobile": "6d370389"
+    "backend": "6e9a104",
+    "mobile": "d4e3b682"
   },
   "_trust": {
     "derived_values": "re-derived from source and compared on every push (backend: node scripts/brand-manifest/check.js). A mismatch fails loud and names the value.",
@@ -44,7 +44,7 @@
       "play_url": "https://play.google.com/store/apps/details?id=com.hala.customer",
       "app_store_url": "https://apps.apple.com/za/app/id6789445062",
       "app_store_id": "6789445062",
-      "ios_version": "1.0",
+      "ios_version": "1.0.3",
       "ios_released": "2026-07-24T07:00:00Z",
       "ios_minimum_os": "15.1",
       "on_google_play": true,
@@ -58,7 +58,7 @@
       "play_url": "https://play.google.com/store/apps/details?id=com.hala.driverapp",
       "app_store_url": "https://apps.apple.com/za/app/id6789447581",
       "app_store_id": "6789447581",
-      "ios_version": "1.0",
+      "ios_version": "1.0.3",
       "ios_released": "2026-07-23T07:00:00Z",
       "ios_minimum_os": "15.1",
       "on_google_play": true,
@@ -112,9 +112,19 @@
       ],
       "trust": [
         "Identity-verified drivers: SA ID checked against the government database, selfie face-match, licence, vehicle registration, roadworthy certificate, bank account — typically within 24 hours",
-        "Every item photographed before loading and at delivery — timestamped. No he-said-she-said.",
+        "Every delivery ends with a timestamped photo — and payment is not released until it exists. No he-said-she-said.",
         "Disputes reviewed with a finding within 24 hours",
         "One-tap SOS on every active job"
+      ],
+      "fleet": [
+        "See where every driver on your account is right now, with the time of their last update",
+        "Every delivery ends with a photo, timestamped by our servers",
+        "The driver is not paid until the delivery photo exists",
+        "On-time performance measured on every delivery, reported per job and as a percentage",
+        "CO2 per vehicle, per route and per delivery — exportable for your ESG reporting",
+        "Your job history, exportable to CSV",
+        "Identity-verified drivers",
+        "Request fleet access — we set your account up with you"
       ],
       "positioning": [
         "South Africa's real-time logistics marketplace",
@@ -167,6 +177,51 @@
         "rule": "\"platform fee\" (say \"commission\")",
         "term": "platform fee",
         "say_instead": "commission"
+      },
+      {
+        "rule": "\"Delivery Certificate\"",
+        "term": "Delivery Certificate"
+      },
+      {
+        "rule": "\"Network Health\"",
+        "term": "Network Health"
+      },
+      {
+        "rule": "\"GPS trail\" (say \"live position, with the time of the last update\")",
+        "term": "GPS trail",
+        "say_instead": "live position, with the time of the last update"
+      },
+      {
+        "rule": "\"legally binding\" / \"unalterable\" / \"tamper-proof\" / \"ledger\" / \"signature\"",
+        "term": "legally binding"
+      },
+      {
+        "rule": "\"instant verification\" (say \"typically within 24 hours\")",
+        "term": "instant verification",
+        "say_instead": "typically within 24 hours"
+      },
+      {
+        "rule": "\"fixed upfront pricing\" (say \"verified drivers send offers, you choose\")",
+        "term": "fixed upfront pricing",
+        "say_instead": "verified drivers send offers, you choose"
+      },
+      {
+        "rule": "\"eliminate driver side hustles\" and any surveillance-of-drivers framing",
+        "term": "eliminate driver side hustles"
+      },
+      {
+        "rule": "\"register your vehicles\" as a fleet CTA (say \"request fleet access\")",
+        "term": "register your vehicles",
+        "say_instead": "request fleet access"
+      },
+      {
+        "rule": "\"SLA-backed dispatch\" (say \"on-time performance measured on every delivery\")",
+        "term": "SLA-backed dispatch",
+        "say_instead": "on-time performance measured on every delivery"
+      },
+      {
+        "rule": "\"JSE-ready\" / \"compliance-ready\" / \"certified\"",
+        "term": "JSE-ready"
       }
     ]
   },
@@ -241,195 +296,195 @@
     "/brand/wordmark/hala_colour": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.primary",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/brand/wordmark/move_colour": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.textPrimary",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/brand/colours/primary": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.primary",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/brand/colours/background": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.background",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/brand/colours/surface": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.surface",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/brand/colours/text": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.textPrimary",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/brand/colours/never_use": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — the \"NEVER use:\" declaration at the head of the file",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/brand/domain": {
       "kind": "derived",
       "source": "mobile/customer-app/app.json — expo.ios.associatedDomains (the domain Apple + Google actually verify)",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/brand/contact_email": {
       "kind": "derived",
       "source": "backend/src/routes/whatsapp.js — the address the platform actually sends to users",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/apps/customer/store_name": {
       "kind": "derived",
       "source": "mobile/customer-app/app.json — expo.name",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/apps/customer/android_package": {
       "kind": "derived",
       "source": "mobile/customer-app/app.json — expo.android.package",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/apps/customer/ios_bundle_id": {
       "kind": "derived",
       "source": "mobile/customer-app/app.json — expo.ios.bundleIdentifier",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/apps/customer/play_url": {
       "kind": "derived",
       "source": "mobile/customer-app/app.json — BUILT from expo.android.package — never copied from a doc",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/apps/customer/app_store_url": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/customer/app_store_id": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/customer/ios_version": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/customer/ios_released": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/customer/ios_minimum_os": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/customer/on_google_play": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/customer/on_app_store": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/customer/price": {
       "kind": "probed",
       "source": "Apple's lookup reports this app's price; 0 is published as \"Free to download\"",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/driver/store_name": {
       "kind": "derived",
       "source": "mobile/driver-app/app.json — expo.name",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/apps/driver/android_package": {
       "kind": "derived",
       "source": "mobile/driver-app/app.json — expo.android.package",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/apps/driver/ios_bundle_id": {
       "kind": "derived",
       "source": "mobile/driver-app/app.json — expo.ios.bundleIdentifier",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/apps/driver/play_url": {
       "kind": "derived",
       "source": "mobile/driver-app/app.json — BUILT from expo.android.package — never copied from a doc",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/apps/driver/app_store_url": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/driver/app_store_id": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/driver/ios_version": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/driver/ios_released": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/driver/ios_minimum_os": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/driver/on_google_play": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/driver/on_app_store": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/apps/driver/price": {
       "kind": "probed",
       "source": "Apple's lookup reports this app's price; 0 is published as \"Free to download\"",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/links/get_the_customer_app": {
       "kind": "probed",
       "source": "this exact URL was fetched with an iPhone agent and an Android agent; both branches were asserted to reach the customer app before publishing",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/links/get_the_driver_app": {
       "kind": "probed",
       "source": "this exact URL was fetched with an iPhone agent and an Android agent; both branches were asserted to reach the driver app before publishing",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/links/routing": {
       "kind": "attested",
@@ -447,27 +502,27 @@
     "/programme/pioneer/driver_limit": {
       "kind": "derived",
       "source": "backend/src/utils/pioneerStatus.js — PIONEER_DRIVER_LIMIT",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/programme/pioneer/free_jobs": {
       "kind": "derived",
       "source": "backend/src/utils/pioneerStatus.js — FREE_JOB_LIMIT",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/programme/pioneer/public_line": {
       "kind": "derived",
       "source": "backend/src/utils/pioneerStatus.js — sentence BUILT from PIONEER_DRIVER_LIMIT + FREE_JOB_LIMIT, so the copy cannot outlive the code",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/programme/referral/reward_zar": {
       "kind": "derived",
       "source": "backend/src/services/referralService.js — REFERRAL_CREDIT_ZAR",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/programme/referral/public_line": {
       "kind": "derived",
       "source": "backend/src/services/referralService.js — sentence BUILT from REFERRAL_CREDIT_ZAR; the two-sided rail shipped 2026-07-14 (CR-02 BACKED)",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/programme/commission/driver_keeps_percent": {
       "kind": "attested",
@@ -485,12 +540,12 @@
     "/vocabulary/approved": {
       "kind": "derived",
       "source": "backend/docs/marketing/CLAIM_REGISTER.md — the Appendix \"always-approved bank\"",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/vocabulary/forbidden": {
       "kind": "derived",
       "source": "backend/docs/marketing/CLAIM_REGISTER.md — the Appendix \"Forbidden everywhere\" line",
-      "read_at": "2026-08-05"
+      "read_at": "2026-08-17"
     },
     "/not_yet": {
       "kind": "attested",
@@ -537,8 +592,8 @@
     "/company/apple_seller_of_record": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-08-05",
-      "expires": "2026-08-19"
+      "probed_at": "2026-08-17",
+      "expires": "2026-08-31"
     },
     "/company/website": {
       "kind": "attested",
