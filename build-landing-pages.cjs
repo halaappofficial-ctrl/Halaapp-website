@@ -1,5 +1,50 @@
 // One-shot builder: reads bakkie-hire-durban.html and emits two new landing pages.
 // Replaces content only. Keeps CSS, nav, footer, JS identical to the template.
+//
+// ══ RETIRED 2026-09-08 - IT RAN ONCE, IN APRIL, AND ITS OUTPUT HAS MOVED ON WITHOUT IT ═══════
+//
+// This script is a LOADED GUN and the safety is below. It is kept, not deleted, because it is the
+// record of how these two pages were made - but running it today would overwrite five months of
+// corrections with April's content. Its own header says "one-shot"; it fired.
+//
+// [SRC read 2026-09-08] It was last touched 2026-04-14. business-transport-durban.html was last
+// corrected 2026-09-04. Nothing in this repo invokes it - no npm script (there is no package.json),
+// no CI, no other file references it. So it has no job left to do, and everything it would do now
+// is damage:
+//
+//   28 dead-domain URLs. It still emits canonical / og:url / JSON-LD @id on halaapp.co.za, the
+//   domain dropped 2026-04-20. Both pages are correct today (0 hits) and this would revert them.
+//
+//   AND IT WOULD RESURRECT CLAIMS WE RETRACTED FOR BEING FALSE - which is far worse than a wrong
+//   URL. Commit 858ba97 (2026-08-17, "align the business page with what the code actually does")
+//   removed eight promises after checking each against source. This file still carries them:
+//     "8-tonne" x6            - there is no 8-ton; five vehicle types topping out at truck_4ton
+//     "JSE" x7                - we produce CO2 data. We certify nothing
+//     "consolidated monthly" x9 - no billing path exists
+//     "insurance on file" x1  - not in the verification stack
+//   Running this would put those back on a live, indexed page selling at R5,000/month.
+//
+// THE EXPIRY CONDITION, written next to the workaround so nobody has to guess: if these landing
+// pages ever need regenerating from the template again, this file must FIRST be brought level with
+// the current pages - domain, claims and all - and then the override below removed in the same
+// commit. Until then it fails closed. `node verify-landing-pages.cjs` is what actually grades the
+// pages now, and it is kept current.
+if (process.env.HALA_ALLOW_STALE_LANDING_BUILD !== '1') {
+  console.error([
+    '',
+    'REFUSING TO RUN - this builder is stale and would damage the live pages.',
+    '',
+    '  It last changed 2026-04-14; the pages it writes were corrected as recently as 2026-09-04.',
+    '  Running it would emit 28 halaapp.co.za URLs (domain dropped 2026-04-20) AND restore the',
+    '  false claims removed in 858ba97: 8-tonne trucks, JSE-ready reporting, consolidated monthly',
+    '  invoicing, insurance on file. None of those are things this platform has.',
+    '',
+    '  If you genuinely need to regenerate, update THIS file to match the current pages first,',
+    '  then re-run with HALA_ALLOW_STALE_LANDING_BUILD=1 and diff the output before committing.',
+    '',
+  ].join('\n'));
+  process.exit(1);
+}
 
 const fs = require('fs');
 const path = require('path');

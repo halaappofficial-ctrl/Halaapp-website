@@ -1,6 +1,6 @@
 # HALA — Website Repository
 
-**halaapp.co.za** · South Africa's verified logistics platform · Built in Durban
+**halamove.co.za** · South Africa's verified logistics platform · Built in Durban
 
 ---
 
@@ -35,9 +35,9 @@ Vercel reads from this GitHub repository. Every push to `main` triggers a new de
 5. Output Directory: leave empty (Vercel serves from root)
 6. Click **Deploy**
 
-**Domain setup (halaapp.co.za):**
+**Domain setup (halamove.co.za):**
 1. Vercel project → Settings → Domains
-2. Add `halaapp.co.za` and `www.halaapp.co.za`
+2. Add `halamove.co.za` and `www.halamove.co.za`
 3. Copy the DNS records Vercel provides
 4. Add those records at your domain registrar (Afrihost or domains.co.za)
 5. HTTPS provisions automatically — no configuration needed
@@ -181,7 +181,7 @@ All illustrative figures carry the disclaimer:
 
 This must not be contradicted anywhere on the site.
 
-**Legal entity.** Copyright reads `© 2026 HALA (Pty) Ltd`. All contact links use `contact@halaapp.co.za`.
+**Legal entity.** Copyright reads `© 2026 HALA (Pty) Ltd`. All contact links use `contact@halamove.co.za`.
 
 **Insurance.** Not mentioned on the main site. Requires underwriter agreement before public offer.
 
@@ -219,7 +219,7 @@ If this repository is served through Cloudflare, Cloudflare automatically obfusc
 
 **To disable it:** Cloudflare dashboard → your domain → Scrape Shield → Email Address Obfuscation → **turn OFF**.
 
-All email links in `index.html` use plain `mailto:contact@halaapp.co.za`. Never commit a file containing `cdn-cgi/l/email-protection` links — those are Cloudflare injections.
+All email links in `index.html` use plain `mailto:contact@halamove.co.za`. Never commit a file containing `cdn-cgi/l/email-protection` links — those are Cloudflare injections.
 
 ---
 
@@ -262,8 +262,8 @@ When editing `index.html`, follow these rules without exception:
 |------|--------|----------------|
 | Co-Founder & CTO | Mbabazi Eric | Codebase, infrastructure, all technical decisions, app store submissions |
 | Co-Founder & CEO | Uchenna Ngubane | B2B contracts, driver recruitment, brand, marketing, investor relations |
-| General enquiries | — | contact@halaapp.co.za |
+| General enquiries | — | contact@halamove.co.za |
 
 ---
 
-*HALA (Pty) Ltd · Durban, KwaZulu-Natal · South Africa · halaapp.co.za · March 2026*
+*HALA (Pty) Ltd · Durban, KwaZulu-Natal · South Africa · halamove.co.za · March 2026*
