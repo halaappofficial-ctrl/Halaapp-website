@@ -1329,7 +1329,7 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
  <div class="bl-msg" id="blMsg" role="status" aria-live="polite"></div>
 </form>
 
-<p>Prefer email? <a href="mailto:business@halamove.co.za">business@halamove.co.za</a> &nbsp; &middot; &nbsp; <a href="/#download" class="btn btn-ghost">Download the app</a></p>
+<p>Prefer email? <a href="mailto:contact@halamove.co.za">contact@halamove.co.za</a> &nbsp; &middot; &nbsp; <a href="/#download" class="btn btn-ghost">Download the app</a></p>
 <p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Questions? See our full <a href="/faq">FAQ</a>, read about <a href="/about">our story</a>, or WhatsApp us using the green button on the bottom-right of this page. HALA MOVE (Pty) Ltd is registered in South Africa and operates from Durban, KwaZulu-Natal.</p>
 </div>
   </div>
@@ -1732,12 +1732,12 @@ window.addEventListener('load', () => {
      msg.textContent='Thank you - we have your enquiry and will come back within two business days.';
      msg.className='bl-msg ok'; form.reset(); applyType(type); btn.textContent='Sent';
     } else {
-     fail((res.d&&res.d.error)||'Something went wrong. Please email business@halamove.co.za and we will pick it up.');
+     fail((res.d&&res.d.error)||'Something went wrong and your enquiry was not saved. Please email contact@halamove.co.za or WhatsApp +27 76 052 5398 and we will pick it up.');
      btn.disabled=false; btn.textContent='Send enquiry';
     }
    })
    .catch(function(){
-    fail('Network error. Please email business@halamove.co.za and we will pick it up.');
+    fail('Network error - your enquiry was not saved. Please email contact@halamove.co.za or WhatsApp +27 76 052 5398 and we will pick it up.');
     btn.disabled=false; btn.textContent='Send enquiry';
    });
  });

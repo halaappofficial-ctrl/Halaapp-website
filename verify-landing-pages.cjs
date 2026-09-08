@@ -79,7 +79,12 @@ const pages = [
       ['cold chain declined, not offered', 'cold-chain consignments are not currently offered'],
       ['no 8-ton truck claim (858ba97)', null, '8-ton'],
       ['PayFast mentioned', 'verified'],
-      ['business email', 'business@halamove.co.za'],
+      // contact@, not business@ (2026-09-08). brand-manifest.json declares exactly ONE address
+      // and business@ is not it; whether that mailbox exists is unknowable from this repo, and a
+      // dead address on a B2B enquiry route loses the lead outright. Guarded site-wide by
+      // verify-contact-routes.cjs.
+      ['enquiry email is the declared one', 'contact@halamove.co.za'],
+      ['no undeclared business@ address', null, 'business@halamove.co.za'],
       ['pricing tiers table', 'Enterprise'],
       ['toc present', 'On this page'],
       ['CSS intact', '.hero-h1{'],
