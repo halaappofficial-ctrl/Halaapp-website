@@ -22,7 +22,14 @@
 // WHAT IT CANNOT DO, stated plainly: it proves the site only advertises DECLARED addresses. It
 // cannot prove the mailbox behind a declared address is monitored, or that it exists at all - the
 // MX for halamove.co.za is GoDaddy (secureserver.net) and nothing here can enumerate mailboxes.
-// That last mile is a human check, and it is worth doing.
+// That last mile is a human check.
+//
+// AND IT HAS BEEN DONE: [ERIC 2026-09-08] "contact@halamove.co.za EXISTS AND I READ IT."
+// That is the only kind of evidence there is for this property, and it is recorded here rather
+// than left as a standing "somebody should check", because a note that outlives its condition is
+// how a task gets re-done forever. If the manifest ever declares a SECOND address, that one needs
+// the same sentence from a human before it goes on a page - the guard will let it through on the
+// strength of the manifest alone, which is precisely its blind spot.
 
 const fs = require('fs');
 const path = require('path');
