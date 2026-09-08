@@ -31,7 +31,11 @@ h1 .accent { color: var(--accent); }
 .code-label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-faint); margin-bottom: 10px; }
 .code-card { background: var(--surface-hi); border: 1px dashed var(--border-bright); border-radius: 16px; padding: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 8px; transition: border-color 0.2s; }
 .code-card:hover { border-color: var(--accent); }
-.code-text { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: 0.06em; color: var(--text); word-break: break-all; }
+/* 2026-09-08 - was 800 weight with 0.06em tracking, which is what turns a name into a shouted
+   slab. [ERIC] "Don't make the name all Bold." Wide tracking is half of that effect, so both
+   came down together; 700 still carries the card. Paired with preserving the URL's capitalisation
+   in the script below - the case was the other half. */
+.code-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.02em; color: var(--text); word-break: break-all; }
 .copy-hint { font-size: 12.5px; color: var(--text-faint); margin-bottom: 24px; }
 .cta-btn { display: block; width: 100%; padding: 16px 24px; border-radius: 14px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 16px; text-align: center; background: var(--accent); color: #0A0A0A; border: none; cursor: pointer; transition: transform 0.15s, filter 0.2s; margin-bottom: 10px; }
 .cta-btn.secondary { background: var(--surface-hi); color: var(--text); border: 1px solid var(--border-bright); }
@@ -71,7 +75,27 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
 (function () {
   'use strict';
   // The code is the last path segment of /c/CODE (Vercel rewrite -> this file).
-  var raw = (location.pathname.split('/').filter(Boolean).pop() || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+  //
+  // ── CASE IS PRESERVED FOR THE HUMAN, UPPERCASED FOR THE MACHINE (2026-09-08) ─────────────────
+  // This used to .toUpperCase() immediately, so every creator's code was displayed as a slab of
+  // capitals in 800-weight Syne. [ERIC 2026-09-08] on The Chitombis: "Don't make the name all
+  // Bold." A family name rendered as THECHITOMBIS reads as shouting, not as a brand.
+  //
+  // It is safe to show mixed case ONLY because the whole chain already normalises, which was
+  // checked rather than assumed: creatorService.normalizeCreatorCode() does trim().toUpperCase()
+  // before the regex and before the lookup, so 'TheChitombis', 'thechitombis' and 'THECHITOMBIS'
+  // are one code. That means WHAT IS ON SCREEN IS EXACTLY WHAT WORKS WHEN TYPED, which is the
+  // property that must not break - a page that displays one string and requires another is a
+  // silent failure aimed at the person least able to debug it.
+  //
+  // `display` keeps the author's capitalisation; `code` is the canonical form and is what every
+  // MACHINE path uses (lookup, click beacon, store UTM, invite deep links) so nothing downstream
+  // sees a new shape. /c/AYANDA is unchanged - it was written in capitals and still renders so.
+  // Spaces and dashes are stripped by the same rule the backend applies, so /c/The-Chitombis
+  // still resolves rather than dying on a character a person would naturally type.
+  var seg = (location.pathname.split('/').filter(Boolean).pop() || '').replace(/[^A-Za-z0-9]/g, '');
+  var display = seg;
+  var raw = seg.toUpperCase();
   var codeText = document.getElementById('codeText');
   var codeCard = document.getElementById('codeCard');
   var copyHint = document.getElementById('copyHint');
@@ -87,7 +111,7 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
     return;
   }
 
-  codeText.textContent = raw;
+  codeText.textContent = display;
   // Store buttons carry the creator as the ?s= source, so Play's install referrer records it.
   document.getElementById('getBtn').href = '/get?s=c_' + raw;
   document.getElementById('driveBtn').href = '/drive?s=c_' + raw;
@@ -113,15 +137,15 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
     }).catch(function () {});
   } catch (e) {}
 
-  function fallbackCopy() { var ta = document.createElement('textarea'); ta.value = raw; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); }
+  function fallbackCopy() { var ta = document.createElement('textarea'); ta.value = display; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); }
   function markCopied() { codeCard.style.borderColor = 'var(--accent)'; copyHint.textContent = 'Copied. Paste it at signup.'; showToast('Code copied'); }
   function copyCode() {
-    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(raw).then(markCopied).catch(function () { fallbackCopy(); markCopied(); }); }
+    if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(display).then(markCopied).catch(function () { fallbackCopy(); markCopied(); }); }
     else { fallbackCopy(); markCopied(); }
   }
   codeCard.addEventListener('click', copyCode);
   codeCard.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyCode(); } });
-  try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(raw).then(function () { copyHint.textContent = 'Code copied. Paste it at signup.'; }).catch(function () {}); } catch (e) {}
+  try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(display).then(function () { copyHint.textContent = 'Code copied. Paste it at signup.'; }).catch(function () {}); } catch (e) {}
 })();
 </script>
 </body>

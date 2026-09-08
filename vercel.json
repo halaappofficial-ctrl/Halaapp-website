@@ -8,6 +8,12 @@
   ],
   "redirects": [
     {
+      "_comment": "Creator code renamed DANIEL -> THECHITOMBIS on 2026-09-08, hours after it was created, at his request. Without this the OLD link still RENDERS - /c/:code is a generic page that reads the code out of the URL - while the lookup 404s, so the badge goes unnamed and anyone signing up with DANIEL is attributed to NOBODY and he is paid nothing. A page that looks fine and pays nobody is the exact silent-failure shape. Safe to delete once nothing points at /c/DANIEL any more; harmless to leave.",
+      "source": "/c/DANIEL",
+      "destination": "/c/THECHITOMBIS",
+      "permanent": false
+    },
+    {
       "source": "/admin",
       "destination": "https://admin.halamove.co.za/admin/",
       "permanent": false
