@@ -436,11 +436,11 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
  <div class="ann-track" aria-hidden="true">
   <span class="ann-item"><span class="ann-dot"></span>Bakkie hire Durban from R150 · panel vans · 1-tonne &amp; 4-tonne trucks · all verified</span>
   <span class="ann-item"><span class="ann-dot"></span>First drivers to join: zero commission on your first 20 completed jobs</span>
-  <span class="ann-item"><span class="ann-dot"></span>You keep 80% of every job · same-day payout · no monthly fee</span>
+  <span class="ann-item"><span class="ann-dot"></span>Your first 20 jobs commission-free · same-day payout · no monthly fee</span>
   <span class="ann-item"><span class="ann-dot"></span>B2B logistics contracts · construction, medical, retail, e-commerce · <a href="mailto:contact@halamove.co.za">contact@halamove.co.za</a></span>
   <span class="ann-item"><span class="ann-dot"></span>Now live in Durban · verified drivers accepting jobs</span>
   <span class="ann-item"><span class="ann-dot"></span>First drivers to join: zero commission on your first 20 jobs</span>
-  <span class="ann-item"><span class="ann-dot"></span>You keep 80% · paid the same day your job is done</span>
+  <span class="ann-item"><span class="ann-dot"></span>Keep 100% of your first 20 jobs · paid the same day</span>
   <span class="ann-item"><span class="ann-dot"></span>B2B transport contracts available · <a href="mailto:contact@halamove.co.za">contact@halamove.co.za</a></span>
  </div>
 </div>
@@ -778,7 +778,13 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
   <div class="driver-inner">
    <div class="driver-content">
     <div class="eyebrow reveal">For Drivers</div>
-    <h2 class="h2 reveal d1" id="driver-heading">Your Vehicle.<br>Your Schedule.<br><span style="color:var(--g)">Your 80%.</span></h2>
+    <!-- "Your 100%." is TRUE TODAY and it EXPIRES. [SRC src/routes/payments.js + utils/pioneerStatus.js]
+         the first 500 approved drivers keep 100% of their first 20 completed jobs; 78 are approved.
+         EXPIRY CONDITION, written here so nobody has to notice it: revert to "Your 80%." when either
+         the 500th driver is approved or the pioneer programme ends. Until 2026-09-23 this headline
+         read "Your 80%." while the perk three lines below already said "zero commission on your first
+         20 completed jobs" - a headline contradicting its own bullet list. -->
+    <h2 class="h2 reveal d1" id="driver-heading">Your Vehicle.<br>Your Schedule.<br><span style="color:var(--g)">Your 100%.</span></h2>
     <p class="sub reveal d2">Bakkie, H100, panel van or 4-tonne truck &mdash; if you own it and it moves cargo, HALA MOVE puts it to work. Whether you drive solo or own a fleet, stop sitting on word-of-mouth. Go online and let verified jobs find you. You set your price. You choose your jobs. You get paid the same day your job is completed before 5pm.</p>
 
     <div class="driver-perks reveal d4">
