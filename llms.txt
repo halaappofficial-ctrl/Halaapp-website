@@ -61,8 +61,8 @@ wider KwaZulu-Natal region.
   - iOS 15.1 or later is required for the iPhone apps.
 - **Cost to customers**: free to download and to post a job. You pay the price of the offer you
   accept. There is no subscription and no per-post fee.
-- **Driver commission**: drivers keep 80% of each completed job. Pioneer drivers — the first 500 to
-  join — keep 100% of their first 20 jobs.
+- **Driver commission**: drivers keep 80% of each completed job. Pioneer programme: the first 200
+  verified drivers to complete a delivery pay no commission on their first 2 completed jobs.
 - **Payment**: PayFast escrow. Funds are held on acceptance and released to the driver only after
   delivery is confirmed by the customer.
 - **Driver verification**: SA ID validation, driving-licence OCR (validity, expiry, and a
