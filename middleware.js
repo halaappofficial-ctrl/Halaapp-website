@@ -181,6 +181,13 @@ const MEDIUM_BY_PREFIX = [
   // The campaign half of the code mirrors the SMS one (ci-dos / cp-dos), so utm_campaign joins the
   // two channels of one campaign instead of splitting it into two unrelated-looking campaigns.
   ['cp-', 'push'],        // check-in messages, push channel
+  // A link inside one of OUR apps (2026-10-05): the customer app's "Want to earn with your vehicle?
+  // Get the HALA MOVE Driver app" line, on the sign-in screen (inapp-login) and the feedback form
+  // (inapp-feedback). 56 people had signed up in the customer app before finding the driver app, and
+  // nothing in the customer app pointed there. Its own prefix for the reason given above: without
+  // it every one of those installs would be filed as a QR scan. NOT 'app-': app-c and app-d are
+  // PRINTED app boards and must stay 'qr'.
+  ['inapp-', 'in_app'],   // in-app links from our own apps
 ];
 const MEDIUM_CODED_DEFAULT = 'qr';   // an unrecognised code is a printed board until proven otherwise
 const MEDIUM_NO_CODE = 'direct';     // no ?s= at all: typed, bookmarked, or shared as a bare link

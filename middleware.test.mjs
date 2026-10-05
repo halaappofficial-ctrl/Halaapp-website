@@ -37,11 +37,19 @@ const CASES = [
   // Printed boards keep 'qr'. Re-labelling them would split their Play Console history.
   ['static QR     -> play, qr',          '/get?s=st-c',    AND, l => medium(l) === 'qr' && l.includes('utm_campaign%3Dst-c')],
   ['app-board QR  -> play, qr',          '/drive?s=app-d', AND, l => medium(l) === 'qr'],
-  ['no code       -> play, qr, no campaign', '/get',       AND, l => medium(l) === 'qr' && !l.includes('utm_campaign')],
+  // A bare link was typed or shared, not scanned: 'direct' since 43a356f (2026-08-10). These two
+  // cases still expected 'qr' and had been red from that day until 2026-10-05 - nothing runs this
+  // file unless a person does.
+  ['no code       -> play, direct, no campaign', '/get',   AND, l => medium(l) === 'direct' && !l.includes('utm_campaign')],
+
+  // A link inside one of our own apps (2026-10-05): the customer app's driver-app line. Not 'qr',
+  // which is what an unrecognised code would have been filed as.
+  ['in-app link   -> driver play, in_app', '/drive?s=inapp-login', AND,
+    l => l.includes('id=com.hala.driverapp') && medium(l) === 'in_app' && l.includes('utm_campaign%3Dinapp-login')],
 
   // The ?s= allow-list is an input boundary on a public URL: anything outside [A-Za-z0-9_-]{1,32}
-  // is DROPPED, never echoed into the outbound link.
-  ['hostile code  -> dropped',           '/get?s=../evil!', AND, l => medium(l) === 'qr' && !l.includes('evil')],
+  // is DROPPED, never echoed into the outbound link - so a hostile code reads as no code at all.
+  ['hostile code  -> dropped',           '/get?s=../evil!', AND, l => medium(l) === 'direct' && !l.includes('evil')],
 
   // iOS: App Store by id, campaign code as Apple's `ct`. No medium concept exists on this side.
   ['ios customer  -> app store + ct',    '/get?s=ad-c9-a',    IOS, l => l === 'https://apps.apple.com/za/app/id6789445062?ct=ad-c9-a'],
