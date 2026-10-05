@@ -4,7 +4,7 @@
   "_generated_at": "2026-10-05",
   "_generated_from": {
     "backend": "2433c9b",
-    "mobile": "44ed7dad"
+    "mobile": "44ed7da"
   },
   "_trust": {
     "derived_values": "re-derived from source and compared on every push (backend: node scripts/brand-manifest/check.js). A mismatch fails loud and names the value.",
@@ -266,8 +266,7 @@
   ],
   "company": {
     "trading_name": "HALA MOVE",
-    "operator": "PROFITSAGE (PTY) LTD",
-    "registration_number": "2025/087445/07",
+    "operator": "PROFITSAGE PTY LTD",
     "duns": "366869273",
     "founded": 2026,
     "operating_area": "Durban and the wider KwaZulu-Natal region, South Africa",
@@ -283,9 +282,9 @@
   "_provenance": {
     "/brand/name": {
       "kind": "attested",
-      "source": "the trading name of PROFITSAGE (PTY) LTD (Eric, 2026-10-05); backend/CLAUDE.md Rule #13; CLAIM_REGISTER CR-13",
-      "attested_at": "2026-10-05",
-      "expires": "2027-01-03",
+      "source": "CIPC registration (April 2026); backend/CLAUDE.md Rule #13; CLAIM_REGISTER CR-13",
+      "attested_at": "2026-08-03",
+      "expires": "2026-11-01",
       "why_not_derived": "A naming RULE, not state. No code declares the brand name — app.json carries the STORE forms (\"HALA Move\" / \"HALA Move Driver\"), which are a different thing. Deriving this from a file would be inventing a source."
     },
     "/brand/never_shorten_to": {
@@ -562,21 +561,15 @@
     },
     "/company/trading_name": {
       "kind": "attested",
-      "source": "Eric, 2026-10-05: HALA MOVE is the trading name of PROFITSAGE (PTY) LTD",
-      "attested_at": "2026-10-05",
-      "expires": "2027-01-03"
+      "source": "CIPC registration, April 2026",
+      "attested_at": "2026-08-03",
+      "expires": "2026-11-01"
     },
     "/company/operator": {
       "kind": "attested",
-      "source": "CIPC CoR14.3 registration certificate (registered 30 Jan 2025); named as the developer on both Play listings and on halamove.co.za/terms, /privacy and /download",
-      "attested_at": "2026-10-05",
-      "expires": "2027-01-03"
-    },
-    "/company/registration_number": {
-      "kind": "attested",
-      "source": "CIPC CoR14.3 registration certificate; published on halamove.co.za/terms, /privacy and /driver-agreement",
-      "attested_at": "2026-10-05",
-      "expires": "2027-01-03"
+      "source": "CIPC registration; published on halamove.co.za/download and in both Play listings",
+      "attested_at": "2026-08-03",
+      "expires": "2026-11-01"
     },
     "/company/duns": {
       "kind": "attested",
@@ -586,9 +579,9 @@
     },
     "/company/founded": {
       "kind": "attested",
-      "source": "the year HALA MOVE launched (its operator, PROFITSAGE (PTY) LTD, was registered earlier, on 30 Jan 2025)",
-      "attested_at": "2026-10-05",
-      "expires": "2027-01-03"
+      "source": "CIPC registration",
+      "attested_at": "2026-08-03",
+      "expires": "2026-11-01"
     },
     "/company/operating_area": {
       "kind": "attested",
