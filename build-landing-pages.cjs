@@ -189,7 +189,8 @@ const studentSchema = {
       "description": "On-demand student moving with verified drivers across Durban and KwaZulu-Natal. UKZN, DUT, MUT, Mancosa, Varsity College. Same-day booking, live GPS tracking, PayFast escrow.",
       "provider": {
         "@type": "Organization",
-        "name": "HALA MOVE (Pty) Ltd",
+        "name": "HALA MOVE",
+        "legalName": "PROFITSAGE (PTY) LTD",
         "url": "https://www.halaapp.co.za/"
       },
       "areaServed": [
@@ -423,7 +424,7 @@ const studentContent = `<div class="page-hero">
 <h2 class="section-anchor" id="download">Download the HALA MOVE app &mdash; book a student move in Durban now</h2>
 <p>The fastest way to book a verified driver for a Durban student move is through the HALA MOVE app. Available on Android and iOS, free to download, free to post a job &mdash; you only pay when you accept a bid.</p>
 <p><a href="/#download" class="btn btn-green">Download the app</a> &nbsp; <a href="./bakkie-hire-durban.html" class="btn btn-ghost">Bakkie hire Durban</a> &nbsp; <a href="./furniture-removal-durban.html" class="btn btn-ghost">Furniture removal</a></p>
-<p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Questions? See our full <a href="./faq.html">FAQ</a>, read about <a href="./about.html">our story</a>, or WhatsApp us using the green button on the bottom-right of this page. HALA MOVE (Pty) Ltd is registered in South Africa and operates from Durban, KwaZulu-Natal.</p>
+<p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Questions? See our full <a href="./faq.html">FAQ</a>, read about <a href="./about.html">our story</a>, or WhatsApp us using the green button on the bottom-right of this page. PROFITSAGE (PTY) LTD trading as HALA MOVE is a private company registered in South Africa (registration number 2025/087445/07) and operates from Durban, KwaZulu-Natal.</p>
 </div>
   </div>
  </div>
@@ -471,7 +472,8 @@ const businessSchema = {
       "description": "Formal B2B transport contracts across Durban and KwaZulu-Natal. SLA terms, live fleet visibility, consolidated monthly billing, JSE-ready ESG reports. Construction, medical, e-commerce, retail, manufacturing, universities.",
       "provider": {
         "@type": "Organization",
-        "name": "HALA MOVE (Pty) Ltd",
+        "name": "HALA MOVE",
+        "legalName": "PROFITSAGE (PTY) LTD",
         "url": "https://www.halaapp.co.za/"
       },
       "areaServed": [
@@ -703,7 +705,7 @@ const businessContent = `<div class="page-hero">
 <h2 class="section-anchor" id="download">Talk to HALA MOVE business</h2>
 <p>Ready to scope a contract? Email <a href="mailto:business@halaapp.co.za">business@halaapp.co.za</a> with your routes, volume, and SLA needs and we will come back with a scoped proposal within two business days. Or download the HALA MOVE app on Android or iOS to see the platform your drivers and ops team will use every day.</p>
 <p><a href="mailto:business@halaapp.co.za" class="btn btn-green">Contact HALA MOVE business</a> &nbsp; <a href="/#download" class="btn btn-ghost">Download the app</a></p>
-<p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Questions? See our full <a href="./faq.html">FAQ</a>, read about <a href="./about.html">our story</a>, or WhatsApp us using the green button on the bottom-right of this page. HALA MOVE (Pty) Ltd is registered in South Africa and operates from Durban, KwaZulu-Natal.</p>
+<p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Questions? See our full <a href="./faq.html">FAQ</a>, read about <a href="./about.html">our story</a>, or WhatsApp us using the green button on the bottom-right of this page. PROFITSAGE (PTY) LTD trading as HALA MOVE is a private company registered in South Africa (registration number 2025/087445/07) and operates from Durban, KwaZulu-Natal.</p>
 </div>
   </div>
  </div>

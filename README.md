@@ -62,7 +62,7 @@ Vercel reads from this GitHub repository. Every push to `main` triggers a new de
 | 8 | For Business | 3 B2B features, 6 industry cards, SLA table, contact CTA |
 | 9 | Testimonials | 3 representative experience cards with role badges |
 | 10 | Download CTA | App store download section with green radial glow |
-| 11 | Footer | 4-column footer, legal disclaimer, HALA (Pty) Ltd copyright |
+| 11 | Footer | 4-column footer, legal disclaimer, PROFITSAGE (PTY) LTD trading as HALA MOVE copyright |
 | 12 | Floating elements | Scroll-to-top button, WhatsApp chat float |
 
 ### Embedded Assets
@@ -181,7 +181,7 @@ All illustrative figures carry the disclaimer:
 
 This must not be contradicted anywhere on the site.
 
-**Legal entity.** Copyright reads `© 2026 HALA (Pty) Ltd`. All contact links use `contact@halamove.co.za`.
+**Legal entity.** HALA MOVE is a trading name [Eric, 2026-10-05]. The company is PROFITSAGE (PTY) LTD, CIPC registration 2025/087445/07. Footers read `© 2026 PROFITSAGE (PTY) LTD trading as HALA MOVE`; the terms, privacy policy and driver agreement also carry the registration number. Never write "HALA MOVE (Pty) Ltd": no company of that name exists. All contact links use `contact@halamove.co.za`.
 
 **Insurance.** Not mentioned on the main site. Requires underwriter agreement before public offer.
 
@@ -266,4 +266,4 @@ When editing `index.html`, follow these rules without exception:
 
 ---
 
-*HALA (Pty) Ltd · Durban, KwaZulu-Natal · South Africa · halamove.co.za · March 2026*
+*PROFITSAGE (PTY) LTD trading as HALA MOVE · Durban, KwaZulu-Natal · South Africa · halamove.co.za · March 2026*
