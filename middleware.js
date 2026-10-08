@@ -188,6 +188,11 @@ const MEDIUM_BY_PREFIX = [
   // it every one of those installs would be filed as a QR scan. NOT 'app-': app-c and app-d are
   // PRINTED app boards and must stay 'qr'.
   ['inapp-', 'in_app'],   // in-app links from our own apps
+  // The HALA MOVE YouTube channel (2026-10-08): the About links and every video description carry
+  // /get?s=yt-c and /drive?s=yt-d. Its own prefix for the reason given above - without it every
+  // install from a video would be filed as a printed board. 'video' rather than 'social' so the
+  // channel is separable from Instagram/TikTok in Play Console.
+  ['yt-', 'video'],       // YouTube channel links and video descriptions
 ];
 const MEDIUM_CODED_DEFAULT = 'qr';   // an unrecognised code is a printed board until proven otherwise
 const MEDIUM_NO_CODE = 'direct';     // no ?s= at all: typed, bookmarked, or shared as a bare link
