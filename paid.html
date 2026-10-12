@@ -30,5 +30,21 @@
   <p>Your payment is secured in escrow. Return to the HALA MOVE app to continue with your job — it will update automatically.</p>
   <p class="hint">You can safely close this tab.</p>
 </main>
+<script>
+// Tell the backend which page PayFast sent this customer back to (2026-10-12). Without it a
+// failed checkout could not say whether the customer pressed Cancel at PayFast or never came back
+// at all. Best effort, no personal data, the page works the same if it fails. Same shape as the
+// creator page beacon, which has recorded 888 clicks from this site.
+(function () {
+  try {
+    var m = /[?&]job_id=([0-9a-fA-F-]{36})(?:&|$)/.exec(window.location.search || '');
+    if (!m) return;
+    fetch('https://hala-backend-production.up.railway.app/api/payments/return-seen', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ job_id: m[1], page: 'paid' }), keepalive: true
+    }).catch(function () {});
+  } catch (e) {}
+})();
+</script>
 </body>
 </html>
