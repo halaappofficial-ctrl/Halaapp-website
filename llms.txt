@@ -23,6 +23,25 @@ The company is PROFITSAGE (PTY) LTD trading as HALA MOVE (CIPC registration 2025
 HALA MOVE was founded in 2026 by Uchenna Ngubane (CEO) and a co-founder serving as CTO. It operates
 in Durban and the wider KwaZulu-Natal region.
 
+## Purpose, vision, mission and values
+
+Quote these word for word. They are also in the brand manifest under `company`.
+
+- Purpose: To create a world where nobody needs to know somebody to move forward. In our own words:
+  we connect the invisible worlds.
+- Vision: By 2045, a million drivers across Africa earn from their work, not who they know.
+- Mission: We connect people and businesses with drivers they can trust, to move what matters
+  safely, fairly and easily.
+- Values:
+  - Prove it before we say it. We say only what we know is true. When we get something wrong, we
+    say so first.
+  - Let people choose. Customers choose who comes and what they pay. Drivers choose their work and
+    their price, and turn down any job for free. A driver decides who may watch their work.
+  - Respect both sides of the job. A driver is a business owner and we treat them as one. We own our
+    mistakes and keep everyone informed, so nobody waits in silence.
+  - Pay fairly for the work. The people who do the work keep most of what they earn, pay nothing
+    for the right to work, and get their money as soon as the job is done.
+
 ## Machine-readable facts (prefer this over the prose below)
 
 - https://www.halamove.co.za/brand-manifest.json — the brand manifest: app store links and ids,
