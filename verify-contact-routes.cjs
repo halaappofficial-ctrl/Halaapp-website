@@ -24,7 +24,7 @@
 // MX for halamove.co.za is GoDaddy (secureserver.net) and nothing here can enumerate mailboxes.
 // That last mile is a human check.
 //
-// AND IT HAS BEEN DONE: [ERIC 2026-09-08] "contact@halamove.co.za EXISTS AND I READ IT."
+// AND IT HAS BEEN DONE: [founder 2026-09-08] "contact@halamove.co.za EXISTS AND I READ IT."
 // That is the only kind of evidence there is for this property, and it is recorded here rather
 // than left as a standing "somebody should check", because a note that outlives its condition is
 // how a task gets re-done forever. If the manifest ever declares a SECOND address, that one needs

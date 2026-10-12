@@ -181,7 +181,7 @@ All illustrative figures carry the disclaimer:
 
 This must not be contradicted anywhere on the site.
 
-**Legal entity.** HALA MOVE is a trading name [Eric, 2026-10-05]. The company is PROFITSAGE (PTY) LTD, CIPC registration 2025/087445/07. Footers read `© 2026 PROFITSAGE (PTY) LTD trading as HALA MOVE`; the terms, privacy policy and driver agreement also carry the registration number. Never write "HALA MOVE (Pty) Ltd": no company of that name exists. All contact links use `contact@halamove.co.za`.
+**Legal entity.** HALA MOVE is a trading name [founders, 2026-10-05]. The company is PROFITSAGE (PTY) LTD, CIPC registration 2025/087445/07. Footers read `© 2026 PROFITSAGE (PTY) LTD trading as HALA MOVE`; the terms, privacy policy and driver agreement also carry the registration number. Never write "HALA MOVE (Pty) Ltd": no company of that name exists. All contact links use `contact@halamove.co.za`.
 
 **Insurance.** Not mentioned on the main site. Requires underwriter agreement before public offer.
 
@@ -260,7 +260,6 @@ When editing `index.html`, follow these rules without exception:
 
 | Role | Person | Responsibility |
 |------|--------|----------------|
-| Co-Founder & CTO | Mbabazi Eric | Codebase, infrastructure, all technical decisions, app store submissions |
 | Co-Founder & CEO | Uchenna Ngubane | B2B contracts, driver recruitment, brand, marketing, investor relations |
 | General enquiries | — | contact@halamove.co.za |
 

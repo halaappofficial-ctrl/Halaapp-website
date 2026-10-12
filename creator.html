@@ -32,7 +32,7 @@ h1 .accent { color: var(--accent); }
 .code-card { background: var(--surface-hi); border: 1px dashed var(--border-bright); border-radius: 16px; padding: 20px; display: flex; align-items: center; justify-content: center; cursor: pointer; margin-bottom: 8px; transition: border-color 0.2s; }
 .code-card:hover { border-color: var(--accent); }
 /* 2026-09-08 - was 800 weight with 0.06em tracking, which is what turns a name into a shouted
-   slab. [ERIC] "Don't make the name all Bold." Wide tracking is half of that effect, so both
+   slab. [founder] "Don't make the name all Bold." Wide tracking is half of that effect, so both
    came down together; 700 still carries the card. Paired with preserving the URL's capitalisation
    in the script below - the case was the other half. */
 .code-text { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 26px; letter-spacing: 0.02em; color: var(--text); word-break: break-all; }
@@ -78,7 +78,7 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
   //
   // ── CASE IS PRESERVED FOR THE HUMAN, UPPERCASED FOR THE MACHINE (2026-09-08) ─────────────────
   // This used to .toUpperCase() immediately, so every creator's code was displayed as a slab of
-  // capitals in 800-weight Syne. [ERIC 2026-09-08] on The Chitombis: "Don't make the name all
+  // capitals in 800-weight Syne. [founder 2026-09-08] on The Chitombis: "Don't make the name all
   // Bold." A family name rendered as THECHITOMBIS reads as shouting, not as a brand.
   //
   // It is safe to show mixed case ONLY because the whole chain already normalises, which was

@@ -10,7 +10,7 @@
     "derived_values": "re-derived from source and compared on every push (backend: node scripts/brand-manifest/check.js). A mismatch fails loud and names the value.",
     "probed_values": "asked of the live store, with an invalid-subject control that must fail. Re-confirm within 14 days; after that the sensor calls them stale.",
     "attested_values": "no machine source exists, so a person confirmed them. Re-confirm within 90 days.",
-    "scope": "This file carries only what is already public in effect: what we are called, where the apps are, what we may and may not say, and who we are. Anything commercially sensitive is deliberately kept off it — ask Eric or Uchenna for that.",
+    "scope": "This file carries only what is already public in effect: what we are called, where the apps are, what we may and may not say, and who we are. Anything commercially sensitive is deliberately kept off it — ask the founders at contact@halamove.co.za.",
     "if_something_looks_wrong": "contact@halamove.co.za"
   },
   "brand": {
@@ -255,7 +255,7 @@
     },
     {
       "do_not_say": "Any INVENTED driver count, download count, rating or review count, or \"on the platform\" / \"ready and waiting\" phrasing",
-      "say_instead": "The one approved figure is \"200+ drivers committed before the app launched\" — committed, not onboarded. Any other number comes from Eric on the day it is posted, or it is not posted. No public counter exists.",
+      "say_instead": "The one approved figure is \"200+ drivers committed before the app launched\" — committed, not onboarded. Any other number comes from the founders on the day it is posted, or it is not posted. No public counter exists.",
       "ref": "CR-10, CR-16"
     },
     {
@@ -305,7 +305,7 @@
   "_provenance": {
     "/brand/name": {
       "kind": "attested",
-      "source": "the trading name of PROFITSAGE (PTY) LTD (Eric, 2026-10-05); backend/CLAUDE.md Rule #13; CLAIM_REGISTER CR-13",
+      "source": "the trading name of PROFITSAGE (PTY) LTD (founder confirmation, 2026-10-05); backend/CLAUDE.md Rule #13; CLAIM_REGISTER CR-13",
       "attested_at": "2026-10-05",
       "expires": "2027-01-03",
       "why_not_derived": "A naming RULE, not state. No code declares the brand name — app.json carries the STORE forms (\"HALA Move\" / \"HALA Move Driver\"), which are a different thing. Deriving this from a file would be inventing a source."
@@ -584,7 +584,7 @@
     },
     "/company/trading_name": {
       "kind": "attested",
-      "source": "Eric, 2026-10-05: HALA MOVE is the trading name of PROFITSAGE (PTY) LTD",
+      "source": "founder confirmation, 2026-10-05: HALA MOVE is the trading name of PROFITSAGE (PTY) LTD",
       "attested_at": "2026-10-05",
       "expires": "2027-01-03"
     },
