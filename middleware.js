@@ -163,12 +163,17 @@ function cardFor(slug) {
     const raw = (typeof process !== 'undefined' && process.env && process.env.CARD_CONTACTS) || '';
     all = raw ? JSON.parse(raw) : null;
   } catch (e) {
-    console.error('[card][CONTACTS_UNREADABLE]', e && e.message);
+    // The error NAME only: V8's JSON.parse message quotes the input around the bad token, and the
+    // input is the founders' numbers - a malformed variable would write nine digits of one into
+    // the logs on every page open.
+    console.error('[card][CONTACTS_UNREADABLE]', (e && e.name) || 'Error');
     return null;
   }
   const c = all && typeof all === 'object' && Object.prototype.hasOwnProperty.call(all, slug) ? all[slug] : null;
   if (!c || typeof c !== 'object') return null;
-  for (const k of CARD_FIELDS) if (typeof c[k] !== 'string' || !c[k].trim()) return null;
+  // Printable ASCII only: a lone CR would split a vCard line, and a lone surrogate makes
+  // encodeURIComponent throw (a 500). The data is generated plain ASCII; anything else is a fault.
+  for (const k of CARD_FIELDS) if (typeof c[k] !== 'string' || !/^[\x20-\x7E]+$/.test(c[k]) || !c[k].trim()) return null;
   if (!/^\+27\d{9}$/.test(c.phone)) return null;
   return c;
 }
@@ -226,9 +231,10 @@ try {
 }
 
 function cardResponse(path) {
-  if (path !== '/card' && !path.startsWith('/card/')) return null;
+  const lower = path.toLowerCase();   // /Card/uchenna is typed by people; the prefix test must not care
+  if (lower !== '/card' && !lower.startsWith('/card/')) return null;
   const notFound = new Response('Not found', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8', ...CARD_HEADERS } });
-  const m = CARD_RE.exec(path.toLowerCase());
+  const m = CARD_RE.exec(lower);
   if (!m) return notFound;
   const c = cardFor(m[1]);
   if (!c) return notFound;

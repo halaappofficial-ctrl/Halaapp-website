@@ -114,6 +114,19 @@ const CARD_CASES = [
   ['QR address on the apex -> one 307 to www, path kept', () => get('/card/alpha', 'halamove.co.za'), r =>
     r.status === 307 && r.location === 'https://www.halamove.co.za/card/alpha'],
   ['creator links are untouched', () => get('/c/SOMECODE'), r => r.status === 'passthrough'],
+  // Final-review fixes (2026-10-13).
+  ['capitalised prefix still opens: /Card/alpha', () => get('/Card/alpha'), r => r.status === 200 && r.body.includes('Test Alpha')],
+  ['all capitals still opens: /CARD/ALPHA', () => get('/CARD/ALPHA'), r => r.status === 200 && r.body.includes('Test Alpha')],
+  ['a carriage return in a field -> 404, never a split vCard', () =>
+    withEnv(JSON.stringify({ alpha: { ...CARDS.alpha, name: 'Test\rAlpha' } }), () => get('/card/alpha.vcf')), r => r.status === 404],
+  ['a broken character in a field -> 404, never a 500', () =>
+    withEnv(JSON.stringify({ alpha: { ...CARDS.alpha, greet: '\uD800' } }), () => get('/card/alpha')), r => r.status === 404],
+  ['a broken variable never writes a number into the logs', async () => {
+    const seen = [], orig = console.error;
+    console.error = (...a) => seen.push(a.map(String).join(' '));
+    try { await withEnv('{"alpha":{"phone":+27000000001}}', () => get('/card/alpha')); } finally { console.error = orig; }
+    return { status: 'logged', body: seen.join('\n'), type: '', robots: '', location: '' };
+  }, r => r.body.includes('CONTACTS_UNREADABLE') && !/\d{6}/.test(r.body)],
 ];
 
 let ok = 0;
