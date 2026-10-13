@@ -97,7 +97,11 @@ export default function middleware(request) {
     return redirect(dest.toString());
   }
 
-  // ── 3. platform-aware store routing (unchanged) ──────────────────────────────────────────────
+  // ── 3. /card/<name>: ONE founder's business-card page and contact file (2026-10-13) ─────────
+  const card = cardResponse(path);
+  if (card) return card;
+
+  // ── 4. platform-aware store routing (unchanged) ──────────────────────────────────────────────
   if (path !== '/drive' && path !== '/get') return;
 
   // (medium classification lives in mediumFor(), below the handler — see the table there.)
@@ -129,6 +133,111 @@ export default function middleware(request) {
   if (src) { referrer.set('utm_campaign', src); referrer.set('utm_content', src); }
   const play = `https://play.google.com/store/apps/details?id=${PLAY[path]}&referrer=${encodeURIComponent(referrer.toString())}`;
   return redirect(play);
+}
+
+// ── /card/<name>: ONE founder's business-card page (2026-10-13) ───────────────────────────────
+//
+// Spec: hala-backend docs/superpowers/specs/2026-10-13-business-cards-design.md, sections 7 and 13.
+// Each founder's printed card carries a QR to https://halamove.co.za/card/<name>. That page shows
+// that founder and nobody else: one name, a "Save to contacts" button (/card/<name>.vcf) and a
+// "Message on WhatsApp" button with the first line already typed. There is no listing page:
+// /card on its own is a 404.
+//
+// THE NUMBERS ARE NOT IN THIS FILE, AND MUST NEVER BE. This repo is PUBLIC on GitHub; a founder's
+// mobile number committed here is a number anyone can harvest. They live in the Vercel environment
+// variable CARD_CONTACTS (JSON), read at request time and generated from the private backend repo
+// (scripts/marketing/build_business_cards.py --print-card-contacts). A missing, broken or
+// incomplete entry answers 404 - never a 500, never half a contact, never someone else's.
+//
+// WHY /card AND NOT /c: /c/:code is the creator-attribution page (vercel.json rewrite), and
+// vercel.json redirects run before this file, so a shared namespace would let a creator code
+// shadow a founder's card.
+const CARD_RE = /^\/card\/([a-z]{2,20})(\.vcf)?\/?$/;
+const CARD_FIELDS = ['name', 'given', 'family', 'greet', 'title', 'phone', 'email'];
+const CARD_BEACON = 'https://hala-backend-production.up.railway.app/api/cards/seen';
+const CARD_HEADERS = { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow', 'Referrer-Policy': 'no-referrer' };
+
+function cardFor(slug) {
+  let all = null;
+  try {
+    const raw = (typeof process !== 'undefined' && process.env && process.env.CARD_CONTACTS) || '';
+    all = raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    console.error('[card][CONTACTS_UNREADABLE]', e && e.message);
+    return null;
+  }
+  const c = all && typeof all === 'object' && Object.prototype.hasOwnProperty.call(all, slug) ? all[slug] : null;
+  if (!c || typeof c !== 'object') return null;
+  for (const k of CARD_FIELDS) if (typeof c[k] !== 'string' || !c[k].trim()) return null;
+  if (!/^\+27\d{9}$/.test(c.phone)) return null;
+  return c;
+}
+
+const htmlEsc = (s) => String(s).replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[ch]));
+const vEsc = (s) => String(s).replace(/\\/g, '\\\\').replace(/([,;])/g, '\\$1').replace(/\r?\n/g, ' ');
+
+function cardVcf(c) {
+  return ['BEGIN:VCARD', 'VERSION:3.0', `N:${vEsc(c.family)};${vEsc(c.given)};;;`, `FN:${vEsc(c.name)}`,
+    'ORG:HALA MOVE', `TITLE:${vEsc(c.title)}`, `TEL;TYPE=CELL,VOICE:${c.phone}`, `EMAIL;TYPE=WORK:${vEsc(c.email)}`,
+    'URL:https://halamove.co.za', 'END:VCARD', ''].join('\r\n');
+}
+
+function cardPage(slug, c) {
+  const wa = `https://wa.me/${c.phone.slice(1)}?text=${encodeURIComponent(`Hi ${c.greet}, we met and you gave me your card.`)}`;
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>${htmlEsc(c.name)} - HALA MOVE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@900&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0A0A;--green:#5CB558;--soft:#EDEDE8;--muted:#9A9A9A}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--soft);font-family:Barlow,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+main{width:100%;max-width:420px}
+.wm{font-family:Outfit,Barlow,Arial,sans-serif;font-weight:900;font-size:20px;letter-spacing:-0.2px}
+.wm .h{color:var(--green)}
+h1{font-size:32px;line-height:1.15;font-weight:700;margin:40px 0 6px}
+.t{color:var(--muted);font-size:17px}
+.btns{margin-top:36px;display:grid;gap:12px}
+a.b{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:18px;padding:16px;border-radius:12px}
+a.save{background:var(--green);color:#0A0A0A}
+a.wa{border:2px solid var(--green);color:var(--soft)}
+.foot{margin-top:40px;font-size:13px}
+.foot a{color:var(--muted)}
+</style></head>
+<body><main>
+<div class="wm"><span class="h">HALA</span> MOVE</div>
+<h1>${htmlEsc(c.name)}</h1>
+<p class="t">${htmlEsc(c.title)}</p>
+<div class="btns">
+<a class="b save" href="/card/${slug}.vcf">Save to contacts</a>
+<a class="b wa" href="${htmlEsc(wa)}">Message on WhatsApp</a>
+</div>
+<p class="foot"><a href="https://www.halamove.co.za/">halamove.co.za</a></p>
+</main>
+<script>
+try {
+  var ua = navigator.userAgent || '', p = /android/i.test(ua) ? 'android' : /iphone|ipad|ipod/i.test(ua) ? 'ios' : 'web';
+  fetch('${CARD_BEACON}', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ card: '${slug}', platform: p }), keepalive: true }).catch(function () {});
+} catch (e) {}
+</script>
+</body></html>`;
+}
+
+function cardResponse(path) {
+  if (path !== '/card' && !path.startsWith('/card/')) return null;
+  const notFound = new Response('Not found', { status: 404, headers: { 'Content-Type': 'text/plain; charset=utf-8', ...CARD_HEADERS } });
+  const m = CARD_RE.exec(path.toLowerCase());
+  if (!m) return notFound;
+  const c = cardFor(m[1]);
+  if (!c) return notFound;
+  if (m[2]) {
+    const file = c.name.replace(/[^A-Za-z ]/g, '').trim() || 'contact';
+    return new Response(cardVcf(c), { status: 200, headers: { 'Content-Type': 'text/vcard; charset=utf-8',
+      'Content-Disposition': `inline; filename="${file}.vcf"`, ...CARD_HEADERS } });
+  }
+  return new Response(cardPage(m[1], c), { status: 200, headers: { 'Content-Type': 'text/html; charset=utf-8', ...CARD_HEADERS } });
 }
 
 // ── utm_medium: WHICH DOOR DID THIS INSTALL COME THROUGH? ──────────────────────────────────────
