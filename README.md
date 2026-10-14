@@ -55,7 +55,7 @@ Vercel reads from this GitHub repository. Every push to `main` triggers a new de
 | 1 | Announcement bar | Scrolling ticker — key platform messages, contact email |
 | 2 | Navigation | Sticky nav with HALA logo (base64 embedded), Live·Durban badge, mobile hamburger |
 | 3 | Hero | H1 headline, hero sub, CTAs, app store badges, phone mockup with live bid animation, animated city grid canvas |
-| 4 | Stats bar | 3 factual platform stats — 80% driver share, same-day payout, R0 monthly fee, 24hr verification |
+| 4 | Stats bar | factual platform stats — 20% commission per job, same-day moves, jobs from R150, 5 driver checks |
 | 5 | How It Works | 4-step customer flow with animated connecting line on desktop |
 | 6 | Features | 6 feature cards — verification, AI Smart Quote, photo protocol, PayFast escrow, live GPS, carbon tracking |
 | 7 | For Drivers | Earnings formula box, 4 barrier-removal perks, interactive earnings calculator with illustrative disclaimer |
@@ -93,7 +93,7 @@ All JavaScript is vanilla. No libraries. Written inline at the bottom of `index.
 | Scroll reveal | `IntersectionObserver` with `threshold: 0` and `rootMargin: 0px 0px -40px 0px` |
 | Reveal failsafe | 1.5s timeout inside observer + `window.addEventListener('load')` at 300ms. Three independent mechanisms ensure no section stays invisible. |
 | Animated counters | `requestAnimationFrame` with cubic ease-out, triggered by `IntersectionObserver` |
-| Earnings calculator | Three range sliders update monthly figure in real time. Formula: Jobs × Bid price × 80%. Includes illustrative disclaimer. |
+| Earnings calculator | Three range sliders update monthly figure in real time. Formula: Jobs × offer price × days × 4 weeks, less 20% commission. Includes illustrative disclaimer. |
 | City grid canvas | Custom Canvas 2D rendering. Randomised node grid, dashed routes, animated driver dots with radial glow and pulse-on-arrival. Resizes on window resize. |
 | Phone mockup timer | Countdown timer (14:22 → 0) showing live bidding window. Runs in 1-second intervals. |
 | Magnetic buttons | `mousemove` translate effect on `.btn-green` elements. Resets on `mouseleave`. |
@@ -171,7 +171,9 @@ All 22 icons in `index.html` are custom inline SVGs. No icon library is used.
 The following rules are embedded throughout `index.html` and must be maintained in all future edits.
 
 **Earnings language.** The driver section uses the formula model, not specific rand figures:
-> `Jobs completed × Your bid price × 80%`
+> `Jobs completed × your offer price, less 20% commission`
+>
+> Never "keep 80%", and never a line on who pays the payment processing fee: state the 20% commission only (2026-10-14).
 
 All illustrative figures carry the disclaimer:
 > *"Illustrative only. Actual earnings vary based on individual availability, vehicle type, job volume, location, and market conditions. HALA does not guarantee any level of income."*

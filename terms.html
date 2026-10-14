@@ -586,7 +586,7 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 /* ─── DRIVER SECTION ─────────────────────────────────────── */
 .driver{padding:100px 0;position:relative;overflow:hidden}
 .driver::before{
- content:'80%';
+ content:'R';
  position:absolute;right:-60px;top:50%;transform:translateY(-50%);
  font-family:var(--disp);font-size:clamp(16rem,28vw,22rem);
  font-weight:800;color:rgba(92,181,88,.04);
@@ -1496,4 +1496,4 @@ if(sl){
     dv.textContent=d+' day'+(d===1?'':'s');
     const monthly=Math.round(j*r*d*4*.8);
     re.textContent='R'+monthly.toLocaleString('en-ZA');
-    su.textContent=j+' jobs × R'+r+' × '+d+' days × 4 weeks × 80%   illustrative only. Actual earnin
+    su.textContent=j+' jobs × R'+r+' × '+d+' days × 4 weeks, less 20% commission. Illustrative only. Actual earnin

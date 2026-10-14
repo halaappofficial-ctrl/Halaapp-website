@@ -616,7 +616,7 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 /* ─── DRIVER SECTION ─────────────────────────────────────── */
 .driver{padding:100px 0;position:relative;overflow:hidden}
 .driver::before{
- content:'80%';
+ content:'R';
  position:absolute;right:-60px;top:50%;transform:translateY(-50%);
  font-family:var(--disp);font-size:clamp(16rem,28vw,22rem);
  font-weight:800;color:rgba(92,181,88,.04);
@@ -1114,7 +1114,7 @@ footer{
 
 <h3>Pay fairly for the work.</h3>
 <p><strong>The people who do the work keep most of what they earn, pay nothing for the right to work, and get their money as soon as the job is done.</strong></p>
-<p>The first 200 verified drivers to complete a delivery pay no commission on their first 2 completed jobs, and after that they keep up to 80% of every job. Payment lands in their account the same day the job is completed, for jobs done before 5pm. There is no monthly subscription fee to be on the platform. No registration cost. No minimum number of jobs.</p>
+<p>The first 200 verified drivers to complete a delivery pay no commission on their first 2 completed jobs. After that, HALA MOVE&rsquo;s commission is 20% of every job. A driver&rsquo;s share is released as soon as the customer confirms delivery, and they cash out to their bank whenever they want, paid within 1-2 business days. There is no monthly subscription fee to be on the platform. No registration cost. No minimum number of jobs.</p>
 
 <h2 class="section-anchor" id="founders">The Founders</h2>
 <p>Uchenna Ngubane is Co-Founder and CEO of HALA MOVE. He came to the problem from the business side, as someone who spent years watching logistics deals fall apart, contracts get broken, and clients get let down by informal transport arrangements that had no accountability built in. He built the driver network, secured the first B2B conversations, and holds the vision for where HALA MOVE goes from Durban. His role is everything outside the product: growth, partnerships, recruitment, investor relations, and the expansion roadmap. He is the reason HALA MOVE had 200+ drivers committed before the app launched.</p>
@@ -1434,7 +1434,7 @@ if(sl){
     dv.textContent=d+' day'+(d===1?'':'s');
     const monthly=Math.round(j*r*d*4*.8);
     re.textContent='R'+monthly.toLocaleString('en-ZA');
-    su.textContent=j+' jobs × R'+r+' × '+d+' days × 4 weeks × 80%   illustrative only. Actual earnings vary.';
+    su.textContent=j+' jobs × R'+r+' × '+d+' days × 4 weeks, less 20% commission. Illustrative only. Actual earnings vary.';
   }
   js.addEventListener('input',update);
   rs.addEventListener('input',update);

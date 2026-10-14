@@ -693,7 +693,7 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 /* ─── DRIVER SECTION ─────────────────────────────────────── */
 .driver{padding:100px 0;position:relative;overflow:hidden}
 .driver::before{
- content:'80%';
+ content:'R';
  position:absolute;right:-60px;top:50%;transform:translateY(-50%);
  font-family:var(--disp);font-size:clamp(16rem,28vw,22rem);
  font-weight:800;color:rgba(92,181,88,.04);
@@ -1188,7 +1188,7 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
 <p>Live GPS map shows the driver&rsquo;s position in real time. Share the tracking with your customer if it&rsquo;s a B2B or ecommerce delivery. In-app chat for gate codes, instructions or changes.</p>
 
 <h3>5. Delivered &mdash; proof-of-delivery photo</h3>
-<p>Driver takes a timestamped photo at drop-off. Escrow releases the payment to the driver &mdash; drivers on our pioneer programme pay no commission on their first 2 jobs; after that the driver receives 80%. Rate the courier and you&rsquo;re done.</p>
+<p>Driver takes a timestamped photo at drop-off. Escrow releases the payment to the driver &mdash; drivers on our pioneer programme pay no commission on their first 2 jobs; after that HALA MOVE takes a 20% commission. Rate the courier and you&rsquo;re done.</p>
 
 <h2 class="section-anchor" id="use-cases">Who uses HALA MOVE for same day delivery</h2>
 
@@ -1623,7 +1623,7 @@ if(sl){
     dv.textContent=d+' day'+(d===1?'':'s');
     const monthly=Math.round(j*r*d*4*.8);
     re.textContent='R'+monthly.toLocaleString('en-ZA');
-    su.textContent=j+' jobs \u00d7 R'+r+' \u00d7 '+d+' days \u00d7 4 weeks \u00d7 80%   illustrative only. Actual earnings vary.';
+    su.textContent=j+' jobs \u00d7 R'+r+' \u00d7 '+d+' days \u00d7 4 weeks, less 20% commission. Illustrative only. Actual earnings vary.';
   }
   js.addEventListener('input',update);
   rs.addEventListener('input',update);
