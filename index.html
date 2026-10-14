@@ -333,6 +333,12 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .vid-frame:hover .vid-play,.vid-frame:focus-visible .vid-play{transform:scale(1.08);background:var(--gd)}
 .vid-frame:focus-visible{outline:2px solid var(--g);outline-offset:3px}
 .vid-frame.playing{cursor:default}
+.vid-holder,.vid-holder iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid-frame img,.vid-frame .vid-play{z-index:1}
+.vid-frame.loading .vid-play{animation:vidwait 1s ease-in-out infinite alternate}
+@keyframes vidwait{from{opacity:1}to{opacity:.35}}
+.vid-frame.yt-failed .vid-play{display:none}
+.vid-note{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:12px 14px;background:rgba(10,10,10,.88);color:var(--t);font-size:.82rem;line-height:1.4;text-align:center}
 .vid-title{font-size:.98rem;font-weight:600;line-height:1.35;color:var(--t);margin:0}
 .vid-meta{font-size:.8rem;color:var(--t3);margin:0}
 .vid-meta a{color:var(--t2);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}.vid-meta a:hover{color:var(--g)}
@@ -890,33 +896,80 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
  </div>
 </section>
 <script>
-/* Play in place: a tap swaps the cover for the youtube-nocookie player; starting one video
-   puts any other back to its cover. Without JS the link opens the Short on YouTube. */
+/* Play in place. A tap loads YouTube's player API (nothing from YouTube loads before the tap) and
+   builds a youtube-nocookie player behind the cover; when the player is ready the cover goes and
+   playVideo() starts it, so a phone needs one tap, not two. Starting one video puts any other back
+   to its cover. If the player cannot load - the API script is blocked, YouTube errors, or nothing
+   is ready within 15 s (on a network Google has flagged, the embed answers with its /sorry page and
+   the frame stays grey) - the cover comes back with a note and the next tap opens the Short on
+   YouTube. Without JS the link opens YouTube. */
 (function(){
   var frames=document.querySelectorAll('#videos .vid-frame[data-yt]');
   if(!frames.length) return;
-  function reset(f){
-    if(!f.classList.contains('playing')) return;
-    var ifr=f.querySelector('iframe'); if(ifr) f.removeChild(ifr);
-    f.classList.remove('playing');
-    for(var i=0;i<f.children.length;i++) f.children[i].style.display='';
+  var api=0, waiting=[];            /* api: 0 not asked, 1 loading, 2 ready, 3 failed */
+  function settle(ok){ api=ok?2:3; var w=waiting; waiting=[]; for(var i=0;i<w.length;i++) w[i][ok?0:1](); }
+  function withApi(ok,fail){
+    if(api===2||(window.YT&&window.YT.Player)){ api=2; return ok(); }
+    if(api===3) return fail();
+    waiting.push([ok,fail]);
+    if(api===1) return;
+    api=1;
+    var prev=window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady=function(){ if(typeof prev==='function'){ try{prev();}catch(e){} } settle(true); };
+    var sc=document.createElement('script');
+    sc.src='https://www.youtube.com/iframe_api'; sc.async=true;
+    sc.onerror=function(){ settle(false); };
+    document.head.appendChild(sc);
+    setTimeout(function(){ if(api===1) settle(false); },10000);
+  }
+  function cover(f,on){ for(var i=0;i<f.children.length;i++){ var c=f.children[i]; if(!c.classList.contains('vid-holder')) c.style.display=on?'':'none'; } }
+  function clear(f){
+    if(f._timer){ clearTimeout(f._timer); f._timer=null; }
+    if(f._player){ try{ f._player.destroy(); }catch(e){} f._player=null; }
+    var h=f.querySelector('.vid-holder'); if(h) f.removeChild(h);
+    f.classList.remove('playing','loading');
+    cover(f,true);
+  }
+  function fail(f){
+    clear(f);
+    f.classList.add('yt-failed');
+    if(!f.querySelector('.vid-note')){
+      var n=document.createElement('span'); n.className='vid-note';
+      n.textContent="Can't play here. Tap to watch on YouTube.";
+      f.appendChild(n);
+    }
   }
   Array.prototype.forEach.call(frames,function(f){
     f.addEventListener('click',function(e){
+      if(f.classList.contains('yt-failed')) return;   /* the link opens the Short on YouTube */
       if(e.metaKey||e.ctrlKey||e.shiftKey||e.button===1) return;
       e.preventDefault();
-      if(f.classList.contains('playing')) return;
-      Array.prototype.forEach.call(frames,reset);
-      var id=f.getAttribute('data-yt');
-      var ifr=document.createElement('iframe');
-      ifr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&playsinline=1&rel=0';
-      ifr.title=f.getAttribute('aria-label').replace(/^Play video: /,'');
-      ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
-      ifr.setAttribute('allowfullscreen','');
-      ifr.referrerPolicy='strict-origin-when-cross-origin';
-      for(var i=0;i<f.children.length;i++) f.children[i].style.display='none';
-      f.appendChild(ifr);
-      f.classList.add('playing');
+      if(f.classList.contains('playing')||f.classList.contains('loading')) return;
+      Array.prototype.forEach.call(frames,function(o){ if(o!==f&&!o.classList.contains('yt-failed')) clear(o); });
+      f.classList.add('loading');
+      var holder=document.createElement('div'); holder.className='vid-holder';
+      var slot=document.createElement('div'); holder.appendChild(slot);
+      f.insertBefore(holder,f.firstChild);
+      f._timer=setTimeout(function(){ fail(f); },15000);
+      withApi(function(){
+        if(!f.classList.contains('loading')) return;
+        f._player=new YT.Player(slot,{
+          host:'https://www.youtube-nocookie.com',
+          videoId:f.getAttribute('data-yt'),
+          width:'100%', height:'100%',
+          playerVars:{autoplay:1, playsinline:1, rel:0},
+          events:{
+            onReady:function(ev){
+              if(f._timer){ clearTimeout(f._timer); f._timer=null; }
+              f.classList.remove('loading'); f.classList.add('playing');
+              cover(f,false);
+              try{ ev.target.getIframe().title=f.getAttribute('aria-label').replace(/^Play video: /,''); }catch(x){}
+              try{ ev.target.playVideo(); }catch(x){}
+            },
+            onError:function(){ fail(f); }
+          }
+        });
+      },function(){ fail(f); });
     });
   });
 }());

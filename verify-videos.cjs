@@ -40,6 +40,8 @@ const iDrivers = html.indexOf('id="drivers"');
 check('placed after How it works and before For Drivers', iCustomers >= 0 && iCustomers < secStart && secStart < iDrivers,
   `customers@${iCustomers} videos@${secStart} drivers@${iDrivers}`);
 check('heading "In their own words."', sec.includes('>In their own words.</h2>'), 'heading text changed - update MESSAGING_SOURCE first');
+check('a player that cannot load puts the cover back with a way to YouTube', /yt-failed/.test(html) && /Tap to watch on YouTube/.test(html) && /setTimeout\(function\(\)\{ fail\(f\); \},15000\)/.test(html),
+  'the facade lost its can-not-play fallback - a flagged network would see a grey box');
 check('nav links to #videos', /<ul class="nav-links"[\s\S]*?<a href="#videos">Videos<\/a>[\s\S]*?<\/ul>/.test(html), 'no Videos link in the main nav');
 
 // 2. Frames
