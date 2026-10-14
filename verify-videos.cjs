@@ -5,10 +5,11 @@
 //                                   # embeddable, and that its title is the one the JSON-LD names
 //
 // Why each check exists:
-// - The frames are TESTIMONIAL (a real customer) or HOW IT WORKS (the video made with AYANDA). An
-//   acted video is never labelled a skit, sketch, comedy or parody - the word tells a viewer it is
-//   staged - and never a customer review either. The backend cover guard G12 holds the same rule
-//   for the covers themselves (scripts/marketing/build_video_covers.py).
+// - Frame labels come from one approved set: TESTIMONIAL for a real customer, HOW IT WORKS or GUIDE
+//   for a video that explains the app (the one made with AYANDA). Words outside that set must not
+//   appear anywhere on the homepage, comments included; the list lives in the backend messaging
+//   source and cover guard G12 (scripts/marketing/build_video_covers.py). It is kept encoded here
+//   so this public file never prints the words it forbids.
 // - A frame whose id, cover file or JSON-LD entry disagree renders fine and plays the wrong video,
 //   so every id is cross-checked against the link, the player id, the cover and the JSON-LD.
 // - oEmbed answers 401/403/404 for a video that is private, scheduled, deleted or not embeddable;
@@ -26,7 +27,7 @@ const results = [];
 const check = (name, ok, detail) => results.push({ name, ok: !!ok, detail: ok ? '' : (detail || '') });
 
 const TYPES = ['TESTIMONIAL', 'HOW IT WORKS'];
-const STAGED = /\b(skit|sketch|comedy|comedic|parody|prank)\b/i;
+const STAGED = new RegExp('\\b(' + Buffer.from('c2tpdHxza2V0Y2h8Y29tZWR5fGNvbWVkaWN8cGFyb2R5fHByYW5rfGFjdGVk', 'base64').toString() + ')\\b', 'i');
 const ID = /^[A-Za-z0-9_-]{11}$/;
 
 // 1. The section, and where it sits: after How it works (#customers), before #drivers
@@ -62,11 +63,11 @@ for (const f of frames) {
   check(`${tag}: a TESTIMONIAL frame never uses the AYANDA cover`, f.type !== 'TESTIMONIAL' || !/ayanda|how-it-works/i.test(f.img), f.img);
 }
 
-// 3. Staged labels: nowhere in the section, the JSON-LD, or the cover file names
+// 3. Words outside the label set: nowhere on the whole homepage (comments and JSON-LD included -
+//    a code comment is served to every visitor), and not in a cover file name
 const ldBlocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
-check('no staged label in the section markup', !STAGED.test(sec), (sec.match(STAGED) || [])[0]);
-check('no staged label in any JSON-LD', !ldBlocks.some((b) => STAGED.test(b)), 'a JSON-LD block says skit/sketch/comedy/parody');
-check('no staged label in a cover file name', !frames.some((f) => STAGED.test(f.img)), 'cover file name');
+check('no unapproved label word anywhere in index.html', !STAGED.test(html), 'found: ' + (html.match(STAGED) || [])[0]);
+check('no unapproved label word in a cover file name', !frames.some((f) => STAGED.test(f.img)), 'cover file name');
 
 // 4. VideoObject JSON-LD, one per frame, consistent with the frame
 let videos = [];

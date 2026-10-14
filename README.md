@@ -57,7 +57,7 @@ Vercel reads from this GitHub repository. Every push to `main` triggers a new de
 | 3 | Hero | H1 headline, hero sub, CTAs, app store badges, phone mockup with live bid animation, animated city grid canvas |
 | 4 | Stats bar | factual platform stats — 20% commission per job, same-day moves, jobs from R150, 5 driver checks |
 | 5 | How It Works | 4-step customer flow with animated connecting line on desktop |
-| 5a | Videos (`#videos`) | "In their own words." Three YouTube Shorts: TESTIMONIAL, TESTIMONIAL, HOW IT WORKS (with AYANDA). Covers in `images/videos/`, VideoObject JSON-LD in the head, nav link "Videos". An acted video is never called a skit, sketch or comedy. Guard: `node verify-videos.cjs` (add `--live` to ask YouTube that each video is public and embeddable). |
+| 5a | Videos (`#videos`) | "In their own words." Three YouTube Shorts: TESTIMONIAL, TESTIMONIAL, HOW IT WORKS (with AYANDA). Covers in `images/videos/`, VideoObject JSON-LD in the head, nav link "Videos". Frame labels come only from the approved set (TESTIMONIAL, HOW IT WORKS, GUIDE). Guard: `node verify-videos.cjs` (add `--live` to ask YouTube that each video is public and embeddable). |
 | 6 | Features | 6 feature cards — verification, AI Smart Quote, photo protocol, PayFast escrow, live GPS, carbon tracking |
 | 7 | For Drivers | Earnings formula box, 4 barrier-removal perks, interactive earnings calculator with illustrative disclaimer |
 | 8 | For Business | 3 B2B features, 6 industry cards, SLA table, contact CTA |
