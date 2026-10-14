@@ -89,6 +89,67 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "VideoObject",
+      "@id": "https://www.halamove.co.za/#video-yBBKaLHBXGA",
+      "name": "Moving mum into aged care in Durban | HALA MOVE",
+      "description": "A family from Australia came to Durban to move their mum into aged care, and booked HALA MOVE. In her words: they made that time a lot less stressful.",
+      "thumbnailUrl": [
+        "https://www.halamove.co.za/images/videos/feedback-aged-care-540.jpg",
+        "https://i.ytimg.com/vi/yBBKaLHBXGA/hqdefault.jpg"
+      ],
+      "uploadDate": "2026-10-14T07:00:21-07:00",
+      "duration": "PT1M14S",
+      "contentUrl": "https://www.youtube.com/shorts/yBBKaLHBXGA",
+      "embedUrl": "https://www.youtube-nocookie.com/embed/yBBKaLHBXGA",
+      "inLanguage": "en-ZA",
+      "publisher": {
+        "@id": "https://www.halamove.co.za/#organization"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "@id": "https://www.halamove.co.za/#video-0EZQcq_Sas0",
+      "name": "Reliable, cost efficient movers in Durban | HALA MOVE",
+      "description": "A Durban customer on HALA MOVE: reliable, cost efficient, and a user-friendly app. Her advice is simple: try them out.",
+      "thumbnailUrl": [
+        "https://www.halamove.co.za/images/videos/testimonial-durban-540.jpg",
+        "https://i.ytimg.com/vi/0EZQcq_Sas0/hqdefault.jpg"
+      ],
+      "uploadDate": "2026-10-14T03:00:20-07:00",
+      "duration": "PT47S",
+      "contentUrl": "https://www.youtube.com/shorts/0EZQcq_Sas0",
+      "embedUrl": "https://www.youtube-nocookie.com/embed/0EZQcq_Sas0",
+      "inLanguage": "en-ZA",
+      "publisher": {
+        "@id": "https://www.halamove.co.za/#organization"
+      }
+    },
+    {
+      "@type": "VideoObject",
+      "@id": "https://www.halamove.co.za/#video-E6kZXgYrQpk",
+      "name": "Malume let him down again, so he used HALA MOVE",
+      "description": "Malume let him down. Again. So Mdu told him: just use HALA MOVE. He posted it in 30 seconds, verified drivers sent offers, and he chose the price. With AYANDA.",
+      "thumbnailUrl": [
+        "https://www.halamove.co.za/images/videos/how-it-works-ayanda-540.jpg",
+        "https://i.ytimg.com/vi/E6kZXgYrQpk/hqdefault.jpg"
+      ],
+      "uploadDate": "2026-10-14T00:23:23-07:00",
+      "duration": "PT2M1S",
+      "contentUrl": "https://www.youtube.com/shorts/E6kZXgYrQpk",
+      "embedUrl": "https://www.youtube-nocookie.com/embed/E6kZXgYrQpk",
+      "inLanguage": "en-ZA",
+      "publisher": {
+        "@id": "https://www.halamove.co.za/#organization"
+      }
+    }
+  ]
+}
+</script>
 
 <meta name="geo.region" content="ZA-KZN">
 <meta name="geo.placename" content="Durban, KwaZulu-Natal, South Africa">
@@ -260,6 +321,22 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .how{padding:80px 0 60px}
 .how-header{text-align:center;margin-bottom:64px}
 .how-header .sub{margin:0 auto}
+/* VIDEOS (2026-10-14): three Shorts, each plays in place on tap (youtube-nocookie) */
+.vids{padding:80px 0 60px}
+.vids-header{text-align:center;margin-bottom:48px}
+.vids-header .sub{margin:0 auto}
+.vids-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;max-width:960px;margin:0 auto;padding:0;list-style:none}
+.vid{display:flex;flex-direction:column;gap:10px;min-width:0}
+.vid-frame{position:relative;display:block;aspect-ratio:9/16;border-radius:var(--rl);overflow:hidden;background:var(--s);border:1px solid var(--b);color:inherit;text-decoration:none;cursor:pointer}
+.vid-frame img,.vid-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block;object-fit:cover}
+.vid-play{position:absolute;right:14px;bottom:18px;width:56px;height:56px;border-radius:50%;background:rgba(10,10,10,.72);border:2px solid var(--g);display:flex;align-items:center;justify-content:center;transition:transform .2s,background .2s}
+.vid-frame:hover .vid-play,.vid-frame:focus-visible .vid-play{transform:scale(1.08);background:var(--gd)}
+.vid-frame:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+.vid-frame.playing{cursor:default}
+.vid-title{font-size:.98rem;font-weight:600;line-height:1.35;color:var(--t);margin:0}
+.vid-meta{font-size:.8rem;color:var(--t3);margin:0}
+.vid-meta a{color:var(--t2);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}.vid-meta a:hover{color:var(--g)}
+@media(max-width:768px){.vids{padding:48px 0}.vids-header{margin-bottom:28px}.vids-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.vid:last-child{grid-column:1/-1;justify-self:center;width:calc(50% - 7px)}.vid-play{width:40px;height:40px;right:8px;bottom:10px}.vid-play svg{width:18px;height:18px}.vid-title{font-size:.9rem}}
 .steps-wrap{position:relative}
 .steps-line{display:none;position:absolute;top:40px;left:10%;right:10%;height:1px;background:repeating-linear-gradient(to right,var(--b) 0,var(--b) 6px,transparent 6px,transparent 14px)}
 .steps-line-fill{position:absolute;inset:0;background:repeating-linear-gradient(to right,var(--g) 0,var(--g) 6px,transparent 6px,transparent 14px);transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.4,0,.2,1)}
@@ -469,6 +546,7 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
    <li><a href="#customers">For Customers</a></li>
    <li><a href="#drivers">For Drivers</a></li>
    <li><a href="#business">For Business</a></li>
+   <li><a href="#videos">Videos</a></li>
    <li><a href="/download">Download</a></li>
   </ul>
 
@@ -771,6 +849,78 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
   </div>
  </div>
 </section>
+
+<!-- VIDEOS: 2026-10-14. Frames are TESTIMONIAL (real customers) or HOW IT WORKS (the video made
+     with AYANDA); an acted video is never called a skit, sketch or comedy, and never a review.
+     Covers come from the backend cover pipeline (scripts/marketing/build_video_covers.py).
+     The player loads only on tap (youtube-nocookie). Checked by verify-videos.cjs. -->
+<section class="vids" id="videos" aria-labelledby="videos-heading">
+ <div class="container">
+  <div class="vids-header">
+   <div class="eyebrow" style="justify-content:center">Videos</div>
+   <h2 class="h2" id="videos-heading" style="text-align:center">In their own words.</h2>
+   <p class="sub center">Real customers on real moves, and AYANDA showing how it works.</p>
+  </div>
+  <ul class="vids-grid" role="list">
+   <li class="vid" data-type="TESTIMONIAL">
+    <a class="vid-frame" href="https://www.youtube.com/shorts/yBBKaLHBXGA" data-yt="yBBKaLHBXGA" target="_blank" rel="noopener" aria-label="Play video: Moving mum into aged care (testimonial, 1 minute 14 seconds)">
+     <img src="/images/videos/feedback-aged-care-540.jpg" width="540" height="960" loading="lazy" decoding="async" alt="">
+     <span class="vid-play"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="#FFFFFF"/></svg></span>
+    </a>
+    <h3 class="vid-title">Moving mum into aged care</h3>
+    <p class="vid-meta">Testimonial &middot; 1:14 &middot; <a href="https://www.youtube.com/shorts/yBBKaLHBXGA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+   </li>
+   <li class="vid" data-type="TESTIMONIAL">
+    <a class="vid-frame" href="https://www.youtube.com/shorts/0EZQcq_Sas0" data-yt="0EZQcq_Sas0" target="_blank" rel="noopener" aria-label="Play video: Reliable, cost efficient movers (testimonial, 47 seconds)">
+     <img src="/images/videos/testimonial-durban-540.jpg" width="540" height="960" loading="lazy" decoding="async" alt="">
+     <span class="vid-play"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="#FFFFFF"/></svg></span>
+    </a>
+    <h3 class="vid-title">Reliable, cost efficient movers</h3>
+    <p class="vid-meta">Testimonial &middot; 0:47 &middot; <a href="https://www.youtube.com/shorts/0EZQcq_Sas0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+   </li>
+   <li class="vid" data-type="HOW IT WORKS">
+    <a class="vid-frame" href="https://www.youtube.com/shorts/E6kZXgYrQpk" data-yt="E6kZXgYrQpk" target="_blank" rel="noopener" aria-label="Play video: Malume let him down. Again. (how it works, 2 minutes 1 seconds)">
+     <img src="/images/videos/how-it-works-ayanda-540.jpg" width="540" height="960" loading="lazy" decoding="async" alt="">
+     <span class="vid-play"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true" focusable="false"><path d="M8 5.5v13l11-6.5z" fill="#FFFFFF"/></svg></span>
+    </a>
+    <h3 class="vid-title">Malume let him down. Again.</h3>
+    <p class="vid-meta">How it works &middot; with AYANDA &middot; 2:01 &middot; <a href="https://www.youtube.com/shorts/E6kZXgYrQpk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+   </li>
+  </ul>
+ </div>
+</section>
+<script>
+/* Play in place: a tap swaps the cover for the youtube-nocookie player; starting one video
+   puts any other back to its cover. Without JS the link opens the Short on YouTube. */
+(function(){
+  var frames=document.querySelectorAll('#videos .vid-frame[data-yt]');
+  if(!frames.length) return;
+  function reset(f){
+    if(!f.classList.contains('playing')) return;
+    var ifr=f.querySelector('iframe'); if(ifr) f.removeChild(ifr);
+    f.classList.remove('playing');
+    for(var i=0;i<f.children.length;i++) f.children[i].style.display='';
+  }
+  Array.prototype.forEach.call(frames,function(f){
+    f.addEventListener('click',function(e){
+      if(e.metaKey||e.ctrlKey||e.shiftKey||e.button===1) return;
+      e.preventDefault();
+      if(f.classList.contains('playing')) return;
+      Array.prototype.forEach.call(frames,reset);
+      var id=f.getAttribute('data-yt');
+      var ifr=document.createElement('iframe');
+      ifr.src='https://www.youtube-nocookie.com/embed/'+id+'?autoplay=1&playsinline=1&rel=0';
+      ifr.title=f.getAttribute('aria-label').replace(/^Play video: /,'');
+      ifr.allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+      ifr.setAttribute('allowfullscreen','');
+      ifr.referrerPolicy='strict-origin-when-cross-origin';
+      for(var i=0;i<f.children.length;i++) f.children[i].style.display='none';
+      f.appendChild(ifr);
+      f.classList.add('playing');
+    });
+  });
+}());
+</script>
 
 <!-- DRIVER SECTION -->
 <section class="driver" id="drivers" aria-labelledby="driver-heading">
