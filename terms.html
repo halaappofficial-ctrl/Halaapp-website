@@ -1497,4 +1497,22 @@ if(sl){
     dv.textContent=d+' day'+(d===1?'':'s');
     const monthly=Math.round(j*r*d*4*.8);
     re.textContent='R'+monthly.toLocaleString('en-ZA');
-    su.textContent=j+' jobs × R'+r+' × '+d+' days × 4 weeks, less 20% commission. Illustrative only. Actual earnin
+    su.textContent=j+' jobs × R'+r+' × '+d+' days × 4 weeks, less 20% commission. Illustrative only. Actual earnings vary.';
+  }
+  js.addEventListener('input',update);
+  rs.addEventListener('input',update);
+  ds.addEventListener('input',update);
+  update();
+}());
+
+// ── FAILSAFE: Reveal all elements ─────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
+      el.classList.add('visible');
+    });
+  }, 100);
+});
+</script>
+</body>
+</html>

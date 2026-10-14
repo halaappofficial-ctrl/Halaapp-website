@@ -1513,4 +1513,26 @@ if(sl){
     const r=parseInt(rs.value);
     const d=parseInt(ds.value);
     jv.textContent=j+' job'+(j===1?'':'s');
-    rv.tex
+    rv.textContent='R'+r;
+    dv.textContent=d+' day'+(d===1?'':'s');
+    const monthly=Math.round(j*r*d*4*.8);
+    re.textContent='R'+monthly.toLocaleString('en-ZA');
+    su.textContent=j+' jobs \u00d7 R'+r+' \u00d7 '+d+' days \u00d7 4 weeks, less 20% commission. Illustrative only. Actual earnings vary.';
+  }
+  js.addEventListener('input',update);
+  rs.addEventListener('input',update);
+  ds.addEventListener('input',update);
+  update();
+}());
+
+// ── FAILSAFE: Reveal all elements ─────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
+      el.classList.add('visible');
+    });
+  }, 100);
+});
+</script>
+</body>
+</html>

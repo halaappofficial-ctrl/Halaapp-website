@@ -1455,4 +1455,17 @@ if(sl){
   js.addEventListener('input',update);
   rs.addEventListener('input',update);
   ds.addEventListener('input',update);
-  updat
+  update();
+}());
+
+// ── FAILSAFE: Reveal all elements ─────────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => {
+      el.classList.add('visible');
+    });
+  }, 100);
+});
+</script>
+</body>
+</html>
