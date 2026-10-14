@@ -90,8 +90,9 @@ Quote these word for word. They are also in the brand manifest under `company`.
   details, a bank account in the driver's own name, and nine photos (a selfie, both sides of the
   Smart ID card, the licence, the vehicle licence disc, and the vehicle from the front, back, left
   and right). Review typically takes up to 24 hours.
-- **Payment**: PayFast escrow. Funds are held on acceptance and released to the driver only after
-  delivery is confirmed by the customer.
+- **Payment**: PayFast escrow. Funds are held on acceptance and released to the driver when the
+  customer confirms delivery, or automatically 24 hours after a delivery completed with a
+  proof-of-delivery photo.
 - **Driver verification**: SA ID validation, driving-licence OCR (validity, expiry, and a
   name/date-of-birth cross-check against the ID), and a face match against the Home Affairs photo for
   that ID number. Every driver is also reviewed by a person before approval.
