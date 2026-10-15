@@ -216,6 +216,10 @@ ul{list-style:none}
 /* PIONEER ACCESS BANNER (top of page) */
 .pioneer-banner{display:flex;align-items:center;justify-content:center;gap:12px;background:linear-gradient(90deg,#5CB558 0%,#4A9947 100%);color:#0A0A0A;padding:11px 20px;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;text-align:center;transition:filter .2s;position:relative;z-index:920}
 .pioneer-banner:hover{filter:brightness(1.08)}
+.terms-notice{display:block;background:#141414;color:var(--t2);border-bottom:1px solid var(--b);padding:10px 20px;font-size:.8rem;line-height:1.5;text-align:center;text-decoration:none;position:relative;z-index:921}
+.terms-notice strong{color:var(--t)}
+.terms-notice span{color:var(--g);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
+.terms-notice:hover{color:var(--t)}
 .pioneer-banner-dot{width:7px;height:7px;border-radius:50%;background:#0A0A0A;animation:pulse-dot 1.4s ease-in-out infinite;flex-shrink:0}
 .pioneer-banner-cta{text-decoration:underline;text-underline-offset:3px;font-weight:800}
 @media(max-width:480px){.pioneer-banner{flex-direction:row;flex-wrap:wrap;gap:6px;padding:9px 16px;font-size:.7rem}}
@@ -506,6 +510,11 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
 <script defer src="assets/motion.js" onerror="document.documentElement.classList.add('motion-failed')"></script>
 </head>
 <body>
+
+<!-- NOTICE OF A CHANGE TO THE TERMS (posted 15 October 2026; the Terms promise at least 30 days' notice of a material change). Remove after 14 November 2026. -->
+<a href="/terms#fees" class="terms-notice" aria-label="Notice of a change to the HALA MOVE Terms of Service">
+ <strong>Notice of a change to our Terms:</strong> from 14 November 2026, customer prices include a HALA MOVE service fee. It is shown in every price before you pay. <span>Read what changes</span>
+</a>
 
 <!-- PIONEER ACCESS BANNER -->
 <a href="/download" class="pioneer-banner" aria-label="Download HALA MOVE Pioneer Access for Android">
