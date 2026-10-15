@@ -54,7 +54,7 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
 <main>
   <div class="card">
     <div class="badge" id="badge">Creator code</div>
-    <h1>Moving, <span class="accent">on demand.</span></h1>
+    <h1 id="headline">Moving, <span class="accent">on demand.</span></h1>
     <p class="sub" id="sub">Post what you need moved. Identity-verified drivers with bakkies, vans and trucks send offers. You choose, you track it live, and your payment is escrow-protected until your delivery is confirmed. <strong>Use this code when you sign up.</strong></p>
     <div class="code-label" id="codeLabel">Your code</div>
     <div class="code-card" id="codeCard" role="button" tabindex="0"><span class="code-text" id="codeText">&mdash;</span></div>
@@ -124,7 +124,18 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
   try {
     fetch('https://hala-backend-production.up.railway.app/api/creators/lookup/' + raw)
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (d) { if (d && d.display_name) { document.getElementById('badge').textContent = 'From ' + d.display_name; } })
+      .then(function (d) {
+        if (!d) return;
+        // A driver's own link: say whose it is. textContent only - the name comes from the server, never as HTML.
+        if (d.driver && d.driver.first_name) {
+          var n = d.driver.first_name;
+          document.getElementById('badge').textContent = 'ID-verified driver';
+          document.getElementById('headline').textContent = 'Book ' + n + ' on HALA MOVE';
+          document.getElementById('sub').textContent = n + ' drives a ' + (d.driver.vehicle_label || 'vehicle') + ' and is ID-verified. Post your job in the HALA MOVE app and ' + n + ' sees it first. Use this code when you sign up.';
+          return;
+        }
+        if (d.display_name) { document.getElementById('badge').textContent = 'From ' + d.display_name; }
+      })
       .catch(function () {});
   } catch (e) {}
 
