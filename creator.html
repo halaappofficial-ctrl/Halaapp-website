@@ -131,7 +131,9 @@ footer { border-top: 1px solid var(--border); padding: 24px; text-align: center;
           var n = d.driver.first_name;
           document.getElementById('badge').textContent = 'ID-verified driver';
           document.getElementById('headline').textContent = 'Book ' + n + ' on HALA MOVE';
-          document.getElementById('sub').textContent = n + ' drives a ' + (d.driver.vehicle_label || 'vehicle') + ' and is ID-verified. Post your job in the HALA MOVE app and ' + n + ' sees it first. Use this code when you sign up.';
+          // The vehicle reads mid-sentence in lower case (a small bakkie, a 1-ton truck); unknown, the clause is left out.
+          var v = d.driver.vehicle_label ? String(d.driver.vehicle_label).toLowerCase() : '';
+          document.getElementById('sub').textContent = (v ? n + ' drives a ' + v + ' and is ID-verified.' : n + ' is ID-verified.') + ' Post your job in the HALA MOVE app and ' + n + ' sees it first. Use this code when you sign up.';
           return;
         }
         if (d.display_name) { document.getElementById('badge').textContent = 'From ' + d.display_name; }
