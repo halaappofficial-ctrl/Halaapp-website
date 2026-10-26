@@ -64,6 +64,7 @@ Quote these word for word. They are also in the brand manifest under `company`.
 - https://www.halamove.co.za/furniture-removal-durban — Furniture removal
 - https://www.halamove.co.za/student-moving-durban — Student moves (UKZN, DUT, MUT)
 - https://www.halamove.co.za/business-transport-durban — Business transport contracts
+- https://www.halamove.co.za/quote — Business quote request: tell us what you move and we come back with a plan
 - https://www.halamove.co.za/terms — Terms of service
 - https://www.halamove.co.za/privacy — Privacy policy (POPIA)
 
