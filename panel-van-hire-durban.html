@@ -353,6 +353,11 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 }
 .nav-links a:hover{color:var(--t)}
 .nav-btns{display:flex;gap:8px;align-items:center;flex-shrink:0}
+/* 768-1199px: logo + badge + five links + two buttons did not fit, and "Get Started" was cut off at 1024px.
+   Here the badge and the duplicate "Download App" button go ("Get Started" opens the same page). */
+@media(min-width:768px) and (max-width:1199px){.nav-live{display:none}.nav-btns .btn-ghost{display:none}.nav-links{gap:18px}}
+/* 768-959px: still too narrow for one row, so the links take a second row, as they do on a phone. */
+@media(min-width:768px) and (max-width:959px){nav{height:auto}.nav-inner{flex-wrap:wrap;row-gap:2px;padding-top:10px;padding-bottom:6px}.nav-btns{margin-left:auto}.nav-links{flex:0 0 100%;order:10;justify-content:flex-start;gap:24px;padding:2px 0 4px}.nav-links a{white-space:nowrap}}
 @media(min-width:768px){
  .nav-links{display:flex}
 }
@@ -1126,9 +1131,10 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
   </div>
 
   <ul class="nav-links" role="list">
-   <li><a href="#customers">For Customers</a></li>
-   <li><a href="#drivers">For Drivers</a></li>
-   <li><a href="#business">For Business</a></li>
+   <li><a href="/#customers">For Customers</a></li>
+   <li><a href="/#drivers">For Drivers</a></li>
+   <li><a href="/#business">For Business</a></li>
+   <li><a href="/quote">Get a Quote</a></li>
    <li><a href="#download">Download</a></li>
   </ul>
 
@@ -1273,7 +1279,7 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
 
 <h2 class="section-anchor" id="download">Download the HALA MOVE app &mdash; book a panel van now</h2>
 <p>The fastest way to book a verified panel van driver in Durban is through the HALA MOVE app. Available on Android and iOS, free to download, free to post a job &mdash; you only pay when you accept an offer.</p>
-<p><a href="/#download" class="btn btn-green">Download the app</a> &nbsp; <a href="/truck-hire-durban" class="btn btn-ghost">Need a bigger truck?</a></p>
+<p><a href="/download" class="btn btn-green">Download the app</a> &nbsp; <a href="/truck-hire-durban" class="btn btn-ghost">Need a bigger truck?</a></p>
 <p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Need a smaller or open-bed vehicle? See <a href="/bakkie-hire-durban">bakkie hire Durban</a>. Moving a full house? See <a href="/furniture-removal-durban">furniture removal Durban</a>. For urgent deliveries, see <a href="/same-day-delivery-durban">same day delivery Durban</a>. Full platform details on our <a href="/about">about page</a> and <a href="/faq">FAQ</a>.</p>
 </div>
   </div>
@@ -1309,10 +1315,11 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
    <div class="footer-col">
     <h4>Platform</h4>
     <ul class="footer-links" role="list">
-     <li><a href="#customers">For Customers</a></li>
-     <li><a href="#drivers">For Drivers</a></li>
-     <li><a href="#business">For Business</a></li>
-     <li><a href="#customers">How It Works</a></li>
+     <li><a href="/#customers">For Customers</a></li>
+     <li><a href="/#drivers">For Drivers</a></li>
+     <li><a href="/#business">For Business</a></li>
+     <li><a href="/quote">Business Quote</a></li>
+     <li><a href="/#customers">How It Works</a></li>
      <li><a href="#download">Download App</a></li>
     </ul>
    </div>

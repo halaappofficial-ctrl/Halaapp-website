@@ -161,12 +161,12 @@
 <meta property="og:locale" content="en_ZA">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://www.halamove.co.za/">
-<meta property="og:title" content="Pioneer Access Now Open | HALA MOVE">
+<meta property="og:title" content="Bakkie Hire Durban &amp; Same-Day Delivery | HALA MOVE">
 <meta property="og:description" content="Real-time offers logistics in Durban. Get HALA MOVE free on Google Play and the App Store.">
 <meta property="og:image" content="https://www.halamove.co.za/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Pioneer Access Now Open | HALA MOVE">
-<meta name="twitter:description" content="Real-time offers logistics in Durban. Get HALA MOVE free on Google Play.">
+<meta name="twitter:title" content="Bakkie Hire Durban &amp; Same-Day Delivery | HALA MOVE">
+<meta name="twitter:description" content="Real-time offers logistics in Durban. Get HALA MOVE free on Google Play and the App Store.">
 <meta name="twitter:image" content="https://www.halamove.co.za/og-image.png">
 <meta name="theme-color" content="#0A0A0A">
 <meta name="application-name" content="HALA MOVE">
@@ -175,6 +175,11 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<!-- Google "preferred sources" button (footer). Someone who picks HALA MOVE as a preferred source sees
+     us marked "preferred" in Top Stories, AI Mode and AI Overviews. Embed and rules:
+     developers.google.com/search/docs/appearance/preferred-sources (read 2026-10-27). Disclosed in
+     cookie-policy.html. Home page only: one place to ask is enough, and no other page loads it. -->
+<script async src="https://news.google.com/swg/js/v1/publisher.js"></script>
 <style>
 :root{
  --g:#5CB558;--gd:#4A9947;--gl:#7DCB79;
@@ -216,16 +221,10 @@ ul{list-style:none}
 .reveal-l.visible,.reveal-r.visible{opacity:1;transform:translateX(0)}
 .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.40s}.d6{transition-delay:.48s}
 
-/* PIONEER ACCESS BANNER (top of page) */
-.pioneer-banner{display:flex;align-items:center;justify-content:center;gap:12px;background:linear-gradient(90deg,#5CB558 0%,#4A9947 100%);color:#0A0A0A;padding:11px 20px;font-size:.78rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;text-align:center;transition:filter .2s;position:relative;z-index:920}
-.pioneer-banner:hover{filter:brightness(1.08)}
 .terms-notice{display:block;background:#141414;color:var(--t2);border-bottom:1px solid var(--b);padding:10px 20px;font-size:.8rem;line-height:1.5;text-align:center;text-decoration:none;position:relative;z-index:921}
 .terms-notice strong{color:var(--t)}
 .terms-notice span{color:var(--g);text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 .terms-notice:hover{color:var(--t)}
-.pioneer-banner-dot{width:7px;height:7px;border-radius:50%;background:#0A0A0A;animation:pulse-dot 1.4s ease-in-out infinite;flex-shrink:0}
-.pioneer-banner-cta{text-decoration:underline;text-underline-offset:3px;font-weight:800}
-@media(max-width:480px){.pioneer-banner{flex-direction:row;flex-wrap:wrap;gap:6px;padding:9px 16px;font-size:.7rem}}
 
 .ann-bar{background:var(--g);color:#0A0A0A;height:36px;overflow:hidden;position:relative;display:flex;align-items:center;z-index:910}
 .ann-track{display:flex;align-items:center;gap:0;animation:marquee 28s linear infinite;white-space:nowrap}
@@ -243,6 +242,11 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .nav-links a{font-size:.85rem;font-weight:500;color:var(--t2);letter-spacing:.03em;transition:color .2s}
 .nav-links a:hover{color:var(--t)}
 .nav-btns{display:flex;gap:8px;align-items:center;flex-shrink:0}
+/* 768-1199px: logo + badge + five links + two buttons did not fit, and "Get Started" was cut off at 1024px.
+   Here the badge and the duplicate "Download App" button go ("Get Started" opens the same page). */
+@media(min-width:768px) and (max-width:1199px){.nav-live{display:none}.nav-btns .btn-ghost{display:none}.nav-links{gap:18px}}
+/* 768-959px: still too narrow for one row, so the links take a second row, as they do on a phone. */
+@media(min-width:768px) and (max-width:959px){nav{height:auto}.nav-inner{flex-wrap:wrap;row-gap:2px;padding-top:10px;padding-bottom:6px}.nav-btns{margin-left:auto}.nav-links{flex:0 0 100%;order:10;justify-content:flex-start;gap:24px;padding:2px 0 4px}.nav-links a{white-space:nowrap}}
 @media(min-width:768px){.nav-links{display:flex}}
 @media(max-width:767px){nav{height:auto}.nav-inner{flex-wrap:wrap;padding:10px 16px;gap:6px;row-gap:4px}.nav-live{display:none}.nav-btns{margin-left:auto;flex:0 0 auto;gap:6px}.nav-btns .btn{padding:9px 14px;font-size:.72rem}.nav-btns .btn-ghost{display:none}.nav-links{display:flex;flex:0 0 100%;order:10;gap:22px;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 2px 6px;margin:0;scrollbar-width:none;-ms-overflow-style:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{font-size:.78rem;font-weight:600;white-space:nowrap;padding:4px 0;color:var(--t2)}.nav-links li{flex-shrink:0;list-style:none}}
 .hero{position:relative;min-height:calc(100vh - 100px);display:flex;align-items:center;padding:80px 0 40px;overflow:hidden}
@@ -519,13 +523,6 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
  <strong>Notice of a change to our Terms:</strong> from 14 November 2026, customer prices include a HALA MOVE service fee. It is shown in every price before you pay. <span>Read what changes</span>
 </a>
 
-<!-- PIONEER ACCESS BANNER -->
-<a href="/download" class="pioneer-banner" aria-label="Download HALA MOVE Pioneer Access for Android">
- <span class="pioneer-banner-dot"></span>
- <strong>Pioneer Access Now Open</strong>
- <span class="pioneer-banner-cta">Download for Android &rarr;</span>
-</a>
-
 <!-- ANNOUNCEMENT BAR -->
 <div class="ann-bar" role="banner" aria-label="Site announcement">
  <div class="ann-track" aria-hidden="true">
@@ -564,8 +561,8 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
    <li><a href="#customers">For Customers</a></li>
    <li><a href="#drivers">For Drivers</a></li>
    <li><a href="#business">For Business</a></li>
+   <li><a href="/quote">Get a Quote</a></li>
    <li><a href="#videos">Videos</a></li>
-   <li><a href="/download">Download</a></li>
   </ul>
 
   <div class="nav-btns">
@@ -595,7 +592,7 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
      Eventually somebody sends you a number. You text a stranger your address, he names his price, and he comes when he comes. Post your job on HALA MOVE instead: nearby verified drivers make offers in real time and you choose. From a bakkie for a single fridge to a 4-tonne truck for a full office move. Live GPS, PayFast escrow, and your money held until it is delivered.
     </p>
     <div class="hero-btns" data-motion-hero-el="cta">
-     <a href="/download" class="btn btn-green btn-lg">Download Pioneer Access &rarr;</a>
+     <a href="/download" class="btn btn-green btn-lg">Download HALA MOVE &rarr;</a>
      <a href="#customers" class="btn btn-ghost btn-lg">How It Works</a>
     </div>
     <div class="hero-trust" data-motion-hero-el="trust">
@@ -721,13 +718,13 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
  </div>
 </section>
 
-<!-- DOWNLOAD CTA (moved up — high priority for pioneer launch) -->
+<!-- DOWNLOAD CTA -->
 <section class="app-cta" id="download-cta" aria-labelledby="cta-heading">
  <div class="container">
   <div class="cta-inner">
    <div class="eyebrow">Download HALA MOVE</div>
-   <h2 class="app-cta-h" id="cta-heading">Pioneer Access<br><span style="color:var(--g)">now open.</span></h2>
-   <p class="app-cta-sub">Be among the first to use HALA MOVE in Durban. Post a job in 60 seconds. Verified drivers make offers in real time. PayFast escrow protects every rand. Free on Google Play and the App Store.</p>
+   <h2 class="app-cta-h" id="cta-heading">Live in Durban.<br><span style="color:var(--g)">Free to download.</span></h2>
+   <p class="app-cta-sub">Post a job in 60 seconds. Verified drivers make offers in real time. PayFast escrow protects every rand. Free on Google Play and the App Store.</p>
    <!-- "Pioneer APK live for Android. iPhone version in App Store review." — BOTH claims were false
         by 2026-07-16. The APK is gone (Play serves the app now), and "in App Store review" is the
         Rule #24 violation already ruled on: we do not control Apple's timing, so we never imply
@@ -746,7 +743,7 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
     <div class="cta-rating-stars">
      <span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span><span>&#9733;</span>
     </div>
-    <span class="cta-rating-text">Verified drivers · Pioneer cohort · Free · No subscription</span>
+    <span class="cta-rating-text">Verified drivers · Free · No subscription</span>
    </div>
    <p class="cta-note" style="margin-top:20px">Made in South Africa 🇿🇦 · Live in Durban and across KwaZulu-Natal · Johannesburg and Cape Town next</p>
   </div>
@@ -862,8 +859,8 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
    </div>
   </div>
   <div class="center mt-40 reveal">
-   <a href="/download" class="btn btn-green btn-lg">Download Pioneer Access &rarr;</a>
-   <p class="cta-sub-text">Free · No subscription · Pioneer cohort Durban</p>
+   <a href="/download" class="btn btn-green btn-lg">Download HALA MOVE &rarr;</a>
+   <p class="cta-sub-text">Free · No subscription · Live in Durban</p>
   </div>
  </div>
 </section>
@@ -1085,7 +1082,7 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
     </div>
 
     <div class="reveal d4">
-     <a href="mailto:contact@halamove.co.za" class="btn btn-green btn-lg">Talk to Our Contracts Team &rarr;</a>
+     <a href="/quote" class="btn btn-green btn-lg">Get a Business Quote &rarr;</a>
      <p class="cta-sub-text" style="text-align:left"><a href="mailto:contact@halamove.co.za">contact@halamove.co.za</a> · Response within 4 hours</p>
     </div>
    </div>
@@ -1124,6 +1121,7 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
      <a href="https://facebook.com/halamoveza" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on Facebook">FB</a>
      <a href="https://wa.me/27760525398" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on WhatsApp" style="background:#1A2E1A;border-color:#25D366;color:#25D366">WA</a>
     </div>
+    <div style="margin-top:16px"><div google-add-preferred-source-btn data-theme="dark" data-lang="en"></div></div>
    </div>
    <div class="footer-col">
     <h4>Platform</h4>
@@ -1132,6 +1130,7 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
      <li><a href="#customers">For Customers</a></li>
      <li><a href="#drivers">For Drivers</a></li>
      <li><a href="#business">For Business</a></li>
+     <li><a href="/quote">Business Quote</a></li>
      <li><a href="/business-transport-durban">Business Transport</a></li>
      <li><a href="/bakkie-hire-durban">Bakkie Hire Durban</a></li>
      <li><a href="/truck-hire-durban">Truck Hire Durban</a></li>
@@ -1171,8 +1170,8 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
 </footer>
 
 <!-- STICKY DOWNLOAD BAR (mobile only) -->
-<div class="sticky-download" id="stickyDownload" aria-label="Download HALA MOVE Pioneer Access">
-  <span>Pioneer Access · Free</span>
+<div class="sticky-download" id="stickyDownload" aria-label="Download HALA MOVE">
+  <span>HALA MOVE · Free</span>
   <a href="/download">Download Now</a>
 </div>
 

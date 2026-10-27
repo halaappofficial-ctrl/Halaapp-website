@@ -280,6 +280,11 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 }
 .nav-links a:hover{color:var(--t)}
 .nav-btns{display:flex;gap:8px;align-items:center;flex-shrink:0}
+/* 768-1199px: logo + badge + five links + two buttons did not fit, and "Get Started" was cut off at 1024px.
+   Here the badge and the duplicate "Download App" button go ("Get Started" opens the same page). */
+@media(min-width:768px) and (max-width:1199px){.nav-live{display:none}.nav-btns .btn-ghost{display:none}.nav-links{gap:18px}}
+/* 768-959px: still too narrow for one row, so the links take a second row, as they do on a phone. */
+@media(min-width:768px) and (max-width:959px){nav{height:auto}.nav-inner{flex-wrap:wrap;row-gap:2px;padding-top:10px;padding-bottom:6px}.nav-btns{margin-left:auto}.nav-links{flex:0 0 100%;order:10;justify-content:flex-start;gap:24px;padding:2px 0 4px}.nav-links a{white-space:nowrap}}
 @media(min-width:768px){
  .nav-links{display:flex}
 }
@@ -1037,15 +1042,16 @@ footer{
   </div>
 
   <ul class="nav-links" role="list">
-   <li><a href="#customers">For Customers</a></li>
+   <li><a href="/#customers">For Customers</a></li>
    <li><a href="#drivers">For Drivers</a></li>
-   <li><a href="#business">For Business</a></li>
-   <li><a href="#download">Download</a></li>
+   <li><a href="/#business">For Business</a></li>
+   <li><a href="/quote">Get a Quote</a></li>
+   <li><a href="/download">Download</a></li>
   </ul>
 
   <div class="nav-btns">
-   <a href="#download" class="btn btn-ghost btn-sm" aria-label="Download the app">Download App</a>
-   <a href="#download" class="btn btn-green btn-sm" id="nav-cta">Get Started</a>
+   <a href="/download" class="btn btn-ghost btn-sm" aria-label="Download the app">Download App</a>
+   <a href="/download" class="btn btn-green btn-sm" id="nav-cta">Get Started</a>
   </div>
 
  </div>
@@ -1125,10 +1131,10 @@ footer{
 <p>HALA MOVE was built to give South African drivers ownership of their income. Not the word &ldquo;ownership&rdquo; in a motivational sense, but actual ownership of the mechanism. When you are on HALA MOVE, your earnings are a function of what you offer, how many jobs you accept, and how well you do the work. Nobody can change the formula without telling you. Nobody can lower your cut without your knowledge. The 80/20 split is documented and consistent.</p>
 <p>Same-day payment is not a feature we added to the list. It is the foundation. A driver who knows their money lands today (not Friday, not at month-end, but today) builds their life differently. They plan differently. They invest back into their vehicle. They show up for every job because every job has immediate, tangible value. This is not a small thing. For many of our drivers, the shift from a weekly or monthly payment cycle to a same-day cycle is the most significant financial change in their working life. We treat it with the dignity it deserves.</p>
 
-<div class="page-cta">
+<div class="page-cta" id="contact">
  <h3>Ready to move, or ready to earn?</h3>
  <p>Download the HALA MOVE app and post your first job in minutes. Or register as a driver and start earning on your own schedule.</p>
- <a href="/#download" class="btn btn-green btn-lg">Download HALA MOVE</a>
+ <a href="/download" class="btn btn-green btn-lg">Download HALA MOVE</a>
  <p style="margin-top:14px;margin-bottom:0"><a href="mailto:contact@halamove.co.za" style="font-size:.85rem;color:var(--t3)">Questions? <span>contact@halamove.co.za</span></a></p>
 </div>
 </div>
@@ -1165,11 +1171,12 @@ footer{
    <div class="footer-col">
     <h4>Platform</h4>
     <ul class="footer-links" role="list">
-     <li><a href="#customers">For Customers</a></li>
+     <li><a href="/#customers">For Customers</a></li>
      <li><a href="#drivers">For Drivers</a></li>
-     <li><a href="#business">For Business</a></li>
-     <li><a href="#customers">How It Works</a></li>
-     <li><a href="#download">Download App</a></li>
+     <li><a href="/#business">For Business</a></li>
+     <li><a href="/quote">Business Quote</a></li>
+     <li><a href="/#customers">How It Works</a></li>
+     <li><a href="/download">Download App</a></li>
     </ul>
    </div>
    <div class="footer-col">

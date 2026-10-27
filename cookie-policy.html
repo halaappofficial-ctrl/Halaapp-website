@@ -250,6 +250,11 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 }
 .nav-links a:hover{color:var(--t)}
 .nav-btns{display:flex;gap:8px;align-items:center;flex-shrink:0}
+/* 768-1199px: logo + badge + five links + two buttons did not fit, and "Get Started" was cut off at 1024px.
+   Here the badge and the duplicate "Download App" button go ("Get Started" opens the same page). */
+@media(min-width:768px) and (max-width:1199px){.nav-live{display:none}.nav-btns .btn-ghost{display:none}.nav-links{gap:18px}}
+/* 768-959px: still too narrow for one row, so the links take a second row, as they do on a phone. */
+@media(min-width:768px) and (max-width:959px){nav{height:auto}.nav-inner{flex-wrap:wrap;row-gap:2px;padding-top:10px;padding-bottom:6px}.nav-btns{margin-left:auto}.nav-links{flex:0 0 100%;order:10;justify-content:flex-start;gap:24px;padding:2px 0 4px}.nav-links a{white-space:nowrap}}
 @media(min-width:768px){
  .nav-links{display:flex}
 }
@@ -1007,15 +1012,16 @@ footer{
   </div>
 
   <ul class="nav-links" role="list">
-   <li><a href="#customers">For Customers</a></li>
-   <li><a href="#drivers">For Drivers</a></li>
-   <li><a href="#business">For Business</a></li>
-   <li><a href="#download">Download</a></li>
+   <li><a href="/#customers">For Customers</a></li>
+   <li><a href="/#drivers">For Drivers</a></li>
+   <li><a href="/#business">For Business</a></li>
+   <li><a href="/quote">Get a Quote</a></li>
+   <li><a href="/download">Download</a></li>
   </ul>
 
   <div class="nav-btns">
-   <a href="#download" class="btn btn-ghost btn-sm" aria-label="Download the app">Download App</a>
-   <a href="#download" class="btn btn-green btn-sm" id="nav-cta">Get Started</a>
+   <a href="/download" class="btn btn-ghost btn-sm" aria-label="Download the app">Download App</a>
+   <a href="/download" class="btn btn-green btn-sm" id="nav-cta">Get Started</a>
   </div>
 
  </div>
@@ -1026,7 +1032,7 @@ footer{
   <h1 class="page-title">Cookie Policy</h1>
   <p style="font-size:1rem;color:var(--t2);max-width:560px;line-height:1.75">What cookies HALA MOVE uses, why, and how to manage them. We keep it minimal and we keep it honest.</p>
   <div class="page-meta">
-   <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#666" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#666" stroke-width="1.2" stroke-linecap="round"/></svg> Last updated: March 2026</span>
+   <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#666" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#666" stroke-width="1.2" stroke-linecap="round"/></svg> Last updated: October 2026</span>
    <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4l-3.5 2.5 1.5 4L6.5 9 3 11.5l1.5-4L1 5h4z" stroke="#666" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg> PROFITSAGE (PTY) LTD trading as HALA MOVE &middot; Durban, South Africa</span>
   </div>
  </div>
@@ -1119,10 +1125,15 @@ footer{
    <td>The HALA MOVE website loads two fonts (Syne and Plus Jakarta Sans) from Google Fonts. This request may set a browser-level cookie. No personal data is attached to this interaction.</td>
    <td>Functional</td>
   </tr>
+  <tr>
+   <td>Google preferred sources button</td>
+   <td>The footer of our home page loads a small script from Google (news.google.com) that shows an "Add to preferred sources" button. If you tap it, Google asks whether you want HALA MOVE marked as a preferred source in Google Search, and handles your answer under its own privacy policy. We receive nothing from it. Google may set its own cookies when the script loads or when you use the button.</td>
+   <td>Functional</td>
+  </tr>
  </tbody>
 </table>
 
-<p>None of the third-party services we use for platform functionality (Google Maps, PayFast, Google Fonts) are authorised to use the data collected through our site for their own advertising purposes in connection with our platform.</p>
+<p>None of the third-party services we use for platform functionality (Google Maps, PayFast, Google Fonts, the Google preferred sources button) are authorised to use the data collected through our site for their own advertising purposes in connection with our platform.</p>
 
 <h2 class="section-anchor" id="managing">Managing Cookies</h2>
 <p>You can control and delete cookies through your browser settings. Each browser is different:</p>
@@ -1146,7 +1157,7 @@ footer{
  <li>Email: <a href="mailto:contact@halamove.co.za"><span>contact@halamove.co.za</span></a></li>
 </ul>
 <p>For full information about how we handle your personal data, see our <a href="/privacy">Privacy Policy</a>.</p>
-<p>This Cookie Policy was last updated in March 2026.</p>
+<p>This Cookie Policy was last updated in October 2026.</p>
 </div>
   </div>
  </div>
@@ -1181,11 +1192,12 @@ footer{
    <div class="footer-col">
     <h4>Platform</h4>
     <ul class="footer-links" role="list">
-     <li><a href="#customers">For Customers</a></li>
-     <li><a href="#drivers">For Drivers</a></li>
-     <li><a href="#business">For Business</a></li>
-     <li><a href="#customers">How It Works</a></li>
-     <li><a href="#download">Download App</a></li>
+     <li><a href="/#customers">For Customers</a></li>
+     <li><a href="/#drivers">For Drivers</a></li>
+     <li><a href="/#business">For Business</a></li>
+     <li><a href="/quote">Business Quote</a></li>
+     <li><a href="/#customers">How It Works</a></li>
+     <li><a href="/download">Download App</a></li>
     </ul>
    </div>
    <div class="footer-col">

@@ -364,6 +364,11 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 }
 .nav-links a:hover{color:var(--t)}
 .nav-btns{display:flex;gap:8px;align-items:center;flex-shrink:0}
+/* 768-1199px: logo + badge + five links + two buttons did not fit, and "Get Started" was cut off at 1024px.
+   Here the badge and the duplicate "Download App" button go ("Get Started" opens the same page). */
+@media(min-width:768px) and (max-width:1199px){.nav-live{display:none}.nav-btns .btn-ghost{display:none}.nav-links{gap:18px}}
+/* 768-959px: still too narrow for one row, so the links take a second row, as they do on a phone. */
+@media(min-width:768px) and (max-width:959px){nav{height:auto}.nav-inner{flex-wrap:wrap;row-gap:2px;padding-top:10px;padding-bottom:6px}.nav-btns{margin-left:auto}.nav-links{flex:0 0 100%;order:10;justify-content:flex-start;gap:24px;padding:2px 0 4px}.nav-links a{white-space:nowrap}}
 @media(min-width:768px){
  .nav-links{display:flex}
 }
@@ -1137,9 +1142,10 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
   </div>
 
   <ul class="nav-links" role="list">
-   <li><a href="#customers">For Customers</a></li>
-   <li><a href="#drivers">For Drivers</a></li>
-   <li><a href="#business">For Business</a></li>
+   <li><a href="/#customers">For Customers</a></li>
+   <li><a href="/#drivers">For Drivers</a></li>
+   <li><a href="/#business">For Business</a></li>
+   <li><a href="/quote">Get a Quote</a></li>
    <li><a href="#download">Download</a></li>
   </ul>
 
@@ -1287,7 +1293,7 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
 
 <h2 class="section-anchor" id="download">Download the HALA MOVE app &mdash; book a student move in Durban now</h2>
 <p>The fastest way to book a verified driver for a Durban student move is through the HALA MOVE app. Available on Android and iOS, free to download, free to post a job &mdash; you only pay when you accept an offer.</p>
-<p><a href="/#download" class="btn btn-green">Download the app</a> &nbsp; <a href="/bakkie-hire-durban" class="btn btn-ghost">Bakkie hire Durban</a> &nbsp; <a href="/furniture-removal-durban" class="btn btn-ghost">Furniture removal</a></p>
+<p><a href="/download" class="btn btn-green">Download the app</a> &nbsp; <a href="/bakkie-hire-durban" class="btn btn-ghost">Bakkie hire Durban</a> &nbsp; <a href="/furniture-removal-durban" class="btn btn-ghost">Furniture removal</a></p>
 <p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Questions? See our full <a href="/faq">FAQ</a>, read about <a href="/about">our story</a>, or WhatsApp us using the green button on the bottom-right of this page. PROFITSAGE (PTY) LTD trading as HALA MOVE is a private company registered in South Africa (registration number 2025/087445/07) and operates from Durban, KwaZulu-Natal.</p>
 </div>
   </div>
@@ -1326,10 +1332,11 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
    <div class="footer-col">
     <h4>Platform</h4>
     <ul class="footer-links" role="list">
-     <li><a href="#customers">For Customers</a></li>
-     <li><a href="#drivers">For Drivers</a></li>
-     <li><a href="#business">For Business</a></li>
-     <li><a href="#customers">How It Works</a></li>
+     <li><a href="/#customers">For Customers</a></li>
+     <li><a href="/#drivers">For Drivers</a></li>
+     <li><a href="/#business">For Business</a></li>
+     <li><a href="/quote">Business Quote</a></li>
+     <li><a href="/#customers">How It Works</a></li>
      <li><a href="#download">Download App</a></li>
     </ul>
    </div>
