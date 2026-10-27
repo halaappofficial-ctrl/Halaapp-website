@@ -4,7 +4,7 @@
 
   <url>
     <loc>https://www.halamove.co.za/</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
@@ -28,14 +28,14 @@
 
   <url>
     <loc>https://www.halamove.co.za/download</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.98</priority>
   </url>
 
   <url>
     <loc>https://www.halamove.co.za/about</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -130,7 +130,7 @@
 
   <url>
     <loc>https://www.halamove.co.za/cookie-policy</loc>
-    <lastmod>2026-10-05</lastmod>
+    <lastmod>2026-10-27</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
