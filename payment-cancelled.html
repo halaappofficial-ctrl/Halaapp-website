@@ -22,6 +22,9 @@
   h1{ font-size:24px; font-weight:700; margin:0 0 12px; }
   p{ font-size:16px; line-height:1.55; opacity:0.85; max-width:400px; margin:0 0 22px; }
   .hint{ font-size:13px; opacity:0.5; }
+  .back{ display:none; background:#5CB558; color:#0A0A0A; font-weight:800; font-size:17px; text-decoration:none;
+    padding:15px 26px; border-radius:14px; margin:0 0 18px; min-width:240px; box-sizing:border-box; }
+  .back.on{ display:inline-block; }
 </style>
 </head>
 <body>
@@ -32,8 +35,25 @@
   <div class="wordmark"><span class="h">HALA</span> <span class="m">MOVE</span></div>
   <h1>Payment cancelled</h1>
   <p>No payment was taken. Return to the HALA MOVE app to try again or pick a different payment option.</p>
+  <a class="back" id="back-to-app" href="halamove://payment-cancelled">Back to the HALA MOVE app</a>
   <p class="hint">You can safely close this tab.</p>
 </main>
+<script>
+// The app opens PayFast INSIDE itself since 2026-10-27, so this page can be showing in the app's own
+// browser. On a phone, this button hands the customer straight back: on Android it closes the
+// in-app browser, on iPhone the app closes it itself once the payment shows. Shown on phones only,
+// since a computer has no app to open. The job id goes with it so the app knows which job it is.
+(function () {
+  try {
+    if (!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '')) return;
+    var a = document.getElementById('back-to-app');
+    if (!a) return;
+    var m = /[?&]job_id=([0-9a-fA-F-]{36})(?:&|$)/.exec(window.location.search || '');
+    if (m) a.href = 'halamove://payment-cancelled?job_id=' + m[1];
+    a.className = 'back on';
+  } catch (e) {}
+})();
+</script>
 <script>
 // Tell the backend which page PayFast sent this customer back to (2026-10-12). Without it a
 // failed checkout could not say whether the customer pressed Cancel at PayFast or never came back
