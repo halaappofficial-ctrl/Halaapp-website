@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>HALA MOVE - Live trip</title>
+<!-- A live trip link is private to whoever was sent it: never indexed (Uber's shared trip pages were, in
+     2015, with drivers' photos and plates on them), and the token in the address never leaves this site in
+     a Referer (the map tiles see the origin only). The API answer carries noindex + no-store too. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"
+  integrity="sha384-c6Rcwz4e4CITMbu/NBmnNS8yN2sC3cUElMEMfP3vqqKFp7GOYaaBBCqmaWBjmkjb" crossorigin="anonymous">
+<style>
+  :root{ --bg:#0A0A0A; --card:#151515; --line:#262626; --text:#FFFFFF; --muted:#A3A3A3; --green:#5CB558; --amber:#F2B53A; }
+  html,body{ margin:0; padding:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,sans-serif; }
+  *{ box-sizing:border-box; }
+  header{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--line); }
+  .brand{ font-weight:900; font-size:20px; letter-spacing:0.5px; color:var(--green); }
+  .ref{ font-size:12px; color:var(--muted); }
+  #map{ height:52vh; min-height:280px; background:#1d1d1d; }
+  .panel{ max-width:640px; margin:0 auto; padding:16px; }
+  .status{ font-size:22px; font-weight:800; margin:0 0 4px; }
+  .sub{ font-size:15px; color:var(--muted); margin:0 0 4px; }
+  .stale{ color:var(--amber); }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; margin-top:14px; }
+  .driver{ display:flex; align-items:center; gap:14px; }
+  .avatar{ width:56px; height:56px; border-radius:28px; object-fit:cover; background:#262626; flex:0 0 56px;
+    display:flex; align-items:center; justify-content:center; font-weight:800; font-size:22px; color:var(--green); }
+  .dname{ font-size:18px; font-weight:700; }
+  .vehicle{ font-size:14px; color:var(--muted); margin-top:2px; }
+  .plate{ display:inline-block; margin-top:6px; padding:3px 9px; border-radius:6px; background:#F5F5F5; color:#111;
+    font-weight:800; font-size:14px; letter-spacing:1px; }
+  .pin{ border-color:var(--green); }
+  .pin .num{ font-size:34px; font-weight:900; letter-spacing:8px; color:var(--green); margin:2px 0; }
+  .pin .what{ font-size:14px; color:var(--muted); }
+  ol.route{ list-style:none; margin:0; padding:0; }
+  ol.route li{ display:flex; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); }
+  ol.route li:last-child{ border-bottom:0; }
+  .dot{ width:26px; height:26px; border-radius:13px; flex:0 0 26px; display:flex; align-items:center; justify-content:center;
+    font-size:12px; font-weight:800; border:2px solid var(--muted); color:var(--muted); }
+  li.next .dot{ border-color:var(--green); color:var(--green); }
+  li.done .dot{ background:var(--green); border-color:var(--green); color:#0A0A0A; }
+  .ptitle{ font-size:14px; font-weight:700; }
+  .paddr{ font-size:14px; color:var(--muted); margin-top:2px; }
+  li.done .ptitle, li.done .paddr{ opacity:0.6; }
+  .btn{ display:block; text-align:center; background:var(--green); color:#0A0A0A; font-weight:800; font-size:16px;
+    text-decoration:none; padding:14px; border-radius:12px; margin-top:16px; }
+  .btn.ghost{ background:transparent; color:var(--text); border:1px solid var(--line); }
+  .note{ font-size:12px; color:var(--muted); margin-top:14px; line-height:1.5; }
+  .msg{ text-align:center; padding:60px 20px; }
+  .msg h1{ font-size:22px; margin:0 0 10px; }
+  .msg p{ color:var(--muted); font-size:15px; line-height:1.5; margin:0 auto; max-width:420px; }
+  .hidden{ display:none !important; }
+  /* map markers: drawn in CSS, so the page loads no image assets */
+  .mk{ width:30px; height:30px; border-radius:15px; display:flex; align-items:center; justify-content:center;
+    font:800 13px/1 -apple-system,Segoe UI,Roboto,sans-serif; color:#0A0A0A; background:#FFFFFF; border:3px solid #0A0A0A;
+    box-shadow:0 1px 4px rgba(0,0,0,0.5); }
+  .mk.pickup{ background:var(--green); }
+  .mk.done{ opacity:0.55; }
+  .mk.driver{ width:38px; height:38px; border-radius:19px; background:#0A0A0A; border:3px solid var(--green);
+    box-shadow:0 0 0 6px rgba(92,181,88,0.25); }
+  .recenter{ position:absolute; right:12px; bottom:12px; z-index:500; background:#0A0A0A; color:#fff; border:1px solid var(--line);
+    border-radius:10px; padding:8px 12px; font-size:13px; font-weight:700; }
+  .mapwrap{ position:relative; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">HALA MOVE</div>
+  <div class="ref" id="ref"></div>
+</header>
+
+<div id="live" class="hidden">
+  <div class="mapwrap"><div id="map"></div><button class="recenter" id="recenter" type="button">Re-centre</button></div>
+  <div class="panel">
+    <p class="status" id="status"></p>
+    <p class="sub" id="eta"></p>
+    <p class="sub" id="seen"></p>
+
+    <div class="card pin hidden" id="pin">
+      <div class="what">Pickup PIN</div>
+      <div class="num" id="pin-num"></div>
+      <div class="what">Give this number to the driver when he collects the goods. He cannot start the trip without it.</div>
+    </div>
+
+    <div class="card hidden" id="driver">
+      <div class="driver">
+        <div class="avatar" id="avatar"></div>
+        <div>
+          <div class="dname" id="dname"></div>
+          <div class="vehicle" id="vehicle"></div>
+          <div class="plate hidden" id="plate"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card"><ol class="route" id="route"></ol></div>
+
+    <a class="btn ghost" id="support" href="https://wa.me/27760525398" target="_blank" rel="noopener">WhatsApp HALA MOVE support</a>
+    <p class="note">This page updates every 10 seconds. It stops working 30 minutes after delivery.
+      Map data &copy; OpenStreetMap contributors.</p>
+  </div>
+</div>
+
+<div id="ended" class="msg hidden">
+  <h1>This trip has ended</h1>
+  <p>The live map is only available while the trip is happening. For anything about this trip, WhatsApp HALA MOVE support on +27 76 052 5398.</p>
+</div>
+<div id="invalid" class="msg hidden">
+  <h1>This link is not valid</h1>
+  <p>Check that you opened the whole link you were sent. If it still does not work, ask the person who sent it for a new one.</p>
+</div>
+<div id="loading" class="msg"><p>Loading the trip...</p></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"
+  integrity="sha384-NElt3Op+9NBMCYaef5HxeJmU4Xeard/Lku8ek6hoPTvYkQPh3zLIrJP7KiRocsxO" crossorigin="anonymous"></script>
+<script>
+// THE LIVE TRIP PAGE (2026-10-28). halamove.co.za/track/<token> (vercel.json rewrites it here). It asks the
+// backend for the trip every 10 seconds and draws it: the driver, the pickup, each stop and the drop-off.
+// What it is allowed to show is decided on the SERVER by who made the link (backend src/utils/tripLink.js);
+// this page renders whatever it is given and nothing else.
+// Map tiles: OpenStreetMap's own servers, which allow light use with attribution. EXPIRY: if these links
+// are opened thousands of times a day, move to a paid tile provider before OSM asks us to.
+(function () {
+  'use strict';
+  var API = 'https://hala-backend-production.up.railway.app/api/track/';
+  var POLL_MS = 10000;
+  var m = /^\/track\/([A-Za-z0-9_-]{32})\/?$/.exec(window.location.pathname || '');
+  var $ = function (id) { return document.getElementById(id); };
+  function show(id) { ['live', 'ended', 'invalid', 'loading'].forEach(function (k) { $(k).classList.toggle('hidden', k !== id); }); }
+  if (!m) { show('invalid'); return; }
+  var token = m[1];
+
+  var map = null, layers = null, driverMarker = null, fitted = false, lastView = null, timer = null;
+
+  function minutesAgo(iso) {
+    var t = Date.parse(iso);
+    return isFinite(t) ? Math.max(0, Math.round((Date.now() - t) / 60000)) : null;
+  }
+  function icon(cls, text) {
+    return L.divIcon({ className: '', html: '<div class="mk ' + cls + '">' + text + '</div>', iconSize: [30, 30], iconAnchor: [15, 15] });
+  }
+  var TRUCK = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5CB558" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="17.5" r="1.7"/><circle cx="17.5" cy="17.5" r="1.7"/></svg>';
+
+  function ensureMap() {
+    if (map) return;
+    map = L.map('map', { zoomControl: true, attributionControl: true });
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+    layers = L.layerGroup().addTo(map);
+    $('recenter').addEventListener('click', function () { fitted = false; if (lastView) drawMap(lastView); });
+  }
+
+  function pointText(p, i, last) {
+    if (i === 0) return 'P';
+    if (i === last) return 'D';
+    return String(i);
+  }
+
+  function drawMap(v) {
+    ensureMap();
+    layers.clearLayers();
+    var pts = [];
+    var last = v.route.length - 1;
+    v.route.forEach(function (p, i) {
+      if (p.lat == null || p.lng == null) return;
+      var cls = (i === 0 ? 'pickup' : '') + (p.state === 'done' ? ' done' : '');
+      L.marker([p.lat, p.lng], { icon: icon(cls, pointText(p, i, last)), keyboard: false })
+        .bindTooltip(p.label + (p.address ? ': ' + p.address : ''))
+        .addTo(layers);
+      pts.push([p.lat, p.lng]);
+    });
+    if (pts.length > 1) L.polyline(pts, { color: '#5CB558', weight: 3, opacity: 0.7, dashArray: '6 8' }).addTo(layers);
+    var all = pts.slice();
+    if (v.driver_position) {
+      var dp = [v.driver_position.lat, v.driver_position.lng];
+      driverMarker = L.marker(dp, {
+        icon: L.divIcon({ className: '', html: '<div class="mk driver">' + TRUCK + '</div>', iconSize: [38, 38], iconAnchor: [19, 19] }),
+        zIndexOffset: 1000, keyboard: false
+      }).bindTooltip((v.driver && v.driver.first_name) || 'Driver').addTo(layers);
+      all.push(dp);
+    }
+    if (!fitted && all.length) {
+      map.fitBounds(L.latLngBounds(all), { padding: [40, 40], maxZoom: 15 });
+      fitted = true;
+    }
+  }
+
+  function render(v) {
+    lastView = v;
+    show('live');
+    $('ref').textContent = 'Trip ' + v.job_ref;
+    $('status').textContent = v.status.label;
+
+    var etaText = '';
+    if (v.status.key === 'scheduled' && v.scheduled_date) {
+      try {
+        etaText = 'Booked for ' + new Date(v.scheduled_date).toLocaleString('en-ZA', {
+          timeZone: 'Africa/Johannesburg', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
+        });
+      } catch (e) { etaText = 'Booked'; }
+    } else if (v.eta && v.eta.minutes) {
+      var leg = v.eta.leg === 'dropoff' ? 'the drop-off' : (v.eta.leg === 'pickup' ? 'the pickup' : 'the next stop');
+      etaText = 'About ' + v.eta.minutes + ' min to ' + leg;
+    }
+    $('eta').textContent = etaText;
+
+    var seen = $('seen');
+    seen.classList.remove('stale');
+    seen.textContent = '';
+    if (v.driver_position && v.driver_position.updated_at) {
+      var ago = minutesAgo(v.driver_position.updated_at);
+      if (ago != null && ago >= 3) {
+        seen.textContent = 'Driver\'s location last updated ' + ago + ' min ago';
+        seen.classList.add('stale');
+      } else {
+        seen.textContent = 'Driver\'s location is live';
+      }
+    }
+
+    $('pin').classList.toggle('hidden', !v.pickup_pin);
+    $('pin-num').textContent = v.pickup_pin || '';
+
+    var d = v.driver;
+    $('driver').classList.toggle('hidden', !d);
+    if (d) {
+      var av = $('avatar');
+      av.textContent = '';
+      if (d.photo_url) {
+        var img = document.createElement('img');
+        img.className = 'avatar'; img.alt = ''; img.src = d.photo_url;
+        img.onerror = function () { av.textContent = (d.first_name || 'D').charAt(0); };
+        av.appendChild(img);
+      } else {
+        av.textContent = (d.first_name || 'D').charAt(0);
+      }
+      $('dname').textContent = d.first_name || 'Your driver';
+      var veh = d.vehicle || {};
+      var desc = [veh.make, veh.model].filter(Boolean).join(' ');
+      $('vehicle').textContent = desc ? desc.replace(/\b([A-Z])([A-Z]+)\b/g, function (w, a, b) { return a + b.toLowerCase(); }) : '';
+      $('plate').classList.toggle('hidden', !veh.registration);
+      $('plate').textContent = veh.registration || '';
+    }
+
+    var ol = $('route');
+    ol.textContent = '';
+    var last = v.route.length - 1;
+    v.route.forEach(function (p, i) {
+      var li = document.createElement('li');
+      li.className = p.state;
+      var dot = document.createElement('div');
+      dot.className = 'dot';
+      dot.textContent = p.state === 'done' ? '✓' : pointText(p, i, last);
+      var body = document.createElement('div');
+      var t = document.createElement('div');
+      t.className = 'ptitle';
+      t.textContent = p.label + (p.state === 'next' ? ' - next' : (p.state === 'done' ? ' - done' : ''));
+      body.appendChild(t);
+      if (p.address) {
+        var a = document.createElement('div');
+        a.className = 'paddr'; a.textContent = p.address;
+        body.appendChild(a);
+      }
+      li.appendChild(dot); li.appendChild(body);
+      ol.appendChild(li);
+    });
+
+    $('support').href = 'https://wa.me/' + String(v.support_whatsapp || '+27760525398').replace(/[^0-9]/g, '') +
+      '?text=' + encodeURIComponent('Hi HALA MOVE, I am following trip ' + v.job_ref + '.');
+
+    drawMap(v);
+  }
+
+  function poll() {
+    fetch(API + token, { cache: 'no-store' }).then(function (res) {
+      if (res.status === 410) { stop(); show('ended'); return null; }
+      if (res.status === 404) { stop(); show('invalid'); return null; }
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }).then(function (v) {
+      if (v && v.route) render(v);
+    }).catch(function () {
+      // A blip keeps the last picture on screen and says so; the next poll tries again.
+      if (lastView) { $('seen').textContent = 'Reconnecting...'; $('seen').classList.add('stale'); }
+    });
+  }
+  function start() { if (!timer) { poll(); timer = setInterval(poll, POLL_MS); } }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  // A phone in a pocket does not need to poll: pause while the tab is hidden, catch up when it is back.
+  document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
+  start();
+})();
+</script>
+</body>
+</html>

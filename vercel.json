@@ -4,7 +4,9 @@
   "rewrites": [
     { "source": "/invite/:code", "destination": "/invite" },
     { "source": "/driver-invite/:code", "destination": "/driver-invite" },
-    { "source": "/c/:code", "destination": "/creator" }
+    { "source": "/c/:code", "destination": "/creator" },
+    { "source": "/track/:token", "destination": "/track" },
+    { "source": "/refund/:token", "destination": "/refund" }
   ],
   "redirects": [
     {
@@ -36,6 +38,21 @@
         { "key": "Content-Type", "value": "application/json; charset=utf-8" },
         { "key": "Access-Control-Allow-Origin", "value": "*" },
         { "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }
+      ]
+    },
+    {
+      "source": "/track(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+      ]
+    },
+    {
+      "source": "/refund(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Cache-Control", "value": "no-store" }
       ]
     },
     {

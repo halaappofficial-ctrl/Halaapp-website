@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>HALA MOVE - Your refund</title>
+<!-- A refund link belongs to the one customer it was sent to: never indexed, and the token in the address never
+     leaves this site in a Referer. The API answer carries noindex + no-store too. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<style>
+  :root{ --bg:#0A0A0A; --card:#151515; --line:#262626; --text:#FFFFFF; --muted:#A3A3A3; --green:#5CB558; --amber:#F2B53A; --red:#FF5A5A; }
+  html,body{ margin:0; padding:0; background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,sans-serif; }
+  *{ box-sizing:border-box; }
+  header{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--line); }
+  .brand{ font-weight:900; font-size:20px; letter-spacing:0.5px; color:var(--green); }
+  .ref{ font-size:12px; color:var(--muted); }
+  .panel{ max-width:520px; margin:0 auto; padding:20px 16px 40px; }
+  h1{ font-size:24px; font-weight:800; margin:4px 0 6px; }
+  .amount{ font-size:40px; font-weight:900; color:var(--green); margin:6px 0 2px; letter-spacing:0.5px; }
+  .sub{ font-size:15px; color:var(--muted); margin:0 0 4px; line-height:1.5; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-top:16px; }
+  label{ display:block; font-size:14px; font-weight:700; margin:14px 0 6px; }
+  label:first-child{ margin-top:0; }
+  select, input[type=text]{ width:100%; font-size:17px; padding:13px 12px; border-radius:10px; border:1px solid #3a3a3a;
+    background:#0F0F0F; color:var(--text); }
+  select:focus, input[type=text]:focus{ outline:none; border-color:var(--green); }
+  .types{ display:flex; gap:10px; }
+  .types label{ flex:1; margin:0; display:flex; align-items:center; gap:8px; font-weight:600; font-size:15px;
+    padding:12px; border:1px solid #3a3a3a; border-radius:10px; cursor:pointer; }
+  .types input{ accent-color:var(--green); width:18px; height:18px; }
+  .hint{ font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4; }
+  .btn{ display:block; width:100%; text-align:center; background:var(--green); color:#0A0A0A; font-weight:800; font-size:17px;
+    text-decoration:none; padding:15px; border-radius:12px; margin-top:18px; border:0; cursor:pointer; }
+  .btn[disabled]{ opacity:0.6; cursor:default; }
+  .btn.ghost{ background:transparent; color:var(--text); border:1px solid var(--line); }
+  .error{ margin-top:14px; padding:12px; border-radius:10px; border:1px solid var(--red); background:rgba(255,90,90,0.12);
+    color:var(--red); font-size:14px; line-height:1.4; }
+  dl{ margin:0; display:grid; grid-template-columns:auto 1fr; gap:8px 14px; font-size:15px; }
+  dt{ color:var(--muted); }
+  dd{ margin:0; font-weight:700; overflow-wrap:anywhere; }
+  .ok{ color:var(--green); font-weight:800; font-size:15px; margin-bottom:10px; }
+  .note{ font-size:12px; color:var(--muted); margin-top:16px; line-height:1.5; }
+  .note a, .msg a{ color:var(--green); }
+  .msg{ text-align:center; padding:60px 20px; }
+  .msg h1{ font-size:22px; margin:0 0 10px; }
+  .msg p{ color:var(--muted); font-size:15px; line-height:1.5; margin:0 auto; max-width:420px; }
+  .hidden{ display:none !important; }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">HALA MOVE</div>
+  <div class="ref" id="ref"></div>
+</header>
+
+<div id="main" class="panel hidden">
+  <p class="sub" id="hello"></p>
+  <div class="amount" id="amount"></div>
+  <h1 id="headline"></h1>
+  <p class="sub" id="lead"></p>
+
+  <div class="card hidden" id="given">
+    <div class="ok" id="given-title"></div>
+    <dl>
+      <dt>Bank</dt><dd id="g-bank"></dd>
+      <dt>Type</dt><dd id="g-type"></dd>
+      <dt>Account</dt><dd id="g-last4"></dd>
+      <dt>Name</dt><dd id="g-holder"></dd>
+    </dl>
+    <button class="btn ghost hidden" id="change" type="button">Change these details</button>
+  </div>
+
+  <form class="card hidden" id="form" autocomplete="off" novalidate>
+    <label for="bank">Your bank</label>
+    <select id="bank" required><option value="">Choose your bank</option></select>
+
+    <label>Account type</label>
+    <div class="types" id="types"></div>
+
+    <label for="number">Account number</label>
+    <input type="text" id="number" inputmode="numeric" autocomplete="off" maxlength="20" placeholder="e.g. 1234567890" required>
+    <div class="hint">Your bank account number, from your banking app. Not your card number.</div>
+
+    <label for="holder">Name the account is in</label>
+    <input type="text" id="holder" autocomplete="name" maxlength="80" required>
+
+    <div class="error hidden" id="error" role="alert"></div>
+    <button class="btn" id="submit" type="submit">Send my bank details</button>
+    <button class="btn ghost hidden" id="cancel" type="button">Keep the details I gave</button>
+  </form>
+
+  <p class="note">We use these details only to pay this refund, and we delete the account number once it is paid.
+    Questions? <a id="support" href="https://wa.me/27760525398" target="_blank" rel="noopener">WhatsApp HALA MOVE on 076 052 5398</a>.</p>
+</div>
+
+<div id="ended" class="msg hidden">
+  <h1 id="ended-title">This link has ended</h1>
+  <p id="ended-text"></p>
+</div>
+<div id="invalid" class="msg hidden">
+  <h1>This link is not valid</h1>
+  <p>Check that you opened the whole link you were sent. If it still does not work,
+    <a href="https://wa.me/27760525398" target="_blank" rel="noopener">WhatsApp HALA MOVE on 076 052 5398</a> and we will sort your refund.</p>
+</div>
+<div id="down" class="msg hidden">
+  <h1>We could not load your refund</h1>
+  <p>This is on our side. Please try again in a minute.</p>
+  <p style="margin-top:18px"><button class="btn" id="retry" type="button" style="max-width:240px;margin:0 auto">Try again</button></p>
+</div>
+<div id="loading" class="msg"><p>Loading your refund...</p></div>
+
+<script>
+// THE REFUND BANK-DETAILS PAGE (2026-10-28). halamove.co.za/refund/<token> (vercel.json rewrites it here).
+// A card payment carries no account to pay a refund back to, so the customer gives one here, once, and the
+// founders pay it by same-day EFT. The rules (which banks, what a valid number looks like, when details may
+// still change, what is shown back) live on the SERVER (backend src/utils/refundDetails.js); this page shows
+// what it is given and sends what is typed. It never shows the full account number back, only the last 4.
+(function () {
+  'use strict';
+  var API = 'https://hala-backend-production.up.railway.app/api/refund-details/';
+  var m = /^\/refund\/([A-Za-z0-9_-]{32})\/?$/.exec(window.location.pathname || '');
+  var $ = function (id) { return document.getElementById(id); };
+  function show(id) { ['main', 'ended', 'invalid', 'down', 'loading'].forEach(function (k) { $(k).classList.toggle('hidden', k !== id); }); }
+  if (!m) { show('invalid'); return; }
+  var token = m[1];
+  var view = null;
+
+  function rands(n) {
+    var v = Number(n);
+    if (!isFinite(v)) return '';
+    return 'R' + (v % 1 ? v.toFixed(2) : String(v));
+  }
+  function setError(msg) {
+    $('error').textContent = msg || '';
+    $('error').classList.toggle('hidden', !msg);
+  }
+
+  function fillForm(v) {
+    var sel = $('bank');
+    if (sel.options.length <= 1) {
+      (v.banks || []).forEach(function (b) { var o = document.createElement('option'); o.value = b; o.textContent = b; sel.appendChild(o); });
+    }
+    var types = $('types');
+    if (!types.children.length) {
+      (v.account_types || []).forEach(function (t) {
+        var l = document.createElement('label');
+        var r = document.createElement('input');
+        r.type = 'radio'; r.name = 'account_type'; r.value = t.value;
+        l.appendChild(r); l.appendChild(document.createTextNode(t.label));
+        types.appendChild(l);
+      });
+    }
+    if (v.details) {
+      sel.value = v.details.bank || '';
+      $('holder').value = v.details.account_holder || '';
+      // The details carry the type's label ("Savings"), so the radio is found by its label.
+      (v.account_types || []).forEach(function (t, i) {
+        if (t.label === v.details.account_type) types.querySelectorAll('input')[i].checked = true;
+      });
+    }
+  }
+
+  function render(v) {
+    view = v;
+    $('ref').textContent = v.job_ref ? 'Booking ' + v.job_ref : '';
+    $('hello').textContent = v.first_name ? 'Hi ' + v.first_name + ',' : '';
+    $('amount').textContent = rands(v.amount);
+    var d = v.details;
+
+    if (v.status === 'settled') {
+      $('headline').textContent = 'Your refund has been paid';
+      $('lead').textContent = 'An EFT can take until the next business day to show in your account.';
+    } else if (!v.open_for_details) {
+      $('headline').textContent = 'We are paying your refund now';
+      $('lead').textContent = 'Your bank details can no longer change. If something is wrong, WhatsApp us straight away.';
+    } else if (d) {
+      $('headline').textContent = 'is coming back to you';
+      $('lead').textContent = 'We have your bank details and will pay it by EFT, usually the same day.';
+    } else {
+      $('headline').textContent = 'is due back to you';
+      $('lead').textContent = 'Your booking' + (v.pickup_area ? ' from ' + v.pickup_area : '') + ' was cancelled. '
+        + 'Tell us which bank account to pay it into and we pay it by EFT, usually the same day.';
+    }
+
+    $('given').classList.toggle('hidden', !d);
+    if (d) {
+      $('given-title').textContent = v.status === 'settled' ? 'Paid to' : 'We will pay it to';
+      $('g-bank').textContent = d.bank || '';
+      $('g-type').textContent = d.account_type || '';
+      $('g-last4').textContent = d.account_last4 ? 'ending ' + d.account_last4 : '';
+      $('g-holder').textContent = d.account_holder || '';
+    }
+    $('change').classList.toggle('hidden', !(d && v.open_for_details));
+    $('form').classList.toggle('hidden', !(v.open_for_details && !d));
+    $('cancel').classList.add('hidden');
+    if (v.open_for_details) fillForm(v);
+    if (v.support_whatsapp) $('support').href = 'https://wa.me/' + String(v.support_whatsapp).replace(/\D/g, '');
+    show('main');
+  }
+
+  function load() {
+    show('loading');
+    fetch(API + token, { cache: 'no-store' }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (body) { return { status: res.status, body: body }; });
+    }).then(function (r) {
+      if (r.status === 200) return render(r.body);
+      if (r.status === 404) return show('invalid');
+      if (r.status === 410) {
+        $('ended-title').textContent = /paid/i.test(r.body.message || '') ? 'Your refund has been paid' : 'This link has ended';
+        $('ended-text').textContent = r.body.message || 'WhatsApp us on 076 052 5398 and we will sort your refund.';
+        return show('ended');
+      }
+      show('down');
+    }).catch(function () { show('down'); });
+  }
+
+  $('retry').addEventListener('click', load);
+  $('change').addEventListener('click', function () {
+    $('given').classList.add('hidden');
+    $('form').classList.remove('hidden');
+    $('cancel').classList.remove('hidden');
+    $('number').value = '';
+    setError('');
+    $('number').focus();
+  });
+  $('cancel').addEventListener('click', function () { if (view) render(view); });
+
+  $('form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    setError('');
+    var type = document.querySelector('input[name=account_type]:checked');
+    var body = {
+      bank: $('bank').value,
+      account_type: type ? type.value : '',
+      account_number: $('number').value,
+      account_holder: $('holder').value,
+    };
+    if (!body.bank) return setError('Choose your bank from the list.');
+    if (!body.account_type) return setError('Choose the account type.');
+    if (!body.account_number.replace(/[\s-]/g, '')) return setError('Enter your account number.');
+    if (!body.account_holder.trim()) return setError('Enter the name the account is in.');
+    var btn = $('submit');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    fetch(API + token, {
+      method: 'POST', cache: 'no-store',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (b) { return { status: res.status, body: b }; });
+    }).then(function (r) {
+      btn.disabled = false; btn.textContent = 'Send my bank details';
+      if (r.status === 200 && r.body.saved) {
+        $('number').value = '';
+        view.details = r.body.details;
+        return render(view);
+      }
+      if (r.status === 404) return show('invalid');
+      if (r.status === 410 || r.status === 409) return load();
+      setError(r.body.error || 'We could not save your details just now. Please try again in a minute.');
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = 'Send my bank details';
+      setError('Your details did not reach us. Check your connection and try again.');
+    });
+  });
+
+  load();
+})();
+</script>
+</body>
+</html>
