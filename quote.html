@@ -161,6 +161,9 @@ footer{margin-top:56px;color:var(--mu);font-size:14px;display:flex;justify-conte
   // visitor's email app with the request filled in, addressed to the one declared contact address.
   var SUBMIT_URL = "https://hala-backend-production.up.railway.app/api/interest/business";
   var TO = "contact@halamove.co.za";
+  // Copied to Uchenna so a fallback request still reaches the inbox his quote check reads, under the
+  // same subject the backend uses (backend src/services/leadMailer.js).
+  var CC = "uchenna@halamove.co.za";
   // ?s=flyer tags where the visitor came from. The backend keeps letters, digits, : _ and -.
   var s = (new URLSearchParams(location.search).get("s") || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 32);
   var source = s ? "quote:" + s : "quote_page";
@@ -205,7 +208,7 @@ footer{margin-top:56px;color:var(--mu);font-size:14px;display:flex;justify-conte
       }
     }
     function viaMail() {
-      location.href = "mailto:" + TO + "?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+      location.href = "mailto:" + TO + "?cc=" + encodeURIComponent(CC) + "&subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
       thanks(true);
     }
     btn.disabled = true; btn.textContent = "Sending...";
