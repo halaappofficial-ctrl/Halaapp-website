@@ -157,6 +157,21 @@
     $('recenter').addEventListener('click', function () { fitted = false; if (lastView) drawMap(lastView); });
   }
 
+  // A Leaflet tooltip given a STRING sets it as HTML, and an address is typed by a customer. Always a text node.
+  function tip(text) {
+    var el = document.createElement('span');
+    el.textContent = text;
+    return el;
+  }
+  // The driver's photo comes from our own storage. Anything else (a URL a profile could carry) is not loaded,
+  // so the page never calls out to a host we do not run.
+  function safePhoto(url) {
+    try {
+      var u = new URL(url);
+      return u.protocol === 'https:' && /\.supabase\.co$/.test(u.hostname) ? u.href : null;
+    } catch (e) { return null; }
+  }
+
   function pointText(p, i, last) {
     if (i === 0) return 'P';
     if (i === last) return 'D';
@@ -172,7 +187,7 @@
       if (p.lat == null || p.lng == null) return;
       var cls = (i === 0 ? 'pickup' : '') + (p.state === 'done' ? ' done' : '');
       L.marker([p.lat, p.lng], { icon: icon(cls, pointText(p, i, last)), keyboard: false })
-        .bindTooltip(p.label + (p.address ? ': ' + p.address : ''))
+        .bindTooltip(tip(p.label + (p.address ? ': ' + p.address : '')))
         .addTo(layers);
       pts.push([p.lat, p.lng]);
     });
@@ -183,7 +198,7 @@
       driverMarker = L.marker(dp, {
         icon: L.divIcon({ className: '', html: '<div class="mk driver">' + TRUCK + '</div>', iconSize: [38, 38], iconAnchor: [19, 19] }),
         zIndexOffset: 1000, keyboard: false
-      }).bindTooltip((v.driver && v.driver.first_name) || 'Driver').addTo(layers);
+      }).bindTooltip(tip((v.driver && v.driver.first_name) || 'Driver')).addTo(layers);
       all.push(dp);
     }
     if (!fitted && all.length) {
@@ -232,9 +247,10 @@
     if (d) {
       var av = $('avatar');
       av.textContent = '';
-      if (d.photo_url) {
+      var photo = d.photo_url ? safePhoto(d.photo_url) : null;
+      if (photo) {
         var img = document.createElement('img');
-        img.className = 'avatar'; img.alt = ''; img.src = d.photo_url;
+        img.className = 'avatar'; img.alt = ''; img.src = photo;
         img.onerror = function () { av.textContent = (d.first_name || 'D').charAt(0); };
         av.appendChild(img);
       } else {
@@ -256,7 +272,7 @@
       li.className = p.state;
       var dot = document.createElement('div');
       dot.className = 'dot';
-      dot.textContent = p.state === 'done' ? '✓' : pointText(p, i, last);
+      dot.textContent = p.state === 'done' ? '\u2713' : pointText(p, i, last);
       var body = document.createElement('div');
       var t = document.createElement('div');
       t.className = 'ptitle';
