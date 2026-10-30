@@ -175,6 +175,9 @@ function cardFor(slug) {
   // encodeURIComponent throw (a 500). The data is generated plain ASCII; anything else is a fault.
   for (const k of CARD_FIELDS) if (typeof c[k] !== 'string' || !/^[\x20-\x7E]+$/.test(c[k]) || !c[k].trim()) return null;
   if (!/^\+27\d{9}$/.test(c.phone)) return null;
+  // The email becomes a mailto link on the page (2026-10-30), so a value that is not an address is a
+  // fault like a bad number: 404, never a link that opens a mail app on nothing.
+  if (!/^[^\s@<>"'&?]+@[^\s@<>"'&?]+\.[A-Za-z]{2,}$/.test(c.email)) return null;
   return c;
 }
 
@@ -187,6 +190,14 @@ function cardVcf(c) {
     'URL:https://halamove.co.za', 'END:VCARD', ''].join('\r\n');
 }
 
+// +27000000001 -> +27 00 000 0001, grouped the way the card prints a number.
+const cardPhone = (p) => `+27 ${p.slice(3, 5)} ${p.slice(5, 8)} ${p.slice(8)}`;
+
+// EVERY LINE PRINTED ON THE CARD IS ONE TAP HERE (2026-10-30). The page lacked a website someone
+// could tap to open, so they had to type it from the card.
+// The website was a 13px grey footer line that nobody read as a link, and the number and email were
+// not on the page at all. Whoever holds the card should never have to type what they are looking
+// at: the number (tel:), the email (mailto:) and the website (a button) are each one tap.
 function cardPage(slug, c) {
   const wa = `https://wa.me/${c.phone.slice(1)}?text=${encodeURIComponent(`Hi ${c.greet}, we met and you gave me your card.`)}`;
   return `<!doctype html>
@@ -203,22 +214,24 @@ main{width:100%;max-width:420px}
 .wm .h{color:var(--green)}
 h1{font-size:32px;line-height:1.15;font-weight:700;margin:40px 0 6px}
 .t{color:var(--muted);font-size:17px}
+.c{margin-top:16px;font-size:17px;line-height:1.8}
+.c a{color:var(--soft);text-decoration:none;border-bottom:1px solid #444}
 .btns{margin-top:36px;display:grid;gap:12px}
 a.b{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:18px;padding:16px;border-radius:12px}
 a.save{background:var(--green);color:#0A0A0A}
 a.wa{border:2px solid var(--green);color:var(--soft)}
-.foot{margin-top:40px;font-size:13px}
-.foot a{color:var(--muted)}
+a.web{border:2px solid #444;color:var(--soft)}
 </style></head>
 <body><main>
 <div class="wm"><span class="h">HALA</span> MOVE</div>
 <h1>${htmlEsc(c.name)}</h1>
 <p class="t">${htmlEsc(c.title)}</p>
+<p class="c"><a href="tel:${c.phone}">${cardPhone(c.phone)}</a><br><a href="mailto:${htmlEsc(c.email)}">${htmlEsc(c.email)}</a></p>
 <div class="btns">
 <a class="b save" href="/card/${slug}.vcf">Save to contacts</a>
 <a class="b wa" href="${htmlEsc(wa)}">Message on WhatsApp</a>
+<a class="b web" href="https://www.halamove.co.za/">Visit halamove.co.za</a>
 </div>
-<p class="foot"><a href="https://www.halamove.co.za/">halamove.co.za</a></p>
 </main>
 <script>
 try {

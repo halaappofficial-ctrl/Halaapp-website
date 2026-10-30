@@ -97,6 +97,15 @@ const CARD_CASES = [
     r.body.includes('/api/cards/seen') && notOthers(r.body, 'alpha')],
   ['card page: the other founder is separate', () => get('/card/bravo'), r =>
     r.status === 200 && r.body.includes('Test Bravo') && notOthers(r.body, 'bravo')],
+  // 2026-10-30: everything PRINTED on the card is one tap on the page - nobody should type what
+  // they are looking at. The website was a 13px grey footer line that did not read as a link.
+  ['card page: the website is a button, not a footnote', () => get('/card/alpha'), r =>
+    r.status === 200 && /<a class="b web" href="https:\/\/www\.halamove\.co\.za\/">[^<]*halamove\.co\.za<\/a>/.test(r.body)],
+  ['card page: the printed email and number are tappable', () => get('/card/alpha'), r =>
+    r.status === 200 && r.body.includes('href="mailto:alpha@example.com"') && r.body.includes('>alpha@example.com</a>') &&
+    r.body.includes('href="tel:+27000000001"') && r.body.includes('>+27 00 000 0001</a>') && notOthers(r.body, 'alpha')],
+  ['a broken email in data -> 404, never a dead mailto', () =>
+    withEnv(JSON.stringify({ alpha: { ...CARDS.alpha, email: 'not-an-email' } }), () => get('/card/alpha')), r => r.status === 404],
   ['contact file: vCard for that founder only', () => get('/card/alpha.vcf'), r =>
     r.status === 200 && r.type.startsWith('text/vcard') && r.body.startsWith('BEGIN:VCARD\r\nVERSION:3.0\r\n') &&
     r.body.includes('N:Alpha;Test;;;') && r.body.includes('TEL;TYPE=CELL,VOICE:+27000000001') &&
