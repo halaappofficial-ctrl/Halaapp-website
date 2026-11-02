@@ -69,7 +69,10 @@ const pages = [
       ['retailers', 'Retailers and manufacturers'],
       ['universities', 'Universities and schools'],
       ['government', 'Government and municipal'],
-      ['SLA terms', 'SLA terms'],
+      // INVERTED 2026-11-02 ([ERIC] "YES TO ALL 8", item 5): no contract carries agreed SLA terms, so the page
+      // says what IS true - on-time performance is measured on every delivery - and this forbids the promise.
+      ['no agreed-SLA promise (2026-11-02)', null, 'SLA terms'],
+      ['on-time measured, the sourced line', 'On-time performance measured on every delivery'],
       ['ESG reports', 'ESG report'],
       // ⚠️ INVERTED 2026-09-08. These three were mustContain, and that made this file DEMAND
       // THE RETURN OF CLAIMS THE FOUNDER RETRACTED. Commit 858ba97 (2026-08-17, "align the
@@ -93,7 +96,15 @@ const pages = [
       // verify-contact-routes.cjs.
       ['enquiry email is the declared one', 'contact@halamove.co.za'],
       ['no undeclared business@ address', null, 'business@halamove.co.za'],
-      ['pricing tiers table', 'Enterprise'],
+      // INVERTED 2026-11-02 (item 5): the R12,000 / R25,000 tiers, one-month pilots, dedicated account management
+      // and drivers 'locked' to a client had no source anywhere. One sourced price stays: from R5,000/month.
+      ['pricing section present', 'id="pricing"'],
+      ['no invented R12,000 tier (2026-11-02)', null, 'R12,000'],
+      ['no invented R25,000 tier (2026-11-02)', null, 'R25,000'],
+      ['no pilot-contract offer (2026-11-02)', null, 'pilot contract'],
+      ['no account-management promise (2026-11-02)', null, 'account management'],
+      ['no locked-driver promise (2026-11-02)', null, 'locked to the same drivers'],
+      ['no locked-fleet promise (2026-11-02)', null, 'locked fleet'],
       ['toc present', 'On this page'],
       ['CSS intact', '.hero-h1{'],
       ['nav intact', 'nav-inner'],

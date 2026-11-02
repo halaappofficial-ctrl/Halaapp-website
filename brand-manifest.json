@@ -3,8 +3,8 @@
   "_manifest_version": "1.1.0",
   "_generated_at": "2026-11-02",
   "_generated_from": {
-    "backend": "c420e0bc",
-    "mobile": "ac10209c"
+    "backend": "1e76ff20",
+    "mobile": "7ba6b2fb"
   },
   "_trust": {
     "derived_values": "re-derived from source and compared on every push (backend: node scripts/brand-manifest/check.js). A mismatch fails loud and names the value.",
@@ -137,7 +137,7 @@
         "Live in Durban — CBD, Umhlanga, Umlazi, Pinetown, Westville and the metro — plus inter-city trips across KwaZulu-Natal. Johannesburg and Cape Town next."
       ],
       "b2b": [
-        "Fleet contracts from R5,000/month (typical range R15,000–R200,000/month) · contract setup in 24 hours · complaint response within 2 business hours"
+        "Fleet contracts from R5,000/month (typical range R15,000–R200,000/month) · on-time performance measured on every delivery · we reply to an enquiry within two business days"
       ]
     },
     "forbidden": [
