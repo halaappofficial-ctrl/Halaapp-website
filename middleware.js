@@ -321,6 +321,13 @@ const MEDIUM_BY_PREFIX = [
   // install from a video would be filed as a printed board. 'video' rather than 'social' so the
   // channel is separable from Instagram/TikTok in Play Console.
   ['yt-', 'video'],       // YouTube channel links and video descriptions
+  // Links between OUR OWN website pages (2026-11-02): the business enquiry form's owner-driver panel
+  // (/drive?s=web-1veh), the /quote page's supply link (web-quote), and the form's thank-you buttons
+  // (web-done, web-fleet). Its own prefix for the reason given above: without it every install from
+  // the site's own pages would be filed as a printed board. A counted sweep found no printed code
+  // starting 'web-', so no board is relabelled. Spec: hala-backend
+  // docs/research/2026-11-02-lead-form-questions.md, H.5.
+  ['web-', 'web'],        // links between pages of halamove.co.za
 ];
 const MEDIUM_CODED_DEFAULT = 'qr';   // an unrecognised code is a printed board until proven otherwise
 const MEDIUM_NO_CODE = 'direct';     // no ?s= at all: typed, bookmarked, or shared as a bare link

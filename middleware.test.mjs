@@ -56,6 +56,14 @@ const CASES = [
   ['in-app link   -> driver play, in_app', '/drive?s=inapp-login', AND,
     l => l.includes('id=com.hala.driverapp') && medium(l) === 'in_app' && l.includes('utm_campaign%3Dinapp-login')],
 
+  // A link between our own website pages (2026-11-02): the enquiry form's owner-driver panel and its
+  // thank-you buttons. 'web', never 'qr', which is what an unrecognised code would be filed as.
+  ['site link     -> driver play, web',  '/drive?s=web-1veh', AND,
+    l => l.includes('id=com.hala.driverapp') && medium(l) === 'web' && l.includes('utm_campaign%3Dweb-1veh')],
+  ['site link     -> customer play, web', '/get?s=web-done', AND,
+    l => l.includes('id=com.hala.customer') && medium(l) === 'web'],
+  ['site link iOS -> app store + ct',    '/drive?s=web-1veh', IOS, l => l === 'https://apps.apple.com/za/app/id6789447581?ct=web-1veh'],
+
   // The ?s= allow-list is an input boundary on a public URL: anything outside [A-Za-z0-9_-]{1,32}
   // is DROPPED, never echoed into the outbound link - so a hostile code reads as no code at all.
   ['hostile code  -> dropped',           '/get?s=../evil!', AND, l => medium(l) === 'direct' && !l.includes('evil')],

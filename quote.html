@@ -54,39 +54,17 @@ h1 span{color:var(--g)}
 .points strong{display:block;font-weight:700}
 .points span{color:var(--mu);font-size:16px}
 .cover{margin-top:34px;padding-top:22px;border-top:1px solid var(--br);color:var(--mu);font-size:15px}
-form{background:var(--s1);border:1px solid var(--br);border-radius:20px;padding:28px}
-@media (max-width:480px){form{padding:20px}}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
-@media (max-width:560px){.row{grid-template-columns:1fr}}
-.f{display:flex;flex-direction:column;gap:6px;margin-top:16px}
-.row .f{margin-top:16px}
-label,.lg{font-weight:600;font-size:15px}
-.hint{color:var(--mu);font-weight:500;font-size:13px}
-input,select,textarea{font:inherit;font-size:16px;color:var(--fg);background:var(--bk);border:1px solid var(--br);border-radius:10px;padding:12px 14px;width:100%}
-textarea{min-height:96px;resize:vertical}
-input:focus,select:focus,textarea:focus,button:focus-visible,.chip input:focus-visible+span{outline:2px solid var(--g);outline-offset:2px}
-fieldset{border:0;padding:0;margin:18px 0 0}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-.chip{position:relative}
-.chip input{position:absolute;opacity:0;width:1px;height:1px}
-.chip span{display:inline-block;padding:9px 14px;border:1px solid var(--br);border-radius:999px;background:var(--bk);font-weight:600;font-size:15px;cursor:pointer;user-select:none}
-.chip input:checked+span{background:var(--g);border-color:var(--g);color:var(--bk)}
-.consent{display:grid;grid-template-columns:22px 1fr;gap:10px;margin-top:20px;color:#D6D6D6;font-size:15px}
-.consent input{width:20px;height:20px;margin:2px 0 0;accent-color:var(--g)}
-button{margin-top:22px;width:100%;font:700 18px var(--body);background:var(--g);color:var(--bk);border:0;border-radius:12px;padding:16px;cursor:pointer}
-button:hover{background:var(--gd)}
-.err{color:var(--err);font-size:14px;margin-top:10px;min-height:1em}
-.done{background:var(--s1);border:1px solid var(--g);border-radius:20px;padding:32px}
-.done h2{font-family:var(--display);font-weight:900;font-size:34px;margin:0}
-.done p{color:#D6D6D6}
-.done pre{white-space:pre-wrap;background:var(--bk);border:1px solid var(--br);border-radius:10px;padding:14px;font:14px/1.5 ui-monospace,monospace;color:#D6D6D6;overflow-x:auto}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.consent a,footer a{color:var(--g)}
-button[disabled]{opacity:.7;cursor:wait}
-.ghost{background:transparent;color:var(--g);border:1px solid var(--g)}
+/* The form itself is styled by /assets/lead-form.css (shared with the business page). */
+#formbox{scroll-margin-top:16px}
+.jump{display:none}
+@media (max-width:860px){.jump{display:inline-flex;align-items:center;justify-content:center;min-height:48px;margin-top:22px;padding:12px 22px;border-radius:12px;background:var(--g);color:var(--bk);font-weight:700;font-size:17px;text-decoration:none}}
+.supply{margin:18px 0 0;color:var(--mu);font-size:14px;line-height:1.6}
+.supply p{margin:6px 0 0}
+.supply a{color:var(--g)}
+footer a{color:var(--g)}
 footer{margin-top:56px;color:var(--mu);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
-@media (prefers-reduced-motion:no-preference){button{transition:background .15s}}
 </style>
+<link rel="stylesheet" href="/assets/lead-form.css">
 </head>
 <body>
 <div class="wrap">
@@ -100,9 +78,10 @@ footer{margin-top:56px;color:var(--mu);font-size:14px;display:flex;justify-conte
   <div class="eb">For Durban businesses</div>
   <h1>You don't need to own the trucks to <span>keep the promise.</span></h1>
   <p class="lede">Tell us what you move, where and how often. We will come back to you with a plan for your deliveries.</p>
+  <a class="jump" href="#formbox">Start my request</a>
   <ul class="points">
     <li><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#5CB558"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#0A0A0A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Track your driver live</strong><span>See where your goods are, so you have an answer when your customer calls.</span></div></li>
-    <li><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#5CB558"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#0A0A0A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>A timestamped photo at every delivery</strong><span>Payment is not released until it exists. No he said, she said.</span></div></li>
+    <li><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#5CB558"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#0A0A0A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>A timestamped photo at every delivery</strong><span>Payment is held in escrow and released when the customer confirms delivery, or automatically 24 hours after the driver's delivery photo. No he said, she said.</span></div></li>
     <li><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#5CB558"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#0A0A0A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Verified drivers send offers, you choose the price</strong><span>Bakkies, panel vans and trucks.</span></div></li>
     <li><svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#5CB558"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#0A0A0A" stroke-width="2.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><strong>Disputes reviewed with a finding within 24 business hours</strong><span>One place to go when something goes wrong.</span></div></li>
   </ul>
@@ -110,124 +89,21 @@ footer{margin-top:56px;color:var(--mu);font-size:14px;display:flex;justify-conte
 </section>
 
 <section id="formbox">
-<form id="q" novalidate>
-  <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
-  <div class="row">
-    <div class="f"><label for="biz">Business name</label><input id="biz" name="biz" autocomplete="organization" required></div>
-    <div class="f"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required></div>
-  </div>
-  <div class="row">
-    <div class="f"><label for="phone">Phone</label><input id="phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" required placeholder="e.g. 082 123 4567"></div>
-    <div class="f"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
-  </div>
-  <div class="row">
-    <div class="f"><label for="area">Where you dispatch from</label><input id="area" name="area" placeholder="e.g. Pinetown, Riverhorse Valley"></div>
-    <div class="f"><label for="what">What you move</label>
-      <select id="what" name="what"><option value="">Choose one</option><option>Building and hardware materials</option><option>Furniture and appliances</option><option>Event and hire equipment</option><option>Stock and wholesale goods</option><option>Parts and workshop items</option><option>Something else</option></select></div>
-  </div>
-  <fieldset><legend class="lg">Vehicle size <span class="hint">(choose any)</span></legend>
-    <div class="chips" id="veh">
-      <label class="chip"><input type="checkbox" name="veh" value="Bakkie"><span>Bakkie</span></label>
-      <label class="chip"><input type="checkbox" name="veh" value="Panel van"><span>Panel van</span></label>
-      <label class="chip"><input type="checkbox" name="veh" value="H100"><span>H100</span></label>
-      <label class="chip"><input type="checkbox" name="veh" value="1-ton truck"><span>1-ton truck</span></label>
-      <label class="chip"><input type="checkbox" name="veh" value="4-ton truck"><span>4-ton truck</span></label>
-      <label class="chip"><input type="checkbox" name="veh" value="Not sure"><span>Not sure</span></label>
-    </div></fieldset>
-  <fieldset><legend class="lg">Deliveries a week</legend>
-    <div class="chips">
-      <label class="chip"><input type="radio" name="loads" value="1 to 5"><span>1 to 5</span></label>
-      <label class="chip"><input type="radio" name="loads" value="6 to 20"><span>6 to 20</span></label>
-      <label class="chip"><input type="radio" name="loads" value="21 to 50"><span>21 to 50</span></label>
-      <label class="chip"><input type="radio" name="loads" value="More than 50"><span>More than 50</span></label>
-      <label class="chip"><input type="radio" name="loads" value="Now and then"><span>Now and then</span></label>
-    </div></fieldset>
-  <div class="f"><label for="routes">Your usual routes</label><input id="routes" name="routes" placeholder="e.g. Pinetown to Umhlanga, Durban CBD to Pietermaritzburg"></div>
-  <div class="f"><label for="notes">Anything else <span class="hint">(optional)</span></label><textarea id="notes" name="notes" placeholder="The delivery you are least happy with right now, start date, special handling"></textarea></div>
-  <label class="consent"><input type="checkbox" id="ok" name="ok"><span>HALA MOVE may contact me by phone or email about this request. Read how we handle your details in our <a href="/privacy">privacy policy</a>.</span></label>
-  <button type="submit">Send my request</button>
-  <div class="err" id="err" role="alert"></div>
-</form>
+<div id="leadForm" data-page="quote" data-mail-to="contact@halamove.co.za">
+<noscript><div class="lf-noscript">This form needs JavaScript. Email your request to <a href="mailto:contact@halamove.co.za">contact@halamove.co.za</a> or WhatsApp us on <a href="https://wa.me/27760525398">+27 76 052 5398</a>.</div></noscript>
+</div>
+<div class="supply">
+  <p>Have vehicles and want work? <a href="/business-transport-durban?t=fleet#enquire">Fleet owners start here.</a></p>
+  <p>One vehicle and want to drive? <a href="/drive?s=web-quote">Get the HALA MOVE Driver app.</a></p>
+</div>
 </section>
 </div>
 
 <footer><span>&copy; 2026 PROFITSAGE (PTY) LTD trading as HALA MOVE &middot; Durban</span><span><a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a> &middot; <a href="/">halamove.co.za</a></span></footer>
 </div>
 
-<script>
-(function () {
-  // The request goes to the HALA MOVE backend, which stores it as a business lead and tells the
-  // team at once. Only when the backend cannot be reached does the page fall back to opening the
-  // visitor's email app with the request filled in, addressed to the one declared contact address.
-  var SUBMIT_URL = "https://hala-backend-production.up.railway.app/api/interest/business";
-  var TO = "contact@halamove.co.za";
-  // Copied to Uchenna so a fallback request still reaches the inbox his quote check reads, under the
-  // same subject the backend uses (backend src/services/leadMailer.js).
-  var CC = "uchenna@halamove.co.za";
-  // ?s=flyer tags where the visitor came from. The backend keeps letters, digits, : _ and -.
-  var s = (new URLSearchParams(location.search).get("s") || "").replace(/[^A-Za-z0-9_-]/g, "").slice(0, 32);
-  var source = s ? "quote:" + s : "quote_page";
-  var f = document.getElementById("q"), err = document.getElementById("err");
-  var btn = f.querySelector('button[type="submit"]');
-  function val(id) { return (document.getElementById(id).value || "").trim(); }
-  f.addEventListener("submit", function (e) {
-    e.preventDefault(); err.textContent = "";
-    var miss = [["biz","business name"],["name","your name"],["phone","phone number"],["email","email"]].filter(function (p) { return !val(p[0]); }).map(function (p) { return p[1]; });
-    if (miss.length) { err.textContent = "Please add your " + miss.join(", ") + "."; return; }
-    if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(val("email"))) { err.textContent = "Please check the email address."; return; }
-    if (!document.getElementById("ok").checked) { err.textContent = "Please tick the box so we may contact you."; return; }
-    var veh = [].slice.call(document.querySelectorAll('input[name=veh]:checked')).map(function (i) { return i.value; }).join(", ") || "Not given";
-    var lo = document.querySelector('input[name=loads]:checked');
-    var data = { business: val("biz"), name: val("name"), phone: val("phone"), email: val("email"), area: val("area"), goods: val("what"), vehicles: veh, loads_per_week: lo ? lo.value : "Not given", routes: val("routes"), notes: val("notes") };
-    var details = ["Dispatch from: " + (data.area || "Not given"), "What they move: " + (data.goods || "Not given"), "Vehicles: " + data.vehicles, "Deliveries a week: " + data.loads_per_week, "Routes: " + (data.routes || "Not given"), "Notes: " + (data.notes || "None")].join("\n");
-    var subject = "HALA MOVE quote request: " + data.business;
-    var body = ["Business: " + data.business, "Contact: " + data.name, "Phone: " + data.phone, "Email: " + data.email, details, "Source: " + source].join("\n");
-    var payload = {
-      lead_type: "corporate",
-      company_name: data.business.slice(0, 200),
-      contact_name: data.name.slice(0, 120),
-      email: data.email,
-      phone: data.phone,
-      industry: data.goods.slice(0, 120),
-      message: ("Quote page request\n" + details).slice(0, 2000),
-      source: source,
-      website: val("website")
-    };
-    function thanks(viaMail) {
-      var box = document.getElementById("formbox");
-      box.innerHTML = '<div class="done"><h2>Thank you.</h2>' + (viaMail
-        ? '<p>We could not reach our server, so your email app should open with your request filled in. Press send there to reach us. If it did not open, copy the text below and email it to <strong>' + TO + '</strong>.</p><pre id="txt"></pre><button class="ghost" id="cp" type="button">Copy request</button>'
-        : '<p>We have your request and will contact you on the number you gave us.</p>') + '</div>';
-      if (viaMail) {
-        document.getElementById("txt").textContent = subject + "\n\n" + body;
-        document.getElementById("cp").addEventListener("click", function () {
-          var b = this;
-          function sel() { var r = document.createRange(); r.selectNodeContents(document.getElementById("txt")); var g = getSelection(); g.removeAllRanges(); g.addRange(r); }
-          try { navigator.clipboard.writeText(subject + "\n\n" + body).then(function () { b.textContent = "Copied"; }, sel); } catch (x) { sel(); }
-        });
-      }
-    }
-    function viaMail() {
-      location.href = "mailto:" + TO + "?cc=" + encodeURIComponent(CC) + "&subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
-      thanks(true);
-    }
-    btn.disabled = true; btn.textContent = "Sending...";
-    fetch(SUBMIT_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) })
-      .then(function (r) {
-        if (r.ok) { thanks(false); return; }
-        return r.json().catch(function () { return {}; }).then(function (j) {
-          // A 400 is something the visitor can fix, and the server says what. Anything else
-          // (rate limit, server error) falls back to email so the request is not lost.
-          if (r.status === 400 && j && j.error) {
-            err.textContent = j.error; btn.disabled = false; btn.textContent = "Send my request";
-            return;
-          }
-          viaMail();
-        });
-      })
-      .catch(viaMail);
-  });
-})();
-</script>
+<!-- The form: question set, validation and sending live in one file shared with the business page. -->
+<script defer src="/assets/first-touch.js"></script>
+<script defer src="/assets/lead-form.js"></script>
 </body>
 </html>

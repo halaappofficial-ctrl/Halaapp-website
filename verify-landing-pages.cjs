@@ -18,7 +18,11 @@ const pages = [
       ['schema faq id', 'student-moving-durban#faq'],
       ['schema breadcrumb name', '"name": "Student Moving Durban"'],
       ['h1', '<h1 class="page-title">Student Moving in Durban</h1>'],
-      ['launching 2026', 'Launching 2026'],
+      // INVERTED 2026-11-02, the same way as the 858ba97 block below. This was mustContain, so the suite
+      // DEMANDED a launch-date claim on a platform that went live in July 2026 (both apps in both
+      // stores). A sensor that demands a false line is a hazard: anyone 'fixing' the page to make it
+      // green would put the claim back. It now forbids it.
+      ['no launching claim (live since July 2026)', null, 'Launching 2026'],
       ['UKZN mention', 'UKZN'],
       ['DUT mention', 'DUT'],
       ['MUT mention', 'MUT'],
@@ -53,7 +57,11 @@ const pages = [
       ['schema breadcrumb name', '"name": "Business Transport Durban"'],
       ['schema offer price', '"price": "5000"'],
       ['h1', '<h1 class="page-title">Business Transport in Durban</h1>'],
-      ['launching 2026', 'Launching 2026'],
+      // INVERTED 2026-11-02, the same way as the 858ba97 block below. This was mustContain, so the suite
+      // DEMANDED a launch-date claim on a platform that went live in July 2026 (both apps in both
+      // stores). A sensor that demands a false line is a hazard: anyone 'fixing' the page to make it
+      // green would put the claim back. It now forbids it.
+      ['no launching claim (live since July 2026)', null, 'Launching 2026'],
       ['R5,000 anchor', 'R5,000/month'],
       ['construction', 'Construction companies'],
       ['medical', 'Medical facilities'],

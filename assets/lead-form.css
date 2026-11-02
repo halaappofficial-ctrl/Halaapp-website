@@ -1,0 +1,99 @@
+/*
+ * HALA MOVE - styles for the enquiry form in assets/lead-form.js (/quote and /business-transport-durban).
+ * Everything is scoped under .lf and carries its own colours, so the form reads the same on both pages
+ * whatever each page's own variables are called. Load it AFTER the page's own <style> block: on the
+ * business page a .prose rule and an .lf rule of equal weight must resolve in the form's favour.
+ * Touch targets are at least 44px; inputs are 16px so iPhones do not zoom on focus.
+ */
+.lf{--lf-g:#5CB558;--lf-gd:#4A9947;--lf-bg:#0A0A0A;--lf-s:#1A1A1A;--lf-b:#2A2A2A;--lf-t:#FFFFFF;--lf-mu:#A3A3A3;--lf-soft:#D6D6D6;--lf-err:#FF8A80;
+  color:var(--lf-t);font-size:16px;line-height:1.5;text-align:left;max-width:720px}
+.lf *,.lf *::before,.lf *::after{box-sizing:border-box}
+.lf [hidden]{display:none !important}
+.lf .lf-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+.lf .lf-card{background:var(--lf-s);border:1px solid var(--lf-b);border-radius:20px;padding:28px;margin:0}
+@media (max-width:480px){.lf .lf-card{padding:20px 16px;border-radius:16px}}
+
+.lf .lf-title{font-family:inherit;font-weight:800;font-size:24px;line-height:1.2;letter-spacing:0;color:var(--lf-t);margin:0;padding:0;border:0;outline:none}
+.lf .lf-intro{color:var(--lf-soft);font-size:15px;line-height:1.55;margin:8px 0 0}
+.lf .lf-progress{color:var(--lf-g);font-weight:700;font-size:13px;letter-spacing:.12em;text-transform:uppercase;margin:24px 0 0}
+.lf .lf-step-title{font-family:inherit;font-weight:700;font-size:20px;line-height:1.3;color:var(--lf-t);margin:4px 0 0;padding:0;border:0;outline:none}
+.lf .lf-text{color:var(--lf-soft);font-size:16px;line-height:1.6;margin:14px 0 0}
+.lf .lf-text strong{color:var(--lf-t);font-weight:700}
+.lf .lf-gap{margin-top:26px;padding-top:20px;border-top:1px solid var(--lf-b)}
+.lf a{color:var(--lf-g);text-decoration:underline;text-underline-offset:3px}
+
+.lf .lf-summary{margin:18px 0 0;padding:12px 14px;border:1px solid var(--lf-err);border-left-width:4px;border-radius:10px;color:var(--lf-t);font-weight:700;font-size:15px;outline:none}
+
+.lf .lf-q{margin:24px 0 0;padding:0;border:0;min-width:0}
+.lf .lf-q.lf-invalid{border-left:3px solid var(--lf-err);padding-left:12px}
+.lf .lf-label{display:block;float:none;width:auto;font-family:inherit;font-weight:700;font-size:16px;line-height:1.35;color:var(--lf-t);margin:0;padding:0}
+.lf .lf-sub{font-weight:600;font-size:15px;margin-top:12px}
+.lf .lf-opt{color:var(--lf-mu);font-weight:500}
+.lf .lf-hint{color:var(--lf-mu);font-size:14px;line-height:1.45;margin:4px 0 0}
+.lf .lf-error{color:var(--lf-err);font-weight:700;font-size:14px;line-height:1.4;margin:6px 0 0}
+
+.lf input[type=text],.lf input[type=tel],.lf input[type=email],.lf input[type=number],.lf textarea{
+  display:block;width:100%;min-height:48px;margin:8px 0 0;padding:12px 14px;font-family:inherit;font-size:16px;line-height:1.4;
+  color:var(--lf-t);background:var(--lf-bg);border:1px solid var(--lf-b);border-radius:10px;outline:none;-webkit-appearance:none;appearance:none}
+.lf textarea{min-height:110px;resize:vertical}
+.lf input::placeholder,.lf textarea::placeholder{color:#7A7A7A;opacity:1}
+.lf input:focus,.lf textarea:focus{border-color:var(--lf-g);box-shadow:0 0 0 2px rgba(92,181,88,.35)}
+.lf .lf-invalid input[type=text],.lf .lf-invalid input[type=tel],.lf .lf-invalid input[type=email],.lf .lf-invalid input[type=number],.lf .lf-invalid textarea{border-color:var(--lf-err)}
+
+.lf .lf-chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 0}
+.lf .lf-chips-wide .lf-chip{flex:1 1 220px}
+.lf .lf-chip{position:relative;display:block;cursor:pointer;margin:0}
+.lf .lf-chip input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.lf .lf-chip-box{display:flex;flex-direction:column;justify-content:center;min-height:44px;height:100%;padding:9px 14px;border:1px solid var(--lf-b);border-radius:12px;background:var(--lf-bg);color:var(--lf-t);user-select:none}
+.lf .lf-chip-t{font-weight:600;font-size:15px;line-height:1.3}
+.lf .lf-chip-d{font-weight:500;font-size:13px;line-height:1.35;color:var(--lf-mu);margin-top:2px}
+.lf .lf-chip:hover .lf-chip-box{border-color:#3D3D3D}
+.lf .lf-chip input:checked+.lf-chip-box{background:var(--lf-g);border-color:var(--lf-g);color:var(--lf-bg)}
+.lf .lf-chip input:checked+.lf-chip-box .lf-chip-d{color:#14301A}
+.lf .lf-chip input:focus-visible+.lf-chip-box{outline:2px solid var(--lf-g);outline-offset:2px}
+
+.lf .lf-note{margin:10px 0 0;padding:10px 12px;border-left:3px solid var(--lf-g);border-radius:0 8px 8px 0;background:rgba(92,181,88,.08);color:var(--lf-soft);font-size:14px;line-height:1.5}
+.lf .lf-reveal{margin:4px 0 0}
+
+.lf .lf-consent{display:grid;grid-template-columns:24px 1fr;gap:10px;align-items:start;cursor:pointer;color:var(--lf-soft);font-size:15px;line-height:1.5;margin:0}
+.lf .lf-consent input{width:22px;height:22px;margin:1px 0 0;accent-color:var(--lf-g);cursor:pointer}
+
+.lf .lf-actions{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 0}
+.lf .lf-btn{display:inline-flex;align-items:center;justify-content:center;flex:1 1 auto;min-height:52px;margin:0;padding:14px 22px;
+  font-family:inherit;font-weight:700;font-size:17px;line-height:1.2;text-align:center;text-decoration:none;cursor:pointer;
+  color:var(--lf-bg);background:var(--lf-g);border:1px solid var(--lf-g);border-radius:12px;-webkit-appearance:none;appearance:none}
+.lf .lf-btn:hover{background:var(--lf-gd);border-color:var(--lf-gd);color:var(--lf-bg)}
+.lf .lf-btn:focus-visible{outline:2px solid var(--lf-t);outline-offset:2px}
+.lf .lf-btn-ghost{background:transparent;color:var(--lf-g)}
+.lf .lf-btn-ghost:hover{background:rgba(92,181,88,.12);color:var(--lf-g)}
+.lf .lf-back{flex:0 0 auto;min-width:110px}
+.lf .lf-btn[disabled]{opacity:.7;cursor:wait}
+@media (prefers-reduced-motion:no-preference){.lf .lf-btn,.lf .lf-chip-box{transition:background-color .15s,border-color .15s}}
+
+.lf .lf-fail{margin:20px 0 0;padding:16px;border:1px solid var(--lf-err);border-radius:12px}
+.lf .lf-fail .lf-text{margin:0}
+.lf .lf-fail .lf-actions{margin-top:14px}
+.lf .lf-fail .lf-btn{font-size:15px;min-height:48px;padding:12px 16px}
+.lf .lf-pre{white-space:pre-wrap;word-break:break-word;max-height:240px;overflow:auto;margin:14px 0 0;padding:12px;background:var(--lf-bg);border:1px solid var(--lf-b);border-radius:10px;font:13px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:var(--lf-soft)}
+
+.lf .lf-hp{position:absolute !important;left:-9999px !important;width:1px !important;height:1px !important;overflow:hidden}
+
+.lf .lf-doors{margin:0 0 18px;padding:0;border:0;min-width:0}
+.lf .lf-doors-legend{margin-bottom:10px}
+.lf .lf-door-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+@media (max-width:640px){.lf .lf-door-grid{grid-template-columns:1fr}}
+.lf .lf-door{position:relative;display:block;cursor:pointer;margin:0}
+.lf .lf-door input{position:absolute;opacity:0;width:1px;height:1px;margin:0;pointer-events:none}
+.lf .lf-door-box{display:flex;flex-direction:column;justify-content:center;height:100%;min-height:72px;padding:14px 16px;border:1px solid var(--lf-b);border-radius:14px;background:var(--lf-s)}
+.lf .lf-door-t{font-weight:700;font-size:16px;line-height:1.3;color:var(--lf-t)}
+.lf .lf-door-d{font-size:14px;line-height:1.4;color:var(--lf-mu);margin-top:4px}
+.lf .lf-door:hover .lf-door-box{border-color:#3D3D3D}
+.lf .lf-door input:checked+.lf-door-box{border-color:var(--lf-g);background:rgba(92,181,88,.1);box-shadow:inset 0 0 0 1px var(--lf-g)}
+.lf .lf-door input:focus-visible+.lf-door-box{outline:2px solid var(--lf-g);outline-offset:2px}
+
+.lf .lf-panel .lf-hint{margin-top:10px}
+.lf .lf-done{border-color:var(--lf-g)}
+
+.lf-noscript{background:#1A1A1A;border:1px solid #2A2A2A;border-radius:14px;padding:18px;color:#D6D6D6;font-size:15px;line-height:1.6}
+.lf-noscript a{color:#5CB558}

@@ -3,8 +3,8 @@
   "_manifest_version": "1.1.0",
   "_generated_at": "2026-11-02",
   "_generated_from": {
-    "backend": "9b23b4e",
-    "mobile": "153d8a7"
+    "backend": "c420e0bc",
+    "mobile": "ac10209c"
   },
   "_trust": {
     "derived_values": "re-derived from source and compared on every push (backend: node scripts/brand-manifest/check.js). A mismatch fails loud and names the value.",
@@ -119,7 +119,7 @@
       "fleet": [
         "See where every driver on your account is right now, with the time of their last update",
         "Every delivery ends with a photo, timestamped by our servers",
-        "The driver is not paid until the delivery photo exists",
+        "Payment is held in escrow and released when the customer confirms delivery, or automatically 24 hours after the driver's delivery photo",
         "On-time performance measured on every delivery, reported per job and as a percentage",
         "CO2 per vehicle, per route and per delivery — exportable for your ESG reporting",
         "Your job history, exportable to CSV",

@@ -1117,6 +1117,7 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
 <script defer src="https://cdn.jsdelivr.net/npm/motion@11.15.0/dist/motion.min.js" onerror="document.documentElement.classList.add('motion-failed')"></script>
 <!-- HALA motion wiring -->
 <script defer src="assets/motion.js" onerror="document.documentElement.classList.add('motion-failed')"></script>
+<link rel="stylesheet" href="/assets/lead-form.css">
 </head>
 <body>
 <!-- NAVIGATION -->
@@ -1146,12 +1147,12 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
    <li><a href="/#drivers">For Drivers</a></li>
    <li><a href="/#business">For Business</a></li>
    <li><a href="/quote">Get a Quote</a></li>
-   <li><a href="#download">Download</a></li>
+   <li><a href="/get">Download</a></li>
   </ul>
 
   <div class="nav-btns">
-   <a href="#download" class="btn btn-ghost btn-sm" aria-label="Download the app">Download App</a>
-   <a href="#download" class="btn btn-green btn-sm" id="nav-cta">Get Started</a>
+   <a href="/get" class="btn btn-ghost btn-sm" aria-label="Download the app">Download App</a>
+   <a href="/get" class="btn btn-green btn-sm" id="nav-cta">Get Started</a>
   </div>
 
  </div>
@@ -1162,7 +1163,7 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
   <h1 class="page-title">Business Transport in Durban</h1>
   <p style="font-size:1rem;color:var(--t2);max-width:680px;line-height:1.75">Your customer phones to ask where their delivery is, and you have to phone somebody else and hope. Your name is on work done by a driver you have never met, and owning vehicles means paying for them on the days nothing moves. <strong>You should not have to own the trucks to be the one who keeps the promise.</strong> HALA MOVE runs formal B2B contracts in KwaZulu-Natal from <strong>R5,000/month</strong>: live vehicle positions, on-time measured on every single job, a timestamped photo per delivery, CO2 per route for your ESG reporting, CSV export into your own systems, and one monthly invoice. Every vehicle class, from a small bakkie to a 4-tonne truck.</p>
   <div class="page-meta">
-   <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#666" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#666" stroke-width="1.2" stroke-linecap="round"/></svg> Durban, KwaZulu-Natal &middot; Launching 2026</span>
+   <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#666" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#666" stroke-width="1.2" stroke-linecap="round"/></svg> Durban, KwaZulu-Natal &middot; Live now</span>
    <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4l-3.5 2.5 1.5 4L6.5 9 3 11.5l1.5-4L1 5h4z" stroke="#666" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg> SLA terms &middot; ESG reporting &middot; Verified fleet</span>
   </div>
  </div>
@@ -1177,7 +1178,7 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
    <a href="#compliance">Compliance &amp; ESG</a>
    <a href="#pricing">Contract tiers</a>
    <a href="#faq">FAQ</a>
-   <a href="#download">Get in touch</a>
+   <a href="#enquire">Get in touch</a>
   </div>
    <div class="prose">
 <h2 class="section-anchor" id="how-it-works">How HALA MOVE business contracts work</h2>
@@ -1225,19 +1226,20 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
 <h2 class="section-anchor" id="fleet">Fleet &amp; coverage</h2>
 <p>HALA MOVE business contracts draw from the full verified fleet:</p>
 <ul>
- <li><strong>Bakkies (1-ton):</strong> Small runs, urgent dispatch, single-item delivery, tool transport.</li>
- <li><strong>Hyundai H100 &amp; panel vans:</strong> Enclosed cargo, fragile goods, medical delivery, e-commerce last-mile.</li>
+ <li><strong>Bakkies (small and large):</strong> Small runs, urgent dispatch, single-item delivery, tool transport.</li>
+ <li><strong>1-ton trucks, including the Hyundai H100:</strong> Bigger loads than a bakkie: building materials, appliances, stock runs.</li>
+ <li><strong>Panel vans:</strong> Enclosed and weatherproof: fragile goods, e-commerce last-mile, medical supplies that need no temperature control.</li>
  <li><strong>4-tonne trucks:</strong> Warehouse-to-store replenishment, mid-size construction runs, bulk deliveries.</li>
 </ul>
-<p><strong>Coverage:</strong> Durban metro and the full KwaZulu-Natal province. Standard contract coverage includes Durban Central, Umhlanga, Ballito, Umlazi, Chatsworth, Pinetown, Westville, Phoenix, Verulam, Hillcrest, Amanzimtoti, Pietermaritzburg, Richards Bay, Empangeni, Port Shepstone, and Howick. Inter-provincial contracts available on request.</p>
+<p><strong>Coverage:</strong> HALA MOVE&rsquo;s verified drivers are based across the Durban metro, and that is where offers arrive fastest: Durban Central, Umhlanga, Umlazi, Chatsworth, Pinetown, Westville, Phoenix, Verulam, Hillcrest and Amanzimtoti. Ballito, Pietermaritzburg, Richards Bay, Empangeni, Port Shepstone and Howick are runs you can request: long-distance trips a Durban driver takes on, not areas with drivers based in them, so allow more time for an offer and expect a distance-based price. Inter-provincial contracts available on request.</p>
 
 <h2 class="section-anchor" id="compliance">Compliance, accountability &amp; ESG</h2>
 
 <h3>Driver ID verification against SA government database</h3>
-<p>Every driver on a HALA MOVE business contract has had their South African ID verified against the government database, driver&rsquo;s licence confirmed, vehicle licence disc checked, and bank account verified before they see a single job on your account. No unverified driver ever works on HALA MOVE &mdash; ever.</p>
+<p>Every driver on HALA MOVE is identity-verified before their first job: SA ID checked against the government database, selfie face-match, driver&rsquo;s licence, vehicle licence disc and bank account, typically within 24 hours.</p>
 
 <h3>Timestamped photo proof of delivery on every job</h3>
-<p>Every delivery on your contract ends with a photo captured by the driver and timestamped by our servers, stored in the cloud and linked to the job record. The driver is not paid until that photo exists. Essential for construction site sign-off, medical compliance, and any contract requiring an audit trail.</p>
+<p>Every delivery on your contract ends with a photo captured by the driver and timestamped by our servers, stored in the cloud and linked to the job record. Payment is held in escrow and released when the customer confirms delivery, or automatically 24 hours after the driver&rsquo;s delivery photo. Essential for construction site sign-off, medical compliance, and any contract requiring an audit trail.</p>
 
 <h3>Live vehicle tracking on every job</h3>
 <p>Every vehicle on your contract shows on a live map with the time of its last update. Your ops team sees where each driver is right now, and your customer service team can answer &ldquo;where is it?&rdquo; before the customer calls. Historical route replay is on the roadmap; what the job record carries today is the live position while the job runs and the timestamped delivery photo at the end of it.</p>
@@ -1286,60 +1288,14 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
 <p>Yes. HALA MOVE offers one-month pilot contracts so your ops, finance, and compliance teams can evaluate the platform against your actual workflows before committing to a longer agreement. Pilot contracts include everything in the starter tier and can be scaled up or down at the end of the month.</p>
 
 <h3>Which KwaZulu-Natal areas do business contracts cover?</h3>
-<p>HALA MOVE business contracts cover Durban metro and the full KZN province including Umhlanga, Ballito, Umlazi, Chatsworth, Pinetown, Westville, Phoenix, Verulam, Hillcrest, Amanzimtoti, Pietermaritzburg, Richards Bay, Empangeni, Port Shepstone, and Howick. Inter-provincial contracts are available on request.</p>
+<p>HALA MOVE&rsquo;s verified drivers are based across the Durban metro, and that is where offers arrive fastest: Umhlanga, Umlazi, Chatsworth, Pinetown, Westville, Phoenix, Verulam, Hillcrest, Amanzimtoti and the rest of the metro. Ballito, Pietermaritzburg, Richards Bay, Empangeni, Port Shepstone and Howick are runs you can request: long-distance trips a Durban driver takes on, not areas with drivers based in them, so allow more time for an offer and expect a distance-based price. Inter-provincial contracts are available on request.</p>
 
-<h2 class="section-anchor" id="download">Talk to HALA MOVE business</h2>
-<p>Tell us your routes, volume and SLA needs and we will come back with a scoped proposal within two business days. Fleet owner with your own vehicles? Use the same form &mdash; we onboard fleets too.</p>
+<h2 class="section-anchor" id="enquire">Talk to HALA MOVE business</h2>
+<p>Tell us your routes, volume and SLA needs and we will come back with a scoped proposal within two business days. Run two or more vehicles? Choose &ldquo;I run vehicles and want work&rdquo; below. One vehicle? The form points you to the HALA MOVE Driver app.</p>
 
-<style>
- .bl-form{background:var(--s);border:1px solid var(--b);border-radius:14px;padding:26px;margin:22px 0;max-width:720px;}
- .bl-row{display:flex;gap:14px;flex-wrap:wrap;}
- .bl-f{flex:1 1 220px;margin-bottom:14px;}
- .bl-f label{display:block;font-size:0.78rem;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;}
- .bl-f input,.bl-f select,.bl-f textarea{width:100%;background:var(--bg);border:1px solid var(--b);border-radius:9px;color:var(--t);padding:11px 13px;font-size:0.95rem;font-family:inherit;outline:none;}
- .bl-f input:focus,.bl-f select:focus,.bl-f textarea:focus{border-color:var(--g);}
- .bl-f textarea{min-height:88px;resize:vertical;}
- .bl-pills{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap;}
- .bl-pill{background:var(--bg);border:1px solid var(--b);border-radius:999px;padding:9px 18px;cursor:pointer;font-size:0.9rem;color:var(--t2);font-weight:600;}
- .bl-pill.active{border-color:var(--g);color:var(--g);background:rgba(92,181,88,.1);}
- .bl-hp{position:absolute!important;left:-9999px!important;width:1px!important;height:1px!important;overflow:hidden;}
- .bl-msg{margin-top:14px;font-size:0.95rem;display:none;}
- .bl-msg.ok{display:block;color:var(--g);} .bl-msg.err{display:block;color:var(--err);}
- .bl-only-fleet{display:none;}
- .bl-note{font-size:0.82rem;color:var(--t2);margin-top:-6px;margin-bottom:14px;}
-</style>
-
-<form class="bl-form" id="blForm" novalidate>
- <div class="bl-pills" role="group" aria-label="Enquiry type">
-  <span class="bl-pill active" data-type="corporate" role="button" tabindex="0" aria-pressed="true">I need transport</span>
-  <span class="bl-pill" data-type="fleet" role="button" tabindex="0" aria-pressed="false">I own a fleet</span>
- </div>
-
- <div class="bl-row">
-  <div class="bl-f"><label for="blCompany">Company name</label><input type="text" id="blCompany" autocomplete="organization" required /></div>
-  <div class="bl-f"><label for="blContact">Your name</label><input type="text" id="blContact" autocomplete="name" /></div>
- </div>
- <div class="bl-row">
-  <div class="bl-f"><label for="blEmail">Email</label><input type="email" id="blEmail" autocomplete="email" /></div>
-  <div class="bl-f"><label for="blPhone">Phone</label><input type="tel" id="blPhone" autocomplete="tel" placeholder="+27..." /></div>
- </div>
- <div class="bl-row">
-  <div class="bl-f bl-only-corp"><label for="blVolume">Roughly how many deliveries a month?</label><input type="number" id="blVolume" min="0" inputmode="numeric" /></div>
-  <div class="bl-f bl-only-fleet"><label for="blVehicles">How many vehicles do you run?</label><input type="number" id="blVehicles" min="0" inputmode="numeric" /></div>
-  <div class="bl-f"><label for="blIndustry">Industry</label><input type="text" id="blIndustry" placeholder="Construction, retail, medical, e-commerce..." /></div>
- </div>
- <div class="bl-f bl-only-fleet">
-  <label for="blFridge">Do you run refrigerated vehicles?</label>
-  <select id="blFridge"><option value="">Prefer not to say</option><option value="true">Yes</option><option value="false">No</option></select>
- </div>
- <p class="bl-note bl-only-fleet">We are asked for cold-chain regularly and cannot currently carry it. If you run refrigerated vehicles, tell us &mdash; it moves you to the front of the queue.</p>
- <div class="bl-f"><label for="blMessage">What do you need moved, and on what routes?</label><textarea id="blMessage" maxlength="2000"></textarea></div>
-
- <div class="bl-hp"><label for="blWebsite">Website</label><input type="text" id="blWebsite" tabindex="-1" autocomplete="off" /></div>
-
- <button type="submit" class="btn btn-green" id="blSubmit">Send enquiry</button>
- <div class="bl-msg" id="blMsg" role="status" aria-live="polite"></div>
-</form>
+<div id="leadForm" data-page="business" data-doors="1" data-heading="3" data-mail-to="contact@halamove.co.za">
+<noscript><div class="lf-noscript">This form needs JavaScript. Email your enquiry to <a href="mailto:contact@halamove.co.za">contact@halamove.co.za</a> or WhatsApp us on <a href="https://wa.me/27760525398">+27 76 052 5398</a>.</div></noscript>
+</div>
 
 <p>Prefer email? <a href="mailto:contact@halamove.co.za">contact@halamove.co.za</a> &nbsp; &middot; &nbsp; <a href="/download" class="btn btn-ghost">Download the app</a></p>
 <p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Questions? See our full <a href="/faq">FAQ</a>, read about <a href="/about">our story</a>, or WhatsApp us using the green button on the bottom-right of this page. PROFITSAGE (PTY) LTD trading as HALA MOVE is a private company registered in South Africa (registration number 2025/087445/07) and operates from Durban, KwaZulu-Natal.</p>
@@ -1385,7 +1341,7 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
      <li><a href="/#business">For Business</a></li>
      <li><a href="/quote">Business Quote</a></li>
      <li><a href="/#customers">How It Works</a></li>
-     <li><a href="#download">Download App</a></li>
+     <li><a href="/get">Download App</a></li>
     </ul>
    </div>
    <div class="footer-col">
@@ -1413,8 +1369,8 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
   <div class="footer-bottom">
    <span>© 2026 PROFITSAGE (PTY) LTD trading as HALA MOVE · Made in South Africa 🇿🇦</span>
    <div class="footer-bottom-links">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
     <a href="mailto:contact@halamove.co.za">Contact</a>
    </div>
   </div>
@@ -1669,92 +1625,8 @@ window.addEventListener('load', () => {
 });
 </script>
 
-<script>
-/* B2B / fleet lead capture -> POST /api/interest/business
-   Same shape as the consumer form on index.html: IIFE, ES5, honeypot, disabled button.
-   Writes to business_leads, NOT interest_signups: that table dedupes on email and returns
-   idempotent success, so an enquiry from someone already on the consumer waitlist would be
-   silently swallowed. A lost B2B lead is the most expensive silent failure we have. */
-(function(){
- var form=document.getElementById('blForm'); if(!form) return;
- var API='https://hala-backend-production.up.railway.app/api/interest/business';
- var type='corporate';
- var qs=new URLSearchParams(location.search);
- var source=(qs.get('s')||'').replace(/[^a-zA-Z0-9:_-]/g,'').slice(0,60)||'business_page';
- /* ?t=fleet lets outreach to fleet owners land on the right form already selected. */
- var tParam=(qs.get('t')||'').toLowerCase();
-
- var pills=document.querySelectorAll('.bl-pill');
- function applyType(t){
-  type=t;
-  for(var i=0;i<pills.length;i++){
-   var on=pills[i].getAttribute('data-type')===t;
-   pills[i].classList.toggle('active',on);
-   pills[i].setAttribute('aria-pressed',on?'true':'false');
-  }
-  var fleet=document.querySelectorAll('.bl-only-fleet'), corp=document.querySelectorAll('.bl-only-corp');
-  for(var f=0;f<fleet.length;f++){ fleet[f].style.display=(t==='fleet')?'block':'none'; }
-  for(var c=0;c<corp.length;c++){ corp[c].style.display=(t==='fleet')?'none':'block'; }
- }
- for(var i=0;i<pills.length;i++){ (function(p){
-  p.addEventListener('click',function(){ applyType(p.getAttribute('data-type')); });
-  p.addEventListener('keydown',function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); applyType(p.getAttribute('data-type')); } });
- })(pills[i]); }
- applyType(tParam==='fleet'?'fleet':'corporate');
-
- var msg=document.getElementById('blMsg'), btn=document.getElementById('blSubmit');
- function fail(t){ msg.textContent=t; msg.className='bl-msg err'; }
-
- form.addEventListener('submit',function(e){
-  e.preventDefault();
-  if(document.getElementById('blWebsite').value.trim()!==''){ return; }
-
-  var company=document.getElementById('blCompany').value.trim();
-  var email=document.getElementById('blEmail').value.trim();
-  var phone=document.getElementById('blPhone').value.trim();
-  msg.className='bl-msg';
-
-  if(!company){ return fail('Please enter your company name.'); }
-  if(!email && !phone){ return fail('Please give us an email or a phone number so we can reply.'); }
-  if(email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ return fail('Please enter a valid email address.'); }
-
-  /* Empty string, not 0 — an unanswered number must reach the server as absent, never as a
-     figure the prospect never gave. */
-  var vehicles=document.getElementById('blVehicles').value.trim();
-  var volume=document.getElementById('blVolume').value.trim();
-  var fridge=document.getElementById('blFridge').value;
-
-  var payload={
-   lead_type:type, company_name:company,
-   contact_name:document.getElementById('blContact').value.trim(),
-   email:email, phone:phone,
-   industry:document.getElementById('blIndustry').value.trim(),
-   message:document.getElementById('blMessage').value.trim(),
-   source:source
-  };
-  if(type==='fleet'){
-   if(vehicles!==''){ payload.vehicle_count=vehicles; }
-   if(fridge!==''){ payload.has_refrigerated=fridge; }
-  } else if(volume!==''){ payload.monthly_volume=volume; }
-
-  btn.disabled=true; btn.textContent='Sending...';
-  fetch(API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-   .then(function(r){ return r.json().then(function(d){ return {ok:r.ok,d:d}; },function(){ return {ok:r.ok,d:{}}; }); })
-   .then(function(res){
-    if(res.ok){
-     msg.textContent='Thank you - we have your enquiry and will come back within two business days.';
-     msg.className='bl-msg ok'; form.reset(); applyType(type); btn.textContent='Sent';
-    } else {
-     fail((res.d&&res.d.error)||'Something went wrong and your enquiry was not saved. Please email contact@halamove.co.za or WhatsApp +27 76 052 5398 and we will pick it up.');
-     btn.disabled=false; btn.textContent='Send enquiry';
-    }
-   })
-   .catch(function(){
-    fail('Network error - your enquiry was not saved. Please email contact@halamove.co.za or WhatsApp +27 76 052 5398 and we will pick it up.');
-    btn.disabled=false; btn.textContent='Send enquiry';
-   });
- });
-})();
-</script>
+<!-- Business and fleet enquiry form: one file shared with /quote (spec: hala-backend docs/research/2026-11-02-lead-form-questions.md). -->
+<script defer src="/assets/first-touch.js"></script>
+<script defer src="/assets/lead-form.js"></script>
 </body>
 </html>

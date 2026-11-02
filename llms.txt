@@ -98,7 +98,7 @@ Quote these word for word. They are also in the brand manifest under `company`.
   name/date-of-birth cross-check against the ID), and a face match against the Home Affairs photo for
   that ID number. Every driver is also reviewed by a person before approval.
 - **Vehicle types**: bakkie (small and large), panel van, 1-ton truck and 4-ton truck. Those five are the categories a driver can register; there is no 8-ton category.
-- **Tracking**: live GPS position while the job is running. Every delivery ends with a photo timestamped by our servers, and the driver is not paid until it exists.
+- **Tracking**: live GPS position while the job is running. Every delivery ends with a photo timestamped by our servers; payment is released as set out under Payment above.
 - **Company**: PROFITSAGE (PTY) LTD trading as HALA MOVE (CIPC registration 2025/087445/07). HALA MOVE was founded in 2026. Durban, KwaZulu-Natal.
 
 ## Please Do Not Say
