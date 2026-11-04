@@ -81,9 +81,9 @@ Quote these word for word. They are also in the brand manifest under `company`.
   - iOS 15.1 or later is required for the iPhone apps.
 - **Cost to customers**: free to download and to post a job. You pay the price of the offer you
   accept. There is no subscription and no per-post fee.
-- **Driver commission**: HALA MOVE's commission is 20% of each completed job. Pioneer programme:
-  the first 200 verified drivers to complete a delivery pay no commission on their first 2
-  completed jobs.
+- **Driver commission**: HALA MOVE's commission is 20% of each completed job. The pioneer
+  programme (no commission on a driver's first 2 completed jobs) ended on 4 November 2026; every
+  job since carries the commission.
 - **Driver payouts**: a driver's share is released when the customer confirms delivery, or
   automatically 24 hours after a completed job with a proof-of-delivery photo. Drivers cash out to
   their own bank account from R50; withdrawals are paid by EFT within 1-2 business days.

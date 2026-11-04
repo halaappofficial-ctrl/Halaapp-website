@@ -1,10 +1,10 @@
 {
   "_readme": "The short list of HALA MOVE values that must not be wrong when an asset or a message is produced. Public on purpose, no key needed. Fetch it, read it, quote it. Every value says where it came from and when, in _provenance. A value is either DERIVED from the file that declares it, PROBED from the live store, or ATTESTED by a person with an expiry date. If a value here disagrees with a slide, a flyer, a page or an older document, THIS IS THE ONE.",
   "_manifest_version": "1.1.0",
-  "_generated_at": "2026-11-02",
+  "_generated_at": "2026-11-04",
   "_generated_from": {
-    "backend": "1e76ff20",
-    "mobile": "7ba6b2fb"
+    "backend": "a280b2b7",
+    "mobile": "9f437f95"
   },
   "_trust": {
     "derived_values": "re-derived from source and compared on every push (backend: node scripts/brand-manifest/check.js). A mismatch fails loud and names the value.",
@@ -76,7 +76,7 @@
     "pioneer": {
       "driver_limit": 200,
       "free_jobs": 2,
-      "public_line": "Pioneer Program: the first 200 verified drivers to complete a delivery pay no commission on their first 2 completed jobs."
+      "public_line": "Pioneer Program: ended on 4 November 2026. Until then the first 200 verified drivers to complete a delivery paid no commission on their first 2 completed jobs. Every job since carries HALA MOVE's commission."
     },
     "referral": {
       "reward_zar": 50,
@@ -84,7 +84,7 @@
     },
     "commission": {
       "percent": 20,
-      "public_line": "HALA MOVE's commission is 20% of every job. Pioneer drivers pay no commission on their first 2 completed jobs."
+      "public_line": "HALA MOVE's commission is 20% of every job."
     }
   },
   "vocabulary": {
@@ -105,7 +105,6 @@
         "20% commission per job",
         "Your share is released as soon as the customer confirms delivery",
         "Cash out to your bank whenever you want (min R50, 1-2 business days)",
-        "Pioneer Program: the first 200 verified drivers to complete a delivery pay no commission on their first 2 completed jobs",
         "Go online, see jobs near you",
         "Verified, rated profile",
         "SOS button + proof-of-delivery"
@@ -340,195 +339,195 @@
     "/brand/wordmark/hala_colour": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.primary",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/brand/wordmark/move_colour": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.textPrimary",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/brand/colours/primary": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.primary",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/brand/colours/background": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.background",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/brand/colours/surface": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.surface",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/brand/colours/text": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — COLORS.textPrimary",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/brand/colours/never_use": {
       "kind": "derived",
       "source": "mobile/customer-app/src/utils/theme.js — the \"NEVER use:\" declaration at the head of the file",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/brand/domain": {
       "kind": "derived",
       "source": "mobile/customer-app/app.json — expo.ios.associatedDomains (the domain Apple + Google actually verify)",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/brand/contact_email": {
       "kind": "derived",
       "source": "backend/src/routes/whatsapp.js — the address the platform actually sends to users",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/apps/customer/store_name": {
       "kind": "derived",
       "source": "mobile/customer-app/app.json — expo.name",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/apps/customer/android_package": {
       "kind": "derived",
       "source": "mobile/customer-app/app.json — expo.android.package",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/apps/customer/ios_bundle_id": {
       "kind": "derived",
       "source": "mobile/customer-app/app.json — expo.ios.bundleIdentifier",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/apps/customer/play_url": {
       "kind": "derived",
       "source": "mobile/customer-app/app.json — BUILT from expo.android.package — never copied from a doc",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/apps/customer/app_store_url": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/customer/app_store_id": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/customer/ios_version": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/customer/ios_released": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/customer/ios_minimum_os": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/customer/on_google_play": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/customer/on_app_store": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/customer/price": {
       "kind": "probed",
       "source": "Apple's lookup reports this app's price; 0 is published as \"Free to download\"",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/driver/store_name": {
       "kind": "derived",
       "source": "mobile/driver-app/app.json — expo.name",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/apps/driver/android_package": {
       "kind": "derived",
       "source": "mobile/driver-app/app.json — expo.android.package",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/apps/driver/ios_bundle_id": {
       "kind": "derived",
       "source": "mobile/driver-app/app.json — expo.ios.bundleIdentifier",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/apps/driver/play_url": {
       "kind": "derived",
       "source": "mobile/driver-app/app.json — BUILT from expo.android.package — never copied from a doc",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/apps/driver/app_store_url": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/driver/app_store_id": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/driver/ios_version": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/driver/ios_released": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/driver/ios_minimum_os": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/driver/on_google_play": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/driver/on_app_store": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/apps/driver/price": {
       "kind": "probed",
       "source": "Apple's lookup reports this app's price; 0 is published as \"Free to download\"",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/links/get_the_customer_app": {
       "kind": "probed",
       "source": "this exact URL was fetched with an iPhone agent and an Android agent; both branches were asserted to reach the customer app before publishing",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/links/get_the_driver_app": {
       "kind": "probed",
       "source": "this exact URL was fetched with an iPhone agent and an Android agent; both branches were asserted to reach the driver app before publishing",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/links/routing": {
       "kind": "attested",
@@ -546,27 +545,27 @@
     "/programme/pioneer/driver_limit": {
       "kind": "derived",
       "source": "backend/src/utils/pioneerStatus.js — PIONEER_DRIVER_LIMIT",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/programme/pioneer/free_jobs": {
       "kind": "derived",
       "source": "backend/src/utils/pioneerStatus.js — FREE_JOB_LIMIT",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/programme/pioneer/public_line": {
       "kind": "derived",
-      "source": "backend/src/utils/pioneerStatus.js — sentence BUILT from PIONEER_DRIVER_LIMIT + FREE_JOB_LIMIT, so the copy cannot outlive the code",
-      "read_at": "2026-11-02"
+      "source": "backend/src/utils/pioneerStatus.js — sentence BUILT from PIONEER_OFFER_ENDED_AT + PIONEER_DRIVER_LIMIT + FREE_JOB_LIMIT, so the copy cannot outlive the code",
+      "read_at": "2026-11-04"
     },
     "/programme/referral/reward_zar": {
       "kind": "derived",
       "source": "backend/src/services/referralService.js — REFERRAL_CREDIT_ZAR",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/programme/referral/public_line": {
       "kind": "derived",
       "source": "backend/src/services/referralService.js — sentence BUILT from REFERRAL_CREDIT_ZAR; the two-sided rail shipped 2026-07-14 (CR-02 BACKED)",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/programme/commission/percent": {
       "kind": "attested",
@@ -577,18 +576,18 @@
     },
     "/programme/commission/public_line": {
       "kind": "derived",
-      "source": "backend/src/utils/pioneerStatus.js — CLAIM_REGISTER CR-07 wording (superseded 2026-10-14); the pioneer allowance BUILT from FREE_JOB_LIMIT",
-      "read_at": "2026-11-02"
+      "source": "backend/src/utils/pioneerStatus.js — CLAIM_REGISTER CR-07 wording (superseded 2026-10-14); the pioneer allowance ENDED per PIONEER_OFFER_ENDED_AT",
+      "read_at": "2026-11-04"
     },
     "/vocabulary/approved": {
       "kind": "derived",
       "source": "backend/docs/marketing/CLAIM_REGISTER.md — the Appendix \"always-approved bank\"",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/vocabulary/forbidden": {
       "kind": "derived",
       "source": "backend/docs/marketing/CLAIM_REGISTER.md — the Appendix \"Forbidden everywhere\" line",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/not_yet": {
       "kind": "attested",
@@ -641,8 +640,8 @@
     "/company/apple_seller_of_record": {
       "kind": "probed",
       "source": "asked of the live store, with an invalid-subject control that must fail",
-      "probed_at": "2026-11-02",
-      "expires": "2026-11-16"
+      "probed_at": "2026-11-04",
+      "expires": "2026-11-18"
     },
     "/company/website": {
       "kind": "attested",
@@ -653,27 +652,27 @@
     "/company/purpose": {
       "kind": "derived",
       "source": "backend/docs/company/MISSION_VISION_VALUES.md — the statement block, PURPOSE",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/company/purpose_in_our_words": {
       "kind": "derived",
       "source": "backend/docs/company/MISSION_VISION_VALUES.md — the statement block, PURPOSE (\"In our own words\")",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/company/vision": {
       "kind": "derived",
       "source": "backend/docs/company/MISSION_VISION_VALUES.md — the statement block, VISION",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/company/mission": {
       "kind": "derived",
       "source": "backend/docs/company/MISSION_VISION_VALUES.md — the statement block, MISSION",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     },
     "/company/values": {
       "kind": "derived",
       "source": "backend/docs/company/MISSION_VISION_VALUES.md — the statement block, VALUES",
-      "read_at": "2026-11-02"
+      "read_at": "2026-11-04"
     }
   }
 }
