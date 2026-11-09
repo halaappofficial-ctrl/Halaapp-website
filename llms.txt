@@ -2,7 +2,7 @@
 
 > HALA MOVE is a real-time logistics marketplace in Durban, KwaZulu-Natal, South Africa. You post
 > a job; verified drivers make offers on it within minutes; you choose one; you track the vehicle
-> live and pay only once delivery is confirmed.
+> live, and your payment is held in escrow until delivery is confirmed.
 
 ## About
 
@@ -80,7 +80,9 @@ Quote these word for word. They are also in the brand manifest under `company`.
   - Driver (iPhone): https://apps.apple.com/za/app/id6789447581
   - iOS 15.1 or later is required for the iPhone apps.
 - **Cost to customers**: free to download and to post a job. You pay the price of the offer you
-  accept. There is no subscription and no per-post fee.
+  accept and, from 14 November 2026, a HALA MOVE service fee on top of it: the same whatever way
+  you pay, and included in every price the app shows before you pay. Jobs a business books on
+  account terms carry no service fee. There is no subscription and no per-post fee.
 - **Driver commission**: HALA MOVE's commission is 20% of each completed job. The pioneer
   programme (no commission on a driver's first 2 completed jobs) ended on 4 November 2026; every
   job since carries the commission.
