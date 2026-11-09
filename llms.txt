@@ -2,7 +2,8 @@
 
 > HALA MOVE is a real-time logistics marketplace in Durban, KwaZulu-Natal, South Africa. You post
 > a job; verified drivers make offers on it within minutes; you choose one; you track the vehicle
-> live, and your payment is held in escrow until delivery is confirmed.
+> live, and your payment is held in escrow until you confirm delivery, or for 24 hours after the
+> driver's delivery photo.
 
 ## About
 
@@ -10,7 +11,8 @@ HALA MOVE connects people who need something moved with verified bakkie, van and
 Durban, KwaZulu-Natal. It is not a fixed-price courier and not a bidding auction in the usual sense:
 a customer posts what they need moved and their budget, and drivers who are already verified on the
 platform respond with their own offers. The customer picks. Payment is held in PayFast escrow and
-released to the driver only after delivery is confirmed, so neither side has to trust the other
+released to the driver when the customer confirms delivery, or automatically 24 hours after the
+driver's delivery photo, so neither side has to trust the other
 first. The vehicle is tracked on a live map from pickup to drop-off, and photos are captured at
 loading and delivery.
 
