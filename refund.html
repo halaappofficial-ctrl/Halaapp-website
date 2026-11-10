@@ -132,7 +132,8 @@ window.va('beforeSend', function (event) {
 </div>
 <div id="invalid" class="msg hidden">
   <h1>This link is not valid</h1>
-  <p>Check that you opened the whole link you were sent. If it still does not work,
+  <p>Check that you opened the whole link you were sent. If we sent you a newer link, use that one: it is in your
+    messages in the HALA MOVE app. If it still does not work,
     <a href="https://wa.me/27760525398" target="_blank" rel="noopener" data-last-resort="no-self-serve-path">WhatsApp HALA MOVE on 076 052 5398</a> and we will sort your refund.</p>
 </div>
 <div id="down" class="msg hidden">
@@ -245,8 +246,10 @@ window.va('beforeSend', function (event) {
       if (r.status === 200) return render(r.body);
       if (r.status === 404) return show('invalid');
       if (r.status === 410) {
-        $('ended-title').textContent = /paid/i.test(r.body.message || '') ? 'Your refund has been paid' : 'This link has ended';
-        // last-resort: no-self-serve-path - an ended link cannot be re-issued by the customer
+        // Opening an old link renews it: the server sends the new one to the customer's app messages.
+        $('ended-title').textContent = r.body.renewed === true ? 'We have sent you a new link'
+          : (/paid/i.test(r.body.message || '') ? 'Your refund has been paid' : 'This link has ended');
+        // last-resort: no-self-serve-path - only when the server sends no message; each server message names its own path
         $('ended-text').textContent = r.body.message || 'WhatsApp us on 076 052 5398 and we will sort your refund.';
         return show('ended');
       }
