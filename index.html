@@ -756,6 +756,12 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
    .ea-toggle{display:flex;gap:10px;margin-bottom:14px}
    .ea-pill{flex:1;text-align:center;padding:12px 8px;border:1px solid var(--b2);border-radius:12px;background:var(--s2);color:var(--t2);font-weight:600;font-size:.82rem;cursor:pointer;transition:all .2s;user-select:none}
    .ea-pill.active{border-color:var(--g);background:rgba(92,181,88,.12);color:var(--t)}
+   /* Either box will do, so the pair is one question: a label with the red mandatory asterisk (2026-11-10, the apps'
+      error red, 5.5:1 on the card) and "(one is enough)"; each box keeps its own label for screen readers. */
+   .ea-label{display:block;font-weight:700;font-size:.88rem;color:var(--t);margin:0 0 8px}
+   .ea-req{color:var(--err);font-weight:700}
+   .ea-opt{color:var(--t2);font-weight:500}
+   .ea-vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
    .ea-input{width:100%;padding:13px 15px;margin-bottom:12px;background:var(--bg);border:1px solid var(--b2);border-radius:12px;color:var(--t);font-size:.95rem;font-family:var(--body)}
    .ea-input:focus{outline:none;border-color:var(--g)}
    .ea-input::placeholder{color:var(--t3)}
@@ -780,8 +786,13 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
      <span class="ea-pill active" data-role="customer" role="button" tabindex="0" aria-pressed="true">I need to move</span>
      <span class="ea-pill" data-role="driver" role="button" tabindex="0" aria-pressed="false">I'm a driver</span>
     </div>
-    <input class="ea-input" type="email" id="eaEmail" name="email" placeholder="Email address" autocomplete="email" inputmode="email">
-    <input class="ea-input" type="tel" id="eaPhone" name="phone" placeholder="Phone number" autocomplete="tel" inputmode="tel">
+    <div role="group" aria-labelledby="eaAsk">
+     <span class="ea-label" id="eaAsk">Email or phone number<span class="ea-req" aria-hidden="true"> *</span><span class="ea-vh"> (required)</span> <span class="ea-opt">(one is enough)</span></span>
+     <label class="ea-vh" for="eaEmail">Email address</label>
+     <input class="ea-input" type="email" id="eaEmail" name="email" placeholder="Email address" autocomplete="email" inputmode="email">
+     <label class="ea-vh" for="eaPhone">Phone number</label>
+     <input class="ea-input" type="tel" id="eaPhone" name="phone" placeholder="Phone number" autocomplete="tel" inputmode="tel">
+    </div>
     <input class="ea-hp" type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button type="submit" class="ea-submit" id="eaSubmit">Send me the links</button>
     <p class="ea-msg" id="eaMsg" role="status" aria-live="polite"></p>

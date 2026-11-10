@@ -5,7 +5,7 @@
  * business page a .prose rule and an .lf rule of equal weight must resolve in the form's favour.
  * Touch targets are at least 44px; inputs are 16px so iPhones do not zoom on focus.
  */
-.lf{--lf-g:#5CB558;--lf-gd:#4A9947;--lf-bg:#0A0A0A;--lf-s:#1A1A1A;--lf-b:#2A2A2A;--lf-t:#FFFFFF;--lf-mu:#A3A3A3;--lf-soft:#D6D6D6;--lf-err:#FF8A80;
+.lf{--lf-g:#5CB558;--lf-gd:#4A9947;--lf-bg:#0A0A0A;--lf-s:#1A1A1A;--lf-b:#2A2A2A;--lf-t:#FFFFFF;--lf-mu:#A3A3A3;--lf-soft:#D6D6D6;--lf-err:#FF8A80;--lf-req:#FF4444;
   color:var(--lf-t);font-size:16px;line-height:1.5;text-align:left;max-width:720px}
 .lf *,.lf *::before,.lf *::after{box-sizing:border-box}
 .lf [hidden]{display:none !important}
@@ -30,6 +30,9 @@
 .lf .lf-label{display:block;float:none;width:auto;font-family:inherit;font-weight:700;font-size:16px;line-height:1.35;color:var(--lf-t);margin:0;padding:0}
 .lf .lf-sub{font-weight:600;font-size:15px;margin-top:12px}
 .lf .lf-opt{color:var(--lf-mu);font-weight:500}
+/* The mandatory mark: the apps' error red (#FF4444, 5.1:1 on the card, 5.8:1 on the page), bold, after the label. */
+.lf .lf-req{color:var(--lf-req);font-weight:700}
+.lf .lf-key{color:var(--lf-mu);font-size:14px;line-height:1.45;margin:6px 0 0}
 .lf .lf-hint{color:var(--lf-mu);font-size:14px;line-height:1.45;margin:4px 0 0}
 .lf .lf-error{color:var(--lf-err);font-weight:700;font-size:14px;line-height:1.4;margin:6px 0 0}
 

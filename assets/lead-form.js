@@ -473,7 +473,13 @@
   function waShown() { return '<a href="' + waLink('') + '" target="_blank" rel="noopener">' + WA_SHOWN + '</a>'; }
   function hTag(level, attrs, inner) { return '<h' + level + ' ' + attrs + '>' + inner + '</h' + level + '>'; }
 
-  function label(qd) { return esc(qd.label) + (qd.optional ? ' <span class="lf-opt">(optional)</span>' : ''); }
+  // A question that must be answered carries a red asterisk; one that may be skipped says "(optional)" (2026-11-10:
+  // "Mandatory fields should have an asterisk in red", the same mark as the apps' RequiredMark). The star is hidden
+  // from screen readers and "(required)" is read instead, so a chip legend and a text label say it the same way.
+  // Every question without `optional` carries a `req` message, so the star never promises a check that is not made
+  // (verify-required-marks.cjs holds both).
+  var REQ = '<span class="lf-req" aria-hidden="true"> *</span><span class="lf-vh"> (required)</span>';
+  function label(qd) { return esc(qd.label) + (qd.optional ? ' <span class="lf-opt">(optional)</span>' : REQ); }
 
   function qHtml(qd, st) {
     var k = qd.key;
@@ -515,7 +521,7 @@
       var sentence = esc(CONSENT).replace('privacy policy', '<a href="/privacy" target="_blank" rel="noopener">privacy policy</a>');
       return '<div class="lf-q" id="' + fid(k) + '-q" data-q="' + k + '">' + err +
         '<label class="lf-consent"><input type="checkbox" id="' + fid(k) + '" name="consent" data-key="' + k + '" aria-describedby="' + fid(k) + '-err"' + (v ? ' checked' : '') + '>' +
-        '<span>' + sentence + '</span></label></div>';
+        '<span>' + sentence + REQ + '</span></label></div>';
     }
 
     var attrs = ' id="' + fid(k) + '" name="' + k + '" data-key="' + k + '" aria-describedby="' + desc + '"' +
@@ -569,6 +575,7 @@
       '<div class="lf-intro">' + esc(COPY[flow].intro) + '</div>' +
       '<div class="lf-progress">Step ' + (n + 1) + ' of ' + steps.length + '</div>' +
       hTag(H + 1, 'class="lf-step-title" id="lf-focus" tabindex="-1"', esc(step.title)) +
+      '<div class="lf-key" aria-hidden="true">Questions marked <span class="lf-req">*</span> need an answer.</div>' +
       '<div class="lf-summary" id="lf-summary" role="alert" tabindex="-1" hidden></div>';
     for (var i = 0; i < step.qs.length; i++) h += qHtml(step.qs[i], st);
     h += '<div class="lf-hp" aria-hidden="true"><label for="lf-website">Leave this empty</label>' +
