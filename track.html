@@ -163,6 +163,22 @@ window.va('beforeSend', function (event) {
   var token = m[1];
 
   var map = null, layers = null, driverMarker = null, fitted = false, lastView = null, timer = null;
+  var etaLive = null, tickTimer = null;
+
+  // The server refreshes a live ETA at most once a minute and says how old the figure is (eta.age_s, seconds
+  // on the server clock). Anchor the figure to when it was computed and count down whole minutes, never below 1
+  // while the driver is still on the way. No figure (arrived, loading, booked for later) shows nothing.
+  function etaShown(minutes, anchorMs, nowMs) {
+    if (typeof minutes !== 'number' || !Number.isFinite(minutes) || minutes < 0) return null;
+    return Math.max(1, Math.round(minutes) - Math.floor(Math.max(0, nowMs - anchorMs) / 60000));
+  }
+  function etaLine(e) {
+    var n = e ? etaShown(e.minutes, e.anchor, Date.now()) : null;
+    if (n == null) return '';
+    var leg = e.leg === 'dropoff' ? 'the drop-off' : (e.leg === 'pickup' ? 'the pickup' : 'the next stop');
+    return 'About ' + n + ' min to ' + leg;
+  }
+  function tickEta() { if (etaLive) $('eta').textContent = etaLine(etaLive); }
 
   function minutesAgo(iso) {
     var t = Date.parse(iso);
@@ -240,15 +256,17 @@ window.va('beforeSend', function (event) {
     $('status').textContent = v.status.label;
 
     var etaText = '';
+    etaLive = null;
     if (v.status.key === 'scheduled' && v.scheduled_date) {
       try {
         etaText = 'Booked for ' + new Date(v.scheduled_date).toLocaleString('en-ZA', {
           timeZone: 'Africa/Johannesburg', weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit'
         });
       } catch (e) { etaText = 'Booked'; }
-    } else if (v.eta && v.eta.minutes) {
-      var leg = v.eta.leg === 'dropoff' ? 'the drop-off' : (v.eta.leg === 'pickup' ? 'the pickup' : 'the next stop');
-      etaText = 'About ' + v.eta.minutes + ' min to ' + leg;
+    } else if (v.eta && typeof v.eta.minutes === 'number') {
+      var age = Number.isFinite(v.eta.age_s) ? v.eta.age_s : 0;
+      etaLive = { minutes: v.eta.minutes, leg: v.eta.leg, anchor: Date.now() - age * 1000 };
+      etaText = etaLine(etaLive);
     }
     $('eta').textContent = etaText;
 
@@ -333,8 +351,8 @@ window.va('beforeSend', function (event) {
       if (lastView) { $('seen').textContent = 'Reconnecting...'; $('seen').classList.add('stale'); }
     });
   }
-  function start() { if (!timer) { poll(); timer = setInterval(poll, POLL_MS); } }
-  function stop() { if (timer) { clearInterval(timer); timer = null; } }
+  function start() { if (!timer) { poll(); timer = setInterval(poll, POLL_MS); tickTimer = setInterval(tickEta, 30000); } }
+  function stop() { if (timer) { clearInterval(timer); timer = null; } if (tickTimer) { clearInterval(tickTimer); tickTimer = null; } }
   // A phone in a pocket does not need to poll: pause while the tab is hidden, catch up when it is back.
   document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
   start();
