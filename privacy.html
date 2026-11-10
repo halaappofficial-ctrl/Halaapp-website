@@ -972,6 +972,30 @@ footer{
 </style>
 <!-- Motion One (animation library) - pinned -->
 <script defer src="https://cdn.jsdelivr.net/npm/motion@11.15.0/dist/motion.min.js" onerror="document.documentElement.classList.add('motion-failed')"></script>
+<!-- Vercel Web Analytics: page counts with no cookie. Codes in personal links and every query value except campaign tags are removed before anything is sent. -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+window.va('beforeSend', function (event) {
+  try {
+    var u = new URL(event.url);
+    u.pathname = u.pathname.replace(/^\/(track|refund|invite|driver-invite|c)\/[^\/]+/, '/$1/code');
+    var names = ['s', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var kept = [];
+    for (var i = 0; i < names.length; i++) {
+      var v = u.searchParams.get(names[i]);
+      if (v !== null) kept.push([names[i], v]);
+    }
+    u.search = '';
+    for (var j = 0; j < kept.length; j++) u.searchParams.set(kept[j][0], kept[j][1]);
+    u.hash = '';
+    var out = {};
+    for (var k in event) out[k] = event[k];
+    out.url = u.toString();
+    return out;
+  } catch (e) { return null; }
+});
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <!-- NAVIGATION -->
@@ -1103,6 +1127,9 @@ footer{
 
 <h3>Cloud Infrastructure</h3>
 <p>HALA MOVE uses <strong>Supabase</strong> as its database and file storage provider. All data stored on Supabase is subject to Supabase&rsquo;s security standards and data processing agreement. Driver documents and job photos are stored in encrypted Supabase storage buckets.</p>
+
+<h3>Website Hosting and Visitor Statistics</h3>
+<p>The HALA MOVE website (halamove.co.za) is hosted by <strong>Vercel</strong> (Vercel Inc.). We use Vercel Web Analytics to count page views: the page opened, the website that sent you, your approximate location (country, region and city), and your device type, operating system and browser. It sets no cookie and keeps no record that identifies you. A visit is recognised by a code made from the incoming request, which Vercel discards after 24 hours. Codes in personal links, such as a live trip link or an invitation link, are removed before a page view is counted, and only campaign tags are kept from the web address.</p>
 
 <h3>SMS &amp; WhatsApp Messaging</h3>
 <p>We use <strong>Twilio</strong> (Twilio Inc.) to deliver WhatsApp messages, and <strong>SMSPortal</strong> (SMSPortal (Pty) Ltd) and Twilio to deliver SMS messages. We share only your mobile number and the content of the message itself with each of them, and only for the purposes described in this policy: sending you one-time verification codes when you sign in, sending you notifications about your jobs and payments, and sending the occasional service message described under &ldquo;Service Messages &amp; Check-Ins&rdquo; below.</p>

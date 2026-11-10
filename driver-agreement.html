@@ -976,6 +976,30 @@ footer{
 </style>
 <!-- Motion One (animation library) - pinned -->
 <script defer src="https://cdn.jsdelivr.net/npm/motion@11.15.0/dist/motion.min.js" onerror="document.documentElement.classList.add('motion-failed')"></script>
+<!-- Vercel Web Analytics: page counts with no cookie. Codes in personal links and every query value except campaign tags are removed before anything is sent. -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+window.va('beforeSend', function (event) {
+  try {
+    var u = new URL(event.url);
+    u.pathname = u.pathname.replace(/^\/(track|refund|invite|driver-invite|c)\/[^\/]+/, '/$1/code');
+    var names = ['s', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var kept = [];
+    for (var i = 0; i < names.length; i++) {
+      var v = u.searchParams.get(names[i]);
+      if (v !== null) kept.push([names[i], v]);
+    }
+    u.search = '';
+    for (var j = 0; j < kept.length; j++) u.searchParams.set(kept[j][0], kept[j][1]);
+    u.hash = '';
+    var out = {};
+    for (var k in event) out[k] = event[k];
+    out.url = u.toString();
+    return out;
+  } catch (e) { return null; }
+});
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <!-- NAVIGATION -->
@@ -1050,7 +1074,7 @@ footer{
 
 <h2 class="section-anchor" id="relationship">Your Relationship with HALA MOVE</h2>
 <p>PROFITSAGE (PTY) LTD trading as HALA MOVE (registration number 2025/087445/07) operates a technology platform that connects customers with independent transport service providers. You are registering as an independent service provider, not as an employee of HALA MOVE.</p>
-<p>This agreement does not create an employment relationship, a labour broker relationship, or any relationship of agency between you and HALA MOVE. HALA MOVE does not direct your working hours, your route, your driving method, or any other aspect of how you perform transport services  except for the requirements set out in this agreement that are necessary to maintain the quality and safety standards of the platform.</p>
+<p>This agreement does not create an employment relationship, a labour broker relationship, or any relationship of agency between you and HALA MOVE. HALA MOVE does not direct your working hours, your route, your driving method, or any other aspect of how you perform transport services, except for the requirements set out in this agreement that are necessary to maintain the quality and safety standards of the platform.</p>
 <p>You retain the right to work for other platforms, other companies, or other clients at any time. HALA MOVE does not require exclusivity.</p>
 <p>You are responsible for your own tax obligations on income earned through the HALA MOVE platform. HALA MOVE does not deduct income tax, UIF, or any other statutory deduction from driver payouts. You are responsible for complying with all applicable South African tax law in connection with your earnings.</p>
 
@@ -1076,16 +1100,16 @@ footer{
 <p>Your vehicle must be clean and presentable before each job. For jobs assigned under B2B corporate contracts, additional vehicle presentation standards may apply as specified in the relevant contract briefing.</p>
 
 <h2 class="section-anchor" id="jobs">Job Acceptance &amp; Completion</h2>
-<p>When you submit a bid on a job and that bid is accepted by the customer, you are making a binding commitment to complete that job. Accepting a bid is not optional follow-through  it is a contractual commitment.</p>
+<p>When you submit a bid on a job and that bid is accepted by the customer, you are making a binding commitment to complete that job. Accepting a bid is not optional follow-through; it is a contractual commitment.</p>
 <p>If you are unable to fulfil a confirmed job, you must notify HALA MOVE through the in-app support function as early as possible and in any event before the scheduled pickup time. Cancellations after acceptance negatively affect your completion rate and your standing on the platform.</p>
 <p>Your target completion rate is 98% or above, measured as the percentage of accepted bids that result in a completed, confirmed delivery. Drivers whose completion rate falls below 90% over a 30-day period will receive an in-app notification and may have their job access temporarily restricted.</p>
 <p>You must not cancel a job or abandon a job in progress without contacting HALA MOVE support. Abandonment of a job in progress without notice or legitimate reason is a serious breach of this agreement and may result in account suspension.</p>
 
 <h2 class="section-anchor" id="photos">The Mandatory Photo Protocol</h2>
 <div class="info-box">
- <p><strong>The photo protocol is your protection.</strong> Without photos, you have no defence if a customer claims damage occurred during the job. This is not a compliance requirement  it is a tool that protects your income.</p>
+ <p><strong>The photo protocol is your protection.</strong> Without photos, you have no defence if a customer claims damage occurred during the job. This is not a compliance requirement; it is a tool that protects your income.</p>
 </div>
-<p>Before you touch a single item at the pickup address, you must open the HALA MOVE Driver app and take photographs of every item you are about to load. These photographs must clearly show the condition of each item  any pre-existing scratches, dents, marks, or damage must be visible. The photographs are timestamped and geotagged at the moment they are taken.</p>
+<p>Before you touch a single item at the pickup address, you must open the HALA MOVE Driver app and take photographs of every item you are about to load. These photographs must clearly show the condition of each item: any pre-existing scratches, dents, marks, or damage must be visible. The photographs are timestamped and geotagged at the moment they are taken.</p>
 <p>The customer reviews and approves these photographs in their HALA MOVE Customer app before you load anything. Their approval is a digital acknowledgment of the pre-loading condition of their items. Once they approve, you proceed to load.</p>
 <p>At the delivery address, before you leave, you must photograph all delivered items in their final position. These photographs confirm that the items arrived and show their condition at delivery.</p>
 <p>If you do not follow the photo protocol and a customer subsequently raises a damage dispute, HALA MOVE will be unable to defend your position. The dispute will be resolved in the customer&rsquo;s favour by default where the driver failed to take the required photographs. There are no exceptions to this rule.</p>

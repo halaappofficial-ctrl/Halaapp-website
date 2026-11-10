@@ -1099,6 +1099,30 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
 <!-- HALA motion wiring -->
 <script defer src="assets/motion.js" onerror="document.documentElement.classList.add('motion-failed')"></script>
 <script defer src="/assets/first-touch.js"></script><!-- remembers this tab's first ?s= / utm_* for the business enquiry form; sessionStorage only, no cookie -->
+<!-- Vercel Web Analytics: page counts with no cookie. Codes in personal links and every query value except campaign tags are removed before anything is sent. -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+window.va('beforeSend', function (event) {
+  try {
+    var u = new URL(event.url);
+    u.pathname = u.pathname.replace(/^\/(track|refund|invite|driver-invite|c)\/[^\/]+/, '/$1/code');
+    var names = ['s', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var kept = [];
+    for (var i = 0; i < names.length; i++) {
+      var v = u.searchParams.get(names[i]);
+      if (v !== null) kept.push([names[i], v]);
+    }
+    u.search = '';
+    for (var j = 0; j < kept.length; j++) u.searchParams.set(kept[j][0], kept[j][1]);
+    u.hash = '';
+    var out = {};
+    for (var k in event) out[k] = event[k];
+    out.url = u.toString();
+    return out;
+  } catch (e) { return null; }
+});
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <!-- NAVIGATION -->

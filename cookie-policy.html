@@ -972,6 +972,30 @@ footer{
 </style>
 <!-- Motion One (animation library) - pinned -->
 <script defer src="https://cdn.jsdelivr.net/npm/motion@11.15.0/dist/motion.min.js" onerror="document.documentElement.classList.add('motion-failed')"></script>
+<!-- Vercel Web Analytics: page counts with no cookie. Codes in personal links and every query value except campaign tags are removed before anything is sent. -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+window.va('beforeSend', function (event) {
+  try {
+    var u = new URL(event.url);
+    u.pathname = u.pathname.replace(/^\/(track|refund|invite|driver-invite|c)\/[^\/]+/, '/$1/code');
+    var names = ['s', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var kept = [];
+    for (var i = 0; i < names.length; i++) {
+      var v = u.searchParams.get(names[i]);
+      if (v !== null) kept.push([names[i], v]);
+    }
+    u.search = '';
+    for (var j = 0; j < kept.length; j++) u.searchParams.set(kept[j][0], kept[j][1]);
+    u.hash = '';
+    var out = {};
+    for (var k in event) out[k] = event[k];
+    out.url = u.toString();
+    return out;
+  } catch (e) { return null; }
+});
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <!-- NAVIGATION -->
@@ -1017,7 +1041,7 @@ footer{
   <h1 class="page-title">Cookie Policy</h1>
   <p style="font-size:1rem;color:var(--t2);max-width:560px;line-height:1.75">What cookies HALA MOVE uses, why, and how to manage them. We keep it minimal and we keep it honest.</p>
   <div class="page-meta">
-   <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#666" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#666" stroke-width="1.2" stroke-linecap="round"/></svg> Last updated: October 2026</span>
+   <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#666" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#666" stroke-width="1.2" stroke-linecap="round"/></svg> Last updated: November 2026</span>
    <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4l-3.5 2.5 1.5 4L6.5 9 3 11.5l1.5-4L1 5h4z" stroke="#666" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg> PROFITSAGE (PTY) LTD trading as HALA MOVE &middot; Durban, South Africa</span>
   </div>
  </div>
@@ -1027,7 +1051,7 @@ footer{
   <div class="content-grid">
    <div class="toc"><h4>On this page</h4>
    <a href="#what-are-cookies">What Are Cookies</a>
-   <a href="#our-cookies">Cookies HALA MOVE Uses</a>
+   <a href="#our-cookies">What This Website Stores</a>
    <a href="#third-party">Third-Party Cookies</a>
    <a href="#managing">Managing Cookies</a>
    <a href="#contact">Contact</a>
@@ -1035,19 +1059,20 @@ footer{
    <div class="prose">
 <h2 class="section-anchor" id="what-are-cookies">What Are Cookies</h2>
 <p>Cookies are small text files that a website stores on your device when you visit it. They are widely used to make websites work, to remember your preferences, and to give site owners basic information about how their site is being used.</p>
-<p>Not all cookies are the same. Some are essential for the website to function at all. Others remember your preferences so you do not have to re-enter them each visit. Some are used to understand how visitors use a website in aggregate  no personal data attached. And some are used for advertising, to track your behaviour across different websites and serve targeted ads.</p>
-<p>HALA MOVE uses only the first two categories  strictly necessary and functional. We do not use advertising cookies. We do not track you across other websites. We do not share your browsing behaviour with any advertising network.</p>
+<p>Not all cookies are the same. Some are essential for the website to function at all. Others remember your preferences so you do not have to re-enter them each visit. Some are used to understand how visitors use a website in aggregate, with no personal data attached. And some are used for advertising, to track your behaviour across different websites and serve targeted ads.</p>
+<p>The HALA MOVE website sets no cookies of its own. We do not use advertising cookies. We do not track you across other websites. We do not share your browsing behaviour with any advertising network.</p>
 
 <div class="info-box">
  <p><strong>HALA MOVE does not use Facebook Pixel, Google Ads tracking cookies, or any third-party advertising or retargeting technology</strong> on halamove.co.za or in the HALA MOVE mobile applications.</p>
 </div>
 
-<h2 class="section-anchor" id="our-cookies">Cookies HALA MOVE Uses</h2>
+<h2 class="section-anchor" id="our-cookies">What This Website Stores</h2>
+<p>The HALA MOVE website sets no cookies of its own. Two things are kept or counted, and neither uses a cookie.</p>
 
 <table class="data-table">
  <thead>
   <tr>
-   <th>Cookie Name</th>
+   <th>Name</th>
    <th>Category</th>
    <th>Purpose</th>
    <th>Duration</th>
@@ -1055,28 +1080,16 @@ footer{
  </thead>
  <tbody>
   <tr>
-   <td>hala_session</td>
-   <td style="color:var(--g)">Strictly necessary</td>
-   <td>Maintains your authenticated session so you do not have to log in on every page load.</td>
-   <td>Session (deleted when browser closes)</td>
+   <td>hm_ft (browser session storage, not a cookie)</td>
+   <td style="color:var(--g)">Functional</td>
+   <td>On some pages, remembers for this browser tab where your visit started (a campaign code, or the website that sent you), so that a business enquiry you choose to send carries it. It leaves your device only inside an enquiry you send.</td>
+   <td>Until you close the tab</td>
   </tr>
   <tr>
-   <td>hala_csrf</td>
-   <td style="color:var(--g)">Strictly necessary</td>
-   <td>Protects against cross-site request forgery attacks. Required for all form submissions and authenticated requests.</td>
-   <td>Session</td>
-  </tr>
-  <tr>
-   <td>hala_prefs</td>
-   <td style="color:#F59E0B">Functional</td>
-   <td>Remembers your last known location to pre-populate the address field when you post a job. This data stays on your device and is not transmitted to HALA MOVE&rsquo;s servers.</td>
-   <td>30 days</td>
-  </tr>
-  <tr>
-   <td>hala_analytics</td>
-   <td style="color:#F59E0B">Analytics (anonymised)</td>
-   <td>Counts page views and records which features are used most frequently. All data is fully anonymised  it cannot be traced back to any individual user. Used solely to understand which parts of the site work well and which need improvement.</td>
-   <td>90 days</td>
+   <td>Vercel Web Analytics (no cookie)</td>
+   <td style="color:#F59E0B">Visitor statistics</td>
+   <td>Counts page views so we can see which pages help visitors. Our host, Vercel, recognises a visit by a code made from the incoming request and discards it after 24 hours. Nothing is stored on your device. Codes in personal links, such as a live trip link, are removed before a page view is counted.</td>
+   <td>24 hours, on Vercel&rsquo;s side</td>
   </tr>
  </tbody>
 </table>
@@ -1084,7 +1097,7 @@ footer{
 <p>HALA MOVE does not use cookies in the category of <strong>Marketing</strong> or <strong>Advertising</strong>. No cookie on halamove.co.za is used to track you across other websites, build an advertising profile, or serve you targeted advertisements.</p>
 
 <h2 class="section-anchor" id="third-party">Third-Party Cookies</h2>
-<p>When you use certain features of the HALA MOVE website, a small number of third-party services set their own cookies. These are functional cookies only  required for specific features to work. They are not advertising or tracking cookies.</p>
+<p>When you use certain features of the HALA MOVE website, a small number of third-party services set their own cookies. These are functional cookies only, required for specific features to work. They are not advertising or tracking cookies.</p>
 
 <table class="data-table">
  <thead>
@@ -1142,7 +1155,7 @@ footer{
  <li>Email: <a href="mailto:contact@halamove.co.za"><span>contact@halamove.co.za</span></a></li>
 </ul>
 <p>For full information about how we handle your personal data, see our <a href="/privacy">Privacy Policy</a>.</p>
-<p>This Cookie Policy was last updated in October 2026.</p>
+<p>This Cookie Policy was last updated in November 2026.</p>
 </div>
   </div>
  </div>

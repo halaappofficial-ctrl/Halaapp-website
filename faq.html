@@ -1101,6 +1101,30 @@ footer{
 <!-- Motion One (animation library) - pinned -->
 <script defer src="https://cdn.jsdelivr.net/npm/motion@11.15.0/dist/motion.min.js" onerror="document.documentElement.classList.add('motion-failed')"></script>
 <script defer src="/assets/first-touch.js"></script><!-- remembers this tab's first ?s= / utm_* for the business enquiry form; sessionStorage only, no cookie -->
+<!-- Vercel Web Analytics: page counts with no cookie. Codes in personal links and every query value except campaign tags are removed before anything is sent. -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+window.va('beforeSend', function (event) {
+  try {
+    var u = new URL(event.url);
+    u.pathname = u.pathname.replace(/^\/(track|refund|invite|driver-invite|c)\/[^\/]+/, '/$1/code');
+    var names = ['s', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var kept = [];
+    for (var i = 0; i < names.length; i++) {
+      var v = u.searchParams.get(names[i]);
+      if (v !== null) kept.push([names[i], v]);
+    }
+    u.search = '';
+    for (var j = 0; j < kept.length; j++) u.searchParams.set(kept[j][0], kept[j][1]);
+    u.hash = '';
+    var out = {};
+    for (var k in event) out[k] = event[k];
+    out.url = u.toString();
+    return out;
+  } catch (e) { return null; }
+});
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 <!-- NAVIGATION -->
@@ -1229,7 +1253,7 @@ footer{
 
  <div class="faq-item">
   <div class="faq-q">What areas does HALA MOVE cover right now?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-  <div class="faq-a"><div class="faq-a-inner"><p>HALA MOVE is currently live in Durban, KwaZulu-Natal. We cover Durban&rsquo;s metro area, including the CBD, Berea, Glenwood, Westville, Pinetown, Umhlanga, KwaMashu, Umlazi, and surrounding areas. The app will show you live driver availability in your area before you post your job  if drivers are nearby, you&rsquo;ll see them on the map. We are expanding to Johannesburg and Cape Town. Check the app for current coverage.</p></div></div>
+  <div class="faq-a"><div class="faq-a-inner"><p>HALA MOVE is currently live in Durban, KwaZulu-Natal. We cover Durban&rsquo;s metro area, including the CBD, Berea, Glenwood, Westville, Pinetown, Umhlanga, KwaMashu, Umlazi, and surrounding areas. The app will show you live driver availability in your area before you post your job; if drivers are nearby, you&rsquo;ll see them on the map. We are expanding to Johannesburg and Cape Town. Check the app for current coverage.</p></div></div>
  </div>
 
  <div class="faq-item">
@@ -1268,7 +1292,7 @@ footer{
 
  <div class="faq-item">
   <div class="faq-q">If I take time off, do I lose my rating or position?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-  <div class="faq-a"><div class="faq-a-inner"><p>No. Your rating is a rolling average of your completed jobs  it does not change while you&rsquo;re offline. Your position in offer rankings is based on your rating, your completed job count, and how your offer compares to the customer&rsquo;s budget. None of these change just because you haven&rsquo;t been online recently. You can take a week off and come back to exactly the same standing you left with. There is no penalty for time off.</p></div></div>
+  <div class="faq-a"><div class="faq-a-inner"><p>No. Your rating is a rolling average of your completed jobs; it does not change while you&rsquo;re offline. Your position in offer rankings is based on your rating, your completed job count, and how your offer compares to the customer&rsquo;s budget. None of these change just because you haven&rsquo;t been online recently. You can take a week off and come back to exactly the same standing you left with. There is no penalty for time off.</p></div></div>
  </div>
 
  <div class="faq-item">
@@ -1278,7 +1302,7 @@ footer{
 
  <div class="faq-item">
   <div class="faq-q">Can I bring my own helpers and how does that work?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-  <div class="faq-a"><div class="faq-a-inner"><p>Yes. When a customer requests helpers for their job, HALA MOVE adds R150 per helper to the job value and passes this through to you. You arrange your own helpers and pay them from this amount. Your helpers do not need to be registered on HALA MOVE for consumer jobs  they are working under your responsibility. If a job requires helpers and the customer has selected this option, you must arrive with the agreed number of helpers. Not having helpers when they were booked is a serious conduct issue and affects your rating and standing.</p></div></div>
+  <div class="faq-a"><div class="faq-a-inner"><p>Yes. When a customer requests helpers for their job, HALA MOVE adds R150 per helper to the job value and passes this through to you. You arrange your own helpers and pay them from this amount. Your helpers do not need to be registered on HALA MOVE for consumer jobs; they are working under your responsibility. If a job requires helpers and the customer has selected this option, you must arrive with the agreed number of helpers. Not having helpers when they were booked is a serious conduct issue and affects your rating and standing.</p></div></div>
  </div>
 </div>
 
@@ -1302,7 +1326,7 @@ footer{
 
  <div class="faq-item">
   <div class="faq-q">Do you have BEE credentials for government procurement?<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 6l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-  <div class="faq-a"><div class="faq-a-inner"><p>HALA MOVE is structured to operate within South African government procurement frameworks. For organisations requiring transport under formal tender or procurement processes, we provide full company documentation, BEE certification, tax clearance certificates, and references from existing contracts. Government and municipal procurement requirements vary significantly between entities  contact us at <a href="mailto:contact@halamove.co.za" style="color:var(--g)"><span>contact@halamove.co.za</span></a> with the specific requirements of your procurement process and we will prepare the appropriate documentation.</p></div></div>
+  <div class="faq-a"><div class="faq-a-inner"><p>HALA MOVE is structured to operate within South African government procurement frameworks. For organisations requiring transport under formal tender or procurement processes, we provide full company documentation, BEE certification, tax clearance certificates, and references from existing contracts. Government and municipal procurement requirements vary significantly between entities, so contact us at <a href="mailto:contact@halamove.co.za" style="color:var(--g)"><span>contact@halamove.co.za</span></a> with the specific requirements of your procurement process and we will prepare the appropriate documentation.</p></div></div>
  </div>
 
  <div class="faq-item">
