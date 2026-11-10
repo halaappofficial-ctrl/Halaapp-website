@@ -1000,20 +1000,6 @@ footer{
 .scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .scroll-top:hover{border-color:var(--g);color:var(--g)}
 
-/* ─── WHATSAPP FLOAT ─────────────────────────────────────── */
-.wa-float{
- position:fixed;bottom:80px;right:28px;z-index:500;
- display:flex;align-items:center;gap:10px;
- background:#25D366;border-radius:40px;
- padding:12px 20px 12px 16px;min-height:44px;
- font-size:.82rem;font-weight:600;color:#fff;
- cursor:pointer;transition:all .25s;
- box-shadow:0 8px 28px rgba(37,211,102,.35);
- animation:waBounce 2s ease-in-out 3s infinite;
-}
-.wa-float:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(37,211,102,.45)}
-.wa-icon{font-size:1.2rem}
-@keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
 /* ─── DIVIDER ────────────────────────────────────────────── */
 .section-divider{
@@ -1095,7 +1081,6 @@ footer{
  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
  .reveal,.reveal-l,.reveal-r{opacity:1;transform:none;transition:none}
  .ann-track{animation:none}
- .wa-float{animation:none}
  #city-canvas{display:none}
 }
 </style>
@@ -1295,7 +1280,7 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
 <h2 class="section-anchor" id="download">Download the HALA MOVE app &mdash; book a student move in Durban now</h2>
 <p>The fastest way to book a verified driver for a Durban student move is through the HALA MOVE app. Available on Android and iOS, free to download, free to post a job &mdash; you only pay when you accept an offer.</p>
 <p><a href="/download" class="btn btn-green">Download the app</a> &nbsp; <a href="/bakkie-hire-durban" class="btn btn-ghost">Bakkie hire Durban</a> &nbsp; <a href="/furniture-removal-durban" class="btn btn-ghost">Furniture removal</a></p>
-<p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Questions? See our full <a href="/faq">FAQ</a>, read about <a href="/about">our story</a>, or WhatsApp us using the green button on the bottom-right of this page. PROFITSAGE (PTY) LTD trading as HALA MOVE is a private company registered in South Africa (registration number 2025/087445/07) and operates from Durban, KwaZulu-Natal.</p>
+<p style="font-size:0.95rem;color:var(--t2);margin-top:24px;">Questions? See our full <a href="/faq">FAQ</a> or read about <a href="/about">our story</a>. PROFITSAGE (PTY) LTD trading as HALA MOVE is a private company registered in South Africa (registration number 2025/087445/07) and operates from Durban, KwaZulu-Natal.</p>
 </div>
   </div>
  </div>
@@ -1327,7 +1312,6 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
      <a href="https://instagram.com/halamove_za" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on Instagram">IG</a>
      <a href="https://linkedin.com/company/hala-move" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on LinkedIn">in</a>
      <a href="https://facebook.com/halamoveza" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on Facebook">FB</a>
-     <a href="https://wa.me/27760525398" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on WhatsApp" style="background:#1A2E1A;border-color:#25D366;color:#25D366">WA</a>
     </div>
    </div>
    <div class="footer-col">
@@ -1373,11 +1357,6 @@ html.js-ready:not(.motion-failed) .hero [data-motion-hero-el]{transform:translat
   </div>
  </div>
 </footer>
-<!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/27760525398" class="wa-float" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
- <span class="wa-icon">💬</span>
- <span>Chat with us</span>
-</a>
 <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">&uarr;</button>
 <script>
 // ── NAV SCROLL STATE ──────────────────────────────────────

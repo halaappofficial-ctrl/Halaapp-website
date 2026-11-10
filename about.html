@@ -916,20 +916,6 @@ footer{
 .scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .scroll-top:hover{border-color:var(--g);color:var(--g)}
 
-/* ─── WHATSAPP FLOAT ─────────────────────────────────────── */
-.wa-float{
- position:fixed;bottom:80px;right:28px;z-index:500;
- display:flex;align-items:center;gap:10px;
- background:#25D366;border-radius:40px;
- padding:12px 20px 12px 16px;min-height:44px;
- font-size:.82rem;font-weight:600;color:#fff;
- cursor:pointer;transition:all .25s;
- box-shadow:0 8px 28px rgba(37,211,102,.35);
- animation:waBounce 2s ease-in-out 3s infinite;
-}
-.wa-float:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(37,211,102,.45)}
-.wa-icon{font-size:1.2rem}
-@keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 
 /* ─── DIVIDER ────────────────────────────────────────────── */
 .section-divider{
@@ -1011,7 +997,6 @@ footer{
  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
  .reveal,.reveal-l,.reveal-r{opacity:1;transform:none;transition:none}
  .ann-track{animation:none}
- .wa-float{animation:none}
  #city-canvas{display:none}
 }
 </style>
@@ -1166,7 +1151,6 @@ footer{
      <a href="https://instagram.com/halamove_za" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on Instagram">IG</a>
      <a href="https://linkedin.com/company/hala-move" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on LinkedIn">in</a>
      <a href="https://facebook.com/halamoveza" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on Facebook">FB</a>
-     <a href="https://wa.me/27760525398" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on WhatsApp" style="background:#1A2E1A;border-color:#25D366;color:#25D366">WA</a>
     </div>
    </div>
    <div class="footer-col">
@@ -1212,11 +1196,6 @@ footer{
   </div>
  </div>
 </footer>
-<!-- WHATSAPP FLOAT -->
-<a href="https://wa.me/27760525398" class="wa-float" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
- <span class="wa-icon">💬</span>
- <span>Chat with us</span>
-</a>
 <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">&uarr;</button>
 <script>
 // ── NAV SCROLL STATE ──────────────────────────────────────

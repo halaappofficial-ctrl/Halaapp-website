@@ -28,8 +28,7 @@
   'use strict';
 
   var API = 'https://hala-backend-production.up.railway.app/api/interest/business';
-  var WA_NUMBER = '27760525398';
-  var WA_SHOWN = '+27 76 052 5398';
+  var WA_NUMBER = '27760525398';   // last-resort: outage - used only when a send fails (failHtml)
   var PROMISE = 'within two business days';
   var CONSENT = 'HALA MOVE may contact me by phone, WhatsApp or email about this request. See how my details are handled in the privacy policy.';
   var VERSION = { demand: 'demand-2026-11-02', fleet: 'fleet-2026-11-02' };
@@ -469,8 +468,8 @@
   }
   function fid(key) { return 'lf-' + key; }
   function hide(el, on) { if (!el) return; if (on) el.setAttribute('hidden', ''); else el.removeAttribute('hidden'); }
+  // last-resort: outage - failHtml's "WhatsApp it to us" carries the answers when a send fails
   function waLink(text) { return 'https://wa.me/' + WA_NUMBER + (text ? '?text=' + encodeURIComponent(text) : ''); }
-  function waShown() { return '<a href="' + waLink('') + '" target="_blank" rel="noopener">' + WA_SHOWN + '</a>'; }
   function hTag(level, attrs, inner) { return '<h' + level + ' ' + attrs + '>' + inner + '</h' + level + '>'; }
 
   // A question that must be answered carries a red asterisk; one that may be skipped says "(optional)" (2026-11-10:
@@ -698,12 +697,13 @@
     var fleet = S.flow === 'fleet';
     var purpose = fleet ? 'to set up your fleet account with you.' : 'to talk through a plan for your deliveries.';
     var reach;
-    if (way === 'email' && email) reach = 'We will email you at ' + email + ' ' + PROMISE + ' ' + purpose + ' If that address is wrong, WhatsApp us on ' + waShown() + '.';
-    else if (way === 'whatsapp') reach = 'We will WhatsApp you on ' + phone + ' ' + PROMISE + ' ' + purpose + ' If that number is wrong, WhatsApp us on ' + waShown() + '.';
-    else reach = 'We will call you on ' + phone + ' ' + PROMISE + ' ' + purpose + ' If that number is wrong, WhatsApp us on ' + waShown() + '.';
+    if (way === 'email' && email) reach = 'We will email you at ' + email + ' ' + PROMISE + ' ' + purpose + ' If that address is wrong, correct it and send again.';
+    else if (way === 'whatsapp') reach = 'We will WhatsApp you on ' + phone + ' ' + PROMISE + ' ' + purpose + ' If that number is wrong, correct it and send again.';
+    else reach = 'We will call you on ' + phone + ' ' + PROMISE + ' ' + purpose + ' If that number is wrong, correct it and send again.';
     var h = '<div class="lf-card lf-done">' +
       hTag(H, 'class="lf-title" id="lf-focus" tabindex="-1"', 'Thank you' + (name ? ', ' + esc(name) : '') + '. ' + (fleet ? 'We have your details.' : 'We have your request.')) +
-      '<div class="lf-text">' + reach + '</div>';
+      '<div class="lf-text">' + reach + '</div>' +
+      '<div class="lf-actions"><button type="button" class="lf-btn lf-btn-ghost" data-act="fix">Correct my details</button></div>';
     if (!fleet) {
       h += '<div class="lf-text">Something to move before then? Post it in the HALA MOVE app and choose from offers by verified drivers.</div>' +
         '<div class="lf-actions"><a class="lf-btn" href="/get?s=web-done">Get the HALA MOVE app</a></div>';
@@ -721,11 +721,12 @@
     var m = mailText(p);
     var mailto = 'mailto:' + S.mailTo + '?' + (S.mailCc ? 'cc=' + encodeURIComponent(S.mailCc) + '&' : '') +
       'subject=' + encodeURIComponent(m.subject) + '&body=' + encodeURIComponent(m.body);
-    return '<div class="lf-text"><strong>We could not send your request. Your answers are still here. Try again, or WhatsApp us on ' + waShown() + '.</strong></div>' +
+    return '<div class="lf-text"><strong>We could not send your request. Your answers are still here, so try again in a minute.</strong> ' +
+      'If it still fails, send it to us with one tap below: your answers are already written in.</div>' +
       '<div class="lf-actions">' +
       '<a class="lf-btn lf-btn-ghost" href="' + esc(mailto) + '">Email it to us</a>' +
       '<button type="button" class="lf-btn lf-btn-ghost" data-act="copy">Copy request</button>' +
-      '<a class="lf-btn lf-btn-ghost" href="' + esc(waLink(m.subject + '\n\n' + m.body)) + '" target="_blank" rel="noopener">WhatsApp it to us</a>' +
+      '<a class="lf-btn lf-btn-ghost" href="' + esc(waLink(m.subject + '\n\n' + m.body)) + '" target="_blank" rel="noopener" data-last-resort="outage">WhatsApp it to us</a>' +
       '</div><pre class="lf-pre" id="lf-pre">' + esc(m.subject + '\n\n' + m.body) + '</pre>';
   }
 
@@ -763,6 +764,7 @@
     setSending(true);
     post(payload, function (status, j) {
       if (status >= 200 && status < 300) {
+        S.sending = false;   // the send is over; "Correct my details" may reopen the form
         var doors = byId('lf-doors');
         hide(doors, true);
         byId('lf-body').innerHTML = doneHtml(payload);
@@ -800,6 +802,15 @@
       }
     } catch (e) {}
     select();
+  }
+
+  // After a send: back to "Your details" with every answer kept, so a wrong address or number is fixed
+  // here and sent again (leads are not de-duplicated, so the corrected one simply arrives second).
+  function fixDetails() {
+    if (S.sending) return;
+    S.stepOf[S.flow] = stepsOf(S.flow).length - 1;
+    hide(byId('lf-doors'), false);
+    renderBody(true);
   }
 
   function chooseDoor(flow) {
@@ -893,5 +904,6 @@
     if (act === 'back') back();
     else if (act === 'owner-continue') ownerContinue();
     else if (act === 'copy') copyRequest(el);
+    else if (act === 'fix') fixDetails();
   });
 })(typeof window !== 'undefined' ? window : this);

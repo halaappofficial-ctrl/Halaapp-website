@@ -488,18 +488,14 @@ footer{background:var(--bg2);border-top:1px solid var(--b);padding:64px 0 0}
 .scroll-top{position:fixed;bottom:28px;right:28px;z-index:500;width:44px;height:44px;border-radius:10px;background:var(--s2);border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--t2);cursor:pointer;transition:all .25s;opacity:0;pointer-events:none;transform:translateY(10px)}
 .scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .scroll-top:hover{border-color:var(--g);color:var(--g)}
-.wa-float{position:fixed;bottom:80px;right:28px;z-index:500;display:flex;align-items:center;gap:10px;background:#25D366;border-radius:40px;padding:12px 20px 12px 16px;min-height:44px;font-size:.82rem;font-weight:600;color:#fff;cursor:pointer;transition:all .25s;box-shadow:0 8px 28px rgba(37,211,102,.35);animation:waBounce 2s ease-in-out 3s infinite}
-.wa-float:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(37,211,102,.45)}
-.wa-icon{font-size:1.2rem}
-@keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .section-divider{height:1px;background:linear-gradient(to right,transparent,var(--b),transparent);margin:0}
 .center{text-align:center}
 .mt-40{margin-top:40px}
 .cta-sub-text{font-size:.82rem;color:var(--t3);text-align:center;margin-top:14px;letter-spacing:.04em}
 @media(max-width:374px){.container{padding:0 16px}.hero-h1{font-size:clamp(2.6rem,9vw,3.6rem)}.hero-grid{gap:40px}.phone{width:220px}.phone-glow{width:240px;height:320px}.steps{gap:16px}.feat-card{padding:24px}.btn-lg{padding:14px 24px;font-size:.9rem}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal,.reveal-l,.reveal-r{opacity:1;transform:none;transition:none}.ann-track{animation:none}.wa-float{animation:none}#city-canvas{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal,.reveal-l,.reveal-r{opacity:1;transform:none;transition:none}.ann-track{animation:none}#city-canvas{display:none}}
 .reveal,.reveal-l,.reveal-r{opacity:1!important;transform:none!important;transition:none!important}
-@media(max-width:768px){.wa-float{bottom:76px!important}.scroll-top{bottom:76px!important;right:16px}.widget-visible iframe,#tawk-bubble-container,.tawk-min-container{bottom:70px!important}.crisp-client .cc-1brb6{bottom:70px!important}[class*="chat-widget"],[class*="chat-bubble"],[id*="chat-widget"]{bottom:70px!important}}
+@media(max-width:768px){.scroll-top{bottom:76px!important;right:16px}.widget-visible iframe,#tawk-bubble-container,.tawk-min-container{bottom:70px!important}.crisp-client .cc-1brb6{bottom:70px!important}[class*="chat-widget"],[class*="chat-bubble"],[id*="chat-widget"]{bottom:70px!important}}
 @media(max-width:768px){.how,.features,.driver,.biz,.testi,.veh{padding:48px 0}.app-cta{padding:52px 0}.how-header,.features-header{margin-bottom:36px}.testi-header{margin-bottom:36px}.veh-header{margin-bottom:32px}.driver-inner,.biz-inner{gap:36px}.hero{padding:48px 0}.stats-bar{padding:28px 0}.footer-grid{gap:28px}footer{padding:40px 0 0}}
 .sticky-download{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid #2A2A2A;padding:12px 20px;z-index:998;align-items:center;justify-content:space-between;gap:12px}
 .sticky-download span{font-weight:700;color:#fff;font-size:14px;white-space:nowrap}
@@ -1191,7 +1187,6 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
      <a href="https://instagram.com/halamove_za" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on Instagram">IG</a>
      <a href="https://linkedin.com/company/hala-move" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on LinkedIn">in</a>
      <a href="https://facebook.com/halamoveza" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on Facebook">FB</a>
-     <a href="https://wa.me/27760525398" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on WhatsApp" style="background:#1A2E1A;border-color:#25D366;color:#25D366">WA</a>
     </div>
     <div style="margin-top:16px"><div google-add-preferred-source-btn data-theme="dark" data-lang="en"></div></div>
    </div>
@@ -1249,10 +1244,6 @@ html.js-ready:not(.motion-failed) .stats-bar .stat-item,html.js-ready:not(.motio
 
 <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
-<a href="https://wa.me/27760525398" class="wa-float" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
- <span class="wa-icon">💬</span>
- <span>Chat with us</span>
-</a>
 
 <script>
 const nav = document.getElementById('main-nav');

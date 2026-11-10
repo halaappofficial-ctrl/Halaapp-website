@@ -97,8 +97,9 @@
     <button class="btn ghost hidden" id="cancel" type="button">Keep the details I gave</button>
   </form>
 
-  <p class="note">We use these details only to pay this refund, and we delete the account number once it is paid.
-    Questions? <a id="support" href="https://wa.me/27760525398" target="_blank" rel="noopener">WhatsApp HALA MOVE on 076 052 5398</a>.</p>
+  <p class="note">We use these details only to pay this refund, and we delete the account number once it is paid.</p>
+  <p class="note hidden" id="help"><span id="help-text"></span>
+    <a id="support" href="https://wa.me/27760525398" target="_blank" rel="noopener" data-last-resort="no-self-serve-path">WhatsApp HALA MOVE on 076 052 5398</a>.</p>
 </div>
 
 <div id="ended" class="msg hidden">
@@ -108,7 +109,7 @@
 <div id="invalid" class="msg hidden">
   <h1>This link is not valid</h1>
   <p>Check that you opened the whole link you were sent. If it still does not work,
-    <a href="https://wa.me/27760525398" target="_blank" rel="noopener">WhatsApp HALA MOVE on 076 052 5398</a> and we will sort your refund.</p>
+    <a href="https://wa.me/27760525398" target="_blank" rel="noopener" data-last-resort="no-self-serve-path">WhatsApp HALA MOVE on 076 052 5398</a> and we will sort your refund.</p>
 </div>
 <div id="down" class="msg hidden">
   <h1>We could not load your refund</h1>
@@ -175,12 +176,15 @@
     $('amount').textContent = rands(v.amount);
     var d = v.details;
 
+    var help = '';
     if (v.status === 'settled') {
       $('headline').textContent = 'Your refund has been paid';
       $('lead').textContent = 'An EFT can take until the next business day to show in your account.';
+      help = 'Not in your account by the end of the next business day?';
     } else if (!v.open_for_details) {
       $('headline').textContent = 'We are paying your refund now';
-      $('lead').textContent = 'Your bank details can no longer change. If something is wrong, WhatsApp us straight away.';
+      $('lead').textContent = 'Your bank details can no longer change.';
+      help = 'Something wrong with them? Tell us straight away:';
     } else if (d) {
       $('headline').textContent = 'is coming back to you';
       $('lead').textContent = 'We have your bank details and will pay it by EFT, usually the same day.';
@@ -202,6 +206,9 @@
     $('form').classList.toggle('hidden', !(v.open_for_details && !d));
     $('cancel').classList.add('hidden');
     if (v.open_for_details) fillForm(v);
+    $('help-text').textContent = help;
+    $('help').classList.toggle('hidden', !help);
+    // last-resort: no-self-serve-path - the number the API names for the two states above
     if (v.support_whatsapp) $('support').href = 'https://wa.me/' + String(v.support_whatsapp).replace(/\D/g, '');
     show('main');
   }
@@ -215,6 +222,7 @@
       if (r.status === 404) return show('invalid');
       if (r.status === 410) {
         $('ended-title').textContent = /paid/i.test(r.body.message || '') ? 'Your refund has been paid' : 'This link has ended';
+        // last-resort: no-self-serve-path - an ended link cannot be re-issued by the customer
         $('ended-text').textContent = r.body.message || 'WhatsApp us on 076 052 5398 and we will sort your refund.';
         return show('ended');
       }
