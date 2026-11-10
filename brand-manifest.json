@@ -90,13 +90,13 @@
   "vocabulary": {
     "approved": {
       "customer": [
-        "Post a move in 30 seconds",
+        "Post a load in 30 seconds",
         "Verified drivers send offers — you choose the price",
         "Bakkies, panel vans and trucks — from a small bakkie to a 4-ton truck",
         "Escrow-protected payments (PayFast), released when you confirm delivery, or automatically 24 hours after the driver's delivery photo",
         "You get a suggested fair price",
         "Track your driver live",
-        "Moves from R150",
+        "Loads from R150",
         "Every move saved in your in-app history"
       ],
       "driver": [
@@ -130,7 +130,7 @@
         "Verified. Tracked. Accountable.",
         "Earn on your schedule. Own your route.",
         "Post. Choose. Move.",
-        "Moving, on demand."
+        "The rail a city's goods move on."
       ],
       "coverage": [
         "Live in Durban — CBD, Umhlanga, Umlazi, Pinetown, Westville and the metro — plus inter-city trips across KwaZulu-Natal. Johannesburg and Cape Town next."
@@ -242,6 +242,21 @@
         "rule": "\"same-day payout\" / \"paid the same day\" (say \"released when the customer confirms; cash out from R50, paid within 1-2 business days\")",
         "term": "same-day payout",
         "say_instead": "released when the customer confirms; cash out from R50, paid within 1-2 business days"
+      },
+      {
+        "rule": "\"Moving, on demand.\" (retired 2026-11-10: HALA MOVE is the infrastructure goods move on, not a moving service) (say \"The rail a city's goods move on.\")",
+        "term": "Moving, on demand.",
+        "say_instead": "The rail a city's goods move on."
+      },
+      {
+        "rule": "\"Post a move in 30 seconds\" (retired 2026-11-10: HALA MOVE is the infrastructure goods move on, not a moving service) (say \"Post a load in 30 seconds\")",
+        "term": "Post a move in 30 seconds",
+        "say_instead": "Post a load in 30 seconds"
+      },
+      {
+        "rule": "\"Moves from R150\" (retired 2026-11-10: HALA MOVE is the infrastructure goods move on, not a moving service) (say \"Loads from R150\")",
+        "term": "Moves from R150",
+        "say_instead": "Loads from R150"
       }
     ]
   },
