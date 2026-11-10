@@ -19,7 +19,9 @@
 //   2. refund.html: every label in the bank-details form carries the star (all four fields are required).
 //   3. index.html early access: email OR phone, so the pair is one question with the star, and the script still
 //      refuses a send with both boxes empty (that refusal is what makes the star true).
-//   4. No OTHER page has a field a visitor fills in. A new form fails here until it is covered above.
+//   4. reset-password.html: both password boxes carry the star (both are required, and the page refuses a
+//      password under 8 characters or two boxes that differ, which is what makes the stars true).
+//   5. No OTHER page has a field a visitor fills in. A new form fails here until it is covered above.
 //
 // WHAT IT CANNOT DO: it reads source. Whether the star reads well beside each label is an on-screen check.
 
@@ -29,7 +31,7 @@ const vm = require('vm');
 
 const ROOT = __dirname;
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
-const COVERED = { 'index.html': 1, 'refund.html': 1 };
+const COVERED = { 'index.html': 1, 'refund.html': 1, 'reset-password.html': 1 };
 
 function between(src, a, b) {
   const i = src.indexOf(a);
@@ -127,7 +129,27 @@ function checkEarlyAccess(html) {
   return fails;
 }
 
-// ---- 4. no uncovered form ------------------------------------------------------------------------------
+// ---- 4. password reset ---------------------------------------------------------------------------------
+function checkResetPassword(html) {
+  const fails = [];
+  const form = between(html, '<form class="card" id="form"', '</form>');
+  if (!form) return ['reset-password.html: the new-password form not found'];
+  const labels = form.match(/<label\b[^>]*>[\s\S]*?<\/label>/g) || [];
+  if (labels.length !== 2) fails.push('reset-password.html: expected 2 field labels, found ' + labels.length);
+  for (const l of labels) {
+    if (!/class="req"[^>]*>\s*\*<\/span>/.test(l)) {
+      fails.push('reset-password.html: "' + l.replace(/<[^>]+>/g, '').trim() + '" carries no star');
+    }
+  }
+  const fields = form.match(/<(input|select|textarea)\b[^>]*>/gi) || [];
+  if (fields.length !== 2) fails.push('reset-password.html: expected 2 fields, found ' + fields.length + ' (a new one needs its own rule here)');
+  if (!/if \(pw\.length < MIN/.test(html)) fails.push('reset-password.html: a short password is no longer refused, so the star lies');
+  if (!/if \(pw !== pw2\)/.test(html)) fails.push('reset-password.html: two different passwords are no longer refused');
+  if (!/\.req\{\s*color:#FF4444/i.test(html)) fails.push('reset-password.html: the star is not coloured #FF4444');
+  return fails;
+}
+
+// ---- 5. no uncovered form ------------------------------------------------------------------------------
 function uncoveredForms(files) {
   const fails = [];
   for (const [name, html] of files) {
@@ -144,6 +166,7 @@ function runAll(src) {
     ['lead form', checkLeadForm(src.js, src.css)],
     ['refund details', checkRefund(src.refund)],
     ['early access', checkEarlyAccess(src.index)],
+    ['password reset', checkResetPassword(src.reset)],
     ['other pages', uncoveredForms(src.pages)],
   ];
 }
@@ -154,6 +177,7 @@ const SRC = {
   css: read('assets/lead-form.css'),
   refund: read('refund.html'),
   index: read('index.html'),
+  reset: read('reset-password.html'),
   pages,
 };
 
@@ -177,6 +201,9 @@ if (process.argv.includes('--prove')) {
     ['a refund label without the star', { refund: (s) => swap(s, 'Account number<span class="req" aria-hidden="true"> *</span>', 'Account number') }],
     ['early access star removed', { index: (s) => swap(s, '<span class="ea-req" aria-hidden="true"> *</span>', '') }],
     ['early access empty send allowed', { index: (s) => swap(s, 'if(!email && !phone)', 'if(false)') }],
+    ['a reset label without the star', { reset: (s) => swap(s, 'Type it again<span class="req" aria-hidden="true"> *</span>', 'Type it again') }],
+    ['a reset with no length check', { reset: (s) => swap(s, 'if (pw.length < MIN', 'if (false') }],
+    ['a reset with no match check', { reset: (s) => swap(s, 'if (pw !== pw2)', 'if (false)') }],
     ['a new page with a form', { pages: (p) => p.concat([['new.html', '<form><input type="text" name="x"></form>']]) }],
   ];
   let caught = 0;
