@@ -64,6 +64,14 @@ const CASES = [
     l => l.includes('id=com.hala.customer') && medium(l) === 'web'],
   ['site link iOS -> app store + ct',    '/drive?s=web-1veh', IOS, l => l === 'https://apps.apple.com/za/app/id6789447581?ct=web-1veh'],
 
+  // Field sign-up (2026-11-10): the tablet our team holds up (field-tab) and the card it hands over
+  // (field-card). 'in_person', never 'qr', so face-to-face recruiting is separable from posted boards.
+  ['field tablet  -> driver play, in_person', '/drive?s=field-tab', AND,
+    l => l.includes('id=com.hala.driverapp') && medium(l) === 'in_person' && l.includes('utm_campaign%3Dfield-tab')],
+  ['field card    -> driver play, in_person', '/drive?s=field-card', AND,
+    l => l.includes('id=com.hala.driverapp') && medium(l) === 'in_person' && l.includes('utm_content%3Dfield-card')],
+  ['field card iOS -> app store + ct',   '/drive?s=field-card', IOS, l => l === 'https://apps.apple.com/za/app/id6789447581?ct=field-card'],
+
   // The ?s= allow-list is an input boundary on a public URL: anything outside [A-Za-z0-9_-]{1,32}
   // is DROPPED, never echoed into the outbound link - so a hostile code reads as no code at all.
   ['hostile code  -> dropped',           '/get?s=../evil!', AND, l => medium(l) === 'direct' && !l.includes('evil')],

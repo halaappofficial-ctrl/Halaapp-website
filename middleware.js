@@ -328,6 +328,12 @@ const MEDIUM_BY_PREFIX = [
   // starting 'web-', so no board is relabelled. Spec: hala-backend
   // docs/research/2026-11-02-lead-form-questions.md, H.5.
   ['web-', 'web'],        // links between pages of halamove.co.za
+  // Field sign-up (2026-11-10): the tablet screen our team holds up where drivers gather (field-tab)
+  // and the A6 card it hands over (field-card), both to /drive. Face-to-face recruiting, not a board
+  // left on a wall, so its own medium keeps the field effort's installs separable in Play Console.
+  // A counted sweep found no existing code starting 'field-', so no board is relabelled. Boards:
+  // hala-backend docs/marketing/_templates/field-signup.template.html.
+  ['field-', 'in_person'], // field sign-up tablet and leave-behind card
 ];
 const MEDIUM_CODED_DEFAULT = 'qr';   // an unrecognised code is a printed board until proven otherwise
 const MEDIUM_NO_CODE = 'direct';     // no ?s= at all: typed, bookmarked, or shared as a bare link
