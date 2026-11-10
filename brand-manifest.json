@@ -3,8 +3,8 @@
   "_manifest_version": "1.1.0",
   "_generated_at": "2026-11-10",
   "_generated_from": {
-    "backend": "1684bbec",
-    "mobile": "ba3a8a91"
+    "backend": "5eb56470",
+    "mobile": "6a744fc0"
   },
   "_trust": {
     "derived_values": "re-derived from source and compared on every push (backend: node scripts/brand-manifest/check.js). A mismatch fails loud and names the value.",
@@ -58,7 +58,7 @@
       "play_url": "https://play.google.com/store/apps/details?id=com.hala.driverapp",
       "app_store_url": "https://apps.apple.com/za/app/id6789447581",
       "app_store_id": "6789447581",
-      "ios_version": "1.0.15",
+      "ios_version": "1.0.16",
       "ios_released": "2026-07-23T07:00:00Z",
       "ios_minimum_os": "15.1",
       "on_google_play": true,
