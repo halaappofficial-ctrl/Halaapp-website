@@ -92,11 +92,11 @@
       { key: 'vehicle_types', type: 'chips', multi: true, wide: true, label: 'What size vehicle do your loads need?',
         hint: 'Choose all that fit. These are the sizes in the HALA MOVE app.', exclusive: 'not_sure',
         options: [
-          ['bakkie_small', 'Small Bakkie', 'A few boxes, a chair, light loads.'],
-          ['bakkie_large', 'Large Bakkie', 'A couple of rooms of furniture.'],
-          ['panel_van', 'Panel Van', 'Enclosed, weatherproof, more secure.'],
-          ['truck_1ton', '1 Ton Truck', 'A studio or one-bed move. Includes the Hyundai H100.'],
-          ['truck_4ton', '4 Ton Truck', 'A full house move.'],
+          ['bakkie_small', 'Small Bakkie', 'Boxes, parcels, a chair or light stock.'],
+          ['bakkie_large', 'Large Bakkie', 'Stock, building supplies, a lounge suite.'],
+          ['panel_van', 'Panel Van', 'Enclosed and dry, for stock and appliances.'],
+          ['truck_1ton', '1 Ton Truck', 'Pallets, appliances or a one-bedroom home. Includes the Hyundai H100.'],
+          ['truck_4ton', '4 Ton Truck', 'A full load of stock, or a whole household.'],
           ['not_sure', 'Not sure, help me choose']
         ],
         req: 'Choose a vehicle size, or Not sure.' },

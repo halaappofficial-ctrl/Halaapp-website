@@ -897,12 +897,15 @@ window.va('beforeSend', function (event) {
      resized to 480 and 800 wide). Never a driver's own photo. The sizes, their order and the line under each name are
      the app's size picker (customer-app src/constants/vehicleCatalog.js TIER_ORDER and TIER_BLURBS): change them there
      first. "Such as" names only models approved drivers have registered (production, read 2026-11-01).
-     Offers go to drivers whose vehicle can carry the size (backend src/utils/vehicleCapability.js). -->
+     Offers go to drivers whose vehicle can carry the size (backend src/utils/vehicleCapability.js).
+     2026-11-10: each line says what a business sends, households still in (mobile bc3c2b08 TIER_BLURBS; the same five
+     lines are in assets/lead-form.js). -->
+
 <section class="veh" id="vehicles" aria-labelledby="veh-heading">
  <div class="container">
   <div class="veh-header">
    <div class="eyebrow" style="justify-content:center">Vehicles</div>
-   <h2 class="h2" id="veh-heading" style="text-align:center">From one chair<br>to a full house</h2>
+   <h2 class="h2" id="veh-heading" style="text-align:center">From one box<br>to a full truckload</h2>
    <p class="sub center">Choose a size when you post. Drivers whose vehicle can carry it send you offers, and each offer names the driver's own vehicle.</p>
   </div>
   <ul class="veh-grid reveal" role="list" tabindex="0" aria-label="Vehicle sizes">
@@ -912,7 +915,7 @@ window.va('beforeSend', function (event) {
      <img src="/images/vehicles/half_ton.v1-800.jpg" width="800" height="400" alt="A white half-ton bakkie" loading="lazy" decoding="async">
     </picture>
     <h3 class="veh-name">Small Bakkie</h3>
-    <p class="veh-fits">A few boxes, a chair, light loads</p>
+    <p class="veh-fits">Boxes, parcels, a chair or light stock</p>
     <p class="veh-models">Such as a Nissan NP200, Chevrolet Utility or Opel Combo</p>
     <a class="veh-link" href="/bakkie-hire-durban">Bakkie hire in Durban</a>
    </li>
@@ -922,7 +925,7 @@ window.va('beforeSend', function (event) {
      <img src="/images/vehicles/one_ton.v1-800.jpg" width="800" height="400" alt="A white one-ton single cab bakkie" loading="lazy" decoding="async">
     </picture>
     <h3 class="veh-name">Large Bakkie</h3>
-    <p class="veh-fits">A couple of rooms of furniture</p>
+    <p class="veh-fits">Stock, building supplies, a lounge suite</p>
     <p class="veh-models">Such as a single cab Toyota Hilux, Isuzu D-Max or Ford Ranger</p>
     <a class="veh-link" href="/bakkie-hire-durban">Bakkie hire in Durban</a>
    </li>
@@ -932,7 +935,7 @@ window.va('beforeSend', function (event) {
      <img src="/images/vehicles/panel_van.v1-800.jpg" width="800" height="400" alt="A white panel van" loading="lazy" decoding="async">
     </picture>
     <h3 class="veh-name">Panel Van</h3>
-    <p class="veh-fits">Enclosed, weatherproof, more secure</p>
+    <p class="veh-fits">Enclosed and dry, for stock and appliances</p>
     <p class="veh-models">Such as a Mercedes Sprinter</p>
     <a class="veh-link" href="/panel-van-hire-durban">Panel van hire in Durban</a>
    </li>
@@ -942,7 +945,7 @@ window.va('beforeSend', function (event) {
      <img src="/images/vehicles/dropside.v1-800.jpg" width="800" height="400" alt="A white one-ton drop-side truck" loading="lazy" decoding="async">
     </picture>
     <h3 class="veh-name">1 Ton Truck</h3>
-    <p class="veh-fits">A studio or one-bed move</p>
+    <p class="veh-fits">Pallets, appliances or a one-bedroom home</p>
     <p class="veh-models">Such as a Hyundai H100, Kia K2700 or a double cab with a trailer</p>
     <a class="veh-link" href="/truck-hire-durban">Truck hire in Durban</a>
    </li>
@@ -952,7 +955,7 @@ window.va('beforeSend', function (event) {
      <img src="/images/vehicles/box_truck.v1-800.jpg" width="800" height="400" alt="A white 4-ton box truck" loading="lazy" decoding="async">
     </picture>
     <h3 class="veh-name">4 Ton Truck</h3>
-    <p class="veh-fits">A full house move</p>
+    <p class="veh-fits">A full load of stock, or a whole household</p>
     <p class="veh-models">Such as an Isuzu N-Series</p>
     <a class="veh-link" href="/truck-hire-durban">Truck hire in Durban</a>
    </li>
