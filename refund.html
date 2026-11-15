@@ -213,6 +213,11 @@ window.va('beforeSend', function (event) {
     } else if (d) {
       $('headline').textContent = 'is coming back to you';
       $('lead').textContent = 'We have your bank details and will pay it by EFT, usually the same day.';
+    } else if (v.came_back === true) {
+      // The bank sent our refund EFT back (wrong or closed account), so it is owed again: say that, not "was cancelled".
+      $('headline').textContent = 'is due back to you';
+      $('lead').textContent = 'The bank sent back the refund we paid you, so it did not reach your account. '
+        + 'Tell us which bank account to pay it into and we pay it again by EFT, usually the same day.';
     } else {
       $('headline').textContent = 'is due back to you';
       $('lead').textContent = 'Your booking' + (v.pickup_area ? ' from ' + v.pickup_area : '') + ' was cancelled. '

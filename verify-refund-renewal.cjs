@@ -30,6 +30,15 @@ check('the ended text prefers the server message', /\$\('ended-text'\)\.textCont
 check('the fallback carries its last-resort mark',
   /last-resort: no-self-serve-path[^\n]*\r?\n\s*\$\('ended-text'\)/.test(src));
 
+// 4. A refund owed again because the bank sent our EFT back (2026-11-15): decided by the server's came_back flag,
+//    checked before the cancellation words, and never said as "was cancelled".
+const cameBack = src.indexOf("v.came_back === true");
+const cancelledLead = src.indexOf("' was cancelled. '");
+check('a refund that came back is decided by the server flag', cameBack >= 0);
+check('the came-back branch is checked before the cancellation words', cameBack >= 0 && cancelledLead > cameBack);
+check('the came-back lead says the bank sent it back',
+  /v\.came_back === true\)[\s\S]{0,400}?The bank sent back the refund we paid you/.test(src));
+
 const total = pass + fail;
 console.log((fail ? 'REFUND RENEWAL: FAIL ' : 'REFUND RENEWAL: PASS ') + pass + '/' + total);
 process.exit(fail || total === 0 ? 1 : 0);
