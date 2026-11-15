@@ -251,7 +251,6 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 @media(max-width:767px){nav{height:auto}.nav-inner{flex-wrap:wrap;padding:10px 16px;gap:6px;row-gap:4px}.nav-live{display:none}.nav-btns{margin-left:auto;flex:0 0 auto;gap:6px}.nav-btns .btn{padding:9px 14px;font-size:.72rem}.nav-btns .btn-ghost{display:none}.nav-links{display:flex;flex:0 0 100%;order:10;gap:22px;justify-content:flex-start;overflow-x:auto;-webkit-overflow-scrolling:touch;padding:4px 2px 6px;margin:0;scrollbar-width:none;-ms-overflow-style:none}.nav-links::-webkit-scrollbar{display:none}.nav-links a{font-size:.78rem;font-weight:600;white-space:nowrap;padding:4px 0;color:var(--t2)}.nav-links li{flex-shrink:0;list-style:none}}
 .hero{position:relative;min-height:calc(100vh - 100px);display:flex;align-items:center;padding:80px 0 40px;overflow:hidden}
 #city-canvas{position:absolute;inset:0;width:100%;height:100%;opacity:.55;pointer-events:none}
-.hero-grid{position:relative;z-index:2;display:grid;grid-template-columns:1fr;gap:60px;align-items:center}
 .hero-eyebrow{animation:fadeUp .6s cubic-bezier(.4,0,.2,1) .1s both}
 .hero-h1{font-family:var(--disp);font-size:clamp(3.6rem,8vw,7rem);line-height:1.1;letter-spacing:.01em;margin-bottom:28px}
 .hero-h1 .line{display:block;overflow:hidden}
@@ -281,45 +280,51 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .appstore-badge-link:focus-visible{outline:2px solid var(--g);outline-offset:3px}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.hero-phone-wrap{display:flex;justify-content:center;align-items:center;position:relative;animation:fadeIn 1s cubic-bezier(.4,0,.2,1) .3s both}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.phone-glow{position:absolute;width:300px;height:400px;background:radial-gradient(ellipse at center,rgba(92,181,88,.18) 0%,transparent 70%);pointer-events:none}
-.phone{width:250px;background:#111;border-radius:36px;border:1.5px solid #2A2A2A;box-shadow:0 60px 120px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.04),0 0 60px rgba(92,181,88,.06);overflow:hidden;position:relative;z-index:2;animation:phoneFloat 4s ease-in-out infinite}
-@keyframes phoneFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-.phone-bar{display:flex;align-items:center;justify-content:space-between;padding:14px 20px 10px;background:#111}
-.phone-bar-time{font-size:.72rem;font-weight:600;color:var(--t);letter-spacing:.04em}
-.phone-bar-icons{display:flex;gap:4px;align-items:center}
-.phone-bar-icons span{font-size:.65rem;color:var(--t2)}
-.phone-header{background:#111;padding:12px 16px 14px;border-bottom:1px solid #1A1A1A}
-.phone-header-title{font-size:.82rem;font-weight:700;color:var(--t);margin-bottom:2px}
-.phone-header-sub{font-size:.68rem;color:var(--t3)}
-.phone-header-badge{display:inline-flex;align-items:center;gap:5px;margin-top:8px;background:rgba(92,181,88,.12);border:1px solid rgba(92,181,88,.25);border-radius:20px;padding:4px 10px;font-size:.65rem;font-weight:600;color:var(--g)}
-.phone-body{padding:10px 12px;background:#0D0D0D;min-height:360px}
-.bid-card{background:#141414;border:1px solid #222;border-radius:12px;padding:12px;margin-bottom:10px;position:relative;overflow:hidden}
-.bid-card.best::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--g);border-radius:2px 0 0 2px}
-.bid-best-tag{position:absolute;top:10px;right:10px;background:rgba(92,181,88,.12);border:1px solid rgba(92,181,88,.3);border-radius:20px;padding:2px 8px;font-size:.58rem;font-weight:700;color:var(--g);letter-spacing:.06em;text-transform:uppercase}
-.bid-row{display:flex;align-items:center;gap:9px;margin-bottom:8px}
-.bid-avatar{width:32px;height:32px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:#0A0A0A;background:var(--g)}
-.bid-info{flex:1;min-width:0}
-.bid-name{font-size:.75rem;font-weight:600;color:var(--t);margin-bottom:2px}
-.bid-meta{font-size:.65rem;color:var(--t3);display:flex;align-items:center;gap:5px}
-.bid-star{color:var(--gold);font-size:.65rem}
-.bid-amount{font-size:1.1rem;font-weight:800;color:var(--t);white-space:nowrap}
-.bid-accept{width:100%;padding:9px;background:#1E1E1E;border:1px solid #2A2A2A;border-radius:8px;font-size:.7rem;font-weight:600;color:var(--t2);text-align:center;letter-spacing:.04em;transition:all .2s}
-.bid-card.best .bid-accept{background:var(--g);color:#0A0A0A;border-color:var(--g)}
-.bid-card.arrive1{animation:bidArrive .5s cubic-bezier(.34,1.56,.64,1) .8s both}
-.bid-card.arrive2{animation:bidArrive .5s cubic-bezier(.34,1.56,.64,1) 2s both}
-.bid-card.arrive3{animation:bidArrive .5s cubic-bezier(.34,1.56,.64,1) 3.4s both}
-@keyframes bidArrive{from{opacity:0;transform:translateY(20px) scale(.95)}to{opacity:1;transform:translateY(0) scale(1)}}
-.timer-bar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#111;border-top:1px solid #1A1A1A}
-.timer-label{font-size:.65rem;color:var(--t3);font-weight:500}
-.timer-val{font-size:.75rem;font-weight:700;color:var(--g)}
-.phone-track{position:relative;background:#111;padding:10px 12px;border-top:1px solid #1A1A1A}
-.phone-track-label{font-size:.6rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--t3);margin-bottom:6px}
-.phone-route{display:flex;align-items:center;gap:6px;font-size:.68rem;color:var(--t2)}
-.phone-route-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.route-line{flex:1;height:1px;background:repeating-linear-gradient(to right,#333 0,#333 4px,transparent 4px,transparent 8px)}
-@media(min-width:900px){.hero-grid{grid-template-columns:1.1fr 0.9fr;gap:60px}.phone{width:280px}}
+/* HERO (2026-11-15): three words and one line, then the vehicles. The picture says who we are; the reading is cut
+   to fourteen words. Native scroll-snap so a phone gets real momentum and edge bounce, no scripted physics. */
+.hero{min-height:0;display:block;padding:76px 0 44px}
+.hero-head{position:relative;z-index:2;text-align:center;max-width:860px;margin:0 auto}
+.hero-head .eyebrow{justify-content:center}
+.hero-h1{font-size:clamp(3.4rem,10vw,6.6rem);line-height:1.02;letter-spacing:-.015em;margin-bottom:18px}
+.hero-sub{max-width:28em;margin:0 auto 34px;line-height:1.6;color:var(--t2)}
+.hero-sub span{display:inline-block}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.rail-wrap{position:relative;z-index:2}
+.rail{--edge:max(24px,calc((100vw - 1180px) / 2 + 24px));display:flex;gap:16px;list-style:none;margin:0;padding:6px var(--edge) 16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--edge);scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.rail::-webkit-scrollbar{display:none}
+.rail:focus-visible{outline:2px solid var(--g);outline-offset:4px;border-radius:24px}
+.rail-card{flex:0 0 min(82vw,340px);scroll-snap-align:start;display:flex;flex-direction:column;background:var(--s);border:1px solid var(--b);border-radius:24px;overflow:hidden;transition:border-color .25s}
+.rail-pic{display:block;background:#FDFDFD}
+.rail-pic img{display:block;width:100%;height:auto;aspect-ratio:2/1}
+.rail-body{display:flex;flex-direction:column;padding:18px 20px 20px;flex:1}
+.rail-name{font-family:var(--body);font-size:1.15rem;font-weight:700;letter-spacing:-.01em;line-height:1.25;margin:0 0 6px}
+.rail-name a{color:var(--t);text-decoration:none}
+.rail-name a::after{content:'';display:inline-block;width:.4em;height:.4em;border-right:2px solid var(--g);border-top:2px solid var(--g);transform:rotate(45deg);margin-left:.4em;vertical-align:.1em}
+.rail-name a:focus-visible{outline:2px solid var(--g);outline-offset:3px;border-radius:4px}
+.rail-fits{font-size:.9rem;color:var(--t2);line-height:1.5;margin:0 0 16px;flex:1}
+.rail-acts{display:flex;align-items:center;gap:20px}
+.rail-book{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:999px;background:var(--g);color:#0A0A0A;font-weight:700;font-size:.92rem;text-decoration:none;transition:transform .1s ease-out,background .2s}
+.rail-book:hover{background:var(--gl)}
+.rail-book:active{transform:scale(.97)}
+.rail-drive{display:inline-flex;align-items:center;min-height:44px;color:var(--t);font-weight:600;font-size:.9rem;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(255,255,255,.35)}
+.rail-drive:active{opacity:.7}
+.rail-book:focus-visible,.rail-drive:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+.rail-ctrl{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px}
+.rail-dots{display:flex}
+.rail-dot{width:32px;height:32px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
+.rail-dot::before{content:'';width:8px;height:8px;border-radius:999px;background:#555;transition:width .3s cubic-bezier(.4,0,.2,1),background-color .3s}
+.rail-dot[aria-current="true"]::before{width:24px;background:var(--g)}
+.rail-dot:focus-visible{outline:2px solid var(--g);outline-offset:-4px;border-radius:999px}
+.rail-arrow{display:none;width:40px;height:40px;border-radius:999px;border:1px solid var(--b2);background:rgba(20,20,20,.72);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--t);cursor:pointer;transition:opacity .2s,border-color .2s}
+.rail-arrow:hover{border-color:var(--g)}
+.rail-arrow[disabled]{opacity:.3;cursor:default;border-color:var(--b2)}
+@media(hover:hover) and (pointer:fine){.rail-arrow{display:grid;place-items:center}.rail-card:hover{border-color:rgba(92,181,88,.45)}}
+.hero .store-row{justify-content:center;margin-top:26px}
+.hero .store-note{flex-basis:100%;text-align:center}
+@media(max-width:599px){.hero .play-badge-link{width:158px}.hero .appstore-badge-link{width:132px}}
+@media(min-width:900px){.hero{padding:60px 0 56px}.hero-h1{font-size:5.75rem}.rail-card{flex-basis:300px}}
+@media(prefers-reduced-motion:reduce){.rail-dot::before{transition:none}.rail-book{transition:none}}
 .stats-bar{background:var(--s);border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:40px 0}
 .stats-bar .stat-num,.stats-bar .stat-label{opacity:1!important;transform:none!important}
 .stats-inner{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
@@ -467,24 +472,6 @@ footer{background:var(--bg2);border-top:1px solid var(--b);padding:64px 0 0}
 .footer-bottom-links a:hover{color:var(--t2)}
 @media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr;gap:32px}}
 @media(max-width:768px){.footer-grid{grid-template-columns:1fr;gap:32px}}
-.veh{padding:80px 0;background:var(--bg);border-top:1px solid var(--b)}
-.veh-header{text-align:center;margin-bottom:48px}
-.veh-header .sub{margin:0 auto}
-.veh-grid{display:flex;gap:14px;margin:0 -24px;padding:2px 24px 10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 24px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-.veh-grid::-webkit-scrollbar{display:none}
-.veh-grid:focus-visible{outline:2px solid var(--g);outline-offset:4px;border-radius:var(--rl)}
-.veh-card{flex:0 0 76%;min-width:0;scroll-snap-align:start;background:var(--s2);border:1px solid var(--b);border-radius:var(--rl);padding:10px 10px 18px;display:flex;flex-direction:column;transition:border-color .25s}
-.veh-card:hover{border-color:rgba(92,181,88,.4)}
-.veh-pic{display:block;background:#FDFDFD;border-radius:10px;overflow:hidden;margin-bottom:14px}
-.veh-pic img{display:block;width:100%;height:auto;aspect-ratio:2/1}
-.veh-name{font-family:var(--body);font-size:1rem;font-weight:700;color:var(--t);margin:0 8px 6px;line-height:1.3}
-.veh-fits{font-size:.86rem;color:var(--t);margin:0 8px 6px;line-height:1.5}
-.veh-models{font-size:.78rem;color:var(--t3);margin:0 8px 14px;line-height:1.55;flex:1}
-.veh-link{margin:0 8px;font-size:.8rem;font-weight:600;color:var(--g);text-decoration:underline;text-underline-offset:3px;align-self:flex-start}
-.veh-link:hover{color:var(--gl)}
-@media(max-width:374px){.veh-grid{margin:0 -16px;padding:2px 16px 10px;scroll-padding:0 16px}}
-@media(min-width:760px){.veh-grid{flex-wrap:wrap;justify-content:center;gap:16px;margin:0;padding:0;overflow:visible;scroll-snap-type:none}.veh-card{flex:0 1 calc(33.333% - 11px)}}
-@media(min-width:1100px){.veh-card{flex-basis:calc(20% - 13px)}}
 .scroll-top{position:fixed;bottom:28px;right:28px;z-index:500;width:44px;height:44px;border-radius:10px;background:var(--s2);border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:1.1rem;color:var(--t2);cursor:pointer;transition:all .25s;opacity:0;pointer-events:none;transform:translateY(10px)}
 .scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .scroll-top:hover{border-color:var(--g);color:var(--g)}
@@ -492,11 +479,11 @@ footer{background:var(--bg2);border-top:1px solid var(--b);padding:64px 0 0}
 .center{text-align:center}
 .mt-40{margin-top:40px}
 .cta-sub-text{font-size:.82rem;color:var(--t3);text-align:center;margin-top:14px;letter-spacing:.04em}
-@media(max-width:374px){.container{padding:0 16px}.hero-h1{font-size:clamp(2.6rem,9vw,3.6rem)}.hero-grid{gap:40px}.phone{width:220px}.phone-glow{width:240px;height:320px}.steps{gap:16px}.feat-card{padding:24px}.btn-lg{padding:14px 24px;font-size:.9rem}}
+@media(max-width:374px){.container{padding:0 16px}.hero-h1{font-size:clamp(2.6rem,9vw,3.6rem)}.rail{--edge:16px}.steps{gap:16px}.feat-card{padding:24px}.btn-lg{padding:14px 24px;font-size:.9rem}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal,.reveal-l,.reveal-r{opacity:1;transform:none;transition:none}.ann-track{animation:none}#city-canvas{display:none}}
 .reveal,.reveal-l,.reveal-r{opacity:1!important;transform:none!important;transition:none!important}
 @media(max-width:768px){.scroll-top{bottom:76px!important;right:16px}.widget-visible iframe,#tawk-bubble-container,.tawk-min-container{bottom:70px!important}.crisp-client .cc-1brb6{bottom:70px!important}[class*="chat-widget"],[class*="chat-bubble"],[id*="chat-widget"]{bottom:70px!important}}
-@media(max-width:768px){.how,.features,.driver,.biz,.testi,.veh{padding:48px 0}.app-cta{padding:52px 0}.how-header,.features-header{margin-bottom:36px}.testi-header{margin-bottom:36px}.veh-header{margin-bottom:32px}.driver-inner,.biz-inner{gap:36px}.hero{padding:48px 0}.stats-bar{padding:28px 0}.footer-grid{gap:28px}footer{padding:40px 0 0}}
+@media(max-width:768px){.how,.features,.driver,.biz,.testi{padding:48px 0}.app-cta{padding:52px 0}.how-header,.features-header{margin-bottom:36px}.testi-header{margin-bottom:36px}.driver-inner,.biz-inner{gap:36px}.hero{padding:48px 0}.stats-bar{padding:28px 0}.footer-grid{gap:28px}footer{padding:40px 0 0}}
 .sticky-download{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid #2A2A2A;padding:12px 20px;z-index:998;align-items:center;justify-content:space-between;gap:12px}
 .sticky-download span{font-weight:700;color:#fff;font-size:14px;white-space:nowrap}
 .sticky-download a{background:#5CB558;color:#0A0A0A;padding:10px 24px;border-radius:999px;font-weight:800;font-size:13px;text-decoration:none;white-space:nowrap;flex-shrink:0}
@@ -596,38 +583,117 @@ window.va('beforeSend', function (event) {
 <section class="hero" id="hero" aria-labelledby="hero-heading">
  <canvas id="city-canvas" aria-hidden="true"></canvas>
  <div class="container">
-  <div class="hero-grid">
+  <div class="hero-head">
+   <div class="hero-eyebrow eyebrow" data-motion-hero-el="eyebrow">
+    Durban · KwaZulu-Natal · South Africa
+   </div>
+   <h1 class="hero-h1" id="hero-heading" data-motion-hero-el="h1">
+    <span class="line"><span>Stop asking</span></span>
+    <span class="line"><span class="accent">around.</span></span>
+   </h1>
+   <p class="hero-sub" data-motion-hero-el="sub"><span>Post your load. Checked drivers send offers.</span> <span>Your money is held until it arrives.</span></p>
+  </div>
+ </div>
 
-   <div>
-    <div class="hero-eyebrow eyebrow" data-motion-hero-el="eyebrow">
-     Durban · KwaZulu-Natal · South Africa
-    </div>
-    <h1 class="hero-h1" id="hero-heading" data-motion-hero-el="h1">
-     <span class="line"><span>First you ask a friend.</span></span>
-     <span class="line"><span>Then you ask <span class="accent">their friend.</span></span></span>
-     <span class="line"><span>There is another way.</span></span>
-    </h1>
-    <p class="hero-sub" data-motion-hero-el="sub">
-     Eventually somebody sends you a number. You text a stranger your address, he names his price, and he comes when he comes. Post your job on HALA MOVE instead: nearby verified drivers make offers in real time and you choose. From a bakkie for a single fridge to a 4-tonne truck for a full office move. Live GPS, PayFast escrow, and your money held until it is delivered.
-    </p>
-    <div class="hero-btns" data-motion-hero-el="cta">
-     <a href="/download" class="btn btn-green btn-lg">Download HALA MOVE &rarr;</a>
-     <a href="#customers" class="btn btn-ghost btn-lg">How It Works</a>
-    </div>
-    <div class="hero-trust" data-motion-hero-el="trust">
-     <div class="trust-item">
-      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#5CB558" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#5CB558" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      ID-verified drivers
-     </div>
-     <div class="trust-item">
-      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#5CB558" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#5CB558" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      PayFast escrow
-     </div>
-     <div class="trust-item">
-      <svg width="15" height="15" viewBox="0 0 15 15" fill="none"><circle cx="7.5" cy="7.5" r="6.5" stroke="#5CB558" stroke-width="1.2"/><path d="M4.5 7.5l2 2 4-4" stroke="#5CB558" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      Live GPS tracking
+ <!-- THE VEHICLES (moved up from their own section 2026-11-15 and made the hero's picture). One picture per size:
+      the same class pictures the app shows when a customer picks a size and beside every offer (backend
+      src/constants/vehicleImages.js CATEGORY_IMAGE, files from public-assets/vehicles/ resized to 480 and 800 wide).
+      Never a driver's own photo. The sizes, their order and the line under each name are the app's size picker
+      (customer-app src/constants/vehicleCatalog.js TIER_ORDER and TIER_BLURBS): change them there first; the same
+      five lines are in assets/lead-form.js. Offers go to drivers whose vehicle can carry the size (backend
+      src/utils/vehicleCapability.js). "Book" goes to the customer app and "I drive one" to the driver app, through
+      /get and /drive (middleware.js sends iPhone to the App Store, everything else to Google Play) with a web- code
+      per vehicle, so each tap shows up as website traffic in Play Console and Apple analytics. On a computer both go
+      to /download, which shows both stores (the script at the end of this page). No booking link without the app
+      until that page answers in production. -->
+ <div class="rail-wrap">
+  <h2 class="sr-only" id="rail-heading">Choose a vehicle</h2>
+  <ul class="rail" id="hero-rail" role="list" tabindex="0" aria-labelledby="rail-heading">
+   <li class="rail-card">
+    <picture class="rail-pic">
+     <source type="image/webp" srcset="/images/vehicles/half_ton.v1-480.webp 480w, /images/vehicles/half_ton.v1-800.webp 800w" sizes="(min-width:900px) 300px, min(82vw, 340px)">
+     <img src="/images/vehicles/half_ton.v1-800.jpg" width="800" height="400" alt="A white half-ton bakkie" fetchpriority="high" decoding="async">
+    </picture>
+    <div class="rail-body">
+     <h3 class="rail-name"><a href="/bakkie-hire-durban" aria-label="Small Bakkie: Bakkie hire in Durban">Small Bakkie</a></h3>
+     <p class="rail-fits">Boxes, parcels, a chair or light stock</p>
+     <div class="rail-acts">
+      <a class="rail-book" href="/get?s=web-hero-sbak" data-desk="/download" aria-label="Book a small bakkie">Book</a>
+      <a class="rail-drive" href="/drive?s=web-herod-sbak" data-desk="/download" aria-label="I drive a small bakkie: get the driver app">I drive one</a>
      </div>
     </div>
+   </li>
+   <li class="rail-card">
+    <picture class="rail-pic">
+     <source type="image/webp" srcset="/images/vehicles/one_ton.v1-480.webp 480w, /images/vehicles/one_ton.v1-800.webp 800w" sizes="(min-width:900px) 300px, min(82vw, 340px)">
+     <img src="/images/vehicles/one_ton.v1-800.jpg" width="800" height="400" alt="A white one-ton single cab bakkie" loading="lazy" decoding="async">
+    </picture>
+    <div class="rail-body">
+     <h3 class="rail-name"><a href="/bakkie-hire-durban" aria-label="Large Bakkie: Bakkie hire in Durban">Large Bakkie</a></h3>
+     <p class="rail-fits">Stock, building supplies, a lounge suite</p>
+     <div class="rail-acts">
+      <a class="rail-book" href="/get?s=web-hero-lbak" data-desk="/download" aria-label="Book a large bakkie">Book</a>
+      <a class="rail-drive" href="/drive?s=web-herod-lbak" data-desk="/download" aria-label="I drive a large bakkie: get the driver app">I drive one</a>
+     </div>
+    </div>
+   </li>
+   <li class="rail-card">
+    <picture class="rail-pic">
+     <source type="image/webp" srcset="/images/vehicles/panel_van.v1-480.webp 480w, /images/vehicles/panel_van.v1-800.webp 800w" sizes="(min-width:900px) 300px, min(82vw, 340px)">
+     <img src="/images/vehicles/panel_van.v1-800.jpg" width="800" height="400" alt="A white panel van" loading="lazy" decoding="async">
+    </picture>
+    <div class="rail-body">
+     <h3 class="rail-name"><a href="/panel-van-hire-durban" aria-label="Panel Van: Panel van hire in Durban">Panel Van</a></h3>
+     <p class="rail-fits">Enclosed and dry, for stock and appliances</p>
+     <div class="rail-acts">
+      <a class="rail-book" href="/get?s=web-hero-van" data-desk="/download" aria-label="Book a panel van">Book</a>
+      <a class="rail-drive" href="/drive?s=web-herod-van" data-desk="/download" aria-label="I drive a panel van: get the driver app">I drive one</a>
+     </div>
+    </div>
+   </li>
+   <li class="rail-card">
+    <picture class="rail-pic">
+     <source type="image/webp" srcset="/images/vehicles/dropside.v1-480.webp 480w, /images/vehicles/dropside.v1-800.webp 800w" sizes="(min-width:900px) 300px, min(82vw, 340px)">
+     <img src="/images/vehicles/dropside.v1-800.jpg" width="800" height="400" alt="A white one-ton drop-side truck" loading="lazy" decoding="async">
+    </picture>
+    <div class="rail-body">
+     <h3 class="rail-name"><a href="/truck-hire-durban" aria-label="1 Ton Truck: Truck hire in Durban">1 Ton Truck</a></h3>
+     <p class="rail-fits">Pallets, appliances or a one-bedroom home</p>
+     <div class="rail-acts">
+      <a class="rail-book" href="/get?s=web-hero-1t" data-desk="/download" aria-label="Book a 1 ton truck">Book</a>
+      <a class="rail-drive" href="/drive?s=web-herod-1t" data-desk="/download" aria-label="I drive a 1 ton truck: get the driver app">I drive one</a>
+     </div>
+    </div>
+   </li>
+   <li class="rail-card">
+    <picture class="rail-pic">
+     <source type="image/webp" srcset="/images/vehicles/box_truck.v1-480.webp 480w, /images/vehicles/box_truck.v1-800.webp 800w" sizes="(min-width:900px) 300px, min(82vw, 340px)">
+     <img src="/images/vehicles/box_truck.v1-800.jpg" width="800" height="400" alt="A white 4-ton box truck" loading="lazy" decoding="async">
+    </picture>
+    <div class="rail-body">
+     <h3 class="rail-name"><a href="/truck-hire-durban" aria-label="4 Ton Truck: Truck hire in Durban">4 Ton Truck</a></h3>
+     <p class="rail-fits">A full load of stock, or a whole household</p>
+     <div class="rail-acts">
+      <a class="rail-book" href="/get?s=web-hero-4t" data-desk="/download" aria-label="Book a 4 ton truck">Book</a>
+      <a class="rail-drive" href="/drive?s=web-herod-4t" data-desk="/download" aria-label="I drive a 4 ton truck: get the driver app">I drive one</a>
+     </div>
+    </div>
+   </li>
+  </ul>
+  <div class="rail-ctrl">
+   <button class="rail-arrow prev" type="button" aria-label="Previous vehicle" aria-controls="hero-rail"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+   <div class="rail-dots">
+    <button class="rail-dot" type="button" aria-label="Small Bakkie" aria-controls="hero-rail" aria-current="true"></button>
+    <button class="rail-dot" type="button" aria-label="Large Bakkie" aria-controls="hero-rail" aria-current="false"></button>
+    <button class="rail-dot" type="button" aria-label="Panel Van" aria-controls="hero-rail" aria-current="false"></button>
+    <button class="rail-dot" type="button" aria-label="1 Ton Truck" aria-controls="hero-rail" aria-current="false"></button>
+    <button class="rail-dot" type="button" aria-label="4 Ton Truck" aria-controls="hero-rail" aria-current="false"></button>
+   </div>
+   <button class="rail-arrow next" type="button" aria-label="Next vehicle" aria-controls="hero-rail"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
+ </div>
+
+ <div class="container">
     <!-- GOOGLE PLAY (2026-07-16). These were two HAND-DRAWN badges — a &#9654; and a &#8984; glyph in a
          bordered box, labelled "Android APK" — pointing at /download. Three problems in one element:
          it looked nothing like Google Play (so it bought no familiarity and invited doubt), it said
@@ -640,7 +706,7 @@ window.va('beforeSend', function (event) {
          rule stands and is why the badge waited: a badge over a dead link is worse than a sentence.
          The new rule is the other half of it: a "coming soon" over a LIVE link costs installs. Probe
          before you write either one. Rule #24 wording: never "in review", never a date. -->
-    <div class="store-row">
+    <div class="store-row" data-motion-hero-el="cta">
      <a href="https://play.google.com/store/apps/details?id=com.hala.customer" class="play-badge-link" target="_blank" rel="noopener noreferrer" aria-label="Get HALA MOVE on Google Play">
       <img src="/assets/google-play-badge.png" alt="Get HALA MOVE on Google Play" width="646" height="250">
      </a>
@@ -649,91 +715,6 @@ window.va('beforeSend', function (event) {
      </a>
      <span class="store-note">Free on Android &amp; iPhone</span>
     </div>
-   </div>
-
-   <div class="hero-phone-wrap" aria-hidden="true">
-    <div class="phone-glow"></div>
-    <div class="phone">
-     <div class="phone-bar">
-      <span class="phone-bar-time">9:41</span>
-      <div class="phone-bar-icons">
-       <span>&#9679;&#9679;&#9679;&#9679;</span>
-       <span>&#9646;</span>
-      </div>
-     </div>
-     <div class="phone-header">
-      <div class="phone-header-title">Watch Offers · Glenwood to Berea</div>
-      <div class="phone-header-sub">2-bed flat · ~4.2km · Budget R600</div>
-      <div class="phone-header-badge">
-       <span style="width:6px;height:6px;border-radius:50%;background:var(--g);display:inline-block;animation:pulse-dot 1.2s infinite"></span>
-       2 offers received
-      </div>
-     </div>
-     <div class="phone-body">
-      <div class="bid-card best arrive1">
-       <div class="bid-best-tag">&#9733; Best Match</div>
-       <div class="bid-row">
-        <div class="bid-avatar">S</div>
-        <div class="bid-info">
-         <div class="bid-name">Sipho N.</div>
-         <div class="bid-meta">
-          <span class="bid-star">&#9733;</span>
-          <span>4.9 · 142 jobs · Bakkie</span>
-         </div>
-        </div>
-        <div class="bid-amount">R520</div>
-       </div>
-       <div class="bid-accept">Accept R520</div>
-      </div>
-
-      <div class="bid-card arrive2">
-       <div class="bid-row">
-        <div class="bid-avatar" style="background:#444;color:#ccc">T</div>
-        <div class="bid-info">
-         <div class="bid-name">Thabo M.</div>
-         <div class="bid-meta">
-          <span class="bid-star">&#9733;</span>
-          <span>4.7 · 88 jobs · H100 Van</span>
-         </div>
-        </div>
-        <div class="bid-amount">R580</div>
-       </div>
-       <div class="bid-accept">Accept R580</div>
-      </div>
-
-      <div class="bid-card arrive3" style="opacity:.75">
-       <div class="bid-row">
-        <div class="bid-avatar" style="background:#2a2a2a;color:#aaa">L</div>
-        <div class="bid-info">
-         <div class="bid-name">Lungelo K.</div>
-         <div class="bid-meta">
-          <span class="bid-star" style="color:#999">&#9733;</span>
-          <span>4.6 · 55 jobs · Bakkie</span>
-         </div>
-        </div>
-        <div class="bid-amount" style="color:#aaa">R600</div>
-       </div>
-       <div class="bid-accept">Accept R600</div>
-      </div>
-     </div>
-     <div class="timer-bar">
-      <span class="timer-label">Offers close in</span>
-      <span class="timer-val" id="phone-timer">14:22</span>
-     </div>
-     <div class="phone-track">
-      <div class="phone-track-label">Route</div>
-      <div class="phone-route">
-       <div class="phone-route-dot" style="background:var(--g)"></div>
-       <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px">Glenwood</span>
-       <div class="route-line"></div>
-       <div class="phone-route-dot" style="background:var(--err)"></div>
-       <span style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70px">Berea</span>
-      </div>
-     </div>
-    </div>
-   </div>
-
-  </div>
  </div>
 </section>
 
@@ -889,77 +870,6 @@ window.va('beforeSend', function (event) {
    <a href="/download" class="btn btn-green btn-lg">Download HALA MOVE &rarr;</a>
    <p class="cta-sub-text">Free · No subscription · Live in Durban</p>
   </div>
- </div>
-</section>
-
-<!-- VEHICLES: 2026-11-03. One picture per size: the same class pictures the app shows when a customer picks a size
-     and beside every offer (backend src/constants/vehicleImages.js CATEGORY_IMAGE, files from public-assets/vehicles/
-     resized to 480 and 800 wide). Never a driver's own photo. The sizes, their order and the line under each name are
-     the app's size picker (customer-app src/constants/vehicleCatalog.js TIER_ORDER and TIER_BLURBS): change them there
-     first. "Such as" names only models approved drivers have registered (production, read 2026-11-01).
-     Offers go to drivers whose vehicle can carry the size (backend src/utils/vehicleCapability.js).
-     2026-11-10: each line says what a business sends, households still in (mobile bc3c2b08 TIER_BLURBS; the same five
-     lines are in assets/lead-form.js). -->
-
-<section class="veh" id="vehicles" aria-labelledby="veh-heading">
- <div class="container">
-  <div class="veh-header">
-   <div class="eyebrow" style="justify-content:center">Vehicles</div>
-   <h2 class="h2" id="veh-heading" style="text-align:center">From one box<br>to a full truckload</h2>
-   <p class="sub center">Choose a size when you post. Drivers whose vehicle can carry it send you offers, and each offer names the driver's own vehicle.</p>
-  </div>
-  <ul class="veh-grid reveal" role="list" tabindex="0" aria-label="Vehicle sizes">
-   <li class="veh-card">
-    <picture class="veh-pic">
-     <source type="image/webp" srcset="/images/vehicles/half_ton.v1-480.webp 480w, /images/vehicles/half_ton.v1-800.webp 800w" sizes="(min-width:1100px) 180px, (min-width:760px) calc(33vw - 40px), calc(76vw - 20px)">
-     <img src="/images/vehicles/half_ton.v1-800.jpg" width="800" height="400" alt="A white half-ton bakkie" loading="lazy" decoding="async">
-    </picture>
-    <h3 class="veh-name">Small Bakkie</h3>
-    <p class="veh-fits">Boxes, parcels, a chair or light stock</p>
-    <p class="veh-models">Such as a Nissan NP200, Chevrolet Utility or Opel Combo</p>
-    <a class="veh-link" href="/bakkie-hire-durban">Bakkie hire in Durban</a>
-   </li>
-   <li class="veh-card">
-    <picture class="veh-pic">
-     <source type="image/webp" srcset="/images/vehicles/one_ton.v1-480.webp 480w, /images/vehicles/one_ton.v1-800.webp 800w" sizes="(min-width:1100px) 180px, (min-width:760px) calc(33vw - 40px), calc(76vw - 20px)">
-     <img src="/images/vehicles/one_ton.v1-800.jpg" width="800" height="400" alt="A white one-ton single cab bakkie" loading="lazy" decoding="async">
-    </picture>
-    <h3 class="veh-name">Large Bakkie</h3>
-    <p class="veh-fits">Stock, building supplies, a lounge suite</p>
-    <p class="veh-models">Such as a single cab Toyota Hilux, Isuzu D-Max or Ford Ranger</p>
-    <a class="veh-link" href="/bakkie-hire-durban">Bakkie hire in Durban</a>
-   </li>
-   <li class="veh-card">
-    <picture class="veh-pic">
-     <source type="image/webp" srcset="/images/vehicles/panel_van.v1-480.webp 480w, /images/vehicles/panel_van.v1-800.webp 800w" sizes="(min-width:1100px) 180px, (min-width:760px) calc(33vw - 40px), calc(76vw - 20px)">
-     <img src="/images/vehicles/panel_van.v1-800.jpg" width="800" height="400" alt="A white panel van" loading="lazy" decoding="async">
-    </picture>
-    <h3 class="veh-name">Panel Van</h3>
-    <p class="veh-fits">Enclosed and dry, for stock and appliances</p>
-    <p class="veh-models">Such as a Mercedes Sprinter</p>
-    <a class="veh-link" href="/panel-van-hire-durban">Panel van hire in Durban</a>
-   </li>
-   <li class="veh-card">
-    <picture class="veh-pic">
-     <source type="image/webp" srcset="/images/vehicles/dropside.v1-480.webp 480w, /images/vehicles/dropside.v1-800.webp 800w" sizes="(min-width:1100px) 180px, (min-width:760px) calc(33vw - 40px), calc(76vw - 20px)">
-     <img src="/images/vehicles/dropside.v1-800.jpg" width="800" height="400" alt="A white one-ton drop-side truck" loading="lazy" decoding="async">
-    </picture>
-    <h3 class="veh-name">1 Ton Truck</h3>
-    <p class="veh-fits">Pallets, appliances or a one-bedroom home</p>
-    <p class="veh-models">Such as a Hyundai H100, Kia K2700 or a double cab with a trailer</p>
-    <a class="veh-link" href="/truck-hire-durban">Truck hire in Durban</a>
-   </li>
-   <li class="veh-card">
-    <picture class="veh-pic">
-     <source type="image/webp" srcset="/images/vehicles/box_truck.v1-480.webp 480w, /images/vehicles/box_truck.v1-800.webp 800w" sizes="(min-width:1100px) 180px, (min-width:760px) calc(33vw - 40px), calc(76vw - 20px)">
-     <img src="/images/vehicles/box_truck.v1-800.jpg" width="800" height="400" alt="A white 4-ton box truck" loading="lazy" decoding="async">
-    </picture>
-    <h3 class="veh-name">4 Ton Truck</h3>
-    <p class="veh-fits">A full load of stock, or a whole household</p>
-    <p class="veh-models">Such as an Isuzu N-Series</p>
-    <a class="veh-link" href="/truck-hire-durban">Truck hire in Durban</a>
-   </li>
-  </ul>
  </div>
 </section>
 
@@ -1321,15 +1231,45 @@ if(sl){
  }, {threshold:.3});
  slo.observe(sl);
 }
+// HERO RAIL (2026-11-15): dots and arrows follow the native scroll; nothing moves the cards but the visitor.
 (function(){
- let secs = 14*60+22;
- const el = document.getElementById('phone-timer');
- if(!el) return;
- setInterval(()=>{
-  if(secs > 0) secs--;
-  const m = Math.floor(secs/60); const s = secs%60;
-  el.textContent = m+':'+(s<10?'0':'')+s;
- },1000);
+ const rail = document.getElementById('hero-rail');
+ if(!rail) return;
+ const cards = Array.prototype.slice.call(rail.children);
+ const dots = Array.prototype.slice.call(document.querySelectorAll('.rail-dot'));
+ const prev = document.querySelector('.rail-arrow.prev'), next = document.querySelector('.rail-arrow.next');
+ const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+ const step = () => cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : rail.clientWidth;
+ const max = () => rail.scrollWidth - rail.clientWidth - 2;
+ const current = () => rail.scrollLeft >= max() ? cards.length - 1 : Math.round(rail.scrollLeft / step());
+ const go = (i) => {
+  i = Math.max(0, Math.min(cards.length - 1, i));
+  rail.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+ };
+ let ticking = false;
+ const update = () => {
+  ticking = false;
+  const c = current();
+  dots.forEach((d, i) => d.setAttribute('aria-current', i === c ? 'true' : 'false'));
+  if(prev) prev.disabled = rail.scrollLeft <= 2;
+  if(next) next.disabled = rail.scrollLeft >= max();
+ };
+ const queue = () => { if(!ticking){ ticking = true; requestAnimationFrame(update); } };
+ rail.addEventListener('scroll', queue, { passive: true });
+ window.addEventListener('resize', queue);
+ dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+ if(prev) prev.addEventListener('click', () => go(current() - 1));
+ if(next) next.addEventListener('click', () => go(current() + 1));
+ rail.addEventListener('keydown', (e) => {
+  if(e.target !== rail) return;
+  if(e.key === 'ArrowRight'){ e.preventDefault(); go(current() + 1); }
+  else if(e.key === 'ArrowLeft'){ e.preventDefault(); go(current() - 1); }
+ });
+ // A phone goes straight to its own store through /get and /drive; a computer goes to /download, which shows both.
+ if(!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)){
+  document.querySelectorAll('.rail [data-desk]').forEach((a) => { a.href = a.getAttribute('data-desk'); });
+ }
+ update();
 }());
 (function(){
  const js=document.getElementById('jobs-slider'),rs=document.getElementById('rate-slider'),ds=document.getElementById('days-slider');
