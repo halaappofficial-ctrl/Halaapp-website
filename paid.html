@@ -10,20 +10,24 @@
 <link rel="manifest" href="/site.webmanifest">
 <title>HALA MOVE — Payment received</title>
 <meta name="robots" content="noindex">
+<link rel="preload" href="/fonts/outfit-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/type.css">
 <style>
+  :root{--disp:'Outfit','Outfit Fallback',system-ui,sans-serif;--body:'Barlow','Barlow Fallback',system-ui,sans-serif}
   html,body{ margin:0; padding:0; background:#0A0A0A; color:#FFFFFF;
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,sans-serif; }
+    font-family:var(--body); }
   .wrap{ min-height:100vh; display:flex; flex-direction:column; align-items:center; justify-content:center;
     padding:24px; box-sizing:border-box; text-align:center; }
   .tick{ width:76px; height:76px; border-radius:38px; margin-bottom:26px;
     background:rgba(92,181,88,0.14); border:2px solid #5CB558; display:flex; align-items:center; justify-content:center;
     box-shadow:0 0 0 10px rgba(92,181,88,0.06); }
-  .wordmark{ font-weight:900; font-size:34px; letter-spacing:1px; margin-bottom:22px; }
+  .wordmark{ font-weight:900; font-size:34px; letter-spacing:0; margin-bottom:22px;font-family:var(--disp);word-spacing:.12em}
   .wordmark .h{ color:#5CB558; } .wordmark .m{ color:#FFFFFF; }
-  h1{ font-size:24px; font-weight:700; margin:0 0 12px; }
-  p{ font-size:16px; line-height:1.55; opacity:0.85; max-width:400px; margin:0 0 22px; }
-  .hint{ font-size:13px; opacity:0.5; }
-  .back{ display:none; background:#5CB558; color:#0A0A0A; font-weight:800; font-size:17px; text-decoration:none;
+  h1{ font-size:24px; font-weight:600; margin:0 0 12px;font-family:var(--disp);letter-spacing:-.012em;line-height:1.18;text-wrap:balance}
+  p{ font-size:17px; line-height:1.55; opacity:0.85; max-width:400px; margin:0 0 22px; }
+  .hint{ font-size:14px; opacity:0.5; }
+  .back{ display:none; background:#5CB558; color:#0A0A0A; font-weight:600; font-size:19px; text-decoration:none;
     padding:15px 26px; border-radius:14px; margin:0 0 18px; min-width:240px; box-sizing:border-box; }
   .back.on{ display:inline-block; }
 </style>

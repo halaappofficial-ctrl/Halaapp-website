@@ -24,45 +24,47 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@700;900&family=Barlow:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/outfit-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/type.css">
 <style>
+  :root{--disp:'Outfit','Outfit Fallback',system-ui,sans-serif;--body:'Barlow','Barlow Fallback',system-ui,sans-serif}
 /* Layout: two columns on desktop (promise left, form right), one column on phones. Brand identity v2 tokens. */
 :root{
   --g:#5CB558; --gd:#4A9947; --bk:#0A0A0A; --s1:#1A1A1A; --s2:#242424; --br:#2A2A2A; --mu:#A3A3A3; --fg:#FFFFFF; --err:#FF8A80;
-  --display:'Outfit',system-ui,sans-serif; --body:'Barlow',system-ui,sans-serif;
+  --display:'Outfit','Outfit Fallback',system-ui,sans-serif; --body:'Barlow','Barlow Fallback',system-ui,sans-serif;
   color-scheme:dark;
 }
 *{box-sizing:border-box}
 html,body{margin:0;background:var(--bk);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.5}
 .wrap{max-width:1120px;margin:0 auto;padding-block:28px 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
 header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--fg)}
-.wm{font-family:var(--display);font-weight:900;font-size:24px;letter-spacing:-.01em}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--fg);font-family:var(--disp);font-weight:900;letter-spacing:0;word-spacing:.12em}
+.wm{font-family:var(--display);font-weight:600;font-size:24px;letter-spacing:-.012em;line-height:1.18;text-wrap:balance}
 .wm b{color:var(--g)}
 .tag{font-weight:600;color:var(--mu);font-size:15px}
 .grid{display:grid;grid-template-columns:1fr 1.15fr;gap:56px;margin-top:56px;align-items:start}
 @media (max-width:860px){.grid{grid-template-columns:1fr;gap:36px;margin-top:36px}}
 .grid>*{min-width:0}
-.eb{font-weight:700;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--g)}
-h1{font-family:var(--display);font-weight:900;font-size:clamp(38px,5.4vw,60px);line-height:1.02;letter-spacing:-.02em;margin:14px 0 0;text-wrap:balance}
+.eb{font-weight:600;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--g)}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(38px,5.4vw,60px);line-height:1.06;letter-spacing:-.022em;margin:14px 0 0;text-wrap:balance}
 h1 span{color:var(--g)}
 .lede{color:#D6D6D6;font-size:19px;margin:22px 0 0;max-width:34em}
 .points{list-style:none;padding:0;margin:34px 0 0;display:grid;gap:18px}
 .points li{display:grid;grid-template-columns:28px 1fr;gap:12px;align-items:start}
 .points svg{margin-top:3px}
-.points strong{display:block;font-weight:700}
-.points span{color:var(--mu);font-size:16px}
+.points strong{display:block;font-weight:600}
+.points span{color:var(--mu);font-size:17px}
 .cover{margin-top:34px;padding-top:22px;border-top:1px solid var(--br);color:var(--mu);font-size:15px}
 /* The form itself is styled by /assets/lead-form.css (shared with the business page). */
 #formbox{scroll-margin-top:16px}
 .jump{display:none}
-@media (max-width:860px){.jump{display:inline-flex;align-items:center;justify-content:center;min-height:48px;margin-top:22px;padding:12px 22px;border-radius:12px;background:var(--g);color:var(--bk);font-weight:700;font-size:17px;text-decoration:none}}
-.supply{margin:18px 0 0;color:var(--mu);font-size:14px;line-height:1.6}
+@media (max-width:860px){.jump{display:inline-flex;align-items:center;justify-content:center;min-height:48px;margin-top:22px;padding:12px 22px;border-radius:12px;background:var(--g);color:var(--bk);font-weight:600;font-size:19px;text-decoration:none}}
+.supply{margin:18px 0 0;color:var(--mu);font-size:15px;line-height:1.6}
 .supply p{margin:6px 0 0}
 .supply a{color:var(--g)}
 footer a{color:var(--g)}
-footer{margin-top:56px;color:var(--mu);font-size:14px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer{margin-top:56px;color:var(--mu);font-size:15px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
 </style>
 <link rel="stylesheet" href="/assets/lead-form.css">
 <!-- Vercel Web Analytics: page counts with no cookie. Codes in personal links and every query value except campaign tags are removed before anything is sent. -->

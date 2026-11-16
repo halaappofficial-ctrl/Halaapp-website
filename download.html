@@ -76,11 +76,12 @@
      "the git integration is severed" — the empty commit c907b65 produced no
      deployment at all, where every commit before it did). -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/outfit-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/type.css">
 
 <style>
+  :root{--disp:'Outfit','Outfit Fallback',system-ui,sans-serif;--body:'Barlow','Barlow Fallback',system-ui,sans-serif}
 :root {
   --primary: #5CB558;
   --primary-bright: #6EC76A;
@@ -105,15 +106,15 @@ html { scroll-behavior: smooth; }
 body {
   background: var(--bg);
   color: var(--text);
-  font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family:var(--body);
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
 }
 
 h1, h2, h3, h4 {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
+  font-family:var(--disp);
+  font-weight:600;
   letter-spacing: -0.02em;
   line-height: 1.15;
 }
@@ -139,18 +140,17 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
 }
 .brand {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
+  font-family:var(--disp);
+  font-weight:900;
   font-size: 20px;
   color: var(--text);
-  letter-spacing: -0.01em;
-}
+  letter-spacing:0;word-spacing:.12em}
 .brand span { color: var(--primary); }
 .nav-links {
   display: flex;
   gap: 28px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size:15px;
+  font-weight:400;
 }
 .nav-links a {
   color: var(--text-dim);
@@ -194,11 +194,11 @@ a { color: inherit; text-decoration: none; }
   background: rgba(92, 181, 88, 0.12);
   border: 1px solid rgba(92, 181, 88, 0.4);
   border-radius: 100px;
-  font-size: 13px;
+  font-size:14px;
   font-weight: 600;
   color: var(--primary-bright);
   margin-bottom: 24px;
-  letter-spacing: 0.04em;
+  letter-spacing:.06em;
   text-transform: uppercase;
 }
 .live-badge::before {
@@ -239,7 +239,7 @@ a { color: inherit; text-decoration: none; }
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
-  font-size: 13px;
+  font-size:14px;
   color: var(--text-faint);
 }
 .hero-meta-item {
@@ -299,11 +299,10 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   justify-content: center;
   margin-bottom: 24px;
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
+  font-family:var(--disp);
+  font-weight:600;
   font-size: 28px;
-  color: var(--bg);
-}
+  color: var(--bg);letter-spacing:-.012em;line-height:1.18;text-wrap:balance}
 .card-driver .card-icon { background: var(--primary); }
 .card-customer .card-icon { background: var(--customer-accent); }
 
@@ -314,7 +313,7 @@ a { color: inherit; text-decoration: none; }
 .card-tagline {
   color: var(--text-dim);
   font-size: 15px;
-  font-weight: 500;
+  font-weight:400;
   margin-bottom: 24px;
 }
 .card-features {
@@ -324,7 +323,7 @@ a { color: inherit; text-decoration: none; }
 .card-features li {
   padding: 10px 0;
   color: var(--text);
-  font-size: 14.5px;
+  font-size:15px;
   display: flex;
   align-items: flex-start;
   gap: 12px;
@@ -354,14 +353,14 @@ a { color: inherit; text-decoration: none; }
   width: 100%;
   padding: 18px 24px;
   border-radius: 14px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 700;
-  font-size: 16px;
+  font-family:var(--body);
+  font-weight:600;
+  font-size:17px;
   text-align: center;
   transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
   border: none;
   cursor: pointer;
-  letter-spacing: 0.01em;
+  letter-spacing:0;
   margin-bottom: 16px;
 }
 .card-driver .cta-btn {
@@ -407,7 +406,7 @@ a { color: inherit; text-decoration: none; }
   align-items: center;
   padding-top: 16px;
   border-top: 1px solid var(--border);
-  font-size: 12px;
+  font-size:13px;
   color: var(--text-faint);
   gap: 12px;
   flex-wrap: wrap;
@@ -446,22 +445,21 @@ a { color: inherit; text-decoration: none; }
   position: relative;
 }
 .step-num {
-  font-family: 'Syne', sans-serif;
-  font-weight: 800;
+  font-family:var(--disp);
+  font-weight:600;
   font-size: 14px;
   color: var(--primary);
   margin-bottom: 8px;
-  letter-spacing: 0.08em;
-}
+  letter-spacing:-.006em;text-wrap:balance}
 .step h4 {
-  font-size: 16px;
+  font-size:17px;
   margin-bottom: 8px;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 700;
+  font-family:var(--body);
+  font-weight:600;
 }
 .step p {
   color: var(--text-dim);
-  font-size: 13.5px;
+  font-size:14px;
   line-height: 1.5;
 }
 
@@ -471,7 +469,7 @@ a { color: inherit; text-decoration: none; }
   background: rgba(245, 166, 35, 0.08);
   border: 1px solid rgba(245, 166, 35, 0.3);
   border-radius: 12px;
-  font-size: 13.5px;
+  font-size:14px;
   color: var(--text);
   display: flex;
   gap: 12px;
@@ -496,7 +494,7 @@ a { color: inherit; text-decoration: none; }
   color: var(--text-dim);
   max-width: 540px;
   margin: 0 auto 20px;
-  font-size: 14.5px;
+  font-size:15px;
 }
 .store-badges {
   display: flex;
@@ -509,7 +507,7 @@ a { color: inherit; text-decoration: none; }
   background: var(--surface-hi);
   border: 1px solid var(--border);
   border-radius: 100px;
-  font-size: 13px;
+  font-size:14px;
   font-weight: 600;
   color: var(--text-dim);
   display: inline-flex;
@@ -533,7 +531,7 @@ footer {
   flex-wrap: wrap;
   gap: 24px;
   margin-bottom: 20px;
-  font-size: 13.5px;
+  font-size:14px;
 }
 .footer-links a {
   color: var(--text-dim);
@@ -542,7 +540,7 @@ footer {
 .footer-links a:hover { color: var(--primary); }
 .footer-meta {
   color: var(--text-faint);
-  font-size: 12.5px;
+  font-size:13px;
 }
 .footer-meta strong { color: var(--text-dim); font-weight: 600; }
 

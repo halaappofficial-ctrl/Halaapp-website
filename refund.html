@@ -11,22 +11,26 @@
      leaves this site in a Referer. The API answer carries noindex + no-store too. -->
 <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preload" href="/fonts/outfit-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/type.css">
 <style>
+  :root{--disp:'Outfit','Outfit Fallback',system-ui,sans-serif;--body:'Barlow','Barlow Fallback',system-ui,sans-serif}
   :root{ --bg:#0A0A0A; --card:#151515; --line:#262626; --text:#FFFFFF; --muted:#A3A3A3; --green:#5CB558; --amber:#F2B53A; --red:#FF5A5A; }
   html,body{ margin:0; padding:0; background:var(--bg); color:var(--text);
-    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen,Ubuntu,sans-serif; }
+    font-family:var(--body); }
   *{ box-sizing:border-box; }
   header{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--line); }
-  .brand{ font-weight:900; font-size:20px; letter-spacing:0.5px; color:var(--green); }
-  .ref{ font-size:12px; color:var(--muted); }
+  .brand{ font-weight:900; font-size:20px; letter-spacing:0; color:var(--green);font-family:var(--disp);word-spacing:.12em}
+  .ref{ font-size:13px; color:var(--muted); }
   .panel{ max-width:520px; margin:0 auto; padding:20px 16px 40px; }
-  h1{ font-size:24px; font-weight:800; margin:4px 0 6px; }
-  .amount{ font-size:40px; font-weight:900; color:var(--green); margin:6px 0 2px; letter-spacing:0.5px; }
+  h1{ font-size:24px; font-weight:600; margin:4px 0 6px;font-family:var(--disp);letter-spacing:-.012em;line-height:1.18;text-wrap:balance}
+  .amount{ font-size:40px; font-weight:600; color:var(--green); margin:6px 0 2px; letter-spacing:-.018em;font-family:var(--disp)}
   .sub{ font-size:15px; color:var(--muted); margin:0 0 4px; line-height:1.5; }
   .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-top:16px; }
-  label{ display:block; font-size:14px; font-weight:700; margin:14px 0 6px; }
+  label{ display:block; font-size:15px; font-weight:600; margin:14px 0 6px; }
   label:first-child{ margin-top:0; }
-  select, input[type=text]{ width:100%; font-size:17px; padding:13px 12px; border-radius:10px; border:1px solid #3a3a3a;
+  select, input[type=text]{ width:100%; font-size:19px; padding:13px 12px; border-radius:10px; border:1px solid #3a3a3a;
     background:#0F0F0F; color:var(--text); }
   select:focus, input[type=text]:focus{ outline:none; border-color:var(--green); }
   .types{ display:flex; gap:10px; }
@@ -35,22 +39,22 @@
   .types input{ accent-color:var(--green); width:18px; height:18px; }
   /* A field that must be filled carries a red asterisk after its label (2026-11-10, the apps' error red #FF4444,
      5.3:1 on the card). The controls carry required, so a screen reader already says it and the star is hidden. */
-  .req{ color:#FF4444; font-weight:700; }
-  .hint{ font-size:12px; color:var(--muted); margin-top:6px; line-height:1.4; }
-  .btn{ display:block; width:100%; text-align:center; background:var(--green); color:#0A0A0A; font-weight:800; font-size:17px;
+  .req{ color:#FF4444; font-weight:600; }
+  .hint{ font-size:13px; color:var(--muted); margin-top:6px; line-height:1.4; }
+  .btn{ display:block; width:100%; text-align:center; background:var(--green); color:#0A0A0A; font-weight:600; font-size:19px;
     text-decoration:none; padding:15px; border-radius:12px; margin-top:18px; border:0; cursor:pointer; }
   .btn[disabled]{ opacity:0.6; cursor:default; }
   .btn.ghost{ background:transparent; color:var(--text); border:1px solid var(--line); }
   .error{ margin-top:14px; padding:12px; border-radius:10px; border:1px solid var(--red); background:rgba(255,90,90,0.12);
-    color:var(--red); font-size:14px; line-height:1.4; }
+    color:var(--red); font-size:15px; line-height:1.4; }
   dl{ margin:0; display:grid; grid-template-columns:auto 1fr; gap:8px 14px; font-size:15px; }
   dt{ color:var(--muted); }
-  dd{ margin:0; font-weight:700; overflow-wrap:anywhere; }
-  .ok{ color:var(--green); font-weight:800; font-size:15px; margin-bottom:10px; }
-  .note{ font-size:12px; color:var(--muted); margin-top:16px; line-height:1.5; }
+  dd{ margin:0; font-weight:600; overflow-wrap:anywhere; }
+  .ok{ color:var(--green); font-weight:600; font-size:15px; margin-bottom:10px; }
+  .note{ font-size:13px; color:var(--muted); margin-top:16px; line-height:1.5; }
   .note a, .msg a{ color:var(--green); }
   .msg{ text-align:center; padding:60px 20px; }
-  .msg h1{ font-size:22px; margin:0 0 10px; }
+  .msg h1{ font-size:22px; margin:0 0 10px;font-family:var(--disp);font-weight:600;letter-spacing:-.012em;line-height:1.18;text-wrap:balance}
   .msg p{ color:var(--muted); font-size:15px; line-height:1.5; margin:0 auto; max-width:420px; }
   .hidden{ display:none !important; }
 </style>

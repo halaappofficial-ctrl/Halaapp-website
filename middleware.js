@@ -203,21 +203,21 @@ function cardPage(slug, c) {
   return `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex, nofollow"><title>${htmlEsc(c.name)} - HALA MOVE</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@900&family=Barlow:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preload" href="/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/type.css">
 <style>
 :root{--bg:#0A0A0A;--green:#5CB558;--soft:#EDEDE8;--muted:#9A9A9A}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:var(--bg);color:var(--soft);font-family:Barlow,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+body{background:var(--bg);color:var(--soft);font-family:'Barlow','Barlow Fallback',system-ui,sans-serif;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
 main{width:100%;max-width:420px}
-.wm{font-family:Outfit,Barlow,Arial,sans-serif;font-weight:900;font-size:20px;letter-spacing:-0.2px}
+.wm{font-family:'Outfit','Outfit Fallback',system-ui,sans-serif;font-weight:900;font-size:20px;letter-spacing:0;word-spacing:.12em}
 .wm .h{color:var(--green)}
-h1{font-size:32px;line-height:1.15;font-weight:700;margin:40px 0 6px}
+h1{font-family:'Outfit','Outfit Fallback',system-ui,sans-serif;font-size:32px;line-height:1.1;font-weight:600;letter-spacing:-.018em;text-wrap:balance;margin:40px 0 6px}
 .t{color:var(--muted);font-size:17px}
 .c{margin-top:16px;font-size:17px;line-height:1.8}
 .c a{color:var(--soft);text-decoration:none;border-bottom:1px solid #444}
 .btns{margin-top:36px;display:grid;gap:12px}
-a.b{display:block;text-align:center;text-decoration:none;font-weight:700;font-size:18px;padding:16px;border-radius:12px}
+a.b{display:block;text-align:center;text-decoration:none;font-weight:600;font-size:18px;padding:16px;border-radius:12px}
 a.save{background:var(--green);color:#0A0A0A}
 a.wa{border:2px solid var(--green);color:var(--soft)}
 a.web{border:2px solid #444;color:var(--soft)}

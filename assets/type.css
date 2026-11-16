@@ -1,0 +1,14 @@
+/* HALA MOVE type: Outfit for headings and the wordmark, Barlow for text. Both SIL Open Font License 1.1, served from
+   /fonts so no page waits on a third party. Latin subset.
+   Headings: Outfit 600, tracking tightened as the size grows. Wordmark: Outfit 900. Text: Barlow 400 and 600.
+   The two fallback faces are Arial scaled to each font's measured width and vertical metrics, so the page does not
+   move when the real face arrives. Verified by verify-type.cjs. */
+@font-face{font-family:'Outfit';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/outfit-600.woff2) format('woff2')}
+@font-face{font-family:'Outfit';font-style:normal;font-weight:900;font-display:swap;src:url(/fonts/outfit-900.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/barlow-400.woff2) format('woff2')}
+@font-face{font-family:'Barlow';font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/barlow-600.woff2) format('woff2')}
+@font-face{font-family:'Outfit Fallback';src:local('Arial'),local('ArialMT'),local('Helvetica');size-adjust:100.5%;ascent-override:99.5%;descent-override:25.9%;line-gap-override:0%}
+@font-face{font-family:'Barlow Fallback';src:local('Arial'),local('ArialMT'),local('Helvetica');size-adjust:95.5%;ascent-override:104.7%;descent-override:20.9%;line-gap-override:0%}
+html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-kerning:normal}
+p,li,dd,figcaption{text-wrap:pretty}
+em{font-style:normal;font-weight:600}
