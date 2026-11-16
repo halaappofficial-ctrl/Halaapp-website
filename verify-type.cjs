@@ -23,6 +23,11 @@
 //      under 12px, and a form field never under 16px (iOS zooms the page into a smaller field).
 //   5. Headings are never letter-spaced out; mixed-case text is never letter-spaced out (capitals labels may be).
 //   6. The wordmark keeps its two words apart (word-spacing on every wordmark rule): Outfit 900's space is 0.18em.
+//   7. Every .brand wordmark reads HALA in brand green (#5CB558) and MOVE in white (#FFFFFF), as the brand sets it.
+//      Found in Chrome at 390 px: download, creator, invite and driver-invite had the colours reversed (HALA white,
+//      MOVE green), and refund, track and reset-password set both words in green.
+//   8. A page with its own Content-Security-Policy lets this site's stylesheet and fonts load ('self' in style-src
+//      and font-src). reset-password's policy blocked both, so it rendered in Arial while every source check passed.
 
 const fs = require('fs');
 const path = require('path');
@@ -87,6 +92,7 @@ function checkRules(where, rules, fails, counts) {
       if (!['400', '600', '900'].includes(w)) fails.push(`${where} ${sel}: weight ${w} (the system has 400, 600 and 900)`);
       else if (w === '900' && !wordmark) fails.push(`${where} ${sel}: weight 900 is the wordmark's only`);
     }
+    if (wordmark && w && w !== '900') fails.push(`${where} ${sel}: wordmark at weight ${w}, the brand sets it in Outfit Black 900`);
     if (wordmark && w === '900') {
       counts.wordmarks++;
       if (!/^\.\d+em$|^0?\.\d+em$/.test(d['word-spacing'] || '')) fails.push(`${where} ${sel}: wordmark without word-spacing, HALA and MOVE run together`);
@@ -108,7 +114,7 @@ function checkRules(where, rules, fails, counts) {
 
 function check(x) {
   const fails = [];
-  const counts = { pages: 0, families: 0, weights: 0, wordmarks: 0, sizes: 0, faces: 0 };
+  const counts = { pages: 0, families: 0, weights: 0, wordmarks: 0, sizes: 0, faces: 0, brandMarks: 0 };
   // 1. faces
   for (const [fam, w, file] of FACES) {
     const rx = new RegExp(`@font-face\\{font-family:'${fam}';font-style:normal;font-weight:${w};font-display:swap;src:url\\(/fonts/${file.replace('.', '\\.')}\\) format\\('woff2'\\)\\}`);
@@ -129,11 +135,39 @@ function check(x) {
     for (const bad of ['fonts.googleapis.com', 'fonts.gstatic.com', 'Syne', 'Plus Jakarta'])
       if (l.includes(bad)) fails.push(`${f}: still names ${bad}`);
     if (/font-style:\s*italic/.test(l)) fails.push(`${f}: italic text, and no italic face is loaded (the browser fakes the slant)`);
+    const csp = (html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/) || [])[1];
+    if (csp) {
+      const dir = {};
+      csp.split(';').map((d) => d.trim()).filter(Boolean).forEach((d) => { const [k, ...v] = d.split(/\s+/); dir[k] = v; });
+      for (const k of ['style-src', 'font-src'])
+        if (!(dir[k] || dir['default-src'] || []).includes("'self'")) fails.push(`${f}: its Content-Security-Policy blocks ${k === 'font-src' ? '/fonts' : '/assets/type.css'}, so the page renders in Arial`);
+    }
     checkRules(f, rulesOf(html), fails, counts);
   }
   const formRules = [...x.formCss.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({ sel: m[1].trim(), d: decls(m[2]) }));
   checkRules('lead-form.css', formRules, fails, counts);
   if (/Google Fonts/.test(x.pages['cookie-policy.html'] || '')) fails.push('cookie-policy.html: still lists Google Fonts, which the site no longer calls');
+  // 7. wordmark colours: HALA green, MOVE white
+  for (const [f, html] of Object.entries(x.pages)) {
+    const marks = html.match(/class="brand"[^>]*>/g) || [];
+    if (!marks.length) continue;
+    const css = live(html).replace(/\s+/g, '');
+    const token = (name) => (new RegExp('--' + name + ':(#[0-9A-Fa-f]{6})').exec(css) || [])[1];
+    const colour = (v) => (v && v.startsWith('var(--') ? token(v.slice(6, -1)) : v || '').toUpperCase();
+    const rule = (sel) => (new RegExp('(?:^|[}\\s])' + sel.replace(/\./g, '\\.') + '\\{([^}]*)\\}').exec(css) || [])[1];
+    const colourOf = (sel) => { const b = rule(sel); const c = b && /(?:^|;)color:([^;}]+)/.exec(b); return c ? c[1] : null; };
+    for (const m of html.matchAll(/class="brand"[^>]*>([\s\S]{0,20000}?)<\/(?:a|div)>/g)) {
+      counts.brandMarks++;
+      const inner = m[1].replace(/<svg[\s\S]*?<\/svg>/g, '').replace(/^\s*<span class="wm">([\s\S]*)<\/span>\s*$/, '$1').trim();
+      const tag = /^<(span|b)>HALA<\/\1> MOVE$/.exec(inner);
+      if (!tag) { fails.push(`${f}: wordmark markup "${inner.slice(0, 60)}" (HALA in its own green element, MOVE after it)`); continue; }
+      const holder = /class="wm"/.test(m[1]) ? '.wm' : '.brand';
+      const hala = colourOf(`${holder}${tag[1]}`) || colourOf(`.brand${tag[1]}`);
+      const move = colourOf(holder) || colourOf('.brand');
+      if (colour(hala) !== '#5CB558') fails.push(`${f}: HALA in the wordmark is ${hala || 'unset'}, the brand sets #5CB558`);
+      if (colour(move) !== '#FFFFFF') fails.push(`${f}: MOVE in the wordmark is ${move || 'unset'}, the brand sets #FFFFFF`);
+    }
+  }
   const card = x.middleware.slice(x.middleware.indexOf('function cardPage'), x.middleware.indexOf('function cardPage') + 4000);
   if (!card.includes('<link rel="stylesheet" href="/assets/type.css">')) fails.push('middleware.js /card page does not link /assets/type.css');
   if (/fonts\.googleapis|fonts\.gstatic/.test(card)) fails.push('middleware.js /card page still loads Google Fonts');
@@ -164,6 +198,13 @@ if (process.argv.includes('--prove')) {
     ['a face file missing', (x) => ({ ...x, fontBytes: { ...x.fontBytes, 'barlow-600.woff2': null } })],
     ['a face loaded without font-display swap', (x) => ({ ...x, typeCss: x.typeCss.replace("font-weight:900;font-display:swap", 'font-weight:900;font-display:block') })],
     ['the /card page back on Google Fonts', (x) => ({ ...x, middleware: x.middleware.replace('<link rel="stylesheet" href="/assets/type.css">', '<link href="https://fonts.googleapis.com/css2?family=Outfit" rel="stylesheet">') })],
+    ['the wordmark colours reversed on the invite page', page('invite.html', 'class="brand"><span>HALA</span> MOVE', 'class="brand">HALA <span>MOVE</span>')],
+    ['the wordmark all green on the tracking page', page('track.html', 'color:var(--text);font-family:var(--disp);word-spacing:.12em}', 'color:var(--green);font-family:var(--disp);word-spacing:.12em}')],
+    ['the reset page blocks its own fonts again', page('reset-password.html', "font-src 'self'; ", '')],
+    ['the reset page blocks its own stylesheet again', page('reset-password.html', "style-src 'self' 'unsafe-inline'", "style-src 'unsafe-inline'")],
+    ['the quote wordmark dropped to 600', page('quote.html', '.wm{font-family:var(--display);font-weight:900', '.wm{font-family:var(--display);font-weight:600')],
+    ['HALA off-green in the quote wordmark', page('quote.html', '.wm b{color:var(--g)}', '.wm b{color:#FFFFFF}')],
+    ['MOVE set off-white on the download page', page('download.html', /(\.brand \{[^}]*?)color: #FFFFFF;/, '$1color: var(--text);')],
   ];
   for (const [label, brk] of breaks) {
     const m = brk(real);
@@ -176,5 +217,5 @@ if (process.argv.includes('--prove')) {
 
 fails.concat(proveFails).forEach((f) => console.log('  FAIL ' + f));
 console.log(fails.length || proveFails.length ? '  TYPE: FAIL' :
-  `  TYPE: ${counts.pages}/${counts.pages} pages, ${counts.faces}/${FACES.length} faces, ${counts.families} families, ${counts.weights} weights, ${counts.sizes} text sizes on the scale, ${counts.wordmarks} wordmarks`);
+  `  TYPE: ${counts.pages}/${counts.pages} pages, ${counts.faces}/${FACES.length} faces, ${counts.families} families, ${counts.weights} weights, ${counts.sizes} text sizes on the scale, ${counts.wordmarks} wordmarks, ${counts.brandMarks} brand marks HALA green and MOVE white`);
 process.exit(fails.length || proveFails.length ? 1 : 0);

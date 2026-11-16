@@ -3,7 +3,7 @@
 
 // -- verify-layout ---------------------------------------------------------------------------------
 //
-//   node verify-layout.cjs           # exit 0 = the top menu stays on one line and no table widens a phone page
+//   node verify-layout.cjs           # exit 0 = the top menu stays on one line, says when it scrolls on a phone, and no table widens a phone page
 //   node verify-layout.cjs --prove   # also breaks each rule in memory and requires the check to go red
 //
 // THE RULES (2026-11-16):
@@ -19,6 +19,11 @@
 //      273 px column at 320 px). Tables of four or more columns keep a readable 36rem and swipe inside their box.
 //   3. Each table box is a region a keyboard can reach (tabindex 0), named by the heading it sits under
 //      (aria-labelledby an id that exists once on the page), so the name follows the heading if it is edited.
+//   4. On a phone the menu links share one row that scrolls sideways, and the last link sits past the right edge:
+//      measured in Chrome at 390 px on 14 of 14 pages ("Download" ends at 446 px, "Videos" on the home page at
+//      429 px), with the scrollbar hidden and nothing on screen saying the row goes on. The row fades out over its
+//      last 32 px, so a cut-off link reads as "more this way", and its end padding is at least as wide as the fade,
+//      so the last link scrolls fully clear of it.
 //
 // WHAT IT CANNOT DO: it reads source. Whether a line wraps is a measurement; the numbers above came from Chrome
 // (frames of 320 to 1920 px across every page with the bar, 0 wrapped links, 0 overflow after the fix).
@@ -47,7 +52,7 @@ function baseRules(css, selector) {
 
 function check(files) {
   const fails = [];
-  let bars = 0, tables = 0;
+  let bars = 0, tables = 0, phoneRows = 0;
   for (const [name, src] of Object.entries(files)) {
     const css = src.slice(0, src.indexOf('</style>'));
     if (src.includes('class="nav-inner"')) {
@@ -55,6 +60,15 @@ function check(files) {
       if (/class="nav-live"/.test(src) || /\.nav-live\{/.test(css)) fails.push(name + ': the Live pill is back in the top bar');
       if (!baseRules(css, '.nav-links a').some((r) => r.includes('white-space:nowrap'))) fails.push(name + ': menu links may break inside their words at desktop widths');
       if (!/@media\(min-width:768px\) and \(max-width:1199px\)\{[^}]*\}[^@]*\.nav-inner\{column-gap:16px\}/.test(css)) fails.push(name + ': the 768-1199 px bar gap is not 16 px, the buttons run past the edge at 960');
+      for (const m of css.matchAll(/\.nav-links\s*\{([^}]*overflow-x:auto[^}]*)\}/g)) {
+        phoneRows++;
+        const body = m[1].replace(/\s+/g, '');
+        const fade = /(?:^|;)mask-image:linear-gradient\(90deg,#000calc\(100%-(\d+)px\),transparent\)/.exec(body);
+        const webkit = /-webkit-mask-image:linear-gradient\(90deg,#000calc\(100%-\d+px\),transparent\)/.test(body);
+        const pad = /padding:\d+px(\d+)px\d+px\d+px/.exec(body);
+        if (!fade || !webkit) fails.push(name + ': the phone menu row scrolls with no sign that it does (no right-edge fade)');
+        else if (!pad || +pad[1] < +fade[1]) fails.push(name + ': the phone menu row ends inside its own fade, the last link can never be read in full');
+      }
     }
     const tbl = src.match(/<table class="data-table"/g) || [];
     tables += tbl.length;
@@ -72,7 +86,8 @@ function check(files) {
   }
   if (bars === 0) fails.push('no page with the main top bar found');
   if (tables === 0) fails.push('no table found');
-  return { fails, bars, tables };
+  if (phoneRows === 0) fails.push('no phone menu row found');
+  return { fails, bars, tables, phoneRows };
 }
 
 const files = Object.fromEntries(pages.map((p) => [p, fs.readFileSync(path.join(ROOT, p), 'utf8')]));
@@ -94,6 +109,9 @@ if (process.argv.includes('--prove')) {
     ['a table box named by a missing heading', 'truck-hire-durban.html', (s) => s.replace('aria-labelledby="pricing"', 'aria-labelledby="pricing-gone"')],
     ['the text column held at its widest table', 'business-transport-durban.html', (s) => s.replace('.prose{min-width:0}', '')],
     ['long heading words unbroken', 'driver-agreement.html', (s) => s.replace('.prose h2,.prose h3{overflow-wrap:break-word;hyphens:auto', '.prose h2,.prose h3{')],
+    ['the phone menu fade dropped', 'faq.html', (s) => s.replace(/-webkit-mask-image:[^;]+;mask-image:[^;]+;/, '')],
+    ['the phone menu fade dropped on the home page', 'index.html', (s) => s.replace(/-webkit-mask-image:[^;]+;mask-image:[^;]+;/, '')],
+    ['the last link left under the fade', 'terms.html', (s) => s.replace('padding:4px 32px 6px 2px', 'padding:4px 2px 6px 2px')],
   ];
   let red = 0;
   for (const [label, name, fn] of breaks) {
@@ -109,4 +127,4 @@ if (res.fails.length) {
   console.log('  LAYOUT: ' + res.fails.length + ' problem(s)');
   process.exit(1);
 }
-console.log('  LAYOUT: ' + res.bars + ' top bars on one line, ' + res.tables + ' tables boxed, 0 problems');
+console.log('  LAYOUT: ' + res.bars + ' top bars on one line, ' + res.phoneRows + ' phone menu rows marked as scrolling, ' + res.tables + ' tables boxed, 0 problems');

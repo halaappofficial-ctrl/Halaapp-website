@@ -13,7 +13,8 @@
 //   1. Nothing on the page can carry the token anywhere: no script source of any kind (so no analytics), a
 //      Content-Security-Policy that allows no script source and no connection except the backend, no Referer
 //      (meta, the fetch itself and the vercel.json header), noindex in the page and in the header, no-store, no
-//      HTML injected from a reply, and the page is not in the sitemap.
+//      HTML injected from a reply, and the page is not in the sitemap. Styles and fonts load from this site alone
+//      ('self'), so the page is set in the brand type; with no Referer those requests carry no token either.
 //   2. The page DOES what the backend expects. Its own script runs here against a stand-in document and a
 //      stand-in fetch, through every answer the backend gives: 200 / 404 / 410 / 503 on the check, 200 / 400 /
 //      404 / 410 / 503 on the save, and a dropped connection on each. The server's sentence is shown as it is.
@@ -47,6 +48,8 @@ function checkSealed(html, vercel, sitemap) {
     if ((dir['script-src'] || []).join(' ') !== "'unsafe-inline'") fails.push('CSP script-src allows a script source: ' + (dir['script-src'] || []).join(' '));
     if ((dir['connect-src'] || []).join(' ') !== 'https://hala-backend-production.up.railway.app') fails.push('CSP connect-src is not the backend alone');
     if ((dir['form-action'] || []).join(' ') !== "'none'") fails.push("CSP form-action is not 'none'");
+    if ((dir['style-src'] || []).join(' ') !== "'self' 'unsafe-inline'") fails.push("CSP style-src is not this site's own stylesheet plus the page's styles: " + (dir['style-src'] || []).join(' '));
+    if ((dir['font-src'] || []).join(' ') !== "'self'") fails.push("CSP font-src is not this site's own fonts alone: " + (dir['font-src'] || []).join(' '));
     const firstScript = html.search(/<script\b/i);
     if (firstScript !== -1 && html.indexOf('Content-Security-Policy') > firstScript) fails.push('the CSP meta comes after a script');
   }
@@ -248,6 +251,8 @@ async function runAll(src) {
     const M = [
       ['analytics added', { html: (s) => swap(s, '</head>', '<script defer src="/_vercel/insights/script.js"></script>\n</head>') }],
       ['the CSP allows scripts from this site', { html: (s) => swap(s, "script-src 'unsafe-inline'", "script-src 'self' 'unsafe-inline'") }],
+      ['the CSP lets fonts come from another host', { html: (s) => swap(s, "font-src 'self';", "font-src 'self' https://fonts.gstatic.com;") }],
+      ['the CSP lets styles come from another host', { html: (s) => swap(s, "style-src 'self' 'unsafe-inline';", "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;") }],
       ['the Referer let through', { html: (s) => swap(s, '<meta name="referrer" content="no-referrer">', '<meta name="referrer" content="strict-origin-when-cross-origin">') }],
       ['noindex removed', { html: (s) => swap(s, '<meta name="robots" content="noindex, nofollow">', '') }],
       ['the header rule removed', { vercel: (s) => swap(s, '"source": "/reset-password(.*)"', '"source": "/reset-passwrd(.*)"') }],

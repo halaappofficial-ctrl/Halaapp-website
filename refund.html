@@ -21,7 +21,8 @@
     font-family:var(--body); }
   *{ box-sizing:border-box; }
   header{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--line); }
-  .brand{ font-weight:900; font-size:20px; letter-spacing:0; color:var(--green);font-family:var(--disp);word-spacing:.12em}
+  .brand{ font-weight:900; font-size:20px; letter-spacing:0; color:var(--text);font-family:var(--disp);word-spacing:.12em}
+  .brand span{ color:var(--green); }
   .ref{ font-size:13px; color:var(--muted); }
   .panel{ max-width:520px; margin:0 auto; padding:20px 16px 40px; }
   h1{ font-size:24px; font-weight:600; margin:4px 0 6px;font-family:var(--disp);letter-spacing:-.012em;line-height:1.18;text-wrap:balance}
@@ -85,7 +86,7 @@ window.va('beforeSend', function (event) {
 </head>
 <body>
 <header>
-  <div class="brand">HALA MOVE</div>
+  <div class="brand"><span>HALA</span> MOVE</div>
   <div class="ref" id="ref"></div>
 </header>
 
