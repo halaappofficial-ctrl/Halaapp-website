@@ -231,28 +231,18 @@ nav.scrolled{background:rgba(10,10,10,.98)}
  display:flex;align-items:center;
  flex-shrink:0;
 }
-.nav-live{
- display:flex;align-items:center;gap:6px;
- font-size:.65rem;font-weight:600;letter-spacing:.1em;
- text-transform:uppercase;color:var(--g);
- background:var(--gmid);border:1px solid rgba(92,181,88,.2);
- border-radius:40px;padding:3px 10px;
- flex-shrink:0;
-}
-.nav-live-dot{
- width:5px;height:5px;border-radius:50%;background:var(--g);
- animation:pulse-dot 1.2s ease-in-out infinite;
-}
+
 .nav-links{display:flex;gap:28px;align-items:center;flex:1;justify-content:center}
 .nav-links a{
  font-size:.85rem;font-weight:500;color:var(--t2);
  letter-spacing:.03em;transition:color .2s;
 }
+.nav-links a{white-space:nowrap}
 .nav-links a:hover{color:var(--t)}
 .nav-btns{display:flex;gap:8px;align-items:center;flex-shrink:0}
 /* 768-1199px: logo + badge + five links + two buttons did not fit, and "Get Started" was cut off at 1024px.
    Here the badge and the duplicate "Download App" button go ("Get Started" opens the same page). */
-@media(min-width:768px) and (max-width:1199px){.nav-live{display:none}.nav-btns .btn-ghost{display:none}.nav-links{gap:18px}}
+@media(min-width:768px) and (max-width:1199px){.nav-btns .btn-ghost{display:none}.nav-links{gap:18px}.nav-inner{column-gap:16px}}
 /* 768-959px: still too narrow for one row, so the links take a second row, as they do on a phone. */
 @media(min-width:768px) and (max-width:959px){nav{height:auto}.nav-inner{flex-wrap:wrap;row-gap:2px;padding-top:10px;padding-bottom:6px}.nav-btns{margin-left:auto}.nav-links{flex:0 0 100%;order:10;justify-content:flex-start;gap:24px;padding:2px 0 4px}.nav-links a{white-space:nowrap}}
 @media(min-width:768px){
@@ -262,7 +252,6 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 @media(max-width:767px){
  nav{height:auto}
  .nav-inner{flex-wrap:wrap;padding:10px 16px;gap:6px;row-gap:4px}
- .nav-live{display:none}
  .nav-btns{margin-left:auto;flex:0 0 auto;gap:6px}
  .nav-btns .btn{padding:9px 14px;font-size:.72rem}
  .nav-btns .btn-ghost{display:none}
@@ -900,7 +889,6 @@ footer{
  font-size:.82rem;color:var(--t3);text-align:center;margin-top:14px;
  letter-spacing:.04em;
 }
-
 .page-hero{padding:100px 0 60px;border-bottom:1px solid var(--b);background:var(--bg)}
 .page-hero-eyebrow{font-size:.7rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--g);display:flex;align-items:center;gap:12px;margin-bottom:20px}
 .page-hero-eyebrow::before{content:'';width:24px;height:1.5px;background:var(--g);flex-shrink:0}
@@ -939,6 +927,9 @@ footer{
 .warn-box{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.2);border-left:3px solid #F59E0B;border-radius:0 10px 10px 0;padding:20px 24px;margin:24px 0}
 .warn-box p{color:var(--t2);font-size:.9rem;line-height:1.7;margin:0}
 .data-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.88rem}
+.table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:20px 0}.table-scroll>.data-table{margin:0}.table-scroll>.data-table:has(th:nth-child(4)){min-width:36rem}.table-scroll:focus-visible{outline:2px solid var(--g);outline-offset:4px;border-radius:4px}
+.prose{min-width:0}
+.prose h2,.prose h3{overflow-wrap:break-word;hyphens:auto;-webkit-hyphens:auto}
 .data-table th{text-align:left;padding:10px 14px;font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--t2);background:var(--s3);border-bottom:1px solid var(--b)}
 .data-table td{padding:12px 14px;color:var(--t2);border-bottom:1px solid rgba(255,255,255,.04);vertical-align:top;line-height:1.6}
 .data-table tr:last-child td{border-bottom:none}
@@ -1015,10 +1006,6 @@ window.va('beforeSend', function (event) {
    </span>
   </a>
 
-  <div class="nav-live" aria-label="Platform is live">
-   <div class="nav-live-dot"></div>
-   Live · Durban
-  </div>
 
   <ul class="nav-links" role="list">
    <li><a href="/#customers">For Customers</a></li>
