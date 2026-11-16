@@ -281,50 +281,74 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-/* HERO (2026-11-15): three words and one line, then the vehicles. The picture says who we are; the reading is cut
-   to fourteen words. Native scroll-snap so a phone gets real momentum and edge bounce, no scripted physics. */
-.hero{min-height:0;display:block;padding:76px 0 44px}
-.hero-head{position:relative;z-index:2;text-align:center;max-width:860px;margin:0 auto}
+/* HERO (2026-11-15, rebuilt the same night after studying tesla.com, apple.com/iphone, spacex.com and starlink.com
+   in the browser). A short heading, then one vehicle per frame in a seamless light studio, the way Tesla shows a car in
+   its configurator. Each frame follows Apple's product tile: the name, one line, two pill buttons, then the vehicle
+   large below, so the buttons are on the first screen of a phone and a laptop. The class pictures are white-ground
+   studio shots; multiply melts their white into the studio light, so each vehicle stands in the room, not in a box.
+   Native scroll-snap moves the frames (real momentum and edge bounce on a phone). Apple's pill shows the progress and a
+   button pauses (WCAG 2.2.2); frames advance by themselves only on screen, in a visible tab, with nobody touching,
+   hovering or focused inside, and never for a visitor who asks for reduced motion. */
+.hero{min-height:0;display:block;padding:48px 0 40px}
+.hero-head{position:relative;z-index:2;text-align:center;max-width:1000px;margin:0 auto}
 .hero-head .eyebrow{justify-content:center}
-.hero-h1{font-size:clamp(3.4rem,10vw,6.6rem);line-height:1.02;letter-spacing:-.015em;margin-bottom:18px}
-.hero-sub{max-width:28em;margin:0 auto 34px;line-height:1.6;color:var(--t2)}
+.hero-h1{font-size:clamp(3rem,10vw,4.75rem);line-height:1;letter-spacing:-.02em;margin-bottom:16px}
+.hero-sub{max-width:30em;margin:0 auto;line-height:1.6;color:var(--t2)}
 .hero-sub span{display:inline-block}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.rail-wrap{position:relative;z-index:2}
-.rail{--edge:max(24px,calc((100vw - 1180px) / 2 + 24px));display:flex;gap:16px;list-style:none;margin:0;padding:6px var(--edge) 16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:var(--edge);scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.rail-wrap{position:relative;z-index:2;margin-top:30px;padding:0 12px}
+.stage{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;isolation:isolate;background:#F1F2F4}
+.rail{display:flex;list-style:none;margin:0;padding:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .rail::-webkit-scrollbar{display:none}
-.rail:focus-visible{outline:2px solid var(--g);outline-offset:4px;border-radius:24px}
-.rail-card{flex:0 0 min(82vw,340px);scroll-snap-align:start;display:flex;flex-direction:column;background:var(--s);border:1px solid var(--b);border-radius:24px;overflow:hidden;transition:border-color .25s}
-.rail-pic{display:block;background:#FDFDFD}
-.rail-pic img{display:block;width:100%;height:auto;aspect-ratio:2/1}
-.rail-body{display:flex;flex-direction:column;padding:18px 20px 20px;flex:1}
-.rail-name{font-family:var(--body);font-size:1.15rem;font-weight:700;letter-spacing:-.01em;line-height:1.25;margin:0 0 6px}
-.rail-name a{color:var(--t);text-decoration:none}
-.rail-name a::after{content:'';display:inline-block;width:.4em;height:.4em;border-right:2px solid var(--g);border-top:2px solid var(--g);transform:rotate(45deg);margin-left:.4em;vertical-align:.1em}
-.rail-name a:focus-visible{outline:2px solid var(--g);outline-offset:3px;border-radius:4px}
-.rail-fits{font-size:.9rem;color:var(--t2);line-height:1.5;margin:0 0 16px;flex:1}
-.rail-acts{display:flex;align-items:center;gap:20px}
-.rail-book{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 24px;border-radius:999px;background:var(--g);color:#0A0A0A;font-weight:700;font-size:.92rem;text-decoration:none;transition:transform .1s ease-out,background .2s}
+.rail:focus-visible{outline:3px solid var(--g);outline-offset:-3px;border-radius:28px}
+.rail-card{flex:0 0 100%;scroll-snap-align:center;scroll-snap-stop:always;isolation:isolate;background:radial-gradient(120% 85% at 50% 66%,#FFFFFF 0%,#F4F5F7 50%,#E3E6EA 100%);display:flex;flex-direction:column;align-items:center;text-align:center;padding:clamp(30px,4.2vw,52px) 20px clamp(22px,3vw,40px)}
+.rail-name{font-family:var(--body);font-size:clamp(2rem,5.2vw,3.25rem);font-weight:700;letter-spacing:-.025em;line-height:1.05;margin:0 0 10px;color:#0B0B0C}
+.rail-name a{color:inherit;text-decoration:none}
+.rail-name a:focus-visible{outline:2px solid #0B0B0C;outline-offset:4px;border-radius:6px}
+.rail-fits{font-size:clamp(1rem,1.5vw,1.15rem);color:#474C54;line-height:1.5;margin:0 0 22px;max-width:24em}
+.rail-acts{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.rail-book,.rail-drive{display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:148px;padding:0 28px;border-radius:999px;font-weight:700;font-size:.98rem;text-decoration:none;transition:transform .1s ease-out,background-color .2s,box-shadow .2s}
+.rail-book{background:var(--g);color:#0A0A0A}
 .rail-book:hover{background:var(--gl)}
-.rail-book:active{transform:scale(.97)}
-.rail-drive{display:inline-flex;align-items:center;min-height:44px;color:var(--t);font-weight:600;font-size:.9rem;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(255,255,255,.35)}
-.rail-drive:active{opacity:.7}
-.rail-book:focus-visible,.rail-drive:focus-visible{outline:2px solid var(--g);outline-offset:3px}
-.rail-ctrl{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px}
-.rail-dots{display:flex}
-.rail-dot{width:32px;height:32px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
-.rail-dot::before{content:'';width:8px;height:8px;border-radius:999px;background:#555;transition:width .3s cubic-bezier(.4,0,.2,1),background-color .3s}
-.rail-dot[aria-current="true"]::before{width:24px;background:var(--g)}
-.rail-dot:focus-visible{outline:2px solid var(--g);outline-offset:-4px;border-radius:999px}
-.rail-arrow{display:none;width:40px;height:40px;border-radius:999px;border:1px solid var(--b2);background:rgba(20,20,20,.72);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);color:var(--t);cursor:pointer;transition:opacity .2s,border-color .2s}
-.rail-arrow:hover{border-color:var(--g)}
-.rail-arrow[disabled]{opacity:.3;cursor:default;border-color:var(--b2)}
-@media(hover:hover) and (pointer:fine){.rail-arrow{display:grid;place-items:center}.rail-card:hover{border-color:rgba(92,181,88,.45)}}
-.hero .store-row{justify-content:center;margin-top:26px}
+.rail-drive{background:rgba(255,255,255,.72);color:#0B0B0C;box-shadow:inset 0 0 0 1px rgba(11,11,12,.18)}
+.rail-drive:hover{background:#fff;box-shadow:inset 0 0 0 1px rgba(11,11,12,.34)}
+.rail-book:active,.rail-drive:active{transform:scale(.97)}
+.rail-book:focus-visible,.rail-drive:focus-visible{outline:2px solid #0B0B0C;outline-offset:3px}
+.rail-pic{display:block;width:100%;margin-top:clamp(14px,2.6vw,30px)}
+.rail-pic img{display:block;width:min(100%,820px);height:auto;aspect-ratio:2/1;margin:0 auto;mix-blend-mode:multiply}
+/* the vehicle rolls in a little ahead of the scroll and settles as its frame lands; the script adds is-live only
+   once it has marked the current frame, so without it every frame shows in full */
+.rail.is-live .rail-pic img{transition:transform .9s cubic-bezier(.22,1,.36,1),opacity .6s ease}
+.rail.is-live .rail-card:not(.is-active) .rail-pic img{transform:translateX(8%) scale(.96);opacity:.4}
+.rail.is-live .rail-name,.rail.is-live .rail-fits,.rail.is-live .rail-acts{transition:opacity .5s ease .08s,transform .6s cubic-bezier(.22,1,.36,1) .08s}
+.rail.is-live .rail-card:not(.is-active) .rail-name,.rail.is-live .rail-card:not(.is-active) .rail-fits,.rail.is-live .rail-card:not(.is-active) .rail-acts{opacity:0;transform:translateY(12px)}
+.rail-arrow{position:absolute;bottom:calc(clamp(22px,3vw,40px) + min(100vw - 64px,820px) / 4 - 24px);z-index:3;display:none;width:48px;height:48px;border:0;border-radius:999px;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(14px) saturate(180%);backdrop-filter:blur(14px) saturate(180%);color:#0B0B0C;cursor:pointer;box-shadow:0 2px 14px rgba(0,0,0,.1);transition:opacity .2s,background-color .2s}
+.rail-arrow.prev{left:20px}
+.rail-arrow.next{right:20px}
+.rail-arrow:hover{background:#fff}
+.rail-arrow[disabled]{opacity:0;pointer-events:none}
+.rail-arrow:focus-visible{outline:2px solid #0B0B0C;outline-offset:3px}
+@media(hover:hover) and (pointer:fine){.rail-arrow{display:grid;place-items:center}}
+.rail-ctrl{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:18px}
+.rail-dots{display:flex;align-items:center;height:44px;padding:0 10px;border-radius:999px;background:rgba(255,255,255,.08)}
+.rail-dot{width:22px;height:44px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center;transition:width .35s cubic-bezier(.22,1,.36,1)}
+.rail-dot i{position:relative;display:block;width:8px;height:8px;border-radius:999px;background:rgba(255,255,255,.4);overflow:hidden;transition:width .35s cubic-bezier(.22,1,.36,1),background-color .3s}
+.rail-dot i::after{content:'';position:absolute;inset:0;border-radius:inherit;background:#fff;transform:scaleX(0);transform-origin:left center}
+.rail-dot[aria-current="true"]{width:46px}
+.rail-dot[aria-current="true"] i{width:34px;background:rgba(255,255,255,.26)}
+.rail-dot[aria-current="true"] i::after{transform:scaleX(1)}
+.rail-ctrl.is-playing .rail-dot[aria-current="true"] i::after{background:var(--g);transform:scaleX(var(--p,0))}
+.rail-dot:focus-visible{outline:2px solid var(--g);outline-offset:-6px;border-radius:999px}
+.rail-play{width:44px;height:44px;border:0;border-radius:999px;background:rgba(255,255,255,.08);color:#fff;cursor:pointer;display:grid;place-items:center;transition:background-color .2s}
+.rail-play:hover{background:rgba(255,255,255,.16)}
+.rail-play:focus-visible{outline:2px solid var(--g);outline-offset:3px}
+.rail-play svg{display:none}
+.rail-play[data-state="pause"] .i-pause,.rail-play[data-state="play"] .i-play,.rail-play[data-state="replay"] .i-replay{display:block}
+.hero .store-row{justify-content:center;margin-top:24px}
 .hero .store-note{flex-basis:100%;text-align:center}
-@media(max-width:599px){.hero .play-badge-link{width:158px}.hero .appstore-badge-link{width:132px}}
-@media(min-width:900px){.hero{padding:60px 0 56px}.hero-h1{font-size:5.75rem}.rail-card{flex-basis:300px}}
-@media(prefers-reduced-motion:reduce){.rail-dot::before{transition:none}.rail-book{transition:none}}
+@media(max-width:599px){.hero .play-badge-link{width:158px}.hero .appstore-badge-link{width:132px}.rail-acts{gap:10px;width:100%;max-width:380px;flex-wrap:nowrap}.rail-book,.rail-drive{min-width:0;flex:1 1 0;padding:0 14px;white-space:nowrap}}
+@media(min-width:900px){.hero{padding:44px 0 52px}.hero-h1 .line{display:inline-block;vertical-align:top}.rail-wrap{padding:0 20px}}
+@media(prefers-reduced-motion:reduce){.rail.is-live .rail-pic img,.rail.is-live .rail-name,.rail.is-live .rail-fits,.rail.is-live .rail-acts{transition:none;transform:none!important;opacity:1!important}.rail-dot,.rail-dot i{transition:none}.rail-book,.rail-drive{transition:none}}
 .stats-bar{background:var(--s);border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:40px 0}
 .stats-bar .stat-num,.stats-bar .stat-label{opacity:1!important;transform:none!important}
 .stats-inner{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
@@ -479,7 +503,7 @@ footer{background:var(--bg2);border-top:1px solid var(--b);padding:64px 0 0}
 .center{text-align:center}
 .mt-40{margin-top:40px}
 .cta-sub-text{font-size:.82rem;color:var(--t3);text-align:center;margin-top:14px;letter-spacing:.04em}
-@media(max-width:374px){.container{padding:0 16px}.hero-h1{font-size:clamp(2.6rem,9vw,3.6rem)}.rail{--edge:16px}.steps{gap:16px}.feat-card{padding:24px}.btn-lg{padding:14px 24px;font-size:.9rem}}
+@media(max-width:374px){.container{padding:0 16px}.hero-h1{font-size:clamp(2.6rem,9vw,3.6rem)}.steps{gap:16px}.feat-card{padding:24px}.btn-lg{padding:14px 24px;font-size:.9rem}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal,.reveal-l,.reveal-r{opacity:1;transform:none;transition:none}.ann-track{animation:none}#city-canvas{display:none}}
 .reveal,.reveal-l,.reveal-r{opacity:1!important;transform:none!important;transition:none!important}
 @media(max-width:768px){.scroll-top{bottom:76px!important;right:16px}.widget-visible iframe,#tawk-bubble-container,.tawk-min-container{bottom:70px!important}.crisp-client .cc-1brb6{bottom:70px!important}[class*="chat-widget"],[class*="chat-bubble"],[id*="chat-widget"]{bottom:70px!important}}
@@ -595,101 +619,94 @@ window.va('beforeSend', function (event) {
   </div>
  </div>
 
- <!-- THE VEHICLES (moved up from their own section 2026-11-15 and made the hero's picture). One picture per size:
-      the same class pictures the app shows when a customer picks a size and beside every offer (backend
-      src/constants/vehicleImages.js CATEGORY_IMAGE, files from public-assets/vehicles/ resized to 480 and 800 wide).
-      Never a driver's own photo. The sizes, their order and the line under each name are the app's size picker
-      (customer-app src/constants/vehicleCatalog.js TIER_ORDER and TIER_BLURBS): change them there first; the same
-      five lines are in assets/lead-form.js. Offers go to drivers whose vehicle can carry the size (backend
-      src/utils/vehicleCapability.js). "Book" goes to the customer app and "I drive one" to the driver app, through
-      /get and /drive (middleware.js sends iPhone to the App Store, everything else to Google Play) with a web- code
-      per vehicle, so each tap shows up as website traffic in Play Console and Apple analytics. On a computer both go
-      to /download, which shows both stores (the script at the end of this page). No booking link without the app
-      until that page answers in production. -->
+ <!-- THE VEHICLES: the hero's picture. One frame per size, the same class pictures the app shows when a customer
+      picks a size and beside every offer (backend src/constants/vehicleImages.js CATEGORY_IMAGE; the files are
+      backend public-assets/vehicles/<name>.v1.large.jpg, 1640 x 820, saved here at 480 / 800 / 1200 / 1640 wide so
+      a retina screen gets a sharp vehicle). Never a driver's own photo. The sizes, their order and the line under
+      each name are the app's size picker (customer-app src/constants/vehicleCatalog.js TIER_ORDER and TIER_BLURBS):
+      change them there first; the same five lines are in assets/lead-form.js. Offers go to drivers whose vehicle can
+      carry the size (backend src/utils/vehicleCapability.js). "Book" goes to the customer app and "I drive one" to
+      the driver app, through /get and /drive (middleware.js sends iPhone to the App Store, everything else to Google
+      Play) with a web- code per vehicle, so each tap shows as website traffic in Play Console and Apple analytics.
+      On a computer both go to /download, which shows both stores (the script at the end of this page). No booking
+      link without the app until that page answers in production. verify-hero-rail.cjs guards all of this. -->
  <div class="rail-wrap">
   <h2 class="sr-only" id="rail-heading">Choose a vehicle</h2>
-  <ul class="rail" id="hero-rail" role="list" tabindex="0" aria-labelledby="rail-heading">
-   <li class="rail-card">
-    <picture class="rail-pic">
-     <source type="image/webp" srcset="/images/vehicles/half_ton.v1-480.webp 480w, /images/vehicles/half_ton.v1-800.webp 800w" sizes="(min-width:900px) 300px, min(82vw, 340px)">
-     <img src="/images/vehicles/half_ton.v1-800.jpg" width="800" height="400" alt="A white half-ton bakkie" fetchpriority="high" decoding="async">
-    </picture>
-    <div class="rail-body">
-     <h3 class="rail-name"><a href="/bakkie-hire-durban" aria-label="Small Bakkie: Bakkie hire in Durban">Small Bakkie</a></h3>
-     <p class="rail-fits">Boxes, parcels, a chair or light stock</p>
-     <div class="rail-acts">
-      <a class="rail-book" href="/get?s=web-hero-sbak" data-desk="/download" aria-label="Book a small bakkie">Book</a>
-      <a class="rail-drive" href="/drive?s=web-herod-sbak" data-desk="/download" aria-label="I drive a small bakkie: get the driver app">I drive one</a>
-     </div>
+  <div class="stage" role="region" aria-roledescription="carousel" aria-labelledby="rail-heading">
+  <button class="rail-arrow prev" type="button" aria-label="Previous vehicle" aria-controls="hero-rail"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  <ul class="rail" id="hero-rail" role="list" tabindex="0" aria-label="Vehicle sizes">
+   <li class="rail-card" aria-roledescription="slide" aria-label="1 of 5">
+    <h3 class="rail-name"><a href="/bakkie-hire-durban" aria-label="Small Bakkie: Bakkie hire in Durban">Small Bakkie</a></h3>
+    <p class="rail-fits">Boxes, parcels, a chair or light stock</p>
+    <div class="rail-acts">
+     <a class="rail-book" href="/get?s=web-hero-sbak" data-desk="/download" aria-label="Book a small bakkie">Book</a>
+     <a class="rail-drive" href="/drive?s=web-herod-sbak" data-desk="/download" aria-label="I drive a small bakkie: get the driver app">I drive one</a>
     </div>
+    <picture class="rail-pic">
+     <source type="image/webp" srcset="/images/vehicles/half_ton.v1-480.webp 480w, /images/vehicles/half_ton.v1-800.webp 800w, /images/vehicles/half_ton.v1-1200.webp 1200w, /images/vehicles/half_ton.v1-1640.webp 1640w" sizes="(min-width:960px) 820px, calc(100vw - 64px)">
+     <img src="/images/vehicles/half_ton.v1-1200.jpg" width="1200" height="600" alt="A white half-ton bakkie" fetchpriority="high" decoding="async">
+    </picture>
    </li>
-   <li class="rail-card">
-    <picture class="rail-pic">
-     <source type="image/webp" srcset="/images/vehicles/one_ton.v1-480.webp 480w, /images/vehicles/one_ton.v1-800.webp 800w" sizes="(min-width:900px) 300px, min(82vw, 340px)">
-     <img src="/images/vehicles/one_ton.v1-800.jpg" width="800" height="400" alt="A white one-ton single cab bakkie" loading="lazy" decoding="async">
-    </picture>
-    <div class="rail-body">
-     <h3 class="rail-name"><a href="/bakkie-hire-durban" aria-label="Large Bakkie: Bakkie hire in Durban">Large Bakkie</a></h3>
-     <p class="rail-fits">Stock, building supplies, a lounge suite</p>
-     <div class="rail-acts">
-      <a class="rail-book" href="/get?s=web-hero-lbak" data-desk="/download" aria-label="Book a large bakkie">Book</a>
-      <a class="rail-drive" href="/drive?s=web-herod-lbak" data-desk="/download" aria-label="I drive a large bakkie: get the driver app">I drive one</a>
-     </div>
+   <li class="rail-card" aria-roledescription="slide" aria-label="2 of 5">
+    <h3 class="rail-name"><a href="/bakkie-hire-durban" aria-label="Large Bakkie: Bakkie hire in Durban">Large Bakkie</a></h3>
+    <p class="rail-fits">Stock, building supplies, a lounge suite</p>
+    <div class="rail-acts">
+     <a class="rail-book" href="/get?s=web-hero-lbak" data-desk="/download" aria-label="Book a large bakkie">Book</a>
+     <a class="rail-drive" href="/drive?s=web-herod-lbak" data-desk="/download" aria-label="I drive a large bakkie: get the driver app">I drive one</a>
     </div>
+    <picture class="rail-pic">
+     <source type="image/webp" srcset="/images/vehicles/one_ton.v1-480.webp 480w, /images/vehicles/one_ton.v1-800.webp 800w, /images/vehicles/one_ton.v1-1200.webp 1200w, /images/vehicles/one_ton.v1-1640.webp 1640w" sizes="(min-width:960px) 820px, calc(100vw - 64px)">
+     <img src="/images/vehicles/one_ton.v1-1200.jpg" width="1200" height="600" alt="A white one-ton single cab bakkie" loading="lazy" decoding="async">
+    </picture>
    </li>
-   <li class="rail-card">
-    <picture class="rail-pic">
-     <source type="image/webp" srcset="/images/vehicles/panel_van.v1-480.webp 480w, /images/vehicles/panel_van.v1-800.webp 800w" sizes="(min-width:900px) 300px, min(82vw, 340px)">
-     <img src="/images/vehicles/panel_van.v1-800.jpg" width="800" height="400" alt="A white panel van" loading="lazy" decoding="async">
-    </picture>
-    <div class="rail-body">
-     <h3 class="rail-name"><a href="/panel-van-hire-durban" aria-label="Panel Van: Panel van hire in Durban">Panel Van</a></h3>
-     <p class="rail-fits">Enclosed and dry, for stock and appliances</p>
-     <div class="rail-acts">
-      <a class="rail-book" href="/get?s=web-hero-van" data-desk="/download" aria-label="Book a panel van">Book</a>
-      <a class="rail-drive" href="/drive?s=web-herod-van" data-desk="/download" aria-label="I drive a panel van: get the driver app">I drive one</a>
-     </div>
+   <li class="rail-card" aria-roledescription="slide" aria-label="3 of 5">
+    <h3 class="rail-name"><a href="/panel-van-hire-durban" aria-label="Panel Van: Panel van hire in Durban">Panel Van</a></h3>
+    <p class="rail-fits">Enclosed and dry, for stock and appliances</p>
+    <div class="rail-acts">
+     <a class="rail-book" href="/get?s=web-hero-van" data-desk="/download" aria-label="Book a panel van">Book</a>
+     <a class="rail-drive" href="/drive?s=web-herod-van" data-desk="/download" aria-label="I drive a panel van: get the driver app">I drive one</a>
     </div>
+    <picture class="rail-pic">
+     <source type="image/webp" srcset="/images/vehicles/panel_van.v1-480.webp 480w, /images/vehicles/panel_van.v1-800.webp 800w, /images/vehicles/panel_van.v1-1200.webp 1200w, /images/vehicles/panel_van.v1-1640.webp 1640w" sizes="(min-width:960px) 820px, calc(100vw - 64px)">
+     <img src="/images/vehicles/panel_van.v1-1200.jpg" width="1200" height="600" alt="A white panel van" loading="lazy" decoding="async">
+    </picture>
    </li>
-   <li class="rail-card">
-    <picture class="rail-pic">
-     <source type="image/webp" srcset="/images/vehicles/dropside.v1-480.webp 480w, /images/vehicles/dropside.v1-800.webp 800w" sizes="(min-width:900px) 300px, min(82vw, 340px)">
-     <img src="/images/vehicles/dropside.v1-800.jpg" width="800" height="400" alt="A white one-ton drop-side truck" loading="lazy" decoding="async">
-    </picture>
-    <div class="rail-body">
-     <h3 class="rail-name"><a href="/truck-hire-durban" aria-label="1 Ton Truck: Truck hire in Durban">1 Ton Truck</a></h3>
-     <p class="rail-fits">Pallets, appliances or a one-bedroom home</p>
-     <div class="rail-acts">
-      <a class="rail-book" href="/get?s=web-hero-1t" data-desk="/download" aria-label="Book a 1 ton truck">Book</a>
-      <a class="rail-drive" href="/drive?s=web-herod-1t" data-desk="/download" aria-label="I drive a 1 ton truck: get the driver app">I drive one</a>
-     </div>
+   <li class="rail-card" aria-roledescription="slide" aria-label="4 of 5">
+    <h3 class="rail-name"><a href="/truck-hire-durban" aria-label="1 Ton Truck: Truck hire in Durban">1 Ton Truck</a></h3>
+    <p class="rail-fits">Pallets, appliances or a one-bedroom home</p>
+    <div class="rail-acts">
+     <a class="rail-book" href="/get?s=web-hero-1t" data-desk="/download" aria-label="Book a 1 ton truck">Book</a>
+     <a class="rail-drive" href="/drive?s=web-herod-1t" data-desk="/download" aria-label="I drive a 1 ton truck: get the driver app">I drive one</a>
     </div>
+    <picture class="rail-pic">
+     <source type="image/webp" srcset="/images/vehicles/dropside.v1-480.webp 480w, /images/vehicles/dropside.v1-800.webp 800w, /images/vehicles/dropside.v1-1200.webp 1200w, /images/vehicles/dropside.v1-1640.webp 1640w" sizes="(min-width:960px) 820px, calc(100vw - 64px)">
+     <img src="/images/vehicles/dropside.v1-1200.jpg" width="1200" height="600" alt="A white one-ton drop-side truck" loading="lazy" decoding="async">
+    </picture>
    </li>
-   <li class="rail-card">
-    <picture class="rail-pic">
-     <source type="image/webp" srcset="/images/vehicles/box_truck.v1-480.webp 480w, /images/vehicles/box_truck.v1-800.webp 800w" sizes="(min-width:900px) 300px, min(82vw, 340px)">
-     <img src="/images/vehicles/box_truck.v1-800.jpg" width="800" height="400" alt="A white 4-ton box truck" loading="lazy" decoding="async">
-    </picture>
-    <div class="rail-body">
-     <h3 class="rail-name"><a href="/truck-hire-durban" aria-label="4 Ton Truck: Truck hire in Durban">4 Ton Truck</a></h3>
-     <p class="rail-fits">A full load of stock, or a whole household</p>
-     <div class="rail-acts">
-      <a class="rail-book" href="/get?s=web-hero-4t" data-desk="/download" aria-label="Book a 4 ton truck">Book</a>
-      <a class="rail-drive" href="/drive?s=web-herod-4t" data-desk="/download" aria-label="I drive a 4 ton truck: get the driver app">I drive one</a>
-     </div>
+   <li class="rail-card" aria-roledescription="slide" aria-label="5 of 5">
+    <h3 class="rail-name"><a href="/truck-hire-durban" aria-label="4 Ton Truck: Truck hire in Durban">4 Ton Truck</a></h3>
+    <p class="rail-fits">A full load of stock, or a whole household</p>
+    <div class="rail-acts">
+     <a class="rail-book" href="/get?s=web-hero-4t" data-desk="/download" aria-label="Book a 4 ton truck">Book</a>
+     <a class="rail-drive" href="/drive?s=web-herod-4t" data-desk="/download" aria-label="I drive a 4 ton truck: get the driver app">I drive one</a>
     </div>
+    <picture class="rail-pic">
+     <source type="image/webp" srcset="/images/vehicles/box_truck.v1-480.webp 480w, /images/vehicles/box_truck.v1-800.webp 800w, /images/vehicles/box_truck.v1-1200.webp 1200w, /images/vehicles/box_truck.v1-1640.webp 1640w" sizes="(min-width:960px) 820px, calc(100vw - 64px)">
+     <img src="/images/vehicles/box_truck.v1-1200.jpg" width="1200" height="600" alt="A white 4-ton box truck" loading="lazy" decoding="async">
+    </picture>
    </li>
   </ul>
+  <button class="rail-arrow next" type="button" aria-label="Next vehicle" aria-controls="hero-rail"><svg width="18" height="18" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+  </div>
   <div class="rail-ctrl">
-   <button class="rail-arrow prev" type="button" aria-label="Previous vehicle" aria-controls="hero-rail"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
    <div class="rail-dots">
-    <button class="rail-dot" type="button" aria-label="Small Bakkie" aria-controls="hero-rail" aria-current="true"></button>
-    <button class="rail-dot" type="button" aria-label="Large Bakkie" aria-controls="hero-rail" aria-current="false"></button>
-    <button class="rail-dot" type="button" aria-label="Panel Van" aria-controls="hero-rail" aria-current="false"></button>
-    <button class="rail-dot" type="button" aria-label="1 Ton Truck" aria-controls="hero-rail" aria-current="false"></button>
-    <button class="rail-dot" type="button" aria-label="4 Ton Truck" aria-controls="hero-rail" aria-current="false"></button>
+    <button class="rail-dot" type="button" aria-label="Small Bakkie" aria-controls="hero-rail" aria-current="true"><i></i></button>
+    <button class="rail-dot" type="button" aria-label="Large Bakkie" aria-controls="hero-rail" aria-current="false"><i></i></button>
+    <button class="rail-dot" type="button" aria-label="Panel Van" aria-controls="hero-rail" aria-current="false"><i></i></button>
+    <button class="rail-dot" type="button" aria-label="1 Ton Truck" aria-controls="hero-rail" aria-current="false"><i></i></button>
+    <button class="rail-dot" type="button" aria-label="4 Ton Truck" aria-controls="hero-rail" aria-current="false"><i></i></button>
    </div>
-   <button class="rail-arrow next" type="button" aria-label="Next vehicle" aria-controls="hero-rail"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+   <button class="rail-play" id="rail-play" type="button" aria-controls="hero-rail" data-state="play" aria-label="Play the vehicles"><svg class="i-pause" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><rect x="2.5" y="1.5" width="3" height="11" rx="1" fill="currentColor"/><rect x="8.5" y="1.5" width="3" height="11" rx="1" fill="currentColor"/></svg><svg class="i-play" width="14" height="14" viewBox="0 0 14 14" aria-hidden="true"><path d="M3.5 1.8v10.4c0 .6.7 1 1.2.7l8.1-5.2c.5-.3.5-1.1 0-1.4L4.7 1.1c-.5-.3-1.2.1-1.2.7z" fill="currentColor"/></svg><svg class="i-replay" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8a5 5 0 1 0 1.6-3.7M3 2.5v2.8h2.8" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   </div>
  </div>
 
@@ -1231,45 +1248,103 @@ if(sl){
  }, {threshold:.3});
  slo.observe(sl);
 }
-// HERO RAIL (2026-11-15): dots and arrows follow the native scroll; nothing moves the cards but the visitor.
+// HERO STAGE (2026-11-15): one vehicle per frame. The visitor's own swipe always wins and stops the autoplay; frames
+// advance by themselves only while the stage is on screen, the tab is visible, nobody is hovering over, touching or
+// focused inside it, and the visitor has not asked for reduced motion. The button pauses, plays and replays.
 (function(){
  const rail = document.getElementById('hero-rail');
  if(!rail) return;
  const cards = Array.prototype.slice.call(rail.children);
  const dots = Array.prototype.slice.call(document.querySelectorAll('.rail-dot'));
- const prev = document.querySelector('.rail-arrow.prev'), next = document.querySelector('.rail-arrow.next');
- const reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- const step = () => cards.length > 1 ? cards[1].offsetLeft - cards[0].offsetLeft : rail.clientWidth;
- const max = () => rail.scrollWidth - rail.clientWidth - 2;
- const current = () => rail.scrollLeft >= max() ? cards.length - 1 : Math.round(rail.scrollLeft / step());
- const go = (i) => {
-  i = Math.max(0, Math.min(cards.length - 1, i));
-  rail.scrollTo({ left: cards[i].offsetLeft - cards[0].offsetLeft, behavior: reduce ? 'auto' : 'smooth' });
+ const ctrl = document.querySelector('.rail-ctrl');
+ const play = document.getElementById('rail-play');
+ const stage = rail.closest('.stage') || rail;
+ const prev = stage.querySelector('.rail-arrow.prev'), next = stage.querySelector('.rail-arrow.next');
+ const reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+ const SLIDE_MS = 5500;
+ const last = cards.length - 1;
+ const left = (i) => cards[i].offsetLeft - cards[0].offsetLeft;
+ const current = () => Math.max(0, Math.min(last, Math.round(rail.scrollLeft / (rail.clientWidth || 1))));
+ const go = (i) => rail.scrollTo({ left: left(Math.max(0, Math.min(last, i))), behavior: reduce ? 'auto' : 'smooth' });
+ // target: the frame autoplay has asked for and is still sliding to; the clock waits for it to land (never counting on
+ // the old dot), and gives up after 2 s so a scroll that never lands cannot stall the autoplay
+ let shown = -1, playing = false, ended = false, elapsed = 0, prevT = 0, raf = 0, target = -1, targetAt = 0;
+ const holds = { hover: false, focus: false, touch: false, away: true, hidden: document.visibilityState === 'hidden' };
+ const held = () => holds.hover || holds.focus || holds.touch || holds.away || holds.hidden;
+ const paint = () => { const d = dots[shown]; if(d && d.firstChild) d.firstChild.style.setProperty('--p', String(Math.min(1, elapsed / SLIDE_MS))); };
+ const label = { pause: 'Pause the vehicles', play: 'Play the vehicles', replay: 'Play the vehicles again' };
+ const setPlay = (on) => {
+  playing = on;
+  if(on) ended = false;
+  const st = on ? 'pause' : (ended ? 'replay' : 'play');
+  if(play){ play.setAttribute('data-state', st); play.setAttribute('aria-label', label[st]); }
+  if(ctrl) ctrl.classList.toggle('is-playing', on);
+  if(on && !raf){ prevT = 0; raf = requestAnimationFrame(tick); }
+ };
+ function tick(t){
+  raf = 0;
+  if(!playing) return;
+  if(target >= 0 && t - targetAt > 2000) target = -1;
+  if(prevT && !held() && target < 0) elapsed += t - prevT;
+  prevT = t;
+  paint();
+  if(elapsed >= SLIDE_MS && target < 0){
+   if(shown < last){ target = shown + 1; targetAt = t; go(target); }
+   else { elapsed = 0; ended = true; setPlay(false); return; }
+  }
+  raf = requestAnimationFrame(tick);
+ }
+ const setActive = (c) => {
+  if(c === shown) return;
+  if(shown >= 0 && dots[shown] && dots[shown].firstChild) dots[shown].firstChild.style.removeProperty('--p');
+  shown = c; elapsed = 0;
+  if(c === target) target = -1;
+  cards.forEach((el, i) => el.classList.toggle('is-active', i === c));
+  dots.forEach((d, i) => d.setAttribute('aria-current', i === c ? 'true' : 'false'));
+  if(prev) prev.disabled = c === 0;
+  if(next) next.disabled = c === last;
+  paint();
  };
  let ticking = false;
- const update = () => {
-  ticking = false;
-  const c = current();
-  dots.forEach((d, i) => d.setAttribute('aria-current', i === c ? 'true' : 'false'));
-  if(prev) prev.disabled = rail.scrollLeft <= 2;
-  if(next) next.disabled = rail.scrollLeft >= max();
- };
- const queue = () => { if(!ticking){ ticking = true; requestAnimationFrame(update); } };
+ const queue = () => { if(!ticking){ ticking = true; requestAnimationFrame(() => { ticking = false; setActive(current()); }); } };
  rail.addEventListener('scroll', queue, { passive: true });
  window.addEventListener('resize', queue);
- dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
- if(prev) prev.addEventListener('click', () => go(current() - 1));
- if(next) next.addEventListener('click', () => go(current() + 1));
+ const takeOver = () => { target = -1; if(playing) setPlay(false); };       // the visitor drives from here
+ dots.forEach((d, i) => d.addEventListener('click', () => { takeOver(); go(i); }));
+ if(prev) prev.addEventListener('click', () => { takeOver(); go(shown - 1); });
+ if(next) next.addEventListener('click', () => { takeOver(); go(shown + 1); });
+ rail.addEventListener('pointerdown', takeOver, { passive: true });
+ rail.addEventListener('wheel', (e) => { if(Math.abs(e.deltaX) > Math.abs(e.deltaY)) takeOver(); }, { passive: true });
  rail.addEventListener('keydown', (e) => {
   if(e.target !== rail) return;
-  if(e.key === 'ArrowRight'){ e.preventDefault(); go(current() + 1); }
-  else if(e.key === 'ArrowLeft'){ e.preventDefault(); go(current() - 1); }
+  if(e.key === 'ArrowRight'){ e.preventDefault(); takeOver(); go(shown + 1); }
+  else if(e.key === 'ArrowLeft'){ e.preventDefault(); takeOver(); go(shown - 1); }
  });
+ if(play) play.addEventListener('click', () => {
+  if(playing){ setPlay(false); return; }
+  target = -1;
+  if(shown === last){ go(0); }
+  elapsed = 0; setPlay(true);
+ });
+ if(window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches){
+  stage.addEventListener('mouseenter', () => { holds.hover = true; });
+  stage.addEventListener('mouseleave', () => { holds.hover = false; });
+ }
+ stage.addEventListener('focusin', () => { holds.focus = true; });
+ stage.addEventListener('focusout', (e) => { if(!stage.contains(e.relatedTarget)) holds.focus = false; });
+ stage.addEventListener('touchstart', () => { holds.touch = true; }, { passive: true });
+ stage.addEventListener('touchend', () => { holds.touch = false; }, { passive: true });
+ document.addEventListener('visibilitychange', () => { holds.hidden = document.visibilityState === 'hidden'; });
+ if('IntersectionObserver' in window){
+  new IntersectionObserver((en) => { holds.away = !en[0].isIntersecting; }, { threshold: 0.45 }).observe(stage);
+ } else { holds.away = false; }
  // A phone goes straight to its own store through /get and /drive; a computer goes to /download, which shows both.
  if(!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)){
   document.querySelectorAll('.rail [data-desk]').forEach((a) => { a.href = a.getAttribute('data-desk'); });
  }
- update();
+ setActive(current());
+ rail.classList.add('is-live');
+ setPlay(!reduce);
 }());
 (function(){
  const js=document.getElementById('jobs-slider'),rs=document.getElementById('rate-slider'),ds=document.getElementById('days-slider');

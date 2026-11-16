@@ -19,6 +19,11 @@
 //      mirrored in assets/lead-form.js; this compares the two so they cannot drift apart).
 //   4. The words creeping back: the hero text (eyebrow, heading, line) stays within 25 words.
 //   5. A booking-without-the-app link before that page answers in production.
+//   6. Movement nobody can stop (rebuilt 2026-11-15 as a studio stage that advances by itself): the frames need a
+//      pause button (WCAG 2.2.2), must not move for a visitor who asks for reduced motion, and must hold while the
+//      stage is off screen.
+//   7. Frames hidden for good: the CSS fades the frames that are not in view only once the script has marked the
+//      current one (.rail.is-live), so a page whose script fails still shows every vehicle in full.
 
 const fs = require('fs');
 const path = require('path');
@@ -55,7 +60,7 @@ function check(html, leadForm) {
   keys.filter((k) => !known.includes(k)).forEach((k) => fails.push('hero key "' + k + '" is not one motion.js animates, so it stays hidden'));
 
   // 2 + 3. five cards, in order, each with its picture, its line and both doors
-  const cards = rail.split('<li class="rail-card">').slice(1);
+  const cards = rail.split(/<li class="rail-card"[^>]*>/).slice(1);
   if (cards.length !== SIZES.length) fails.push('the rail has ' + cards.length + ' cards, the app has ' + SIZES.length + ' sizes');
   const lines = {};
   // only the size picker's own rows (keyed by the app's tier codes); the file carries other lists of the same shape
@@ -70,7 +75,7 @@ function check(html, leadForm) {
     const app = (lines[sz.name] || '').replace(/\.$/, '').split('. ')[0];
     if (!app) fails.push(sz.name + ': no line for this size in assets/lead-form.js');
     else if (fits !== app) fails.push(sz.name + ': the line "' + fits + '" is not the app\'s "' + app + '"');
-    for (const f of [sz.img + '.v1-480.webp', sz.img + '.v1-800.webp', sz.img + '.v1-800.jpg']) {
+    for (const f of [480, 800, 1200, 1640].map((w) => sz.img + '.v1-' + w + '.webp').concat(sz.img + '.v1-1200.jpg')) {
       if (!c.includes('/images/vehicles/' + f)) fails.push(sz.name + ': does not use ' + f);
       else if (!fs.existsSync(path.join(ROOT, 'images', 'vehicles', f))) fails.push(sz.name + ': images/vehicles/' + f + ' is not on disk');
     }
@@ -97,8 +102,26 @@ function check(html, leadForm) {
   // 5. no booking without the app until it answers in production
   if (/href="[^"]*(\/book|\/order|\/post-a-job)[^"]*"/i.test(hero)) fails.push('a booking-without-the-app link is in the hero before that page is live');
 
+  // 6. movement a visitor can stop, that respects reduced motion and holds off screen
+  const js0 = html.indexOf('// HERO STAGE');
+  const js = js0 < 0 ? '' : html.slice(js0, html.indexOf('}());', js0));
+  if (!/<button class="rail-play" id="rail-play"[^>]*aria-label="[^"]+"/.test(rail)) fails.push('the frames move by themselves and there is no pause button');
+  if (!js) fails.push('the stage script is missing');
+  else {
+    if (!/prefers-reduced-motion: reduce/.test(js) || !/setPlay\(!reduce\)/.test(js)) fails.push('the frames would move for a visitor who asked for reduced motion');
+    if (!/holds\.away = !en\[0\]\.isIntersecting/.test(js)) fails.push('the frames would keep moving off screen');
+    if (!/visibilityState/.test(js)) fails.push('the frames would keep moving in a hidden tab');
+  }
+  // 7. nothing is hidden unless the script has marked the current frame
+  const css = h.slice(0, h.indexOf('</style>'));
+  for (const m of css.matchAll(/([^{}]*\.rail-card:not\(\.is-active\)[^{}]*)\{/g)) {
+    m[1].split(',').filter((sel) => sel.includes(':not(.is-active)') && !sel.includes('.rail.is-live'))
+      .forEach((sel) => fails.push('"' + sel.trim() + '" hides a frame even when the script never ran'));
+  }
+  if (!/rail\.classList\.add\('is-live'\)/.test(js)) fails.push('the script never marks the stage live');
+
   // the script that drives the dots exists, and the page still names the brand in full
-  if (!/document\.getElementById\('hero-rail'\)/.test(html)) fails.push('the rail script is missing');
+  if (!/document\.getElementById\('hero-rail'\)/.test(js)) fails.push('the rail script is missing');
   if (!/id="hero-rail"/.test(rail)) fails.push('the rail has lost its id, so the dots would not follow it');
   return fails;
 }
@@ -113,12 +136,17 @@ if (process.argv.includes('--prove')) {
     ['tag the rail for the motion script', (s) => s.replace('<div class="rail-wrap">', '<div class="rail-wrap" data-motion-hero-el="rail">')],
     ['drop a web- code', (s) => s.replace('/get?s=web-hero-van', '/get?s=hero-van')],
     ['a code middleware rejects', (s) => s.replace('/drive?s=web-herod-4t', '/drive?s=web-herod-4t!')],
-    ['a missing picture', (s) => s.split('box_truck.v1-800.jpg').join('box_truck.v9-800.jpg')],
+    ['a missing picture', (s) => s.split('box_truck.v1-1640.webp').join('box_truck.v9-1640.webp')],
     ['a line that is not the app\'s', (s) => s.replace('Enclosed and dry, for stock and appliances', 'Enclosed, for anything')],
-    ['a card removed', (s) => s.replace(/   <li class="rail-card">[\s\S]*?<\/li>\n/, '')],
+    ['a card removed', (s) => s.replace(/   <li class="rail-card"[^>]*>[\s\S]*?<\/li>\n/, '')],
     ['the words creep back', (s) => s.replace('Your money is held until it arrives.', 'Your money is held until it arrives. Eventually somebody sends you a number and you text a stranger.')],
     ['a booking link before it is live', (s) => s.replace('href="/get?s=web-hero-sbak"', 'href="/book?s=web-hero-sbak"')],
     ['every picture loads at once', (s) => s.split('loading="lazy" decoding="async"').join('decoding="async"')],
+    ['no pause button', (s) => s.replace('<button class="rail-play" id="rail-play"', '<span class="rail-play"')],
+    ['autoplay ignores reduced motion', (s) => s.replace('setPlay(!reduce);', 'setPlay(true);')],
+    ['autoplay runs off screen', (s) => s.replace('holds.away = !en[0].isIntersecting;', 'holds.away = false;')],
+    ['frames hidden without the script', (s) => s.replace('.rail.is-live .rail-card:not(.is-active) .rail-pic img{', '.rail-card:not(.is-active) .rail-pic img{')],
+    ['the script never marks the stage live', (s) => s.replace("rail.classList.add('is-live');", '')],
   ];
   for (const [label, mutate] of breaks) {
     const m = mutate(html);

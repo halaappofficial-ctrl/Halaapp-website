@@ -4,25 +4,33 @@
 
   <url>
     <loc>https://www.halamove.co.za/</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://www.halamove.co.za/images/fleet-bakkie.jpg</image:loc>
-      <image:title>HALA MOVE bakkie fleet — Durban same-day delivery</image:title>
-      <image:caption>Verified bakkie drivers for same-day delivery in Durban, KwaZulu-Natal</image:caption>
+      <image:loc>https://www.halamove.co.za/images/vehicles/half_ton.v1-1200.jpg</image:loc>
+      <image:title>Small Bakkie on HALA MOVE</image:title>
+      <image:caption>Boxes, parcels, a chair or light stock</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.halamove.co.za/images/fleet-van.jpg</image:loc>
-      <image:title>HALA MOVE van fleet</image:title>
+      <image:loc>https://www.halamove.co.za/images/vehicles/one_ton.v1-1200.jpg</image:loc>
+      <image:title>Large Bakkie on HALA MOVE</image:title>
+      <image:caption>Stock, building supplies, a lounge suite</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.halamove.co.za/images/fleet-truck-4t.jpg</image:loc>
-      <image:title>HALA MOVE 4-ton truck fleet</image:title>
+      <image:loc>https://www.halamove.co.za/images/vehicles/panel_van.v1-1200.jpg</image:loc>
+      <image:title>Panel Van on HALA MOVE</image:title>
+      <image:caption>Enclosed and dry, for stock and appliances</image:caption>
     </image:image>
     <image:image>
-      <image:loc>https://www.halamove.co.za/images/fleet-truck-8t.jpg</image:loc>
-      <image:title>HALA MOVE 8-ton truck fleet</image:title>
+      <image:loc>https://www.halamove.co.za/images/vehicles/dropside.v1-1200.jpg</image:loc>
+      <image:title>1 Ton Truck on HALA MOVE</image:title>
+      <image:caption>Pallets, appliances or a one-bedroom home</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.halamove.co.za/images/vehicles/box_truck.v1-1200.jpg</image:loc>
+      <image:title>4 Ton Truck on HALA MOVE</image:title>
+      <image:caption>A full load of stock, or a whole household</image:caption>
     </image:image>
   </url>
 
