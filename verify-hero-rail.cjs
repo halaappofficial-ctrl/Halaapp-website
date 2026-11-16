@@ -18,7 +18,9 @@
 //   3. A picture that is not on disk, or a size that is not the app's (the five lines are the app's size picker,
 //      mirrored in assets/lead-form.js; this compares the two so they cannot drift apart).
 //   4. The words creeping back: the hero text (eyebrow, heading, line) stays within 25 words.
-//   5. A booking-without-the-app link before that page answers in production.
+//   5. Book going anywhere but the web booking. It answers in production since 2026-11-16 (book.halamove.co.za,
+//      200 with a valid certificate), so "Book a move" goes there and is never rewritten for computers (it works in
+//      a browser); "or get the app" goes to /get, and computers to /download.
 //   6. Movement nobody can stop (rebuilt 2026-11-15 as a studio stage that advances by itself): the frames need a
 //      pause button (WCAG 2.2.2), must not move for a visitor who asks for reduced motion, and must hold while the
 //      stage is off screen.
@@ -82,7 +84,9 @@ function check(html, leadForm) {
     if (!/alt="[^"]{6,}"/.test(c)) fails.push(sz.name + ': the picture has no description');
     const book = (c.match(/class="rail-book" href="([^"]+)"/) || [])[1] || '';
     const drive = (c.match(/class="rail-drive" href="([^"]+)"/) || [])[1] || '';
-    const want = [['Book', book, '/get?s=web-hero-' + sz.code], ['I drive one', drive, '/drive?s=web-herod-' + sz.code]];
+    const appLink = (c.match(/class="rail-app" href="([^"]+)"/) || [])[1] || '';
+    const want = [['Book a move', book, 'https://book.halamove.co.za/book/?s=web-hero-' + sz.code], ['I drive one', drive, '/drive?s=web-herod-' + sz.code],
+      ['or get the app', appLink, '/get?s=web-hero-' + sz.code]];
     for (const [label, got, exp] of want) {
       if (got !== exp) fails.push(sz.name + ': "' + label + '" goes to ' + (got || 'nowhere') + ', expected ' + exp);
       const code = (got.split('?s=')[1] || '');
@@ -90,6 +94,8 @@ function check(html, leadForm) {
       if (code && !code.startsWith('web-')) fails.push(sz.name + ': code ' + code + ' would be filed as a printed board');
     }
     if ((c.match(/data-desk="\/download"/g) || []).length !== 2) fails.push(sz.name + ': a computer would not be sent to /download');
+    if (/class="rail-book"[^>]*data-desk/.test(c)) fails.push(sz.name + ': a computer would be sent away from the web booking');
+    if (!/class="rail-book"[^>]*>Book a move<\/a>/.test(c)) fails.push(sz.name + ': the green button does not read "Book a move"');
   });
   if (!/loading="lazy"/.test(cards.slice(1).join('')) || /loading="lazy"/.test(cards[0] || '')) {
     fails.push('the first picture must load at once and the rest lazily');
@@ -99,8 +105,8 @@ function check(html, leadForm) {
   const words = hero.slice(0, r0).replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;|·/g, ' ').split(/\s+/).filter(Boolean);
   if (words.length > MAX_HERO_WORDS) fails.push('the hero reads ' + words.length + ' words, the cap is ' + MAX_HERO_WORDS);
 
-  // 5. no booking without the app until it answers in production
-  if (/href="[^"]*(\/book|\/order|\/post-a-job)[^"]*"/i.test(hero)) fails.push('a booking-without-the-app link is in the hero before that page is live');
+  // 5. booking without the app is live: every Book goes there (checked per frame above), and no other booking door
+  if (/href="[^"]*(\/order|\/post-a-job)[^"]*"/i.test(hero)) fails.push('a booking door other than book.halamove.co.za is in the hero');
 
   // 6. movement a visitor can stop, that respects reduced motion and holds off screen
   const js0 = html.indexOf('// HERO STAGE');
@@ -138,9 +144,12 @@ if (process.argv.includes('--prove')) {
     ['a code middleware rejects', (s) => s.replace('/drive?s=web-herod-4t', '/drive?s=web-herod-4t!')],
     ['a missing picture', (s) => s.split('box_truck.v1-1640.webp').join('box_truck.v9-1640.webp')],
     ['a line that is not the app\'s', (s) => s.replace('Enclosed and dry, for stock and appliances', 'Enclosed, for anything')],
-    ['a card removed', (s) => s.replace(/   <li class="rail-card"[^>]*>[\s\S]*?<\/li>\n/, '')],
+    ['a card removed', (s) => s.replace(/   <li class="rail-card"[^>]*>[\s\S]*?<\/li>\r?\n/, '')],
     ['the words creep back', (s) => s.replace('Your money is held until it arrives.', 'Your money is held until it arrives. Eventually somebody sends you a number and you text a stranger.')],
-    ['a booking link before it is live', (s) => s.replace('href="/get?s=web-hero-sbak"', 'href="/book?s=web-hero-sbak"')],
+    ['Book sent back to the stores', (s) => s.replace('href="https://book.halamove.co.za/book/?s=web-hero-sbak"', 'href="/get?s=web-hero-sbak"')],
+    ['Book rewritten for computers', (s) => s.replace('href="https://book.halamove.co.za/book/?s=web-hero-van"', 'href="https://book.halamove.co.za/book/?s=web-hero-van" data-desk="/download"')],
+    ['the app link lost', (s) => s.replace('<a class="rail-app" href="/get?s=web-hero-1t"', '<a class="rail-app" href="/"')],
+    ['Book relabelled', (s) => s.replace('no app needed">Book a move</a>', 'no app needed">Book</a>')],
     ['every picture loads at once', (s) => s.split('loading="lazy" decoding="async"').join('decoding="async"')],
     ['no pause button', (s) => s.replace('<button class="rail-play" id="rail-play"', '<span class="rail-play"')],
     ['autoplay ignores reduced motion', (s) => s.replace('setPlay(!reduce);', 'setPlay(true);')],
