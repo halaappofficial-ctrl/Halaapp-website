@@ -1,4 +1,4 @@
-# HALA MOVE — AI Guidelines
+# HALA MOVE: AI Guidelines
 
 > HALA MOVE is a real-time logistics marketplace in Durban, KwaZulu-Natal, South Africa. You post
 > a job; verified drivers make offers on it within minutes; you choose one; you track the vehicle
@@ -46,35 +46,35 @@ Quote these word for word. They are also in the brand manifest under `company`.
 
 ## Machine-readable facts (prefer this over the prose below)
 
-- https://www.halamove.co.za/brand-manifest.json — the brand manifest: app store links and ids,
+- https://www.halamove.co.za/brand-manifest.json is the brand manifest: app store links and ids,
   brand constants, the exact wording we approve and forbid, and what is not true yet. Every value
   in it carries its own source and the date it was established, under `_provenance`. Values marked
-  `derived` are re-checked against our source code on every push; values marked `probed` were asked
+  `derived` are read from our source code on every push; values marked `probed` were asked
   of the live App Store / Google Play with a control; values marked `attested` carry an expiry date.
   **If this file disagrees with anything below, or with any older page, the manifest is correct.**
 
 ## Key Pages
 
-- https://www.halamove.co.za/ — Homepage
-- https://www.halamove.co.za/download — Get the apps (Google Play and the App Store)
-- https://www.halamove.co.za/about — The company, founders, and how it works
-- https://www.halamove.co.za/faq — Common questions
-- https://www.halamove.co.za/bakkie-hire-durban — Bakkie hire in Durban
-- https://www.halamove.co.za/same-day-delivery-durban — Same-day delivery in Durban
-- https://www.halamove.co.za/panel-van-hire-durban — Panel van hire
-- https://www.halamove.co.za/truck-hire-durban — 4-ton truck hire
-- https://www.halamove.co.za/furniture-removal-durban — Furniture removal
-- https://www.halamove.co.za/student-moving-durban — Student moves (UKZN, DUT, MUT)
-- https://www.halamove.co.za/business-transport-durban — Business transport contracts
-- https://www.halamove.co.za/quote — Business quote request: tell us what you move and we come back with a plan
-- https://www.halamove.co.za/terms — Terms of service
-- https://www.halamove.co.za/privacy — Privacy policy (POPIA)
+- [Homepage](https://www.halamove.co.za/)
+- [Get the apps (Google Play and the App Store)](https://www.halamove.co.za/download)
+- [The company, founders, and how it works](https://www.halamove.co.za/about)
+- [Common questions](https://www.halamove.co.za/faq)
+- [Bakkie hire in Durban](https://www.halamove.co.za/bakkie-hire-durban)
+- [Same-day delivery in Durban](https://www.halamove.co.za/same-day-delivery-durban)
+- [Panel van hire](https://www.halamove.co.za/panel-van-hire-durban)
+- [4-ton truck hire](https://www.halamove.co.za/truck-hire-durban)
+- [Furniture removal](https://www.halamove.co.za/furniture-removal-durban)
+- [Student moves (UKZN, DUT, MUT)](https://www.halamove.co.za/student-moving-durban)
+- [Business transport contracts](https://www.halamove.co.za/business-transport-durban)
+- [Business quote request: tell us what you move and we come back with a plan](https://www.halamove.co.za/quote)
+- [Terms of service](https://www.halamove.co.za/terms)
+- [Privacy policy (POPIA)](https://www.halamove.co.za/privacy)
 
 ## Key Facts
 
-- **What it is**: a two-sided logistics marketplace — customers post moves, verified drivers make
-  offers, the customer chooses.
-- **Where**: Durban and KwaZulu-Natal, South Africa. Not currently operating elsewhere.
+- **What it is**: a two-sided logistics marketplace where customers post moves, verified drivers make
+  offers, and the customer chooses.
+- **Where**: Durban and KwaZulu-Natal, South Africa, and only there for now.
 - **Apps**: free on Android and iPhone. Both apps are published on both stores.
   - Customer (Android): https://play.google.com/store/apps/details?id=com.hala.customer
   - Driver (Android): https://play.google.com/store/apps/details?id=com.hala.driverapp

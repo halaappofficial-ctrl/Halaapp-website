@@ -1,0 +1,46 @@
+#!/bin/sh
+# Every website gate runs before a push reaches main (Vercel deploys main within seconds, so this is the last stop).
+# Activate on a clone with:  git config core.hooksPath .githooks
+#
+# The gates are listed by name, never globbed: a deleted gate must fail the push rather than drop out of it
+# silently, and a new verify-*.cjs that arrives in a pull must not run on this machine until someone has read it
+# and added it here. copy and type run with --prove, so a gate that has been gutted fails too.
+cd "$(git rev-parse --show-toplevel)" || exit 1
+
+GATES="verify-contact-routes.cjs verify-copy.cjs verify-hero-rail.cjs verify-landing-pages.cjs verify-layout.cjs
+verify-refund-renewal.cjs verify-required-marks.cjs verify-reset-password.cjs verify-self-serve.cjs verify-track-eta.cjs
+verify-type.cjs verify-vercel-config.cjs verify-videos.cjs"
+PROVE="verify-copy.cjs verify-type.cjs"
+
+failed=0
+for g in $GATES; do
+  if [ ! -f "$g" ]; then
+    echo "pre-push: $g is missing"
+    failed=1
+    continue
+  fi
+  case " $PROVE " in
+    *" $g "*) out=$(node "$g" --prove 2>&1) ;;
+    *) out=$(node "$g" 2>&1) ;;
+  esac
+  if [ $? -ne 0 ]; then
+    echo "$out" | tail -20
+    echo "pre-push: $g FAILED"
+    failed=1
+  else
+    echo "pre-push: $g ok"
+  fi
+done
+
+for g in verify-*.cjs; do
+  case " $(echo $GATES) " in
+    *" $g "*) ;;
+    *) echo "pre-push: $g is not in the gate list; read it, then add it to GATES in .githooks/pre-push"; failed=1 ;;
+  esac
+done
+
+if [ "$failed" -ne 0 ]; then
+  echo "pre-push: refused. Fix the gate above, then push again."
+  exit 1
+fi
+exit 0

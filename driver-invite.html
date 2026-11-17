@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex">
 <title>You're invited to drive with HALA MOVE</title>
-<meta name="description" content="Use your referral code to join HALA MOVE Driver — the driver who invited you earns R50 when you complete your first job.">
+<meta name="description" content="Use your referral code to join HALA MOVE Driver, and the driver who invited you earns R50 when you complete your first job.">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96">
@@ -92,15 +92,15 @@ window.va('beforeSend', function (event) {
   <div class="card">
     <div class="badge">You've been invited to drive</div>
     <h1>Earn on your schedule, <span class="accent">own your route</span></h1>
-    <p class="sub" id="sub">A driver invited you to HALA MOVE — set your own price on every job. Use their code when you sign up, and <strong>the driver who invited you earns R50</strong> when you complete your first job.</p>
+    <p class="sub" id="sub">A driver invited you to HALA MOVE, where you set your own price on every job. Use their code when you sign up, and <strong>the driver who invited you earns R50</strong> when you complete your first job.</p>
     <div class="code-label" id="codeLabel">Your referral code</div>
-    <div class="code-card" id="codeCard" role="button" tabindex="0"><span class="code-text" id="codeText">—</span></div>
+    <div class="code-card" id="codeCard" role="button" tabindex="0"><span class="code-text" id="codeText">...</span></div>
     <p class="copy-hint" id="copyHint">Tap the code to copy it</p>
     <a class="cta-btn" href="/download">Download HALA MOVE Driver &rarr;</a>
     <ul class="steps">
       <li>Download &amp; install HALA MOVE for Drivers</li>
       <li>Complete the quick verification, and paste your code in the "Referral code" field</li>
-      <li>Complete your first job &mdash; the driver who invited you earns R50</li>
+      <li>Complete your first job, and the driver who invited you earns R50</li>
     </ul>
   </div>
 </main>
@@ -120,7 +120,7 @@ window.va('beforeSend', function (event) {
 
   // Graceful empty state (someone hit /driver-invite with no code).
   if (!raw || raw === 'DRIVER-INVITE') {
-    document.getElementById('sub').innerHTML = "HALA MOVE Driver &mdash; set your own price on every job. Download the app to get started.";
+    document.getElementById('sub').innerHTML = "On HALA MOVE Driver you set your own price on every job. Download the app to get started.";
     document.getElementById('codeLabel').style.display = 'none';
     codeCard.style.display = 'none';
     copyHint.style.display = 'none';
@@ -129,14 +129,14 @@ window.va('beforeSend', function (event) {
 
   codeText.textContent = raw;
   function fallbackCopy() { var ta = document.createElement('textarea'); ta.value = raw; ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); } catch (e) {} document.body.removeChild(ta); }
-  function markCopied() { codeCard.style.borderColor = 'var(--accent)'; copyHint.textContent = 'Copied — paste it at signup.'; showToast('Code copied'); }
+  function markCopied() { codeCard.style.borderColor = 'var(--accent)'; copyHint.textContent = 'Copied. Paste it when you sign up.'; showToast('Code copied'); }
   function copyCode() {
     if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(raw).then(markCopied).catch(function () { fallbackCopy(); markCopied(); }); }
     else { fallbackCopy(); markCopied(); }
   }
   codeCard.addEventListener('click', copyCode);
   codeCard.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); copyCode(); } });
-  try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(raw).then(function () { copyHint.textContent = 'Code copied — paste it at signup.'; }).catch(function () {}); } catch (e) {}
+  try { if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(raw).then(function () { copyHint.textContent = 'Code copied. Paste it when you sign up.'; }).catch(function () {}); } catch (e) {}
 })();
 </script>
 </body>
