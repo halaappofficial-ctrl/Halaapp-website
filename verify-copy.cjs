@@ -31,6 +31,11 @@
 //   notbut       "not by X, but by Y" anywhere in a sentence
 //   label        a middot-joined label that opens with a negative ("20% commission, middot, no monthly fee")
 //   staccato     three fragments in a row of five words or fewer, or two short sentences opening on the same word
+//   fact         a wrong fact that once shipped (FACTS), including the frame: HALA MOVE called a moving, removals
+//                or relocation company, or a bakkie app or bakkie-hire business. The founders' law since 2026-11-10,
+//                given again 2026-11-17 ("WE ARE AN INFRASTRUCTURE AND NOT JUST A HOUSE TYPE OR HOUSEHOLD MOVING
+//                COMPANY"): HALA MOVE is the rail a city's goods move on, and a household move is one segment. The
+//                same two patterns as the frame group of ~/.claude/tools/noise_check.py, which guards documents.
 //
 // A line that must stay as written (a founders' decision still open, contract wording) goes in ALLOW with its
 // reason. An ALLOW entry that no longer matches anything fails too, so the list cannot rot.
@@ -55,6 +60,10 @@ const RULES = [
 const FACTS = [
   { re: /platform base( price)?\b/i, id: 'fact',
     why: 'R150 is the lowest offer a driver can send (backend src/routes/bids.js, min 150), not a base price; the price formula starts at R200 plus R10 a km (src/services/aiPricingService.js). Say "Loads from R150".' },
+  { re: /\b(?:household |house |home )?(?:moving|removals?|relocation|furniture removal) (?:company|business|firm|outfit)\b/i, id: 'fact',
+    why: 'HALA MOVE is infrastructure, the rail a city\'s goods move on; a household move is one segment (founders\' law, 2026-11-10 and 2026-11-17). Name the load or the delivery.' },
+  { re: /\bbakkie[- ](?:hire )?(?:app|company|business|service)\b/i, id: 'fact',
+    why: 'HALA MOVE is infrastructure, never a bakkie app (founders\' law, 2026-11-10 and 2026-11-17). Name the vehicle and the delivery.' },
 ];
 
 // Lines kept as written, each with the reason. Every entry must still match a line on the site.
@@ -207,6 +216,9 @@ if (process.argv.includes('--prove')) {
     ['broken ld+json', '<html><head><script type="application/ld+json">{"name": "x",}</script></head><body></body></html>'],
     ['label with a negative', wrap('Drivers: 20% commission per job \u00b7 no monthly fee')],
     ['wrong fact: base price', wrap('Loads start at a R150 platform base price.')],
+    ['frame: a moving company', wrap('HALA MOVE is a household moving company in Durban.')],
+    ['frame: removals in a title', '<html><head><title>Durban Removals Company | HALA MOVE</title></head><body></body></html>'],
+    ['frame: a bakkie app', wrap('The bakkie app Durban trusts.')],
     ['llms.txt line', asPage('llms.txt', '# HALA MOVE \u2014 AI Guidelines\n- **Where**: Durban. Not currently operating elsewhere.')],
     ['sitemap image title', asPage('sitemap.xml', '<image:title>HALA MOVE \u2014 Bakkie Hire Durban</image:title>')],
   ];
@@ -218,6 +230,7 @@ if (process.argv.includes('--prove')) {
     ['comment and css ignored', '<html><head><style>a::before{content:"\u2014"}</style></head><body><!-- old \u2014 note --><p>Built in Durban.</p></body></html>'],
     ['nav arrow pseudo (not a rule)', '<html><head><style>.x::after{content:\'\';width:24px;height:24px;background:var(--g)}</style></head><body></body></html>'],
     ['question', wrap('Unsure which size you need? Post a photo and drivers will advise.')],
+    ['a segment named plainly', wrap('Furniture delivery in Durban on checked bakkies, panel vans and trucks.')],
     ['llms.txt link line', asPage('llms.txt', '- [Bakkie hire in Durban](https://www.halamove.co.za/bakkie-hire-durban)')],
   ];
   for (const [label, html] of BAD) if (check({ [label]: html }).fails.length === 0) proveFails.push(`PROVE: bad line "${label}" stayed green`);
