@@ -26,18 +26,26 @@
 //      stage is off screen.
 //   7. Frames hidden for good: the CSS fades the frames that are not in view only once the script has marked the
 //      current one (.rail.is-live), so a page whose script fails still shows every vehicle in full.
+//   8. The vehicle as drivers have it (2026-11-17). [ERIC] "drivers such as shaughn love to see there vehicles as they
+//      have them either covered or with back cabin trailers", and the website shows what the apps and the booking page
+//      show. Each size lists how it comes (open first, then covered and with a trailer): the backend's
+//      CATEGORY_VARIANTS (src/constants/vehicleImages.js), mirrored in `vars` below. A size with one way to come has
+//      no strip. Each picture is on disk as webp and jpg and carries a description.
+//      Every picture's backdrop is pure white (255): the card blends pictures with multiply, so a backdrop of 253 (the
+//      backend set's) shows as a faint box around the vehicle. Lift the white point when making a site copy.
+//      This gate cannot decode a JPEG to check it; look at the render.
 
 const fs = require('fs');
 const path = require('path');
 const ROOT = __dirname;
 const read = (f) => fs.readFileSync(path.join(ROOT, f), 'utf8');
 
-const SIZES = [   // order = the app's TIER_ORDER; image = backend CATEGORY_IMAGE file
-  { code: 'sbak', name: 'Small Bakkie', img: 'half_ton' },
-  { code: 'lbak', name: 'Large Bakkie', img: 'one_ton' },
-  { code: 'van', name: 'Panel Van', img: 'panel_van' },
-  { code: '1t', name: '1 Ton Truck', img: 'dropside' },
-  { code: '4t', name: '4 Ton Truck', img: 'box_truck' },
+const SIZES = [   // order = the app's TIER_ORDER; image = backend CATEGORY_IMAGE file; vars = backend CATEGORY_VARIANTS
+  { code: 'sbak', name: 'Small Bakkie', img: 'half_ton', vars: ['half_ton', 'half_ton_canopy', 'half_ton_trailer'] },
+  { code: 'lbak', name: 'Large Bakkie', img: 'one_ton', vars: ['one_ton', 'one_ton_canopy', 'double_cab_trailer'] },
+  { code: 'van', name: 'Panel Van', img: 'panel_van', vars: ['panel_van'] },
+  { code: '1t', name: '1 Ton Truck', img: 'dropside', vars: ['dropside', 'dropside_box'] },
+  { code: '4t', name: '4 Ton Truck', img: 'box_truck', vars: ['box_truck'] },
 ];
 const MAX_HERO_WORDS = 25;
 
@@ -98,6 +106,21 @@ function check(html, leadForm) {
     if ((c.match(/data-desk="\/download"/g) || []).length !== 2) fails.push(sz.name + ': a computer would not be sent to /download');
     if (/class="rail-book"[^>]*data-desk/.test(c)) fails.push(sz.name + ': a computer would be sent away from the web booking');
     if (!/class="rail-book"[^>]*>Book a move<\/a>/.test(c)) fails.push(sz.name + ': the green button does not read "Book a move"');
+    // 8. how the size comes: exactly its variants, in order, each picture on disk and described
+    const strip = (c.match(/<ul class="rail-vars">([\s\S]*?)<\/ul>/) || [])[1];
+    const shown = strip ? [...strip.matchAll(/<img src="\/images\/vehicles\/([a-z_]+)\.v1-480\.jpg"/g)].map((m) => m[1]) : [];
+    const wantVars = sz.vars.length > 1 ? sz.vars : [];
+    if (shown.join(',') !== wantVars.join(',')) fails.push(sz.name + ': shows ' + (shown.join(', ') || 'no variants') + ', the backend lists ' + (wantVars.join(', ') || 'none'));
+    if (strip) {
+      for (const k of shown) {
+        for (const f of [k + '.v1-480.webp', k + '.v1-480.jpg']) {
+          if (!strip.includes('/images/vehicles/' + f)) fails.push(sz.name + ': the ' + k + ' picture does not use ' + f);
+          else if (!fs.existsSync(path.join(ROOT, 'images', 'vehicles', f))) fails.push(sz.name + ': images/vehicles/' + f + ' is not on disk');
+        }
+      }
+      const alts = (strip.match(/<img [^>]*alt="([^"]{6,})"/g) || []).length;
+      if (alts !== shown.length) fails.push(sz.name + ': ' + (shown.length - alts) + ' variant picture(s) without a description');
+    }
   });
   if (!/loading="lazy"/.test(cards.slice(1).join('')) || /loading="lazy"/.test(cards[0] || '')) {
     fails.push('the first picture must load at once and the rest lazily');
@@ -158,6 +181,10 @@ if (process.argv.includes('--prove')) {
     ['autoplay runs off screen', (s) => s.replace('holds.away = !en[0].isIntersecting;', 'holds.away = false;')],
     ['frames hidden without the script', (s) => s.replace('.rail.is-live .rail-card:not(.is-active) .rail-pic img{', '.rail-card:not(.is-active) .rail-pic img{')],
     ['the script never marks the stage live', (s) => s.replace("rail.classList.add('is-live');", '')],
+    ['a covered picture dropped', (s) => s.replace(/<li><picture><source type="image\/webp" srcset="\/images\/vehicles\/one_ton_canopy[\s\S]*?<\/li>\r?\n/, '')],
+    ['the trailer picture missing from disk', (s) => s.split('half_ton_trailer.v1-480.jpg').join('half_ton_trailer.v9-480.jpg')],
+    ['a variant without a description', (s) => s.replace('alt="A white one-ton truck with a box body"', 'alt=""')],
+    ['a strip on a size with one way to come', (s) => s.replace('alt="A white panel van" loading="lazy" decoding="async">\n    </picture>', 'alt="A white panel van" loading="lazy" decoding="async">\n    </picture>\n    <ul class="rail-vars"><li><picture><img src="/images/vehicles/panel_van.v1-480.jpg" alt="A white panel van"></picture></li></ul>')],
   ];
   for (const [label, mutate] of breaks) {
     const m = mutate(html);

@@ -316,12 +316,17 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .rail-book:focus-visible,.rail-drive:focus-visible{outline:2px solid #0B0B0C;outline-offset:3px}
 .rail-pic{display:block;width:100%;margin-top:clamp(14px,2.6vw,30px)}
 .rail-pic img{display:block;width:min(100%,820px);height:auto;aspect-ratio:2/1;margin:0 auto;mix-blend-mode:multiply}
+/* how the size comes (2026-11-17): open, covered, with a trailer, the pictures the apps and the booking page show; shown, never chosen */
+.rail-vars{display:flex;justify-content:center;gap:clamp(10px,2vw,22px);list-style:none;margin:clamp(4px,1vw,12px) 0 0;padding:0}
+.rail-vars li{display:flex;flex-direction:column;align-items:center;width:clamp(84px,11vw,128px)}
+.rail-vars img{display:block;width:100%;height:auto;aspect-ratio:2/1;mix-blend-mode:multiply}
+.rail-vars span{margin-top:2px;font-size:.875rem;font-weight:600;color:#474C54}
 /* the vehicle rolls in a little ahead of the scroll and settles as its frame lands; the script adds is-live only
    once it has marked the current frame, so without it every frame shows in full */
 .rail.is-live .rail-pic img{transition:transform .9s cubic-bezier(.22,1,.36,1),opacity .6s ease}
 .rail.is-live .rail-card:not(.is-active) .rail-pic img{transform:translateX(8%) scale(.96);opacity:.4}
-.rail.is-live .rail-name,.rail.is-live .rail-fits,.rail.is-live .rail-acts,.rail.is-live .rail-app{transition:opacity .5s ease .08s,transform .6s cubic-bezier(.22,1,.36,1) .08s}
-.rail.is-live .rail-card:not(.is-active) .rail-name,.rail.is-live .rail-card:not(.is-active) .rail-fits,.rail.is-live .rail-card:not(.is-active) .rail-acts,.rail.is-live .rail-card:not(.is-active) .rail-app{opacity:0;transform:translateY(12px)}
+.rail.is-live .rail-name,.rail.is-live .rail-fits,.rail.is-live .rail-acts,.rail.is-live .rail-app,.rail.is-live .rail-vars{transition:opacity .5s ease .08s,transform .6s cubic-bezier(.22,1,.36,1) .08s}
+.rail.is-live .rail-card:not(.is-active) .rail-name,.rail.is-live .rail-card:not(.is-active) .rail-fits,.rail.is-live .rail-card:not(.is-active) .rail-acts,.rail.is-live .rail-card:not(.is-active) .rail-app,.rail.is-live .rail-card:not(.is-active) .rail-vars{opacity:0;transform:translateY(12px)}
 .rail-arrow{position:absolute;bottom:calc(clamp(22px,3vw,40px) + min(100vw - 64px,820px) / 4 - 24px);z-index:3;display:none;width:48px;height:48px;border:0;border-radius:999px;background:rgba(255,255,255,.78);-webkit-backdrop-filter:blur(14px) saturate(180%);backdrop-filter:blur(14px) saturate(180%);color:#0B0B0C;cursor:pointer;box-shadow:0 2px 14px rgba(0,0,0,.1);transition:opacity .2s,background-color .2s}
 .rail-arrow.prev{left:20px}
 .rail-arrow.next{right:20px}
@@ -348,7 +353,7 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .hero .store-note{flex-basis:100%;text-align:center}
 @media(max-width:599px){.hero .play-badge-link{width:158px}.hero .appstore-badge-link{width:132px}.rail-acts{gap:10px;width:100%;max-width:380px;flex-wrap:nowrap}.rail-book,.rail-drive{min-width:0;flex:1 1 0;padding:0 14px;white-space:nowrap}}
 @media(min-width:900px){.hero{padding:44px 0 52px}.hero-h1 .line{display:inline-block;vertical-align:top}.rail-wrap{padding:0 20px}}
-@media(prefers-reduced-motion:reduce){.rail.is-live .rail-pic img,.rail.is-live .rail-name,.rail.is-live .rail-fits,.rail.is-live .rail-acts,.rail.is-live .rail-app{transition:none;transform:none!important;opacity:1!important}.rail-dot,.rail-dot i{transition:none}.rail-book,.rail-drive{transition:none}}
+@media(prefers-reduced-motion:reduce){.rail.is-live .rail-pic img,.rail.is-live .rail-name,.rail.is-live .rail-fits,.rail.is-live .rail-acts,.rail.is-live .rail-app,.rail.is-live .rail-vars{transition:none;transform:none!important;opacity:1!important}.rail-dot,.rail-dot i{transition:none}.rail-book,.rail-drive{transition:none}}
 .stats-bar{background:var(--s);border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:40px 0}
 .stats-bar .stat-num,.stats-bar .stat-label{opacity:1!important;transform:none!important}
 .stats-inner{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
@@ -663,6 +668,11 @@ window.va('beforeSend', function (event) {
      <source type="image/webp" srcset="/images/vehicles/half_ton.v1-480.webp 480w, /images/vehicles/half_ton.v1-800.webp 800w, /images/vehicles/half_ton.v1-1200.webp 1200w, /images/vehicles/half_ton.v1-1640.webp 1640w" sizes="(min-width:960px) 820px, calc(100vw - 64px)">
      <img src="/images/vehicles/half_ton.v1-1200.jpg" width="1200" height="600" alt="A white half-ton bakkie" fetchpriority="high" decoding="async">
     </picture>
+    <ul class="rail-vars">
+     <li><picture><source type="image/webp" srcset="/images/vehicles/half_ton.v1-480.webp"><img src="/images/vehicles/half_ton.v1-480.jpg" width="480" height="240" alt="A white half-ton bakkie, open" decoding="async"></picture><span aria-hidden="true">Open</span></li>
+     <li><picture><source type="image/webp" srcset="/images/vehicles/half_ton_canopy.v1-480.webp"><img src="/images/vehicles/half_ton_canopy.v1-480.jpg" width="480" height="240" alt="A white half-ton bakkie with a canopy" decoding="async"></picture><span aria-hidden="true">Canopy</span></li>
+     <li><picture><source type="image/webp" srcset="/images/vehicles/half_ton_trailer.v1-480.webp"><img src="/images/vehicles/half_ton_trailer.v1-480.jpg" width="480" height="240" alt="A white half-ton bakkie towing a trailer" decoding="async"></picture><span aria-hidden="true">Trailer</span></li>
+    </ul>
    </li>
    <li class="rail-card" aria-roledescription="slide" aria-label="2 of 5">
     <h3 class="rail-name"><a href="/bakkie-hire-durban" aria-label="Large Bakkie: Bakkie hire in Durban">Large Bakkie</a></h3>
@@ -676,6 +686,11 @@ window.va('beforeSend', function (event) {
      <source type="image/webp" srcset="/images/vehicles/one_ton.v1-480.webp 480w, /images/vehicles/one_ton.v1-800.webp 800w, /images/vehicles/one_ton.v1-1200.webp 1200w, /images/vehicles/one_ton.v1-1640.webp 1640w" sizes="(min-width:960px) 820px, calc(100vw - 64px)">
      <img src="/images/vehicles/one_ton.v1-1200.jpg" width="1200" height="600" alt="A white one-ton single cab bakkie" loading="lazy" decoding="async">
     </picture>
+    <ul class="rail-vars">
+     <li><picture><source type="image/webp" srcset="/images/vehicles/one_ton.v1-480.webp"><img src="/images/vehicles/one_ton.v1-480.jpg" width="480" height="240" alt="A white one-ton bakkie, open" loading="lazy" decoding="async"></picture><span aria-hidden="true">Open</span></li>
+     <li><picture><source type="image/webp" srcset="/images/vehicles/one_ton_canopy.v1-480.webp"><img src="/images/vehicles/one_ton_canopy.v1-480.jpg" width="480" height="240" alt="A white one-ton bakkie with a canopy" loading="lazy" decoding="async"></picture><span aria-hidden="true">Canopy</span></li>
+     <li><picture><source type="image/webp" srcset="/images/vehicles/double_cab_trailer.v1-480.webp"><img src="/images/vehicles/double_cab_trailer.v1-480.jpg" width="480" height="240" alt="A white double cab bakkie towing a trailer" loading="lazy" decoding="async"></picture><span aria-hidden="true">Trailer</span></li>
+    </ul>
    </li>
    <li class="rail-card" aria-roledescription="slide" aria-label="3 of 5">
     <h3 class="rail-name"><a href="/panel-van-hire-durban" aria-label="Panel Van: Panel van hire in Durban">Panel Van</a></h3>
@@ -702,6 +717,10 @@ window.va('beforeSend', function (event) {
      <source type="image/webp" srcset="/images/vehicles/dropside.v1-480.webp 480w, /images/vehicles/dropside.v1-800.webp 800w, /images/vehicles/dropside.v1-1200.webp 1200w, /images/vehicles/dropside.v1-1640.webp 1640w" sizes="(min-width:960px) 820px, calc(100vw - 64px)">
      <img src="/images/vehicles/dropside.v1-1200.jpg" width="1200" height="600" alt="A white one-ton drop-side truck" loading="lazy" decoding="async">
     </picture>
+    <ul class="rail-vars">
+     <li><picture><source type="image/webp" srcset="/images/vehicles/dropside.v1-480.webp"><img src="/images/vehicles/dropside.v1-480.jpg" width="480" height="240" alt="A white one-ton drop-side truck" loading="lazy" decoding="async"></picture><span aria-hidden="true">Drop-side</span></li>
+     <li><picture><source type="image/webp" srcset="/images/vehicles/dropside_box.v1-480.webp"><img src="/images/vehicles/dropside_box.v1-480.jpg" width="480" height="240" alt="A white one-ton truck with a box body" loading="lazy" decoding="async"></picture><span aria-hidden="true">Box body</span></li>
+    </ul>
    </li>
    <li class="rail-card" aria-roledescription="slide" aria-label="5 of 5">
     <h3 class="rail-name"><a href="/truck-hire-durban" aria-label="4 Ton Truck: Truck hire in Durban">4 Ton Truck</a></h3>
