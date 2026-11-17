@@ -31,7 +31,7 @@ Quote these word for word. They are also in the brand manifest under `company`.
 
 - Purpose: To create a world where nobody needs to know somebody to move forward. In our own words:
   we connect the invisible worlds.
-- Vision: By 2045, a million drivers across Africa earn from their work, not who they know.
+- Vision: By 2045, a million drivers across Africa earn from their work and their record.
 - Mission: We connect people and businesses with drivers they can trust, to move what matters
   safely, fairly and easily.
 - Values:

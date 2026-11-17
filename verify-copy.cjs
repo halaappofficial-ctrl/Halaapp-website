@@ -58,12 +58,9 @@ const FACTS = [
 ];
 
 // Lines kept as written, each with the reason. Every entry must still match a line on the site.
-const ALLOW = [
-  { text: 'By 2045, a million drivers across Africa earn from their work, not who they know.',
-    why: 'The company vision, quoted word for word. A new wording is the founders\' decision and is with them.' },
-  { text: 'This is not a compliance requirement; it is a tool that protects your income.',
-    why: 'Driver Agreement wording. Rewording a contract term is the founders\' decision and is with them.' },
-];
+// Empty since 2026-11-17, when the founders reworded the two lines it held (the vision, and one Driver Agreement
+// sentence). Add an entry only with the founders' decision, and say whose and when.
+const ALLOW = [];
 
 function staccato(text) {
   const sents = text.split(/(?<=[.!?])\s+|\s*\|\s*/).map((s) => s.trim()).filter(Boolean);
@@ -230,5 +227,5 @@ if (process.argv.includes('--prove')) {
 
 fails.concat(proveFails).forEach((f) => console.log('  FAIL ' + f));
 console.log(fails.length || proveFails.length ? `  COPY: FAIL (${fails.length + proveFails.length})`
-  : `  COPY: PASS - ${files.length} pages, no green dash, no dash in the words, no negation used as emphasis (${ALLOW.length} lines held for the founders)`);
+  : `  COPY: PASS - ${files.length} pages, no green dash, no dash in the words, no negation used as emphasis${ALLOW.length ? ` (${ALLOW.length} lines held for the founders)` : ""}`);
 process.exit(fails.length || proveFails.length ? 1 : 0);
