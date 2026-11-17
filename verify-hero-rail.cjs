@@ -77,6 +77,8 @@ function check(html, leadForm) {
     const app = (lines[sz.name] || '').replace(/\.$/, '').split('. ')[0];
     if (!app) fails.push(sz.name + ': no line for this size in assets/lead-form.js');
     else if (fits !== app) fails.push(sz.name + ': the line "' + fits + '" is not the app\'s "' + app + '"');
+    // A size line describes the load, never a home (Eric 2026-11-17, goods wording: HALA MOVE is the rail goods move on).
+    if (/\b(home|homes|household|bedroom|one-bed|studio|house)\b/i.test(fits)) fails.push(sz.name + ': the line "' + fits + '" describes a home, not a load');
     for (const f of [480, 800, 1200, 1640].map((w) => sz.img + '.v1-' + w + '.webp').concat(sz.img + '.v1-1200.jpg')) {
       if (!c.includes('/images/vehicles/' + f)) fails.push(sz.name + ': does not use ' + f);
       else if (!fs.existsSync(path.join(ROOT, 'images', 'vehicles', f))) fails.push(sz.name + ': images/vehicles/' + f + ' is not on disk');

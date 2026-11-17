@@ -95,8 +95,8 @@
           ['bakkie_small', 'Small Bakkie', 'Boxes, parcels, a chair or light stock.'],
           ['bakkie_large', 'Large Bakkie', 'Stock, building supplies, a lounge suite.'],
           ['panel_van', 'Panel Van', 'Enclosed and dry, for stock and appliances.'],
-          ['truck_1ton', '1 Ton Truck', 'Pallets, appliances or a one-bedroom home. Includes the Hyundai H100.'],
-          ['truck_4ton', '4 Ton Truck', 'A full load of stock, or a whole household.'],
+          ['truck_1ton', '1 Ton Truck', 'Pallets, appliances and bulky furniture. Includes the Hyundai H100.'],
+          ['truck_4ton', '4 Ton Truck', 'A full load of stock, furniture or supplies.'],
           ['not_sure', 'Not sure, help me choose']
         ],
         req: 'Choose a vehicle size, or Not sure.' },

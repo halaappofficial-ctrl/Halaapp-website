@@ -17,7 +17,7 @@ const pages = [
       ['schema service type', '"serviceType": "Student Moving"'],
       ['schema faq id', 'student-moving-durban#faq'],
       ['schema breadcrumb name', '"name": "Student Moving Durban"'],
-      ['h1', '<h1 class="page-title">Student Moving in Durban</h1>'],
+      ['h1', '<h1 class="page-title">Student Deliveries in Durban</h1>'],
       // INVERTED 2026-11-02, the same way as the 858ba97 block below. This was mustContain, so the suite
       // DEMANDED a launch-date claim on a platform that went live in July 2026 (both apps in both
       // stores). A sensor that demands a false line is a hazard: anyone 'fixing' the page to make it
@@ -34,7 +34,7 @@ const pages = [
       ['R150 anchor', 'R150'],
       ['registration week', 'registration week'],
       ['SA ID verified', 'South African ID'],
-      ['FAQ how much', 'How much does student moving in Durban cost'],
+      ['FAQ how much', 'How much does a student delivery in Durban cost'],
       ['toc present', 'On this page'],
       ['bakkie link', 'href="/bakkie-hire-durban"'],
       ['furniture removal link', 'href="/furniture-removal-durban"'],
