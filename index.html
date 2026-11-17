@@ -383,6 +383,22 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .vid-meta{font-size:.875rem;color:var(--t3);margin:0}
 .vid-meta a{color:var(--t2);text-decoration:underline;text-underline-offset:2px;white-space:nowrap}.vid-meta a:hover{color:var(--g)}
 @media(max-width:768px){.vids{padding:48px 0}.vids-header{margin-bottom:28px}.vids-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.vid:last-child{grid-column:1/-1;justify-self:center;width:calc(50% - 7px)}.vid-play{width:40px;height:40px;right:8px;bottom:10px}.vid-play svg{width:18px;height:18px}.vid-title{font-size:.9375rem}}
+.rec{padding:80px 0 12px}
+.rec [hidden]{display:none}
+.rec-header{text-align:center;margin-bottom:40px}
+.rec-header .sub{margin:0 auto;text-wrap:balance}
+.rec-chart{margin:0 auto 40px;display:flex;flex-direction:column;align-items:center;gap:20px}
+.rec-marks{display:grid;grid-template-columns:repeat(var(--cols,11),32px);gap:9px;justify-content:center}
+.rec-mark{width:32px;height:32px;border-radius:8px;background:var(--g);display:flex;align-items:center;justify-content:center;color:var(--bg)}
+.rec-mark.rated{color:rgba(10,10,10,.42)}
+.rec-mark svg{display:block;width:18px;height:18px;fill:currentColor}
+.rec-cap{font-size:1.1875rem;font-weight:600;color:var(--t);text-align:center;max-width:36em;line-height:1.5;text-wrap:balance}
+.rec-figs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:880px;margin:0 auto;padding:0;list-style:none}
+.rec-figs li{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:24px 18px;border:1px solid var(--b);border-radius:var(--rl);background:var(--s)}
+.rec-n{font-family:var(--disp);font-size:clamp(2rem,4vw,2.6rem);font-weight:600;line-height:1;letter-spacing:-.02em;color:var(--t)}
+.rec-l{font-size:.9375rem;color:var(--t2);line-height:1.4}
+@media(max-width:768px){.rec{padding:48px 0 4px}.rec-header{margin-bottom:28px}.rec-chart{margin-bottom:28px}.rec-marks{grid-template-columns:repeat(var(--cols,11),22px);gap:6px}.rec-mark{width:22px;height:22px;border-radius:6px}.rec-mark svg{width:13px;height:13px}.rec-figs{grid-template-columns:1fr;gap:10px}.rec-figs li{padding:18px 16px}.rec-n{font-size:1.9rem}}
+@media(max-width:374px){.rec-marks{grid-template-columns:repeat(var(--cols,11),20px);gap:4px}.rec-mark{width:20px;height:20px;border-radius:5px}.rec-mark svg{width:12px;height:12px}}
 .steps-wrap{position:relative}
 .steps-line{display:none;position:absolute;top:40px;left:10%;right:10%;height:1px;background:repeating-linear-gradient(to right,var(--b) 0,var(--b) 6px,transparent 6px,transparent 14px)}
 .steps-line-fill{position:absolute;inset:0;background:repeating-linear-gradient(to right,var(--g) 0,var(--g) 6px,transparent 6px,transparent 14px);transform:scaleX(0);transform-origin:left;transition:transform 1.2s cubic-bezier(.4,0,.2,1)}
@@ -895,6 +911,93 @@ window.va('beforeSend', function (event) {
  </div>
 </section>
 
+
+<!-- THE RECORD: 2026-11-17. Live from the backend: GET /api/public/record (backend src/routes/publicRecord.js, view
+     public.v_public_record), the same sources and filters as the investor deck's record, so the site and the deck tell
+     one story. Counts only. The section stays hidden until every figure arrives as a whole number: a failed read shows
+     nothing, never a remembered number, and no figure is written into this file. One square per completed delivery,
+     a star in each 5-star rating (a unit chart: rated squares first, the order of the squares means nothing).
+     recordView() decides everything shown; verify-record.cjs drives it. -->
+<section class="rec" id="record" aria-labelledby="record-heading" hidden>
+ <div class="container">
+  <div class="rec-header">
+   <div class="eyebrow" style="justify-content:center">The record</div>
+   <h2 class="h2" id="record-heading" style="text-align:center">Every delivery, on the record.</h2>
+   <p class="sub center">These figures update as the record changes, and the next delivery on it could be yours.</p>
+  </div>
+  <figure class="rec-chart">
+   <div class="rec-marks" aria-hidden="true"></div>
+   <figcaption class="rec-cap"></figcaption>
+  </figure>
+  <ul class="rec-figs" role="list">
+   <li data-rec="disputes"><span class="rec-n"></span><span class="rec-l"></span></li>
+   <li data-rec="refunds"><span class="rec-n"></span><span class="rec-l"></span></li>
+   <li data-rec="paid"><span class="rec-n"></span><span class="rec-l"></span></li>
+  </ul>
+ </div>
+</section>
+<script>
+/* The record, live. recordView() turns the server's answer into what the section shows, or null to keep it hidden.
+   It refuses anything that is not a whole number of zero or more, and figures that contradict each other. */
+(function () {
+  function recordView(r) {
+    var keys = ['completed', 'disputes', 'refunds', 'rated', 'rated_five', 'paid_up', 'paid_n'];
+    if (!r || typeof r !== 'object') return null;
+    for (var i = 0; i < keys.length; i++) {
+      var v = r[keys[i]];
+      if (typeof v !== 'number' || !isFinite(v) || Math.floor(v) !== v || v < 0) return null;
+    }
+    if (r.completed < 1 || r.rated > r.completed || r.rated_five > r.rated || r.paid_up > r.paid_n) return null;
+    var cap = r.completed + (r.completed === 1 ? ' delivery completed.' : ' deliveries completed.');
+    if (r.rated > 0) {
+      if (r.rated_five === r.rated) cap += r.rated === 1 ? ' Its rating is 5 stars.' : ' All ' + r.rated + ' ratings are 5 stars.';
+      else cap += ' ' + r.rated_five + ' of ' + r.rated + ' ratings are 5 stars.';
+    }
+    var marks = [];
+    if (r.completed <= 120) {
+      for (var k = 0; k < r.completed; k++) marks.push(k < r.rated_five ? 'five' : (k < r.rated ? 'rated' : 'plain'));
+    }
+    return {
+      caption: cap,
+      marks: marks,
+      cols: Math.ceil(r.completed / Math.ceil(r.completed / 12)),
+      disputes: [String(r.disputes), r.disputes === 1 ? 'dispute raised' : 'disputes raised'],
+      refunds: [String(r.refunds), r.refunds === 1 ? 'refund on a completed delivery' : 'refunds on a completed delivery'],
+      paid: r.paid_n > 0
+        ? [r.paid_up + ' of ' + r.paid_n, r.paid_n === 1 ? 'customer gave paying a thumbs up' : 'customers gave paying a thumbs up']
+        : null
+    };
+  }
+
+  var sec = document.getElementById('record');
+  if (!sec || !window.fetch) return;
+  var STAR = '<svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" focusable="false"><path d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.5l-5.9 3.1 1.2-6.5-4.8-4.6 6.6-.9z"/></svg>';
+  fetch('https://hala-backend-production.up.railway.app/api/public/record')
+    .then(function (res) { return res.ok ? res.json() : null; })
+    .then(function (r) {
+      var v = recordView(r);
+      if (!v) return;
+      var box = sec.querySelector('.rec-marks');
+      if (v.marks.length) {
+        box.style.setProperty('--cols', String(v.cols));
+        box.innerHTML = v.marks.map(function (m) {
+          return m === 'plain' ? '<span class="rec-mark"></span>' : '<span class="rec-mark ' + m + '">' + STAR + '</span>';
+        }).join('');
+      } else {
+        box.hidden = true;
+      }
+      sec.querySelector('.rec-cap').textContent = v.caption;
+      ['disputes', 'refunds', 'paid'].forEach(function (key) {
+        var li = sec.querySelector('[data-rec="' + key + '"]');
+        if (!v[key]) { li.hidden = true; return; }
+        li.querySelector('.rec-n').textContent = v[key][0];
+        li.querySelector('.rec-l').textContent = v[key][1];
+      });
+      sec.hidden = false;
+    })
+    .catch(function () {});
+})();
+</script>
 
 <!-- VIDEOS: 2026-10-14. Frame labels come from one approved set: TESTIMONIAL for a real customer,
      HOW IT WORKS or GUIDE for a video that explains the app (the one made with AYANDA).
