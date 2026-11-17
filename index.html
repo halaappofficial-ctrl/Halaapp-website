@@ -498,19 +498,24 @@ footer{background:var(--bg2);border-top:1px solid var(--b);padding:64px 0 0}
 .scroll-top{position:fixed;bottom:28px;right:28px;z-index:500;width:44px;height:44px;border-radius:10px;background:var(--s2);border:1px solid var(--b);display:flex;align-items:center;justify-content:center;font-size:1.1875rem;color:var(--t2);cursor:pointer;transition:all .25s;opacity:0;pointer-events:none;transform:translateY(10px)}
 .scroll-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
 .scroll-top:hover{border-color:var(--g);color:var(--g)}
+.wa-float{position:fixed;bottom:80px;right:28px;z-index:500;display:flex;align-items:center;gap:10px;background:#25D366;border-radius:40px;padding:12px 20px 12px 16px;min-height:44px;font-size:.8125rem;font-weight:600;color:#fff;cursor:pointer;transition:all .25s;box-shadow:0 8px 28px rgba(37,211,102,.35);animation:waBounce 2s ease-in-out 3s infinite}
+.wa-float:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(37,211,102,.45)}
+.wa-icon{width:18px;height:18px;flex:none}
+@keyframes waBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
 .section-divider{height:1px;background:linear-gradient(to right,transparent,var(--b),transparent);margin:0}
 .center{text-align:center}
 .mt-40{margin-top:40px}
 .cta-sub-text{font-size:.875rem;color:var(--t3);text-align:center;margin-top:14px;letter-spacing:0}
 @media(max-width:374px){.container{padding:0 16px}.hero-h1{font-size:clamp(2.6rem,9vw,3.6rem);letter-spacing:-.022em;line-height:1.06;text-wrap:balance}.steps{gap:16px}.feat-card{padding:24px}.btn-lg{padding:14px 24px;font-size:.9375rem}}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal,.reveal-l,.reveal-r{opacity:1;transform:none;transition:none}.ann-track{animation:none}#city-canvas{display:none}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}.reveal,.reveal-l,.reveal-r{opacity:1;transform:none;transition:none}.ann-track{animation:none}.wa-float{animation:none}#city-canvas{display:none}}
 .reveal,.reveal-l,.reveal-r{opacity:1!important;transform:none!important;transition:none!important}
-@media(max-width:768px){.scroll-top{bottom:76px!important;right:16px}.widget-visible iframe,#tawk-bubble-container,.tawk-min-container{bottom:70px!important}.crisp-client .cc-1brb6{bottom:70px!important}[class*="chat-widget"],[class*="chat-bubble"],[id*="chat-widget"]{bottom:70px!important}}
+@media(max-width:768px){.wa-float{bottom:128px!important;right:16px}.scroll-top{bottom:76px!important;right:16px}.widget-visible iframe,#tawk-bubble-container,.tawk-min-container{bottom:70px!important}.crisp-client .cc-1brb6{bottom:70px!important}[class*="chat-widget"],[class*="chat-bubble"],[id*="chat-widget"]{bottom:70px!important}}
 @media(max-width:768px){.how,.features,.driver,.biz,.testi{padding:48px 0}.app-cta{padding:52px 0}.how-header,.features-header{margin-bottom:36px}.testi-header{margin-bottom:36px}.driver-inner,.biz-inner{gap:36px}.hero{padding:48px 0}.stats-bar{padding:28px 0}.footer-grid{gap:28px}footer{padding:40px 0 0}}
 .sticky-download{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(10,10,10,0.97);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-top:1px solid #2A2A2A;padding:12px 20px;z-index:998;align-items:center;justify-content:space-between;gap:12px}
 .sticky-download span{font-weight:600;color:#fff;font-size:15px;white-space:nowrap}
 .sticky-download a{background:#5CB558;color:#0A0A0A;padding:10px 24px;border-radius:999px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap;flex-shrink:0}
 @media(max-width:768px){.sticky-download{display:flex}}
+@media print{.wa-float,.scroll-top{display:none!important}}
 </style>
 <script>document.documentElement.classList.add('js-ready')</script>
 <style>
@@ -1141,6 +1146,7 @@ window.va('beforeSend', function (event) {
      <a href="https://instagram.com/halamove_za" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on Instagram">IG</a>
      <a href="https://linkedin.com/company/hala-move" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on LinkedIn">in</a>
      <a href="https://facebook.com/halamoveza" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on Facebook">FB</a>
+     <a href="https://wa.me/27760525398" data-last-resort="support" class="social-btn" target="_blank" rel="noopener" aria-label="HALA MOVE on WhatsApp" style="background:#1A2E1A;border-color:#25D366;color:#25D366">WA</a>
     </div>
     <div style="margin-top:16px"><div google-add-preferred-source-btn data-theme="dark" data-lang="en"></div></div>
    </div>
@@ -1156,7 +1162,7 @@ window.va('beforeSend', function (event) {
      <li><a href="/bakkie-hire-durban">Bakkie Hire Durban</a></li>
      <li><a href="/truck-hire-durban">Truck Hire Durban</a></li>
      <li><a href="/panel-van-hire-durban">Panel Van Hire</a></li>
-     <li><a href="/furniture-removal-durban">Furniture Removal</a></li>
+     <li><a href="/furniture-removal-durban">Furniture Delivery</a></li>
      <li><a href="/same-day-delivery-durban">Same-Day Delivery</a></li>
      <li><a href="/student-moving-durban">Student Moving</a></li>
     </ul>
@@ -1198,6 +1204,10 @@ window.va('beforeSend', function (event) {
 
 <button class="scroll-top" id="scrollTopBtn" aria-label="Scroll to top">↑</button>
 
+<a href="https://wa.me/27760525398" data-last-resort="support" class="wa-float" aria-label="Chat on WhatsApp" target="_blank" rel="noopener">
+ <svg class="wa-icon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 3C6.98 3 3 6.58 3 11c0 2.2 1 4.2 2.64 5.64L5 21l4.36-2.2c.84.2 1.72.3 2.64.3 5.02 0 9-3.58 9-8s-3.98-8-9-8z"/></svg>
+ <span data-last-resort="support">Chat with us</span>
+</a>
 
 <script>
 const nav = document.getElementById('main-nav');

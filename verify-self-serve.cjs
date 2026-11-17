@@ -12,6 +12,11 @@
 // tracking, answers in the FAQ) points at that path. Our WhatsApp number appears only where a person is
 // genuinely needed, and each such place says why.
 //
+// THE SUPPORT CONTACT (2026-11-17, the founders' decision): "ACTIVATE AGAIN THE OLD WHATSAPP SUPPORT CONTACT ON THE
+// SITE AS BEFORE BECAUSE ITS REQUIRED AND WORKS MORE THAN THE EMAILS IN OUR ENVIRONMENT, KEEP THE CONTACT US METHODS
+// STILL AVAILABLE". The floating "Chat with us" button and the footer WhatsApp icon are back on the 14 pages that had
+// them, beside email and the forms, never in place of a form. Each carries the reason `support`.
+//
 // WHAT IT HOLDS:
 //   1. Every line of a served page or script that links to our WhatsApp, shows the number, or says
 //      "WhatsApp us" / "Chat with us" carries a `last-resort` mark (a data-last-resort attribute or a
@@ -20,7 +25,9 @@
 //        safety              - something going wrong on a live delivery
 //        outage              - our own system failed and the visitor's work would otherwise be lost
 //        no-self-serve-path  - the product has no self-serve way yet (each one is a gap to close)
-//   2. The floating "Chat with us" button does not come back.
+//        support             - the standing support contact: the floating button, the footer icon, and the
+//                              "or WhatsApp us" lines beside email (2026-11-17)
+//   2. The floating "Chat with us" button is on every one of SUPPORT_PAGES, once, linked to the current number.
 //   3. The number retired on 2026-08-05 appears nowhere.
 //   4. total > 0: the scan read pages, and found the marked places, so "nothing to check" cannot pass.
 //
@@ -32,7 +39,11 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = __dirname;
-const REASONS = new Set(['dispute', 'safety', 'outage', 'no-self-serve-path']);
+const REASONS = new Set(['dispute', 'safety', 'outage', 'no-self-serve-path', 'support']);
+const CURRENT = 'https://wa.me/27760525398';
+const SUPPORT_PAGES = ['about.html', 'bakkie-hire-durban.html', 'business-transport-durban.html', 'cookie-policy.html',
+  'driver-agreement.html', 'faq.html', 'furniture-removal-durban.html', 'index.html', 'panel-van-hire-durban.html',
+  'privacy.html', 'same-day-delivery-durban.html', 'student-moving-durban.html', 'terms.html', 'truck-hire-durban.html'];
 const ROUTE = /wa\.me\/(?!\?)|27760525398|0?76[ \u00a0]?052[ \u00a0]?5398|whatsapp us\b|chat with us\b/i;
 const RETIRED = /27658915709|0?65(?:&nbsp;|[ \u00a0])?891(?:&nbsp;|[ \u00a0])?5709/;
 const MARK = /last-resort(?:="|:\s*)([a-z-]+)/;
@@ -54,13 +65,20 @@ function check(files) {
     const lines = src.split(/\r?\n/);
     lines.forEach((line, i) => {
       if (RETIRED.test(line)) fails.push(name + ':' + (i + 1) + ' shows the WhatsApp number retired on 2026-08-05');
-      if (/class="wa-float"/.test(line)) fails.push(name + ':' + (i + 1) + ' the floating "Chat with us" button is back');
+      if (/class="wa-float"/.test(line) && !line.includes('href="' + CURRENT + '"')) {
+        fails.push(name + ':' + (i + 1) + ' the floating "Chat with us" button does not link to ' + CURRENT);
+      }
       if (!ROUTE.test(line)) return;
       const m = MARK.exec(line) || MARK.exec(lines[i - 1] || '');
       if (!m) { fails.push(name + ':' + (i + 1) + ' sends a visitor to WhatsApp with no last-resort reason'); return; }
       if (!REASONS.has(m[1])) { fails.push(name + ':' + (i + 1) + ' last-resort reason "' + m[1] + '" is not one of ' + [...REASONS].join(', ')); return; }
       marked.push([name + ':' + (i + 1), m[1]]);
     });
+  }
+  const byName = new Map(files);
+  for (const page of SUPPORT_PAGES) {
+    const n = ((byName.get(page) || '').match(/<a [^>]*class="wa-float"/g) || []).length;
+    if (n !== 1) fails.push(page + ' carries ' + n + ' floating "Chat with us" buttons; expected exactly 1');
   }
   if (files.length < 20) fails.push('read only ' + files.length + ' served files; expected the whole site');
   if (marked.length === 0) fails.push('found no marked last-resort place at all, so the scan is not reading what it should');
@@ -80,7 +98,9 @@ if (process.argv.includes('--prove')) {
   const M = [
     ['an unmarked WhatsApp link on the home page', edit('index.html', (s) => s.replace('</footer>', '<a href="https://wa.me/27760525398">Ask us</a></footer>'))],
     ['"WhatsApp us" as the help line on the FAQ', edit('faq.html', (s) => s.replace('</footer>', '<p>Still stuck? WhatsApp us.</p></footer>'))],
-    ['the floating button restored', edit('about.html', (s) => s.replace('</footer>', '</footer><a href="/x" class="wa-float">x</a>'))],
+    ['the floating button taken off the FAQ', edit('faq.html', (s) => s.replace(/<a [^>]*class="wa-float"[\s\S]*?<\/a>/, ''))],
+    ['the floating button pointed somewhere else', edit('about.html', (s) => s.replace('href="https://wa.me/27760525398" data-last-resort="support" class="wa-float"', 'href="https://wa.me/27000000000" data-last-resort="support" class="wa-float"'))],
+    ['a second floating button on the home page', edit('index.html', (s) => s.replace('</footer>', '</footer><a href="https://wa.me/27760525398" data-last-resort="support" class="wa-float">x</a>'))],
     ['the retired number shown', edit('delete-account.html', (s) => s.replace('</body>', '<p>+27 65 891 5709</p></body>'))],
     ['a reason that is not on the list', edit('track.html', (s) => s.replace('data-last-resort="safety"', 'data-last-resort="convenience"'))],
     ['every mark stripped', FILES.map(([n, s]) => [n, s.replace(/data-last-resort="[^"]*"|last-resort:/g, '')])],
