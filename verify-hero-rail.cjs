@@ -44,7 +44,7 @@ const SIZES = [   // order = the app's TIER_ORDER; image = backend CATEGORY_IMAG
   { code: 'sbak', name: 'Small Bakkie', img: 'half_ton', vars: ['half_ton', 'half_ton_canopy', 'half_ton_trailer'] },
   { code: 'lbak', name: 'Large Bakkie', img: 'one_ton', vars: ['one_ton', 'one_ton_canopy', 'double_cab_trailer'] },
   { code: 'van', name: 'Panel Van', img: 'panel_van', vars: ['panel_van'] },
-  { code: '1t', name: '1 Ton Truck', img: 'dropside', vars: ['dropside', 'dropside_box'] },
+  { code: '1t', name: '1 Ton Truck', img: 'dropside', vars: ['dropside', 'dropside_box', 'dropside_trailer'] },
   { code: '4t', name: '4 Ton Truck', img: 'box_truck', vars: ['box_truck'] },
 ];
 const MAX_HERO_WORDS = 25;
