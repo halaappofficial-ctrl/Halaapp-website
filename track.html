@@ -56,6 +56,8 @@
   .btn{ display:block; text-align:center; background:var(--green); color:#0A0A0A; font-weight:600; font-size:17px;
     text-decoration:none; padding:14px; border-radius:12px; margin-top:16px; }
   .btn.ghost{ background:transparent; color:var(--text); border:1px solid var(--line); }
+  .offer-h{ font-size:18px; font-weight:600; margin:0 0 4px;font-family:var(--disp);letter-spacing:-.012em;line-height:1.2}
+  .msg .btn{ max-width:320px; margin:20px auto 0; }
   .note{ font-size:13px; color:var(--muted); margin-top:14px; line-height:1.5; }
   .note a{ color:var(--green); }
   .msg{ text-align:center; padding:60px 20px; }
@@ -131,6 +133,12 @@ window.va('beforeSend', function (event) {
 
     <div class="card"><ol class="route" id="route"></ol></div>
 
+    <div class="card hidden" id="offer">
+      <p class="offer-h">Need something moved?</p>
+      <p class="sub">Book a checked driver at a price you agree. Your payment is held until the goods arrive.</p>
+      <a class="btn" id="offer-btn" data-offer href="https://book.halamove.co.za/book/?s=trip-page">Book a delivery</a>
+    </div>
+
     <p class="note">Something wrong with this delivery?
       <a id="support" href="https://wa.me/27760525398" target="_blank" rel="noopener" data-last-resort="safety">WhatsApp HALA MOVE</a>.</p>
     <p class="note">This page updates every 10 seconds. It stops working 30 minutes after delivery.
@@ -141,6 +149,9 @@ window.va('beforeSend', function (event) {
 <div id="ended" class="msg hidden">
   <h1>This trip has ended</h1>
   <p>The live map is only available while the trip is happening. For anything about this trip, speak to the person who booked it: they have it in their HALA MOVE app.</p>
+  <p class="offer-h" style="margin-top:28px">Need something moved?</p>
+  <p>Book a checked driver at a price you agree. Your payment is held until the goods arrive.</p>
+  <a class="btn" data-offer href="https://book.halamove.co.za/book/?s=trip-page">Book a delivery</a>
 </div>
 <div id="invalid" class="msg hidden">
   <h1>This link is not valid</h1>
@@ -169,6 +180,19 @@ window.va('beforeSend', function (event) {
 
   var map = null, layers = null, driverMarker = null, fitted = false, lastView = null, timer = null;
   var etaLive = null, tickTimer = null;
+
+  // "Need something moved?" (2026-11-18). The server says which links offer it (offers_booking: the customer's, a
+  // driver's and the recipient's, never the console's or a fleet owner's) and this page only shows it. A tap tells the
+  // server once, as a beacon that survives the page leaving for the booking site, so the reach of each link is counted
+  // (backend POST /api/track/:token/cta). The booking site reads s=trip-page onto the job it posts.
+  var offerTold = false;
+  Array.prototype.forEach.call(document.querySelectorAll('[data-offer]'), function (a) {
+    a.addEventListener('click', function () {
+      if (offerTold) return;
+      offerTold = true;
+      try { if (navigator.sendBeacon) navigator.sendBeacon(API + token + '/cta'); } catch (e) { /* a lost count never blocks the visit */ }
+    });
+  });
 
   // The server refreshes a live ETA at most once a minute and says how old the figure is (eta.age_s, seconds
   // on the server clock). Anchor the figure to when it was computed and count down whole minutes, never below 1
@@ -335,6 +359,8 @@ window.va('beforeSend', function (event) {
       li.appendChild(dot); li.appendChild(body);
       ol.appendChild(li);
     });
+
+    $('offer').classList.toggle('hidden', v.offers_booking !== true);
 
     // last-resort: safety - the "Something wrong with this delivery?" line, with the trip named
     $('support').href = 'https://wa.me/' + String(v.support_whatsapp || '+27760525398').replace(/[^0-9]/g, '') +
