@@ -88,6 +88,10 @@ Quote these word for word. They are also in the brand manifest under `company`.
 - **Driver commission**: HALA MOVE's commission is 20% of each completed job. The pioneer
   programme (no commission on a driver's first 2 completed jobs) ended on 4 November 2026; every
   job since carries the commission.
+- **Driver approval checks fee**: joining is free. A driver first approved on or after
+  1 December 2026 pays a one-time R100 for the review, document checks and approval, taken from
+  their first three completed payouts (R33.33, R33.33, R33.34). A driver who never completes a
+  job pays nothing, and drivers first approved before 1 December 2026 never pay it.
 - **Driver payouts**: a driver's share is released when the customer confirms delivery, or
   automatically 24 hours after a completed job with a proof-of-delivery photo. Drivers cash out to
   their own bank account from R50; withdrawals are paid by EFT within 1-2 business days.

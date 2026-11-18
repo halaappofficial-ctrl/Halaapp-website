@@ -67,9 +67,13 @@ const FACTS = [
 ];
 
 // Lines kept as written, each with the reason. Every entry must still match a line on the site.
-// Empty since 2026-11-17, when the founders reworded the two lines it held (the vision, and one Driver Agreement
-// sentence). Add an entry only with the founders' decision, and say whose and when.
-const ALLOW = [];
+// Empty from 2026-11-17, when the founders reworded the two lines it held (the vision, and one Driver Agreement
+// sentence), to 2026-11-18. Add an entry only with the founders' decision, and say whose and when.
+const ALLOW = [
+  { text: 'You do not pay it when you sign up. It is taken from your first three completed payouts',
+    why: 'Driver Agreement, approval checks fee clause: contract wording approved word for word by Eric on 2026-11-11 '
+      + '(backend BUILD_DRIVER_FEE_R100.md section 6 item 2). A statement of when the fee is paid, not a negation used as emphasis.' },
+];
 
 function staccato(text) {
   const sents = text.split(/(?<=[.!?])\s+|\s*\|\s*/).map((s) => s.trim()).filter(Boolean);
