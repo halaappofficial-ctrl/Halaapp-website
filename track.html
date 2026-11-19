@@ -194,6 +194,19 @@ window.va('beforeSend', function (event) {
     });
   });
 
+  // The vehicle the way every HALA MOVE surface names it: in its colour, with the cab as it is, from the sentence the
+  // server sends ("Blue Toyota Hilux (Double Cab)"). An older server sends make and model only; the catalogue model
+  // already starts with the make, so the make is left out when it would read twice.
+  function vehicleLine(veh) {
+    var v = veh || {};
+    if (v.description) return String(v.description);
+    var model = String(v.model || '');
+    var make = String(v.make || '');
+    if (make && model.toLowerCase().indexOf(make.toLowerCase()) === 0) make = '';
+    var desc = [make, model].filter(Boolean).join(' ');
+    return desc.replace(/\b([A-Z])([A-Z]+)\b/g, function (w, a, b) { return a + b.toLowerCase(); });
+  }
+
   // The server refreshes a live ETA at most once a minute and says how old the figure is (eta.age_s, seconds
   // on the server clock). Anchor the figure to when it was computed and count down whole minutes, never below 1
   // while the driver is still on the way. No figure (arrived, loading, booked for later) shows nothing.
@@ -331,8 +344,7 @@ window.va('beforeSend', function (event) {
       }
       $('dname').textContent = d.first_name || 'Your driver';
       var veh = d.vehicle || {};
-      var desc = [veh.make, veh.model].filter(Boolean).join(' ');
-      $('vehicle').textContent = desc ? desc.replace(/\b([A-Z])([A-Z]+)\b/g, function (w, a, b) { return a + b.toLowerCase(); }) : '';
+      $('vehicle').textContent = vehicleLine(veh);
       $('plate').classList.toggle('hidden', !veh.registration);
       $('plate').textContent = veh.registration || '';
     }
