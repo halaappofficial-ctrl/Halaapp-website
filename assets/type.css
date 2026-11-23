@@ -12,3 +12,11 @@
 html{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-rendering:optimizeLegibility;font-kerning:normal}
 p,li,dd,figcaption{text-wrap:pretty}
 em,strong{font-style:normal;font-weight:600}
+/* The reading measure: 45 to 75 characters a line (Bringhurst). Barlow sets about 2.5 characters to the em, so 28em
+   is about 70 at any size. Running text in an article column is held to it; tables and other wide blocks keep the
+   column's full width, a note box is held to the same edge as the text beside it (28em of the 17 px body), and a
+   centred call-to-action line stays centred under its heading.
+   Verified by verify-type.cjs (rule 9). */
+.prose p,.prose li,.prose dd{max-width:28em}
+.prose .page-cta p{margin-left:auto;margin-right:auto}
+.prose .info-box,.prose .warn-box{max-width:29.75rem}

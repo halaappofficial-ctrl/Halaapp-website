@@ -28,6 +28,13 @@
 //      MOVE green), and refund, track and reset-password set both words in green.
 //   8. A page with its own Content-Security-Policy lets this site's stylesheet and fonts load ('self' in style-src
 //      and font-src). reset-password's policy blocked both, so it rendered in Arial while every source check passed.
+//   9. The reading measure (2026-11-23): 45 to 75 characters a line (Bringhurst). Measured in Chrome at 1440 px, each
+//      paragraph graded by its fullest line: the article, service and legal pages ran 98 to 118 characters, every
+//      paragraph over 75; the home page's closing line 93 and its business cards 88; the delete-account cards 101.
+//      Barlow sets about 2.5 characters to the em, so a measure in em holds the count at any text size, and a measure
+//      in px or rem gives a different count at every size. So: type.css holds .prose p and .prose li to a measure in
+//      em; any max-width on running text (p, li, dd, a lede or sub line, inline or in a rule) is in em and at most
+//      30em; the named reading blocks below carry one. After: 0 paragraphs over 75 on the pages above.
 
 const fs = require('fs');
 const path = require('path');
@@ -38,6 +45,12 @@ const FACES = [['Outfit', '600', 'outfit-600.woff2'], ['Outfit', '900', 'outfit-
   ['Barlow', '400', 'barlow-400.woff2'], ['Barlow', '600', 'barlow-600.woff2']];
 const ALLOWED_FAMILY = /^(var\(--(disp|display|body)\)|var\(--disp,inherit\)|inherit|'(Outfit|Barlow)','\2 Fallback',system-ui,sans-serif)$/;
 const WORDMARK_SEL = /^(\.wordmark|\.brand|\.wm|\.nav-brand|\.logo)$/;
+const MEASURE_EM = [22, 30];
+// running text: the last compound of a selector is a paragraph-like element or a lede/sub line
+const TEXT_SEL = /(^|[\s>+~])(p|li|dd|blockquote)$|\.(hero-sub|app-cta-sub|sub|lede|lead|intro)$/;
+// reading blocks that must carry a measure: [page, selector, unit, at most]
+const MEASURED = [['index.html', '.hero-sub', 'em', 30], ['index.html', '.sub', 'em', 30], ['index.html', '.app-cta-sub', 'em', 30],
+  ['index.html', '.biz-feat p', 'em', 30], ['delete-account.html', '.wrap', 'rem', 33]];
 
 function load() {
   const pages = {};
@@ -114,7 +127,7 @@ function checkRules(where, rules, fails, counts) {
 
 function check(x) {
   const fails = [];
-  const counts = { pages: 0, families: 0, weights: 0, wordmarks: 0, sizes: 0, faces: 0, brandMarks: 0 };
+  const counts = { pages: 0, families: 0, weights: 0, wordmarks: 0, sizes: 0, faces: 0, brandMarks: 0, measures: 0 };
   // 1. faces
   for (const [fam, w, file] of FACES) {
     const rx = new RegExp(`@font-face\\{font-family:'${fam}';font-style:normal;font-weight:${w};font-display:swap;src:url\\(/fonts/${file.replace('.', '\\.')}\\) format\\('woff2'\\)\\}`);
@@ -168,10 +181,42 @@ function check(x) {
       if (colour(move) !== '#FFFFFF') fails.push(`${f}: MOVE in the wordmark is ${move || 'unset'}, the brand sets #FFFFFF`);
     }
   }
+  // 9. the reading measure
+  const unitOf = (v, u) => { const m = new RegExp('^(\\d*\\.?\\d+)' + u + '$').exec((v || '').trim()); return m ? parseFloat(m[1]) : null; };
+  const typeRules = [...x.typeCss.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({ sel: m[1].trim(), d: decls(m[2]) }));
+  const measure = typeRules.find((r) => r.sel.split(',').map((s) => s.trim()).includes('.prose p') && r.sel.split(',').map((s) => s.trim()).includes('.prose li'));
+  const mEm = measure ? unitOf(measure.d['max-width'], 'em') : null;
+  if (mEm === null) fails.push('type.css: .prose p and .prose li carry no reading measure (a max-width in em)');
+  else if (mEm < MEASURE_EM[0] || mEm > MEASURE_EM[1]) fails.push(`type.css: the reading measure is ${mEm}em, outside ${MEASURE_EM.join(' to ')}em (45 to 75 characters)`);
+  else counts.measures++;
+  const textMax = (where, sel, v) => {
+    if (!v || /^(none|100%)$/.test(v.trim())) return;
+    const n = unitOf(v, 'em');
+    if (n === null) fails.push(`${where} ${sel}: running text held to max-width ${v}; set the measure in em, so it holds the same characters at any size`);
+    else if (n > MEASURE_EM[1]) fails.push(`${where} ${sel}: running text at max-width ${v}, wider than ${MEASURE_EM[1]}em (over 75 characters a line)`);
+    else counts.measures++;
+  };
+  const allRules = (html) => {
+    const out = [];
+    for (const block of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g))
+      for (const m of block[1].replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)) out.push({ sel: m[1].trim(), d: decls(m[2]) });
+    return out;
+  };
+  for (const [f, html] of Object.entries(x.pages)) {
+    const rules = allRules(live(html));
+    for (const r of rules) if (r.d['max-width'] && r.sel.split(',').some((s) => TEXT_SEL.test(s.trim()))) textMax(f, r.sel, r.d['max-width']);
+    for (const m of live(html).matchAll(/<p\b[^>]*\sstyle="([^"]*)"/g)) { const d = decls(m[1]); if (d['max-width']) textMax(f, '<p style>', d['max-width']); }
+  }
+  for (const [f, sel, u, most] of MEASURED) {
+    const rules = allRules(live(x.pages[f] || ''));
+    const r = rules.filter((q) => q.sel.split(',').map((s) => s.trim()).includes(sel) && q.d['max-width']).pop();
+    const n = r ? unitOf(r.d['max-width'], u) : null;
+    if (n === null || n > most) fails.push(`${f} ${sel}: no reading measure (max-width in ${u}, at most ${most}${u})`);
+  }
   const card = x.middleware.slice(x.middleware.indexOf('function cardPage'), x.middleware.indexOf('function cardPage') + 4000);
   if (!card.includes('<link rel="stylesheet" href="/assets/type.css">')) fails.push('middleware.js /card page does not link /assets/type.css');
   if (/fonts\.googleapis|fonts\.gstatic/.test(card)) fails.push('middleware.js /card page still loads Google Fonts');
-  if (counts.pages === 0 || counts.sizes === 0 || counts.wordmarks === 0) fails.push('nothing was checked (an empty read is not a pass)');
+  if (counts.pages === 0 || counts.sizes === 0 || counts.wordmarks === 0 || counts.measures === 0) fails.push('nothing was checked (an empty read is not a pass)');
   return { fails, counts };
 }
 
@@ -205,6 +250,12 @@ if (process.argv.includes('--prove')) {
     ['the quote wordmark dropped to 600', page('quote.html', '.wm{font-family:var(--display);font-weight:900', '.wm{font-family:var(--display);font-weight:600')],
     ['HALA off-green in the quote wordmark', page('quote.html', '.wm b{color:var(--g)}', '.wm b{color:#FFFFFF}')],
     ['MOVE set off-white on the download page', page('download.html', /(\.brand \{[^}]*?)color: #FFFFFF;/, '$1color: var(--text);')],
+    ['the reading measure taken out of type.css', (x) => ({ ...x, typeCss: x.typeCss.replace('.prose p,.prose li,.prose dd{max-width:28em}', '') })],
+    ['the reading measure widened to 40em', (x) => ({ ...x, typeCss: x.typeCss.replace('.prose p,.prose li,.prose dd{max-width:28em}', '.prose p,.prose li,.prose dd{max-width:40em}') })],
+    ['an article lede held in px again', page('terms.html', 'max-width:28em;line-height:1.75', 'max-width:560px;line-height:1.75')],
+    ['a section sub line at 34em', page('privacy.html', '.sub{font-size:1.0625rem;color:var(--t2);line-height:1.6;max-width:28em}', '.sub{font-size:1.0625rem;color:var(--t2);line-height:1.6;max-width:34em}')],
+    ['the home closing line loses its measure', page('index.html', ';max-width:28em;text-wrap:balance}', ';text-wrap:balance}')],
+    ['the delete-account column back to 720px', page('delete-account.html', '.wrap{ max-width:33rem;', '.wrap{ max-width:720px;')],
   ];
   for (const [label, brk] of breaks) {
     const m = brk(real);
@@ -217,5 +268,5 @@ if (process.argv.includes('--prove')) {
 
 fails.concat(proveFails).forEach((f) => console.log('  FAIL ' + f));
 console.log(fails.length || proveFails.length ? '  TYPE: FAIL' :
-  `  TYPE: ${counts.pages}/${counts.pages} pages, ${counts.faces}/${FACES.length} faces, ${counts.families} families, ${counts.weights} weights, ${counts.sizes} text sizes on the scale, ${counts.wordmarks} wordmarks, ${counts.brandMarks} brand marks HALA green and MOVE white`);
+  `  TYPE: ${counts.pages}/${counts.pages} pages, ${counts.faces}/${FACES.length} faces, ${counts.families} families, ${counts.weights} weights, ${counts.sizes} text sizes on the scale, ${counts.wordmarks} wordmarks, ${counts.brandMarks} brand marks HALA green and MOVE white, ${counts.measures} reading measures in em`);
 process.exit(fails.length || proveFails.length ? 1 : 0);
