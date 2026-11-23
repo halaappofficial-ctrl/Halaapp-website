@@ -13,7 +13,8 @@
      .wa-later on <html> while scrollY is 400 or less, the same point the home page's download bar appears. With no
      script the class never arrives and the button shows from the start;
    - beside scroll-to-top, never stacked above it;
-   - lifted above the download bar on a page that has one;
+   - lifted above the download bar on a page that has one (its <body> carries .has-download-bar; no :has(), so a
+     browser without it never hides the button under the bar);
    - given room at the end of the footer, so the last line scrolls clear of it. */
 
 .wa-float { animation-iteration-count: 2; }
@@ -41,7 +42,7 @@
 
   footer::after { content: ''; display: block; height: 72px; }
 
-  body:has(.sticky-download) .wa-float { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
-  body:has(.sticky-download) .scroll-top { bottom: calc(86px + env(safe-area-inset-bottom, 0px)); }
-  body:has(.sticky-download) footer::after { height: 144px; }
+  .has-download-bar .wa-float { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  .has-download-bar .scroll-top { bottom: calc(86px + env(safe-area-inset-bottom, 0px)); }
+  .has-download-bar footer::after { height: 144px; }
 }

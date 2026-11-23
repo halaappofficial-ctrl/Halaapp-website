@@ -15,7 +15,7 @@
 //   never over the download bar or scroll-to-top; desktop keeps the same pill.
 //   1. assets/float.css carries the phone rules: a 48 px round button in the corner with its words kept for screen
 //      readers, hidden under .wa-later, scroll-to-top beside it (not stacked above it), room at the end of the footer,
-//      and the lift above the download bar on a page that has one. Outside the phone block it only limits the bounce
+//      and the lift above the download bar on a page that has one (by a class on <body>, not :has()). Outside the phone block it only limits the bounce
 //      to two runs (WCAG 2.2.2: movement that starts by itself may not run past five seconds).
 //   2. Every page with the button links /assets/float.css once, inside <head>, after the <style> that defines the
 //      page's own .wa-float (so the shared rules win), and carries the inline script that puts .wa-later on <html>
@@ -72,7 +72,8 @@ function check({ files, css, hook }) {
   if (!/right: 72px/.test(rule('.scroll-top') || '')) fails.push(CSS + ': scroll-to-top does not sit beside the button');
   const room = /height: (\d+)px/.exec(rule('footer::after') || '');
   if (!room || +room[1] < 64) fails.push(CSS + ': the footer ends without room for the button');
-  if (!/bottom: calc\(84px/.test(rule('body:has(.sticky-download) .wa-float') || '')) fails.push(CSS + ': the button is not lifted above the download bar');
+  if (!/bottom: calc\(84px/.test(rule('.has-download-bar .wa-float') || '')) fails.push(CSS + ': the button is not lifted above the download bar');
+  if (/:has\(/.test(bare)) fails.push(CSS + ': uses :has(), which a browser without it ignores, leaving the button under the bar');
 
   const pages = [...files].filter(([, s]) => /<a [^>]*class="wa-float"/.test(s));
   if (pages.length === 0) fails.push('found no page with the floating button, so nothing was checked');
@@ -87,6 +88,7 @@ function check({ files, css, hook }) {
     if (base < 0 || at < baseEnd) fails.push(name + ': ' + CSS + ' is linked before the page\'s own .wa-float rules, so they win');
     if (s.split(SCRIPT).length - 1 !== 1) fails.push(name + ': the inline .wa-later script is not there exactly once');
     if (/waBounce[^;}]*infinite/.test(s)) fails.push(name + ': the button bounces forever');
+    if (/class="sticky-download"/.test(s) && !/<body class="[^"]*\bhas-download-bar\b/.test(s)) fails.push(name + ': has the download bar but its <body> lacks .has-download-bar, so the button sits under the bar');
     if (/\.wa-float\{[^}]*bottom:[^};]*!important/.test(s) || /\.scroll-top\{[^}]*bottom:[^};]*!important/.test(s)) fails.push(name + ': the button is pinned to the old stacked seat with !important');
   }
   if (!/GATES="[^"]*\bverify-float\.cjs\b/.test(hook)) fails.push('verify-float.cjs is not in GATES in .githooks/pre-push');
@@ -108,6 +110,8 @@ function prove(state) {
     ['no room at the end of the footer', css((s) => s.replace("footer::after { content: ''; display: block; height: 72px; }", ''))],
     ['scroll-to-top stacked above the button again', css((s) => s.replace('.scroll-top { right: 72px;', '.scroll-top { right: 16px;'))],
     ['the bounce limit removed', css((s) => s.replace('.wa-float { animation-iteration-count: 2; }', ''))],
+    ['the home page body losing its bar class', page('index.html', (s) => s.replace('<body class="has-download-bar">', '<body>'))],
+    ['the lift written with :has() again', css((s) => s.replace('.has-download-bar .wa-float {', 'body:has(.sticky-download) .wa-float {'))],
     ['the gate taken out of the push hook', { ...state, hook: state.hook.replace(/verify-float\.cjs/g, '') }],
   ];
   let ok = true;
