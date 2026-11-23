@@ -378,13 +378,13 @@ a { color: inherit; text-decoration: none; }
    the cards sooner instead; the card's letter mark sits beside its heading. */
 @media (max-width: 640px) {
   .hero { padding: 24px 20px 8px; }
-  .hero-sub { margin-bottom: 8px; }
+  .hero-sub { margin-bottom: 8px; font-size: 15px; }
   .hero-meta { display: none; }
   .downloads { padding: 16px 16px 64px; }
   .card { padding: 24px 20px; }
-  .card-icon { width: 40px; height: 40px; border-radius: 12px; font-size: 20px; margin-bottom: 12px; }
-  .card h2 { font-size: 24px; }
-  .card-tagline { margin-bottom: 16px; }
+  .card-icon { float: left; width: 40px; height: 40px; border-radius: 12px; font-size: 20px; margin: 0 12px 0 0; }
+  .card h2 { font-size: 20px; display: flex; align-items: center; min-height: 40px; margin-bottom: 12px; }
+  .card-tagline { clear: left; margin-bottom: 16px; }
 }
 
 /* ===== Install Instructions ===== */

@@ -73,7 +73,7 @@ h1 .accent { color: var(--g); }
 footer { border-top: 1px solid var(--b); padding: 24px; text-align: center; color: var(--t3); font-size:13px; }
 .toast { position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--g); color: #0A0A0A; padding: 14px 24px; border-radius: 100px; font-weight:600; font-size:15px; opacity: 0; transition: opacity 0.3s, transform 0.3s; z-index: 1000; }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-@media (max-width: 640px) { main { padding: 20px 16px 40px; } .card { padding: 28px 22px; } .badge { margin-bottom: 14px; } .sub { margin-bottom: 20px; } .copy-hint { margin-bottom: 18px; } }
+@media (max-width: 640px) { main { padding: 20px 16px 40px; } .card { padding: 28px 22px; } .badge { margin-bottom: 14px; } .sub { margin-bottom: 20px; font-size: 15px; } .copy-hint { margin-bottom: 18px; } }
 </style>
 <!-- Vercel Web Analytics: page counts with no cookie. Codes in personal links and every query value except campaign tags are removed before anything is sent. -->
 <script>
@@ -183,7 +183,11 @@ window.va('beforeSend', function (event) {
   var toastT = null;
   function showToast(m) { toast.textContent = m; toast.classList.add('show'); if (toastT) clearTimeout(toastT); toastT = setTimeout(function () { toast.classList.remove('show'); }, 2200); }
 
-  if (!raw || raw === 'C' || raw.length < 4) {
+  // /creator with no code (the page's own name) and /c/ with too short a code show the page without a code box, and
+  // without the line that says to use it.
+  if (!raw || raw === 'C' || raw === 'CREATOR' || raw.length < 4) {
+    var useLine = document.querySelector('#sub strong');
+    if (useLine) useLine.parentNode.removeChild(useLine);
     document.getElementById('codeLabel').style.display = 'none';
     codeCard.style.display = 'none';
     copyHint.style.display = 'none';

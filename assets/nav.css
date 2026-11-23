@@ -13,8 +13,9 @@
 .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--t)}
 .nav-links a:focus-visible{outline:2px solid var(--g);outline-offset:3px;border-radius:2px}
 .nav-btns{display:flex;gap:8px;align-items:center;flex-shrink:0}
-/* A bar without install buttons ends on its links, so they sit at the right edge where the buttons would be. */
-@media(min-width:768px){.nav-inner:not(:has(.nav-btns)) .nav-links{justify-content:flex-end}}
+/* A bar without install buttons ends on its links, so on one row they sit at the right edge where the buttons would be.
+   Not between 768 and 959 px: there the links take a second row of their own and start at the left, as on every page. */
+@media(min-width:960px){.nav-inner:not(:has(.nav-btns)) .nav-links{justify-content:flex-end}}
 @media(min-width:768px) and (max-width:1199px){
   .nav-btns .btn-ghost{display:none}
   .nav-links{gap:18px}

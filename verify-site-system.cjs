@@ -20,6 +20,10 @@
 //   4. The download page and the code pages load the bar from assets/nav.css, carry the site's five menu links, and
 //      no install buttons in the bar (the page itself is the install). The download page marks its own link as
 //      the current page.
+//   5. A code page reads its code from the last part of the address, so opened at its own bare address (/invite,
+//      /driver-invite, /creator) it would read its own name as the code. Each one treats its own name as "no code"
+//      and shows its empty state. (Found 2026-11-24: /creator showed "creator" in the code box and sent it to the
+//      stores as the source.)
 
 const fs = require('fs');
 const path = require('path');
@@ -27,6 +31,7 @@ const ROOT = __dirname;
 
 const TASK_PAGES = ['delete-account.html', 'paid.html', 'payment-cancelled.html', 'quote.html', 'refund.html', 'reset-password.html', 'track.html'];
 const SHARED_BAR = ['creator.html', 'download.html', 'driver-invite.html', 'invite.html'];
+const CODE_PAGES = { 'invite.html': 'INVITE', 'driver-invite.html': 'DRIVER-INVITE', 'creator.html': 'CREATOR' };
 const MENU = [['/#customers', 'For Customers'], ['/#drivers', 'For Drivers'], ['/#business', 'For Business'], ['/quote', 'Get a Quote'], ['/download', 'Download']];
 
 function tokensOf(html) {
@@ -71,6 +76,13 @@ function check(pages) {
     if (f === 'download.html' && !/<a href="\/download" aria-current="page">Download<\/a>/.test(nav)) fails.push(f + ': the Download link does not mark itself as the current page');
     if (f !== 'download.html' && current) fails.push(f + ': marks a menu link as the current page, and none of them is this page');
   }
+  for (const [f, own] of Object.entries(CODE_PAGES)) {
+    const p = pages.find(([n]) => n === f);
+    if (!p) continue;
+    const script = (p[1].match(/<script>[\s\S]*?<\/script>/g) || []).find((s) => /location\.pathname\.split\('\/'\)/.test(s));
+    if (!script) { fails.push(f + ': no script reads the code from the address (the reader is broken)'); continue; }
+    if (!new RegExp("raw === '" + own + "'").test(script)) fails.push(f + ': opened at its own address it shows "' + own.toLowerCase() + '" as the code');
+  }
   const css = fs.existsSync(path.join(ROOT, 'assets/nav.css')) ? fs.readFileSync(path.join(ROOT, 'assets/nav.css'), 'utf8') : '';
   if (!/#main-nav\{position:sticky/.test(css)) fails.push('assets/nav.css: the bar\'s rules are missing');
   if (/(^|[\s,}])nav\{/.test(css)) fails.push('assets/nav.css: a rule for every <nav> on the page, not only the site bar (#main-nav)');
@@ -92,6 +104,8 @@ if (process.argv.includes('--prove')) {
     ['a page of its own colour names', swap('creator.html', (h) => h.replace(/:root\{\n --g:/, ':root{\n --accent: #5CB558;\n --g:'))],
     ['install buttons in the bar of a code page', swap('invite.html', (h) => h.replace('</ul>\n', '</ul>\n  <div class="nav-btns"><a href="/download" class="btn btn-green btn-sm">Get Started</a></div>\n'))],
     ['a new page that chose neither', pages.concat([['offer.html', '<!DOCTYPE html><html><body><p>x</p></body></html>']])],
+    ['the creator page reading its own name as a code', swap('creator.html', (h) => h.replace(" || raw === 'CREATOR'", ''))],
+    ['the invite page reading its own name as a code', swap('invite.html', (h) => h.replace(" || raw === 'INVITE'", ''))],
     ['a menu link dropped', swap('download.html', (h) => h.replace('<li><a href="/quote">Get a Quote</a></li>', ''))],
   ];
   for (const [label, mutated] of breaks) {
