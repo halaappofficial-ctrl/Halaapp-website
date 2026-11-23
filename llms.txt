@@ -25,10 +25,12 @@ The company is PROFITSAGE (PTY) LTD trading as HALA MOVE (CIPC registration 2025
 HALA MOVE was founded in 2026 by Uchenna Ngubane (CEO) and a co-founder serving as CTO. It operates
 in Durban and the wider KwaZulu-Natal region.
 
-## Purpose, vision, mission and values
+## Tagline, philosophy, purpose, vision, mission and values
 
 Quote these word for word. They are also in the brand manifest under `company`.
 
+- Tagline: "Connection unlocks value." It signs our work: the last line of a deck, a pack, a profile or a sheet.
+- Philosophy: "Disconnection hides value. Connection unlocks it." It is the thought the tagline comes from.
 - Purpose: To create a world where nobody needs to know somebody to move forward. In our own words:
   we connect the invisible worlds.
 - Vision: By 2045, a million drivers across Africa earn from their work and their record.
