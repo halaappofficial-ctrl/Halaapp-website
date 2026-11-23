@@ -876,7 +876,7 @@ footer{
  font-size:.8125rem;font-weight:600;color:#0A0A0A;
  cursor:pointer;transition:all .25s;
  box-shadow:0 8px 28px rgba(37,211,102,.35);
- animation:waBounce 2s ease-in-out 3s infinite;
+ animation:waBounce 2s ease-in-out 3s 2;
 }
 .wa-float:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(37,211,102,.45)}
 .wa-icon{width:18px;height:18px;flex:none}
@@ -968,6 +968,8 @@ footer{
 }
 @media print{.wa-float,.scroll-top{display:none!important}}
 </style>
+<link rel="stylesheet" href="/assets/float.css">
+<script>/* float.css: on a phone the WhatsApp button shows once the reader scrolls past the first screen */(function(r){function c(){r.classList.toggle('wa-later',(window.scrollY||0)<=400)}c();window.addEventListener('scroll',c,{passive:true})}(document.documentElement));</script>
 <!-- Motion One (animation library) - pinned -->
 <script defer src="https://cdn.jsdelivr.net/npm/motion@11.15.0/dist/motion.min.js" onerror="document.documentElement.classList.add('motion-failed')"></script>
 <!-- Vercel Web Analytics: page counts with no cookie. Codes in personal links and every query value except campaign tags are removed before anything is sent. -->

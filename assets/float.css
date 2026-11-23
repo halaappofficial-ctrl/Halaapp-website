@@ -1,0 +1,47 @@
+/* The floating WhatsApp button and the scroll-to-top button, on every page that carries them.
+   Linked after each page's own <style>, so these rules win over the page's base .wa-float and .scroll-top rules.
+   Held by verify-float.cjs.
+
+   Measured in Chrome on 2026-11-23, before: at first glance the 134 px "Chat with us" pill overlapped text or a control
+   on all 14 pages that carry it (32 of 56 page-sizes at 390x844, 390x750, 390x664 and 360x740). On the home page at
+   390x750 it sat on the "I drive one" button, and at the end of 13 pages it covered the copyright line. It bounced
+   forever, which WCAG 2.2.2 does not allow for movement that starts by itself and runs past five seconds.
+
+   On a phone (768 px and below) it is now:
+   - a 48 px round button in the corner; its words stay for screen readers (the link also carries an aria-label);
+   - shown once the reader has scrolled past the first screen: the inline script beside the link to this file puts
+     .wa-later on <html> while scrollY is 400 or less, the same point the home page's download bar appears. With no
+     script the class never arrives and the button shows from the start;
+   - beside scroll-to-top, never stacked above it;
+   - lifted above the download bar on a page that has one;
+   - given room at the end of the footer, so the last line scrolls clear of it. */
+
+.wa-float { animation-iteration-count: 2; }
+
+@media (max-width: 768px) {
+  .wa-float {
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: 48px;
+    height: 48px;
+    min-height: 48px;
+    padding: 0;
+    gap: 0;
+    justify-content: center;
+    transition: opacity .2s, visibility .2s, transform .2s;
+  }
+  .wa-float .wa-icon { width: 22px; height: 22px; }
+  .wa-float span {
+    position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; border: 0;
+    overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap;
+  }
+  .wa-later .wa-float { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(8px); }
+
+  .scroll-top { right: 72px; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); }
+
+  footer::after { content: ''; display: block; height: 72px; }
+
+  body:has(.sticky-download) .wa-float { bottom: calc(84px + env(safe-area-inset-bottom, 0px)); }
+  body:has(.sticky-download) .scroll-top { bottom: calc(86px + env(safe-area-inset-bottom, 0px)); }
+  body:has(.sticky-download) footer::after { height: 144px; }
+}
