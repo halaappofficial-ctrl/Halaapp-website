@@ -19,8 +19,13 @@
 //   2. Every page (and the /card page middleware.js builds) links /assets/type.css; every font-family is one of the
 //      two tokens, inherit, or the code face on the tracking page.
 //   3. Weights 400, 600 and 900, and 900 only on the wordmark (HALA MOVE spans, .wordmark, .brand, .wm).
-//   4. Text sizes (rules under 20px that are not headings) sit on the scale 12 / 13 / 14 / 15 / 17 / 19 px, nothing
-//      under 12px, and a form field never under 16px (iOS zooms the page into a smaller field).
+//   4. Text sizes under 20px sit on the scale 12 / 13 / 14 / 15 / 17 / 19 px, nothing under 12px, and a form field
+//      never under 16px (iOS zooms the page into a smaller field). Sizes of 20px and up sit on the display scale
+//      20 / 24 / 28 / 32 / 40 / 48 / 64 / 80 px. Read from every rule, every inline style, and BOTH ends of a
+//      clamp() (2026-11-23: inline styles and clamp() were skipped, and rules in the heading face were exempt, so
+//      the home page rendered 19 sizes at 1440 px, 10.9, 15.2, 16, 17.6, 17.9, 18.4, 38.4, 52, 60.8 and 76 among
+//      them, with this check green). Left out: the wordmark, a decorative ::before/::after glyph, a relative size
+//      (em, %) that follows its parent, and a rule whose classes appear nowhere on the page.
 //   5. Headings are never letter-spaced out; mixed-case text is never letter-spaced out (capitals labels may be).
 //   6. The wordmark keeps its two words apart (word-spacing on every wordmark rule): Outfit 900's space is 0.18em.
 //   7. Every .brand wordmark reads HALA in brand green (#5CB558) and MOVE in white (#FFFFFF), as the brand sets it.
@@ -41,6 +46,7 @@ const path = require('path');
 
 const ROOT = __dirname;
 const SCALE = [12, 13, 14, 15, 17, 19];
+const DISPLAY = [20, 24, 28, 32, 40, 48, 64, 80];
 const FACES = [['Outfit', '600', 'outfit-600.woff2'], ['Outfit', '900', 'outfit-900.woff2'],
   ['Barlow', '400', 'barlow-400.woff2'], ['Barlow', '600', 'barlow-600.woff2']];
 const ALLOWED_FAMILY = /^(var\(--(disp|display|body)\)|var\(--disp,inherit\)|inherit|'(Outfit|Barlow)','\2 Fallback',system-ui,sans-serif)$/;
@@ -89,7 +95,7 @@ function rulesOf(html) {
   return out;
 }
 
-function checkRules(where, rules, fails, counts) {
+function checkRules(where, rules, fails, counts, markup) {
   const display = new Set(rules.filter((r) => /var\(--(disp|display)/.test(r.d['font-family'] || '')).map((r) => r.sel));
   for (const { sel, d } of rules) {
     const wordmark = sel === '[wordmark]' || WORDMARK_SEL.test(sel);
@@ -116,18 +122,46 @@ function checkRules(where, rules, fails, counts) {
     const caps = (d['text-transform'] || '').toLowerCase() === 'uppercase';
     if (ls && /^\d*\.?\d+em$/.test(ls) && parseFloat(ls) > 0 && !caps && !wordmark)
       fails.push(`${where} ${sel}: ${isDisp ? 'heading' : 'mixed-case text'} letter-spaced out (${ls})`);
-    const size = px(d['font-size']);
-    if (size !== null && size < 20 && !isDisp && !wordmark && sel !== '[inline]' && !/^(html|body)$/.test(sel)) {
-      counts.sizes++;
-      if (!SCALE.includes(Math.round(size * 100) / 100)) fails.push(`${where} ${sel}: text size ${size}px is off the scale ${SCALE.join('/')}`);
-      if (/(input|select|textarea)(?![\w-])/.test(sel) && size < 16) fails.push(`${where} ${sel}: form field at ${size}px (iOS zooms into it)`);
+    const raw = d['font-size'];
+    if (raw && !wordmark && !/^(html|body)$/.test(sel) && !(markup !== undefined && deadRule(sel, markup))) {
+      const ends = sizeEnds(raw);
+      const decorative = /::?(before|after)\b/.test(sel) && d.content !== undefined;
+      for (const size of ends) {
+        const s = Math.round(size * 100) / 100;
+        const of = ends.length > 1 ? ` (an end of ${raw})` : '';
+        if (size < 20) {
+          counts.sizes++;
+          if (!SCALE.includes(s)) fails.push(`${where} ${sel}: text size ${s}px${of} is off the scale ${SCALE.join('/')}`);
+          if (/(input|select|textarea)(?![\w-])/.test(sel) && size < 16) fails.push(`${where} ${sel}: form field at ${s}px (iOS zooms into it)`);
+        } else if (!decorative) {
+          counts.display++;
+          if (!DISPLAY.includes(s)) fails.push(`${where} ${sel}: display size ${s}px${of} is off the display scale ${DISPLAY.join('/')}`);
+        }
+      }
     }
   }
 }
 
+// font-size as px at each end: a plain rem/px value, or both ends of a clamp(); a relative value (em, %, a keyword)
+// follows its parent and is not a size of its own
+function sizeEnds(v) {
+  const t = (v || '').trim().replace(/\s*!important$/, '');
+  const c = /^clamp\(([^,]+),([^,]+),([^)]+)\)$/.exec(t);
+  if (c) return [px(c[1].trim()), px(c[3].trim())].filter((n) => n !== null);
+  const n = px(t);
+  return n === null ? [] : [n];
+}
+
+// a rule whose class names appear nowhere in the page's markup or scripts styles nothing on that page
+function deadRule(sel, markup) {
+  const toks = [...sel.matchAll(/\.([a-zA-Z][\w-]*)/g)].map((m) => m[1]);
+  if (!toks.length) return false;
+  return !toks.some((t) => new RegExp('(^|[^\\w-])' + t + '([^\\w-]|$)').test(markup));
+}
+
 function check(x) {
   const fails = [];
-  const counts = { pages: 0, families: 0, weights: 0, wordmarks: 0, sizes: 0, faces: 0, brandMarks: 0, measures: 0 };
+  const counts = { pages: 0, families: 0, weights: 0, wordmarks: 0, sizes: 0, display: 0, faces: 0, brandMarks: 0, measures: 0 };
   // 1. faces
   for (const [fam, w, file] of FACES) {
     const rx = new RegExp(`@font-face\\{font-family:'${fam}';font-style:normal;font-weight:${w};font-display:swap;src:url\\(/fonts/${file.replace('.', '\\.')}\\) format\\('woff2'\\)\\}`);
@@ -155,7 +189,7 @@ function check(x) {
       for (const k of ['style-src', 'font-src'])
         if (!(dir[k] || dir['default-src'] || []).includes("'self'")) fails.push(`${f}: its Content-Security-Policy blocks ${k === 'font-src' ? '/fonts' : '/assets/type.css'}, so the page renders in Arial`);
     }
-    checkRules(f, rulesOf(html), fails, counts);
+    checkRules(f, rulesOf(html), fails, counts, live(html).replace(/<style[^>]*>[\s\S]*?<\/style>/g, ''));
   }
   const formRules = [...x.formCss.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({ sel: m[1].trim(), d: decls(m[2]) }));
   checkRules('lead-form.css', formRules, fails, counts);
@@ -252,10 +286,16 @@ if (process.argv.includes('--prove')) {
     ['MOVE set off-white on the download page', page('download.html', /(\.brand \{[^}]*?)color: #FFFFFF;/, '$1color: var(--text);')],
     ['the reading measure taken out of type.css', (x) => ({ ...x, typeCss: x.typeCss.replace('.prose p,.prose li,.prose dd{max-width:28em}', '') })],
     ['the reading measure widened to 40em', (x) => ({ ...x, typeCss: x.typeCss.replace('.prose p,.prose li,.prose dd{max-width:28em}', '.prose p,.prose li,.prose dd{max-width:40em}') })],
-    ['an article lede held in px again', page('terms.html', 'max-width:28em;line-height:1.75', 'max-width:560px;line-height:1.75')],
+    ['an article lede held in px again', page('terms.html', 'max-width:28em;line-height:1.6"', 'max-width:560px;line-height:1.6"')],
     ['a section sub line at 34em', page('privacy.html', '.sub{font-size:1.0625rem;color:var(--t2);line-height:1.6;max-width:28em}', '.sub{font-size:1.0625rem;color:var(--t2);line-height:1.6;max-width:34em}')],
     ['the home closing line loses its measure', page('index.html', ';max-width:28em;text-wrap:balance}', ';text-wrap:balance}')],
     ['the delete-account column back to 720px', page('delete-account.html', '.wrap{ max-width:33rem;', '.wrap{ max-width:720px;')],
+    ['an inline size off the scale (the footer print at 11.5px)', page('terms.html', 'font-size:.75rem;color:var(--t3);line-height:1.6"><p style="max-width:28em">', 'font-size:.72rem;color:var(--t3);line-height:1.6"><p style="max-width:28em">')],
+    ['a clamp() end off the scale (the hero line at 15.7 to 17.9px)', page('index.html', '.hero-sub{font-size:clamp(1.0625rem,2vw,1.1875rem)', '.hero-sub{font-size:clamp(.98rem,2vw,1.12rem)')],
+    ['a heading-face rule under 20px off the scale', page('index.html', 'font-family:var(--disp);font-size:1.0625rem;font-weight:600;color:var(--g)', 'font-family:var(--disp);font-size:1.1rem;font-weight:600;color:var(--g)')],
+    ['the home hero back at 76px', page('index.html', '.hero-h1{font-size:clamp(3rem,10vw,5rem)', '.hero-h1{font-size:clamp(3rem,10vw,4.75rem)')],
+    ['a plain display size off the scale', page('delete-account.html', 'h1{ font-size:28px;', 'h1{ font-size:26px;')],
+    ['a live page title off the scale (not taken for a dead rule)', page('terms.html', 'font-size:clamp(2.5rem,5vw,4rem)', 'font-size:clamp(2.4rem,5vw,4rem)')],
   ];
   for (const [label, brk] of breaks) {
     const m = brk(real);
@@ -268,5 +308,5 @@ if (process.argv.includes('--prove')) {
 
 fails.concat(proveFails).forEach((f) => console.log('  FAIL ' + f));
 console.log(fails.length || proveFails.length ? '  TYPE: FAIL' :
-  `  TYPE: ${counts.pages}/${counts.pages} pages, ${counts.faces}/${FACES.length} faces, ${counts.families} families, ${counts.weights} weights, ${counts.sizes} text sizes on the scale, ${counts.wordmarks} wordmarks, ${counts.brandMarks} brand marks HALA green and MOVE white, ${counts.measures} reading measures in em`);
+  `  TYPE: ${counts.pages}/${counts.pages} pages, ${counts.faces}/${FACES.length} faces, ${counts.families} families, ${counts.weights} weights, ${counts.sizes} text sizes on the scale, ${counts.display} display sizes on the display scale, ${counts.wordmarks} wordmarks, ${counts.brandMarks} brand marks HALA green and MOVE white, ${counts.measures} reading measures in em`);
 process.exit(fails.length || proveFails.length ? 1 : 0);
