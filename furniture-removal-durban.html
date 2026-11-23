@@ -384,10 +384,6 @@ nav.scrolled{background:rgba(10,10,10,.98)}
  position:relative;min-height:calc(100vh - 100px);
  display:flex;align-items:center;padding:80px 0;overflow:hidden;
 }
-#city-canvas{
- position:absolute;inset:0;width:100%;height:100%;
- opacity:.55;pointer-events:none;
-}
 .hero-grid{
  position:relative;z-index:2;display:grid;
  grid-template-columns:1fr;gap:60px;align-items:center;
@@ -1074,7 +1070,6 @@ footer{
  .reveal,.reveal-l,.reveal-r{opacity:1;transform:none;transition:none}
  .ann-track{animation:none}
  .wa-float{animation:none}
- #city-canvas{display:none}
 }
 @media print{.wa-float,.scroll-top{display:none!important}}
 </style>
@@ -1491,155 +1486,8 @@ if(sl){
  slo.observe(sl);
 }
 
-// ── CITY GRID CANVAS ──────────────────────────────────────
-(function(){
- const canvas = document.getElementById('city-canvas');
- if(!canvas) return;
- const ctx = canvas.getContext('2d');
- let W, H, nodes, routes, dots, raf;
 
- function resize(){
-  W = canvas.width = canvas.offsetWidth;
-  H = canvas.height = canvas.offsetHeight;
-  init();
- }
- function init(){
-  nodes = [];
-  const gap = 88;
-  const cols = Math.ceil(W/gap)+2;
-  const rows = Math.ceil(H/gap)+2;
-  for(let r=0;r<rows;r++){
-      for(let c=0;c<cols;c++){
-        nodes.push({
-          x: c*gap + (Math.random()-.5)*26,
-          y: r*gap + (Math.random()-.5)*26,
-          pulse:0
-        });
-      }
-    }
-    routes = [];
-    nodes.forEach((n,i) => {
-   nodes.forEach((m,j) => {
-    if(i>=j) return;
-    const d = Math.hypot(m.x-n.x, m.y-n.y);
-    if(d < 120 && Math.random() < .25) routes.push({from:i,to:j,d});
-      });
-    });
-    dots = Array.from({length:16},()=>{
-   const r = routes[Math.floor(Math.random()*routes.length)];
-   if(!r) return null;
-   return {route:r, t:Math.random(), speed:.0005+Math.random()*.0007, size:2.8+Math.random()*2};
-  }).filter(Boolean);
- }
 
- function draw(){
-  ctx.clearRect(0,0,W,H);
-
-  // Routes (dashed lines)
-  ctx.lineWidth=.8;
-  ctx.setLineDash([4,9]);
-  routes.forEach(({from,to})=>{
-   const a=nodes[from], b=nodes[to];
-   ctx.beginPath();
-   ctx.moveTo(a.x,a.y);
-   ctx.lineTo(b.x,b.y);
-   ctx.strokeStyle='rgba(92,181,88,0.07)';
-   ctx.stroke();
-  });
-  ctx.setLineDash([]);
-
-  // Nodes
-  nodes.forEach(n=>{
-   if(n.pulse > 0){
-    ctx.beginPath();
-    ctx.arc(n.x,n.y, 3+n.pulse*14, 0, Math.PI*2);
-    ctx.fillStyle=`rgba(92,181,88,${0.1*(1-n.pulse)})`;
-    ctx.fill();
-    n.pulse += .035;
-    if(n.pulse>1) n.pulse=0;
-   }
-   ctx.beginPath();
-   ctx.arc(n.x,n.y,2,0,Math.PI*2);
-   ctx.fillStyle='rgba(92,181,88,0.18)';
-   ctx.fill();
-  });
-
-  // Moving dots
-  dots.forEach(d=>{
-   d.t += d.speed;
-   if(d.t>=1){
-    d.t=0;
-    nodes[d.route.to].pulse=0.01;
-    const conn = routes.filter(r=>r.from===d.route.to||r.to===d.route.to);
-    if(conn.length){
-     const pick=conn[Math.floor(Math.random()*conn.length)];
-     d.route={from:d.route.to, to:pick.from===d.route.to?pick.to:pick.from};
-    }
-   }
-   const a=nodes[d.route.from], b=nodes[d.route.to];
-   const x=a.x+(b.x-a.x)*d.t;
-   const y=a.y+(b.y-a.y)*d.t;
-   // Glow
-   const g=ctx.createRadialGradient(x,y,0,x,y,d.size*3.5);
-   g.addColorStop(0,'rgba(92,181,88,0.65)');
-   g.addColorStop(1,'rgba(92,181,88,0)');
-   ctx.beginPath();ctx.arc(x,y,d.size*3.5,0,Math.PI*2);
-   ctx.fillStyle=g;ctx.fill();
-   // Core
-   ctx.beginPath();ctx.arc(x,y,d.size,0,Math.PI*2);
-   ctx.fillStyle='#5CB558';ctx.fill();
-  });
-
-  raf = requestAnimationFrame(draw);
- }
-
- window.addEventListener('resize',()=>{
-  cancelAnimationFrame(raf);resize();draw();
- },{passive:true});
- resize();draw();
-}());
-
-// ── PHONE TIMER ───────────────────────────────────────────
-(function(){
- let secs = 14*60+22;
- const el = document.getElementById('phone-timer');
- if(!el) return;
- setInterval(()=>{
-  if(secs > 0) secs--;
-  const m = Math.floor(secs/60);
-  const s = secs%60;
-  el.textContent = m+':'+(s<10?'0':'')+s;
-  },1000);
-}());
-
-// ── EARNINGS CALCULATOR ───────────────────────────────────
-(function(){
-  const js = document.getElementById('jobs-slider');
-  const rs = document.getElementById('rate-slider');
-  const ds = document.getElementById('days-slider');
-  const jv = document.getElementById('jobs-val');
-  const rv = document.getElementById('rate-val');
-  const dv = document.getElementById('days-val');
-  const re = document.getElementById('calc-result');
-  const su = document.getElementById('calc-sub');
-  if(!js||!rs||!ds) return;
-
-  function update(){
-    const j=parseInt(js.value);
-    const r=parseInt(rs.value);
-    const d=parseInt(ds.value);
-    jv.textContent=j+' job'+(j===1?'':'s');
-    rv.textContent='R'+r;
-    dv.textContent=d+' day'+(d===1?'':'s');
-    const monthly=Math.round(j*r*d*4*.8);
-    re.textContent='R'+monthly.toLocaleString('en-ZA');
-    su.textContent=j+' jobs \u00d7 R'+r+' \u00d7 '+d+' days \u00d7 4 weeks, less 20% commission. Illustrative only. Actual earnings vary.';
-  }
-  js.addEventListener('input',update);
-  rs.addEventListener('input',update);
-  ds.addEventListener('input',update);
-  update();
-}());
 
 // ── FAILSAFE: Reveal all elements ─────────────────────────────────
 window.addEventListener('load', () => {

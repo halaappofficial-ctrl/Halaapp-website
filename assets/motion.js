@@ -227,8 +227,8 @@
   }
   // --------------------------------------------------------------
   // §8.1 (revised) — Hero text-column reveal-on-load stagger.
-  // Phone mockup is NOT animated here — it has its own motion (bid
-  // arrivals, pulse-dot, city-canvas) preserved under §7.5 exceptions.
+  // The hero's own movement (the vehicle stage, the connection line) is
+  // in index.html, which honours reduced motion itself.
   // --------------------------------------------------------------
   function initHero() {
     const hero = document.querySelector('.hero');
