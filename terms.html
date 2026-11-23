@@ -925,7 +925,7 @@ footer{
 .prose ol li{counter-increment:ol-counter}
 .prose ol li::before{content:counter(ol-counter);position:absolute;left:0;top:7px;width:18px;height:18px;background:var(--gmid);border:1px solid rgba(92,181,88,.3);border-radius:50%;font-size:.75rem;font-weight:600;color:var(--g);text-align:center;line-height:18px}
 .prose strong{color:var(--t);font-weight:600}
-.prose a{color:var(--g);text-decoration:underline;text-underline-offset:3px}
+.prose a:not(.btn){color:var(--g);text-decoration:underline;text-underline-offset:3px}
 .prose a:hover{opacity:.8}
 .info-box{background:var(--s2);border:1px solid var(--b);border-left:3px solid var(--g);border-radius:0 10px 10px 0;padding:20px 24px;margin:24px 0}
 .info-box p{color:var(--t2);font-size:.9375rem;line-height:1.6;margin:0}
