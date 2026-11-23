@@ -660,8 +660,9 @@ window.va('beforeSend', function (event) {
    <p class="hero-sub" data-motion-hero-el="sub"><span>Post your load and checked drivers send you offers.</span> <span>Your money is held until it arrives.</span></p>
   </div>
   <!-- THE OPENING (2026-11-24, design review item 9). The first screen shows the connection, not a bakkie: the store,
-       a checked driver, the doorstep and the record, as one figure on a line. The station lines come from the claim
-       register (prices agreed, identity-verified drivers, the job followed live on the map, every job on record).
+       a checked driver, the doorstep and the record, as one figure on a line. The station lines are approved claims
+       (backend docs/marketing/CLAIM_REGISTER.md): "you choose the price" (CR-20), identity-verified drivers (the trust
+       line), "Track your driver live" (CR-26), and "every job on record" from the investor deck.
        The record line is replaced by the live record (recordView() below; no figure is written here). The doors keep
        booking on the first screen now the vehicles sit one step in: Book goes to the web booking with a tag that names
        no size, so the customer picks one there; the driver door goes to /drive, and a computer to /download.
@@ -670,10 +671,10 @@ window.va('beforeSend', function (event) {
    <a class="door-book" href="https://book.halamove.co.za/book/?s=web-hero" aria-label="Book a move, no app needed">Book a move</a>
    <a class="door-drive" href="/drive?s=web-herod" data-desk="/download">I'm a driver</a>
   </div>
-  <ol class="conn" aria-label="How a load moves on HALA MOVE" data-motion-hero-el="trust">
-   <li><span class="conn-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 10v10h16V10"/><path d="M2.5 10 4.5 4h15l2 6z"/><path d="M10 20v-5h4v5"/></svg></span><b>The store</b><span class="conn-l">Price agreed before pickup</span></li>
+  <ol class="conn" role="list" aria-label="How a load moves on HALA MOVE" data-motion-hero-el="trust">
+   <li><span class="conn-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 10v10h16V10"/><path d="M2.5 10 4.5 4h15l2 6z"/><path d="M10 20v-5h4v5"/></svg></span><b>The store</b><span class="conn-l">You choose the price</span></li>
    <li><span class="conn-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="10" cy="8" r="3.5"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="m16 11.5 2 2 4-4"/></svg></span><b>A checked driver</b><span class="conn-l">ID, licence and vehicle verified</span></li>
-   <li><span class="conn-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M3 11 12 4l9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></svg></span><b>The doorstep</b><span class="conn-l">Followed live on the map</span></li>
+   <li><span class="conn-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M3 11 12 4l9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></svg></span><b>The doorstep</b><span class="conn-l">Track your driver live</span></li>
    <li><span class="conn-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h7M9 16h5"/></svg></span><b>The record</b><span class="conn-l" data-conn-rec>Every job on record</span></li>
   </ol>
  </div>
