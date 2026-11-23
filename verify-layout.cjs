@@ -54,7 +54,11 @@ function check(files) {
   const fails = [];
   let bars = 0, tables = 0, phoneRows = 0;
   for (const [name, src] of Object.entries(files)) {
-    const css = src.slice(0, src.indexOf('</style>'));
+    // the page's own styles, then every site stylesheet it links (the shared bar lives in assets/nav.css since
+    // 2026-11-24), so a rule moved out of the page is still read
+    const linked = [...src.matchAll(/<link rel="stylesheet" href="\/(assets\/[\w-]+\.css)">/g)]
+      .map((m) => (fs.existsSync(path.join(ROOT, m[1])) ? fs.readFileSync(path.join(ROOT, m[1]), 'utf8') : ''));
+    const css = src.slice(0, src.indexOf('</style>')) + '\n' + linked.join('\n');
     if (src.includes('class="nav-inner"')) {
       bars++;
       if (/class="nav-live"/.test(src) || /\.nav-live\{/.test(css)) fails.push(name + ': the Live pill is back in the top bar');

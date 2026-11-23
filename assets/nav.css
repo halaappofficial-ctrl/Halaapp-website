@@ -1,0 +1,40 @@
+/* THE SITE'S TOP BAR (2026-11-24). The rules every page's bar runs on, scoped to #main-nav so they reach nothing else,
+   kept in one file so a change to the bar is made once. The download page and the three code pages (invite, driver
+   invite, creator) load it; the other pages still carry the same rules inline, and move here the next time the bar
+   changes. Uses the site's colour tokens (--b, --t, --t2), which every page defines in its :root. */
+#main-nav{position:sticky;top:0;left:0;right:0;z-index:900; background:rgba(10,10,10,.92);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px); border-bottom:1px solid var(--b);height:64px; display:flex;align-items:center; transition:background .3s;}
+#main-nav.scrolled{background:rgba(10,10,10,.98)}
+#main-nav ul{list-style:none;margin:0;padding:0}
+#main-nav a{text-decoration:none}
+.nav-inner{display:flex;align-items:center;justify-content:space-between; width:100%;max-width:1180px;margin:0 auto;padding:0 24px; gap:24px;}
+.nav-logo{display:flex;align-items:center; flex-shrink:0;}
+.nav-links{display:flex;gap:28px;align-items:center;flex:1;justify-content:center}
+.nav-links a{font-size:.875rem;font-weight:400;color:var(--t2); letter-spacing:0;transition:color .2s;white-space:nowrap}
+.nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--t)}
+.nav-links a:focus-visible{outline:2px solid var(--g);outline-offset:3px;border-radius:2px}
+.nav-btns{display:flex;gap:8px;align-items:center;flex-shrink:0}
+/* A bar without install buttons ends on its links, so they sit at the right edge where the buttons would be. */
+@media(min-width:768px){.nav-inner:not(:has(.nav-btns)) .nav-links{justify-content:flex-end}}
+@media(min-width:768px) and (max-width:1199px){
+  .nav-btns .btn-ghost{display:none}
+  .nav-links{gap:18px}
+  .nav-inner{column-gap:16px}
+}
+@media(min-width:768px) and (max-width:959px){
+  #main-nav{height:auto}
+  .nav-inner{flex-wrap:wrap;row-gap:2px;padding-top:10px;padding-bottom:6px}
+  .nav-btns{margin-left:auto}
+  .nav-links{flex:0 0 100%;order:10;justify-content:flex-start;gap:24px;padding:2px 0 4px}
+  .nav-links a{white-space:nowrap}
+}
+@media(max-width:767px){
+  #main-nav{height:auto}
+  .nav-inner{flex-wrap:wrap;padding:10px 16px;gap:6px;row-gap:4px}
+  .nav-btns{margin-left:auto;flex:0 0 auto;gap:6px}
+  .nav-btns .btn{padding:9px 14px;font-size:.75rem}
+  .nav-btns .btn-ghost{display:none}
+  .nav-links{display:flex;flex:0 0 100%;order:10; gap:22px;justify-content:flex-start; overflow-x:auto;-webkit-overflow-scrolling:touch; padding:4px 32px 6px 2px;margin:0; -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent);mask-image:linear-gradient(90deg,#000 calc(100% - 32px),transparent);scrollbar-width:none;-ms-overflow-style:none;}
+  .nav-links::-webkit-scrollbar{display:none}
+  .nav-links a{font-size:.8125rem;font-weight:600; white-space:nowrap;padding:4px 0;color:var(--t2);}
+  .nav-links li{flex-shrink:0;list-style:none}
+}

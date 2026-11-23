@@ -28,7 +28,8 @@
 //      (em, %) that follows its parent, and a rule whose classes appear nowhere on the page.
 //   5. Headings are never letter-spaced out; mixed-case text is never letter-spaced out (capitals labels may be).
 //   6. The wordmark keeps its two words apart (word-spacing on every wordmark rule): Outfit 900's space is 0.18em.
-//   7. Every .brand wordmark reads HALA in brand green (#5CB558) and MOVE in white (#FFFFFF), as the brand sets it.
+//   7. Every .brand wordmark, and the site bar's wordmark, reads HALA in brand green (#5CB558) and MOVE in white
+//      (#FFFFFF), as the brand sets it.
 //      Found in Chrome at 390 px: download, creator, invite and driver-invite had the colours reversed (HALA white,
 //      MOVE green), and refund, track and reset-password set both words in green.
 //   8. A page with its own Content-Security-Policy lets this site's stylesheet and fonts load ('self' in style-src
@@ -196,6 +197,15 @@ function check(x) {
   if (/Google Fonts/.test(x.pages['cookie-policy.html'] || '')) fails.push('cookie-policy.html: still lists Google Fonts, which the site no longer calls');
   // 7. wordmark colours: HALA green, MOVE white
   for (const [f, html] of Object.entries(x.pages)) {
+    // the site bar's wordmark (2026-11-24: the download and code pages moved from a .brand strip onto it, so the rule
+    // reads it too, or those four pages would have left its view)
+    for (const m of html.matchAll(/class="nav-logo"[\s\S]*?<\/a>/g)) {
+      counts.brandMarks++;
+      const w = /<span style="color:(#[0-9A-Fa-f]{6});">HALA<\/span><span style="color:(#[0-9A-Fa-f]{6});"> MOVE<\/span>/.exec(m[0]);
+      if (!w) { fails.push(`${f}: the bar's wordmark is not HALA then MOVE, each in its own colour`); continue; }
+      if (w[1].toUpperCase() !== '#5CB558') fails.push(`${f}: HALA in the bar's wordmark is ${w[1]}, the brand sets #5CB558`);
+      if (w[2].toUpperCase() !== '#FFFFFF') fails.push(`${f}: MOVE in the bar's wordmark is ${w[2]}, the brand sets #FFFFFF`);
+    }
     const marks = html.match(/class="brand"[^>]*>/g) || [];
     if (!marks.length) continue;
     const css = live(html).replace(/\s+/g, '');
@@ -277,13 +287,13 @@ if (process.argv.includes('--prove')) {
     ['a face file missing', (x) => ({ ...x, fontBytes: { ...x.fontBytes, 'barlow-600.woff2': null } })],
     ['a face loaded without font-display swap', (x) => ({ ...x, typeCss: x.typeCss.replace("font-weight:900;font-display:swap", 'font-weight:900;font-display:block') })],
     ['the /card page back on Google Fonts', (x) => ({ ...x, middleware: x.middleware.replace('<link rel="stylesheet" href="/assets/type.css">', '<link href="https://fonts.googleapis.com/css2?family=Outfit" rel="stylesheet">') })],
-    ['the wordmark colours reversed on the invite page', page('invite.html', 'class="brand"><span>HALA</span> MOVE', 'class="brand">HALA <span>MOVE</span>')],
+    ['the wordmark colours reversed on the invite page', page('invite.html', '<span style="color:#5CB558;">HALA</span><span style="color:#FFFFFF;"> MOVE</span>', '<span style="color:#FFFFFF;">HALA</span><span style="color:#5CB558;"> MOVE</span>')],
     ['the wordmark all green on the tracking page', page('track.html', 'color:var(--text);font-family:var(--disp);word-spacing:.12em}', 'color:var(--green);font-family:var(--disp);word-spacing:.12em}')],
     ['the reset page blocks its own fonts again', page('reset-password.html', "font-src 'self'; ", '')],
     ['the reset page blocks its own stylesheet again', page('reset-password.html', "style-src 'self' 'unsafe-inline'", "style-src 'unsafe-inline'")],
     ['the quote wordmark dropped to 600', page('quote.html', '.wm{font-family:var(--display);font-weight:900', '.wm{font-family:var(--display);font-weight:600')],
     ['HALA off-green in the quote wordmark', page('quote.html', '.wm b{color:var(--g)}', '.wm b{color:#FFFFFF}')],
-    ['MOVE set off-white on the download page', page('download.html', /(\.brand \{[^}]*?)color: #FFFFFF;/, '$1color: var(--text);')],
+    ['MOVE set off-white on the download page', page('download.html', '<span style="color:#FFFFFF;"> MOVE</span>', '<span style="color:#F5F5F5;"> MOVE</span>')],
     ['the reading measure taken out of type.css', (x) => ({ ...x, typeCss: x.typeCss.replace('.prose p,.prose li,.prose dd{max-width:28em}', '') })],
     ['the reading measure widened to 40em', (x) => ({ ...x, typeCss: x.typeCss.replace('.prose p,.prose li,.prose dd{max-width:28em}', '.prose p,.prose li,.prose dd{max-width:40em}') })],
     ['an article lede held in px again', page('terms.html', 'max-width:28em;line-height:1.6"', 'max-width:560px;line-height:1.6"')],
