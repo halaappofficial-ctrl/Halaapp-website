@@ -28,6 +28,7 @@ function judge(src, hook) {
   check('no figure is written into the section', sec && !/[0-9]/.test(words), (words.match(/[^ ]*[0-9][^ ]*/) || [''])[0]);
   check('the figures come from the live record', src.includes("fetch('" + URL_ + "')"));
   check('the caption is written as text', src.includes(".rec-cap').textContent = v.caption"));
+  check('the hero record station is filled from the same view, as text', /document\.querySelector\('\[data-conn-rec\]'\)[\s\S]{0,80}\.textContent = v\.short/.test(src));
   check('a hidden figure stays hidden', src.includes('.rec [hidden]{display:none}'));
   check('the gate runs before every push', /GATES="[^"]*\bverify-record\.cjs\b/.test(hook));
 
@@ -50,6 +51,7 @@ function judge(src, hook) {
     same('disputes', real.disputes, ['0', 'disputes raised']);
     same('refunds', real.refunds, ['0', 'refunds on a completed delivery']);
     same('thumbs up after paying', real.paid, ['15 of 16', 'customers gave paying a thumbs up']);
+    same('the record station in the hero, the real record', real.short, '21 deliveries, 0 disputes');
   }
 
   for (const k of KEYS) {
@@ -71,6 +73,9 @@ function judge(src, hook) {
   same('one refund is shown as one', run(Object.assign({}, REAL, { refunds: 1 })).refunds, ['1', 'refund on a completed delivery']);
   same('no thumbs answers, no thumbs figure', run(Object.assign({}, REAL, { paid_up: 0, paid_n: 0 })).paid, null);
   same('one delivery, unrated', run({ completed: 1, disputes: 0, refunds: 0, rated: 0, rated_five: 0, paid_up: 0, paid_n: 0 }).caption, '1 delivery completed.');
+  same('the record station, one delivery', run({ completed: 1, disputes: 0, refunds: 0, rated: 0, rated_five: 0, paid_up: 0, paid_n: 0 }).short, '1 delivery, 0 disputes');
+  same('the record station, one dispute', run(Object.assign({}, REAL, { disputes: 1 })).short, '21 deliveries, 1 dispute');
+  same('the record station, two disputes', run(Object.assign({}, REAL, { disputes: 2 })).short, '21 deliveries, 2 disputes');
   const big = run(Object.assign({}, REAL, { completed: 200 }));
   same('past 120 deliveries the caption carries it alone', big && [big.marks.length, big.caption], [0, '200 deliveries completed. All 14 ratings are 5 stars.']);
   same('at most 12 squares a row', run(Object.assign({}, REAL, { completed: 60 })).cols, 12);

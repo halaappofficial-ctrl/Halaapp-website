@@ -10,6 +10,18 @@
 // material they get to know who we are and what problems we are here to solve" - so the reading is capped, and the
 // picture (the five vehicle sizes) carries the rest, each leading to the customer app or the driver app.
 //
+// AMENDED 2026-11-24 (design review item 9, executed on Eric's instruction to carry out every recommendation): the
+// brightest thing at first glance was a white card with a bakkie photo (57% of a 1440x900 first screen, 44% of
+// 390x844), which reads as bakkie hire. HALA MOVE is the rail goods move on, so the hero now opens on the connection:
+// the three words and the line, two doors (Book a move, I'm a driver), then one drawn figure of four stations on a
+// line - the store, a checked driver, the doorstep, the record - and the vehicles one step in. The doors keep booking
+// on the first screen once the vehicles move down. The record station's figure comes only from the live record
+// (recordView() in index.html, driven by verify-record.cjs); the page carries no figure of its own.
+//   9. Order: heading, doors, connection, vehicles. Four stations, in order, each an HTML label beside a hidden icon,
+//      no link or button inside (a figure, not four tiles), no digit in the markup, at most 30 words.
+//  10. The doors: Book goes to the web booking (never rewritten for computers), the driver door to /drive and, on a
+//      computer, /download. A motion key used twice leaves the second element hidden, so each key is used once.
+//
 // What breaks it silently, and is therefore checked here:
 //   1. A rail element tagged data-motion-hero-el. assets/motion.js pre-hides every tagged hero element and animates
 //      only five named keys, so a tagged rail would sit at opacity 0 for every visitor with JavaScript on.
@@ -68,6 +80,47 @@ function check(html, leadForm) {
   const keys = (hero.match(/data-motion-hero-el="([a-z]+)"/g) || []).map((m) => m.split('"')[1]);
   const known = ['eyebrow', 'h1', 'sub', 'cta', 'trust'];
   keys.filter((k) => !known.includes(k)).forEach((k) => fails.push('hero key "' + k + '" is not one motion.js animates, so it stays hidden'));
+  keys.filter((k, i) => keys.indexOf(k) !== i).forEach((k) => fails.push('hero key "' + k + '" is used twice; motion.js animates only the first, so the second stays hidden'));
+
+  // 9 + 10. the opening: heading, two doors, the connection, then the vehicles
+  const d0 = hero.indexOf('<div class="hero-doors"');
+  const c0 = hero.indexOf('<ol class="conn"');
+  const c1 = c0 < 0 ? -1 : hero.indexOf('</ol>', c0);
+  if (d0 < 0) fails.push('the hero has no doors, so booking leaves the first screen with the vehicles');
+  if (c0 < 0 || c1 < 0) fails.push('the hero does not open on the connection');
+  if (d0 >= 0 && c0 >= 0 && !(d0 < c0 && c1 < r0)) fails.push('the hero must read heading, doors, connection, then the vehicles');
+  if (d0 >= 0) {
+    const doors = hero.slice(d0, c0 > d0 ? c0 : r0);
+    const links = [...doors.matchAll(/<a ([^>]*)>([^<]+)<\/a>/g)].map((m) => ({ attrs: m[1], label: m[2].trim(), href: (m[1].match(/href="([^"]+)"/) || [])[1] || '' }));
+    const want = [['Book a move', 'https://book.halamove.co.za/book/?s=web-hero'], ["I'm a driver", '/drive?s=web-herod']];
+    if (links.length !== want.length) fails.push('the hero has ' + links.length + ' doors, expected ' + want.length);
+    want.forEach(([label, href], i) => {
+      const l = links[i];
+      if (!l) return;
+      if (l.label !== label) fails.push('door ' + (i + 1) + ' reads "' + l.label + '", expected "' + label + '"');
+      if (l.href !== href) fails.push('"' + label + '" goes to ' + (l.href || 'nowhere') + ', expected ' + href);
+      const code = l.href.split('?s=')[1] || '';
+      if (!/^[A-Za-z0-9_-]{1,32}$/.test(code)) fails.push('"' + label + '": code ' + code + ' would be rejected by middleware.js');
+      if (!code.startsWith('web-')) fails.push('"' + label + '": code ' + code + ' would be filed as a printed board');
+    });
+    if (links[0] && /data-desk/.test(links[0].attrs)) fails.push('the hero Book door would send a computer away from the web booking');
+    if (links[1] && !/data-desk="\/download"/.test(links[1].attrs)) fails.push('the hero driver door would not send a computer to /download');
+    if (!/querySelectorAll\('[^']*\.hero-doors \[data-desk\][^']*'\)/.test(html)) fails.push('the computer rewrite does not reach the hero doors');
+  }
+  if (c0 >= 0 && c1 >= 0) {
+    const conn = hero.slice(c0, c1);
+    const items = conn.split(/<li[ >]/).slice(1);
+    const names = items.map((li) => ((li.match(/<b>([^<]+)<\/b>/) || [])[1] || '').trim());
+    const STATIONS = ['The store', 'A checked driver', 'The doorstep', 'The record'];
+    if (names.join('|') !== STATIONS.join('|')) fails.push('the connection reads ' + (names.join(', ') || 'nothing') + ', expected ' + STATIONS.join(', '));
+    items.forEach((li, i) => { if (!/<svg [^>]*aria-hidden="true"/.test(li)) fails.push('station ' + (i + 1) + ' has no hidden icon'); });
+    if (/<(a|button)[\s>]/.test(conn)) fails.push('a station is a link or a button; the connection is one figure, not four tiles');
+    const text = conn.replace(/<svg[\s\S]*?<\/svg>/g, ' ').replace(/<[^>]+>/g, ' ');
+    if (/[0-9]/.test(text)) fails.push('a figure is written into the connection; the record station takes its figure from the live record');
+    if (!/<span [^>]*data-conn-rec[^>]*>/.test(items[3] || '')) fails.push('the record station has no place for the live record');
+    const cw = text.replace(/&[a-z]+;/g, ' ').split(/\s+/).filter(Boolean).length;
+    if (cw > 30) fails.push('the connection reads ' + cw + ' words, the cap is 30');
+  }
 
   // 2 + 3. five cards, in order, each with its picture, its line and both doors
   const cards = rail.split(/<li class="rail-card"[^>]*>/).slice(1);
@@ -126,8 +179,8 @@ function check(html, leadForm) {
     fails.push('the first picture must load at once and the rest lazily');
   }
 
-  // 4. the reading stays short
-  const words = hero.slice(0, r0).replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;|·/g, ' ').split(/\s+/).filter(Boolean);
+  // 4. the reading stays short (the heading and its line; the doors and the connection are held above)
+  const words = hero.slice(0, d0 >= 0 ? d0 : r0).replace(/<[^>]+>/g, ' ').replace(/&[a-z]+;|·/g, ' ').split(/\s+/).filter(Boolean);
   if (words.length > MAX_HERO_WORDS) fails.push('the hero reads ' + words.length + ' words, the cap is ' + MAX_HERO_WORDS);
 
   // 5. booking without the app is live: every Book goes there (checked per frame above), and no other booking door
@@ -165,6 +218,18 @@ let proveFails = [];
 if (process.argv.includes('--prove')) {
   const breaks = [
     ['tag the rail for the motion script', (s) => s.replace('<div class="rail-wrap">', '<div class="rail-wrap" data-motion-hero-el="rail">')],
+    ['the connection removed', (s) => s.replace(/<ol class="conn"[\s\S]*?<\/ol>/, '')],
+    ['two stations swapped', (s) => s.replace('<b>The store</b>', '<b>THE_SWAP</b>').replace('<b>The doorstep</b>', '<b>The store</b>').replace('<b>THE_SWAP</b>', '<b>The doorstep</b>')],
+    ['the vehicles before the connection', (s) => { const m = s.match(/ *<ol class="conn"[\s\S]*?<\/ol>\r?\n/); return m ? s.replace(m[0], '').replace(' <div class="container">\n    <!-- GOOGLE PLAY', m[0] + ' <div class="container">\n    <!-- GOOGLE PLAY') : s; }],
+    ['a figure written into the record station', (s) => s.replace(/(<span [^>]*data-conn-rec[^>]*>)[^<]*/, '$121 deliveries, 0 disputes')],
+    ['a station made a link', (s) => s.replace('<b>A checked driver</b>', '<a href="#drivers"><b>A checked driver</b></a>')],
+    ['a motion key used twice', (s) => s.replace('<div class="store-row">', '<div class="store-row" data-motion-hero-el="cta">')],
+    ['the doors removed', (s) => s.replace(/ *<div class="hero-doors"[\s\S]*?<\/div>\r?\n/, '')],
+    ['the hero Book door rewritten for computers', (s) => s.replace('href="https://book.halamove.co.za/book/?s=web-hero" ', 'href="https://book.halamove.co.za/book/?s=web-hero" data-desk="/download" ')],
+    ['the hero Book door sent to the stores', (s) => s.replace('href="https://book.halamove.co.za/book/?s=web-hero"', 'href="/get?s=web-hero"')],
+    ['the driver door kept from computers', (s) => s.replace(/(href="\/drive\?s=web-herod") data-desk="\/download"/, '$1')],
+    ['the computer rewrite misses the doors', (s) => s.replace(", .hero-doors [data-desk]'", "'")],
+    ['the connection grows', (s) => s.replace('<b>The record</b>', '<b>The record</b> kept for every single delivery that has ever been booked through any of the doors we run')],
     ['drop a web- code', (s) => s.replace('/get?s=web-hero-van', '/get?s=hero-van')],
     ['a code middleware rejects', (s) => s.replace('/drive?s=web-herod-4t', '/drive?s=web-herod-4t!')],
     ['a missing picture', (s) => s.split('box_truck.v1-1640.webp').join('box_truck.v9-1640.webp')],
