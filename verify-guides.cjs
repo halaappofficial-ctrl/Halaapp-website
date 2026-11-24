@@ -7,7 +7,7 @@
 //                                    #          every screen on disk at the size it claims
 //   node verify-guides.cjs --prove   # also breaks each rule in memory and requires the check to go red
 //
-// THE PAGE (2026-11-24): [ERIC] the four-station figure left the home page; the how-to belongs "under a section of
+// THE PAGE (2026-11-24): the four-station figure left the home page; the how-to belongs "under a section of
 // button of guides which describes how and steps of using our platforms", on the real screens, "without using generic
 // emoji and poor icons on our materials". guides.html shows real HALA MOVE pages with example details.
 //

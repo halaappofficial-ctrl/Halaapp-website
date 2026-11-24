@@ -436,12 +436,6 @@ nav.scrolled{background:rgba(10,10,10,.98)}
  animation:fadeIn 1s cubic-bezier(.4,0,.2,1) .3s both;
 }
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.phone-glow{
- position:absolute;
- width:300px;height:400px;
- background:radial-gradient(ellipse at center,rgba(92,181,88,.18) 0%,transparent 70%);
- pointer-events:none;
-}
 .phone{
  width:250px;
  background:#111;
@@ -651,13 +645,7 @@ nav.scrolled{background:rgba(10,10,10,.98)}
  transition:border-color .25s,transform .25s,box-shadow .25s;
  position:relative;overflow:hidden;
 }
-.feat-card::after{
- content:'';position:absolute;inset:0;
- background:radial-gradient(circle at top right,rgba(92,181,88,.04) 0%,transparent 60%);
- opacity:0;transition:opacity .3s;
-}
 .feat-card:hover{border-color:rgba(92,181,88,.3);transform:translateY(-4px);box-shadow:0 24px 64px rgba(0,0,0,.4)}
-.feat-card:hover::after{opacity:1}
 .feat-icon{
  display:inline-flex;align-items:center;justify-content:center;
  width:48px;height:48px;border-radius:12px;
@@ -860,13 +848,6 @@ nav.scrolled{background:rgba(10,10,10,.98)}
  position:relative;overflow:hidden;
  border-top:1px solid var(--b);
 }
-.app-cta::before{
- content:'';position:absolute;
- top:50%;left:50%;transform:translate(-50%,-50%);
- width:800px;height:400px;
- background:radial-gradient(ellipse at center,rgba(92,181,88,.1) 0%,transparent 65%);
- pointer-events:none;
-}
 .cta-inner{
  position:relative;z-index:2;
  text-align:center;max-width:680px;margin:0 auto;
@@ -1049,7 +1030,6 @@ footer{
  .hero-h1{font-size:clamp(2.5rem,9vw,3rem);letter-spacing:-.022em;line-height:1.06;text-wrap:balance}
  .hero-grid{gap:40px}
  .phone{width:220px}
- .phone-glow{width:240px;height:320px}
  .steps{gap:16px}
  .feat-card{padding:24px}
  .btn-lg{padding:14px 24px;font-size:.9375rem}

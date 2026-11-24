@@ -447,12 +447,6 @@ nav.scrolled{background:rgba(10,10,10,.98)}
  animation:fadeIn 1s cubic-bezier(.4,0,.2,1) .3s both;
 }
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.phone-glow{
- position:absolute;
- width:300px;height:400px;
- background:radial-gradient(ellipse at center,rgba(92,181,88,.18) 0%,transparent 70%);
- pointer-events:none;
-}
 .phone{
  width:250px;
  background:#111;
@@ -662,13 +656,7 @@ nav.scrolled{background:rgba(10,10,10,.98)}
  transition:border-color .25s,transform .25s,box-shadow .25s;
  position:relative;overflow:hidden;
 }
-.feat-card::after{
- content:'';position:absolute;inset:0;
- background:radial-gradient(circle at top right,rgba(92,181,88,.04) 0%,transparent 60%);
- opacity:0;transition:opacity .3s;
-}
 .feat-card:hover{border-color:rgba(92,181,88,.3);transform:translateY(-4px);box-shadow:0 24px 64px rgba(0,0,0,.4)}
-.feat-card:hover::after{opacity:1}
 .feat-icon{
  display:inline-flex;align-items:center;justify-content:center;
  width:48px;height:48px;border-radius:12px;
@@ -871,13 +859,6 @@ nav.scrolled{background:rgba(10,10,10,.98)}
  position:relative;overflow:hidden;
  border-top:1px solid var(--b);
 }
-.app-cta::before{
- content:'';position:absolute;
- top:50%;left:50%;transform:translate(-50%,-50%);
- width:800px;height:400px;
- background:radial-gradient(ellipse at center,rgba(92,181,88,.1) 0%,transparent 65%);
- pointer-events:none;
-}
 .cta-inner{
  position:relative;z-index:2;
  text-align:center;max-width:680px;margin:0 auto;
@@ -1060,7 +1041,6 @@ footer{
  .hero-h1{font-size:clamp(2.5rem,9vw,3rem);letter-spacing:-.022em;line-height:1.06;text-wrap:balance}
  .hero-grid{gap:40px}
  .phone{width:220px}
- .phone-glow{width:240px;height:320px}
  .steps{gap:16px}
  .feat-card{padding:24px}
  .btn-lg{padding:14px 24px;font-size:.9375rem}
@@ -1162,7 +1142,7 @@ window.va('beforeSend', function (event) {
  <div class="container">
   <div class="page-hero-eyebrow">B2B Contracts &middot; Durban &amp; KZN</div>
   <h1 class="page-title">Business Transport in Durban</h1>
-  <p style="font-size:clamp(1.0625rem,2vw,1.1875rem);color:var(--t2);max-width:28em;line-height:1.6">Your customer phones to ask where their delivery is, and you have to phone somebody else and hope. Your name is on work done by a driver you have never met, and owning vehicles means paying for them on the days nothing moves. <strong>You should not have to own the trucks to be the one who keeps the promise.</strong> HALA MOVE runs formal B2B contracts in KwaZulu-Natal from <strong>R5,000/month</strong>: live vehicle positions, on-time measured on every single job, a timestamped photo per delivery, the choice of a covered vehicle that keeps rain off your stock, CO2 per route for your ESG reporting, CSV export into your own systems, and one monthly invoice. Every vehicle class, from a small bakkie to a 4-tonne truck.</p>
+  <p style="font-size:clamp(1.0625rem,2vw,1.1875rem);color:var(--t2);max-width:28em;line-height:1.6">Your customer phones to ask where their delivery is, and you have to phone somebody else and hope. Your name is on work done by a driver you have never met, and owning vehicles means paying for them on the days nothing moves. <strong>You should not have to own the trucks to be the one who keeps the promise.</strong> HALA MOVE runs formal B2B contracts in KwaZulu-Natal from <strong>R5,000/month</strong>: live vehicle positions, on-time measured on every single job, a timestamped photo per delivery, the choice of a covered vehicle that keeps rain off your stock, CO2 per route for your ESG reporting, CSV export into your own systems, and one invoice a week. Every vehicle class, from a small bakkie to a 4-tonne truck.</p>
   <div class="page-meta">
    <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><circle cx="6.5" cy="6.5" r="5.5" stroke="#666" stroke-width="1.2"/><path d="M6.5 3.5v3l2 1.5" stroke="#666" stroke-width="1.2" stroke-linecap="round"/></svg> Durban, KwaZulu-Natal &middot; Live now</span>
    <span><svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1L8 5h4l-3.5 2.5 1.5 4L6.5 9 3 11.5l1.5-4L1 5h4z" stroke="#666" stroke-width="1.1" stroke-linecap="round" stroke-linejoin="round"/></svg> On-time measured &middot; ESG reporting &middot; Verified fleet</span>

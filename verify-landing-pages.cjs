@@ -69,7 +69,7 @@ const pages = [
       ['retailers', 'Retailers and manufacturers'],
       ['universities', 'Universities and schools'],
       ['government', 'Government and municipal'],
-      // INVERTED 2026-11-02 ([ERIC] "YES TO ALL 8", item 5): no contract carries agreed SLA terms, so the page
+      // INVERTED 2026-11-02 ("YES TO ALL 8", item 5): no contract carries agreed SLA terms, so the page
       // says what IS true - on-time performance is measured on every delivery - and this forbids the promise.
       ['no agreed-SLA promise (2026-11-02)', null, 'SLA terms'],
       ['on-time measured, the sourced line', 'On-time performance measured on every delivery'],

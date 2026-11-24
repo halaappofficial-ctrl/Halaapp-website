@@ -418,9 +418,7 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .features-header{margin-bottom:64px}
 .features-grid{display:grid;grid-template-columns:1fr;gap:20px}
 .feat-card{background:var(--s2);border:1px solid var(--b);border-radius:var(--rl);padding:32px;display:flex;flex-direction:column;gap:14px;transition:border-color .25s,transform .25s,box-shadow .25s;position:relative;overflow:hidden}
-.feat-card::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at top right,rgba(92,181,88,.04) 0%,transparent 60%);opacity:0;transition:opacity .3s}
 .feat-card:hover{border-color:rgba(92,181,88,.3);transform:translateY(-4px);box-shadow:0 24px 64px rgba(0,0,0,.4)}
-.feat-card:hover::after{opacity:1}
 .feat-icon{display:inline-flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:12px;background:var(--gmid);border:1px solid rgba(92,181,88,.2);font-size:1.4rem}
 .feat-card h3{font-size:1.0625rem;font-weight:600;color:var(--t)}
 .feat-card p{font-size:.9375rem;color:var(--t2);line-height:1.6;flex:1}
@@ -483,7 +481,6 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .testi-badge{display:inline-flex;align-items:center;gap:5px;background:var(--gmid);border:1px solid rgba(92,181,88,.2);border-radius:20px;padding:3px 10px;font-size:.75rem;font-weight:600;color:var(--g);letter-spacing:.06em;text-transform:uppercase}
 @media(min-width:768px){.testi-grid{grid-template-columns:repeat(3,1fr)}}
 .app-cta{padding:80px 0;position:relative;overflow:hidden;border-top:1px solid var(--b)}
-.app-cta::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:800px;height:400px;background:radial-gradient(ellipse at center,rgba(92,181,88,.1) 0%,transparent 65%);pointer-events:none}
 .cta-inner{position:relative;z-index:2;text-align:center;max-width:680px;margin:0 auto}
 .cta-inner .eyebrow{justify-content:center}
 .app-cta-h{font-family:var(--disp);font-size:clamp(3rem,6vw,5rem);line-height:1.02;letter-spacing:-.025em;margin-bottom:20px;font-weight:600;text-wrap:balance}

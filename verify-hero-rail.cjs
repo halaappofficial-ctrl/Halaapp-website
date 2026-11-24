@@ -26,7 +26,7 @@
 //      stage is off screen.
 //   7. Frames hidden for good: the CSS fades the frames that are not in view only once the script has marked the
 //      current one (.rail.is-live), so a page whose script fails still shows every vehicle in full.
-//   8. The vehicle as drivers have it (2026-11-17). [ERIC] "drivers such as shaughn love to see there vehicles as they
+//   8. The vehicle as drivers have it (2026-11-17). "drivers such as shaughn love to see there vehicles as they
 //      have them either covered or with back cabin trailers", and the website shows what the apps and the booking page
 //      show. Each size lists how it comes (open first, then covered and with a trailer): the backend's
 //      CATEGORY_VARIANTS (src/constants/vehicleImages.js), mirrored in `vars` below. A size with one way to come has
@@ -34,7 +34,7 @@
 //      Every picture's backdrop is pure white (255): the card blends pictures with multiply, so a backdrop of 253 (the
 //      backend set's) shows as a faint box around the vehicle. Lift the white point when making a site copy.
 //      This gate cannot decode a JPEG to check it; look at the render.
-//   9. The vehicles come first (2026-11-24). [ERIC] of a drawn four-station figure placed above the vehicles: "The
+//   9. The vehicles come first (2026-11-24). Of a drawn four-station figure placed above the vehicles: "The
 //      original design with vehicles images is better. Such details belong under a section of button of "guides"".
 //      So the hero reads the heading and its line, then the vehicle stage, with nothing between them: no figure, no
 //      list, no row of doors ahead of the pictures. How the platform works is told on the guides page.
@@ -102,7 +102,7 @@ function check(html, leadForm) {
     const app = (lines[sz.name] || '').replace(/\.$/, '').split('. ')[0];
     if (!app) fails.push(sz.name + ': no line for this size in assets/lead-form.js');
     else if (fits !== app) fails.push(sz.name + ': the line "' + fits + '" is not the app\'s "' + app + '"');
-    // A size line describes the load, never a home (Eric 2026-11-17, goods wording: HALA MOVE is the rail goods move on).
+    // A size line describes the load, never a home (2026-11-17, goods wording: HALA MOVE is the rail goods move on).
     if (/\b(home|homes|household|bedroom|one-bed|studio|house)\b/i.test(fits)) fails.push(sz.name + ': the line "' + fits + '" describes a home, not a load');
     for (const f of [480, 800, 1200, 1640].map((w) => sz.img + '.v1-' + w + '.webp').concat(sz.img + '.v1-1200.jpg')) {
       if (!c.includes('/images/vehicles/' + f)) fails.push(sz.name + ': does not use ' + f);
