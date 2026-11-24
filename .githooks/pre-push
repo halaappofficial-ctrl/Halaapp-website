@@ -4,13 +4,13 @@
 #
 # The gates are listed by name, never globbed: a deleted gate must fail the push rather than drop out of it
 # silently, and a new verify-*.cjs that arrives in a pull must not run on this machine until someone has read it
-# and added it here. copy, hero-rail, record, type, button-labels and float run with --prove, so a gate that has been gutted fails too.
+# and added it here. copy, hero-rail, record, type, button-labels float, links, site-system and guides run with --prove, so a gate that has been gutted fails too.
 cd "$(git rev-parse --show-toplevel)" || exit 1
 
 GATES="verify-contact-routes.cjs verify-copy.cjs verify-hero-rail.cjs verify-landing-pages.cjs verify-layout.cjs
 verify-record.cjs verify-refund-renewal.cjs verify-required-marks.cjs verify-reset-password.cjs verify-self-serve.cjs verify-track-eta.cjs verify-track-vehicle.cjs
-verify-type.cjs verify-vercel-config.cjs verify-videos.cjs verify-dated-notices.cjs verify-button-labels.cjs verify-float.cjs verify-dead-scripts.cjs verify-links.cjs verify-site-system.cjs"
-PROVE="verify-copy.cjs verify-hero-rail.cjs verify-record.cjs verify-type.cjs verify-dated-notices.cjs verify-button-labels.cjs verify-float.cjs verify-dead-scripts.cjs verify-links.cjs verify-site-system.cjs"
+verify-type.cjs verify-vercel-config.cjs verify-videos.cjs verify-dated-notices.cjs verify-button-labels.cjs verify-float.cjs verify-dead-scripts.cjs verify-links.cjs verify-site-system.cjs verify-guides.cjs"
+PROVE="verify-copy.cjs verify-hero-rail.cjs verify-record.cjs verify-type.cjs verify-dated-notices.cjs verify-button-labels.cjs verify-float.cjs verify-dead-scripts.cjs verify-links.cjs verify-site-system.cjs verify-guides.cjs"
 
 failed=0
 for g in $GATES; do

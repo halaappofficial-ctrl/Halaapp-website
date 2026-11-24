@@ -17,22 +17,25 @@
 //      and carry no menu by design. A new page has to choose.
 //   2. Every page in the system defines the same colour tokens with the same values, and no others.
 //   3. No page paints the old customer blue.
-//   4. The download page and the code pages load the bar from assets/nav.css, carry the site's five menu links, and
-//      no install buttons in the bar (the page itself is the install). The download page marks its own link as
-//      the current page.
+//   4. The download page, the guides page and the code pages load the bar from assets/nav.css, carry the site's six
+//      menu links, and no install buttons in the bar (the download page itself is the install). The download and
+//      guides pages mark their own link as the current page; no other page marks one.
 //   5. A code page reads its code from the last part of the address, so opened at its own bare address (/invite,
 //      /driver-invite, /creator) it would read its own name as the code. Each one treats its own name as "no code"
 //      and shows its empty state. (Found 2026-11-24: /creator showed "creator" in the code box and sent it to the
 //      stores as the source.)
+//   6. Every page in the system links the guides from its bar (2026-11-24, [ERIC] the how-to belongs "under a section
+//      of button of guides"), placed before Get a Quote so a phone's bar shows it before the row scrolls.
 
 const fs = require('fs');
 const path = require('path');
 const ROOT = __dirname;
 
 const TASK_PAGES = ['delete-account.html', 'paid.html', 'payment-cancelled.html', 'quote.html', 'refund.html', 'reset-password.html', 'track.html'];
-const SHARED_BAR = ['creator.html', 'download.html', 'driver-invite.html', 'invite.html'];
+const SHARED_BAR = ['creator.html', 'download.html', 'driver-invite.html', 'guides.html', 'invite.html'];
+const OWN_LINK = { 'download.html': ['/download', 'Download'], 'guides.html': ['/guides', 'Guides'] };
 const CODE_PAGES = { 'invite.html': 'INVITE', 'driver-invite.html': 'DRIVER-INVITE', 'creator.html': 'CREATOR' };
-const MENU = [['/#customers', 'For Customers'], ['/#drivers', 'For Drivers'], ['/#business', 'For Business'], ['/quote', 'Get a Quote'], ['/download', 'Download']];
+const MENU = [['/#customers', 'For Customers'], ['/#drivers', 'For Drivers'], ['/#business', 'For Business'], ['/guides', 'Guides'], ['/quote', 'Get a Quote'], ['/download', 'Download']];
 
 function tokensOf(html) {
   const css = (html.match(/<style[^>]*>[\s\S]*?<\/style>/g) || []).join('');
@@ -49,6 +52,13 @@ function check(pages) {
     if (!inBar && !TASK_PAGES.includes(f)) fails.push(f + ': carries neither the site bar nor a place on the task-page list');
     if (inBar && TASK_PAGES.includes(f)) fails.push(f + ': is listed as a task page but carries the site bar (take it off the list)');
     if (/#4A9DE8|74,\s*157,\s*232/i.test(h)) fails.push(f + ': paints the old customer blue (#4A9DE8)');
+    if (inBar) {
+      const bar = h.match(/<nav id="main-nav"[\s\S]*?<\/nav>/)[0];
+      const g = bar.search(/<a href="\/guides"[^>]*>Guides<\/a>/);
+      const q = bar.search(/<a href="\/quote"[^>]*>Get a Quote<\/a>/);
+      if (g < 0) fails.push(f + ': the bar does not link the guides');
+      else if (q >= 0 && g > q) fails.push(f + ': Guides sits after Get a Quote, past what a phone bar shows first');
+    }
   }
   const ref = inSystem.find(([f]) => f === 'index.html') || inSystem[0];
   if (ref) {
@@ -69,12 +79,14 @@ function check(pages) {
     if (/class="topbar"/.test(h)) fails.push(f + ': still carries its own logo strip');
     const nav = h.match(/<nav id="main-nav"[\s\S]*?<\/nav>/)[0];
     const links = [...nav.matchAll(/<li><a href="([^"]+)"([^>]*)>([^<]+)<\/a><\/li>/g)].map((m) => [m[1], m[3]]);
-    if (JSON.stringify(links) !== JSON.stringify(MENU)) fails.push(f + ': the menu is not the site\'s five links (' + links.map((l) => l[1]).join(', ') + ')');
+    if (JSON.stringify(links) !== JSON.stringify(MENU)) fails.push(f + ': the menu is not the site\'s six links (' + links.map((l) => l[1]).join(', ') + ')');
     if (/nav-btns/.test(nav)) fails.push(f + ': the bar offers install buttons on a page whose own job is the install');
     if (!/class="nav-logo"[\s\S]*?<svg/.test(nav)) fails.push(f + ': the bar has lost the logo');
     const current = (nav.match(/aria-current="page"/g) || []).length;
-    if (f === 'download.html' && !/<a href="\/download" aria-current="page">Download<\/a>/.test(nav)) fails.push(f + ': the Download link does not mark itself as the current page');
-    if (f !== 'download.html' && current) fails.push(f + ': marks a menu link as the current page, and none of them is this page');
+    const own = OWN_LINK[f];
+    if (own && !nav.includes('<a href="' + own[0] + '" aria-current="page">' + own[1] + '</a>')) fails.push(f + ': the ' + own[1] + ' link does not mark itself as the current page');
+    if (own && current !== 1) fails.push(f + ': marks ' + current + ' menu links as the current page, not just its own');
+    if (!own && current) fails.push(f + ': marks a menu link as the current page, and none of them is this page');
   }
   for (const [f, own] of Object.entries(CODE_PAGES)) {
     const p = pages.find(([n]) => n === f);
@@ -107,6 +119,10 @@ if (process.argv.includes('--prove')) {
     ['the creator page reading its own name as a code', swap('creator.html', (h) => h.replace(" || raw === 'CREATOR'", ''))],
     ['the invite page reading its own name as a code', swap('invite.html', (h) => h.replace(" || raw === 'INVITE'", ''))],
     ['a menu link dropped', swap('download.html', (h) => h.replace('<li><a href="/quote">Get a Quote</a></li>', ''))],
+    ['Guides dropped from a page with its own bar', swap('faq.html', (h) => h.replace(/\n[ \t]*<li><a href="\/guides">Guides<\/a><\/li>/, ''))],
+    ['Guides moved after Get a Quote on the home page', swap('index.html', (h) => h.replace(/(\n[ \t]*)<li><a href="\/guides">Guides<\/a><\/li>(\n[ \t]*<li><a href="\/quote">Get a Quote<\/a><\/li>)/, '$2$1<li><a href="/guides">Guides</a></li>'))],
+    ['the guides page not marking its own link', swap('guides.html', (h) => h.replace('<a href="/guides" aria-current="page">', '<a href="/guides">'))],
+    ['the guides page marking Download as current', swap('guides.html', (h) => h.replace('<a href="/download">Download</a>', '<a href="/download" aria-current="page">Download</a>'))],
   ];
   for (const [label, mutated] of breaks) {
     if (mutated.length === pages.length && mutated.every(([f, h], i) => h === pages[i][1])) { proveFails.push('PROVE: "' + label + '" did not change any page (the break is stale)'); continue; }

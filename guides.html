@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="index, follow">
+<title>How to use HALA MOVE: guides | halamove.co.za</title>
+<meta name="description" content="Step-by-step guides on the real screens: book a delivery on the web, pay cash at a store's till, run a business account and watch your fleet on HALA MOVE.">
+<meta property="og:title" content="How to use HALA MOVE">
+<meta property="og:description" content="Step-by-step guides on the real screens: web booking, the store till, business accounts and fleet dashboards.">
+<meta property="og:image" content="https://www.halamove.co.za/og-image.png">
+<meta property="og:url" content="https://www.halamove.co.za/guides">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-96x96.png" type="image/png" sizes="96x96">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="canonical" href="https://www.halamove.co.za/guides">
+
+<!-- THE GUIDES PAGE (2026-11-24). [ERIC 2026-11-24] the four-station figure came off the home page: "Such details belong
+     under a section of button of guides which describes how and steps of using our platforms", on the real screens,
+     "without using generic emoji and poor icons". Every picture here is a real HALA MOVE page (book.halamove.co.za,
+     the till page, the business dashboard) rendered with example names, addresses and amounts, and the page says so.
+     The till sign is the sign HALA MOVE prints for a store (backend src/services/tillSignPdf.js); its QR here opens
+     this guide, never a real till. The customer app, driver app and online store guides join when their screens do. -->
+
+<link rel="preload" href="/fonts/outfit-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/type.css">
+<link rel="stylesheet" href="/assets/nav.css">
+
+<style>
+  :root{--disp:'Outfit','Outfit Fallback',system-ui,sans-serif;--body:'Barlow','Barlow Fallback',system-ui,sans-serif}
+:root{
+ --g:    #5CB558;
+ --gd:   #4A9947;
+ --gl:   #7DCB79;
+ --glow:  rgba(92,181,88,.16);
+ --gmid:  rgba(92,181,88,.08);
+ --bg:   #0A0A0A;
+ --bg2:   #0D0D0D;
+ --s:    #141414;
+ --s2:   #1A1A1A;
+ --s3:   #222;
+ --b:    #2A2A2A;
+ --b2:   #333;
+ --t:    #FFFFFF;
+ --t2:   #AAAAAA;
+ --t3:   #999;
+ --err:   #FF4444;
+ --warn:  #F59E0B;
+ --gold:  #FFD700;
+ --disp:'Outfit','Outfit Fallback',system-ui,sans-serif;
+ --body:'Barlow','Barlow Fallback',system-ui,sans-serif;
+ --r:    8px;
+ --rl:   14px;
+ --rll:   20px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { background: var(--bg); color: var(--t); font-family: var(--body); font-size: 17px; line-height: 1.6; min-height: 100vh; overflow-x: hidden; }
+h1, h2, h3 { font-family: var(--disp); font-weight: 600; line-height: 1.1; }
+a { color: inherit; }
+a:focus-visible, .steps:focus-visible { outline: 2px solid var(--g); outline-offset: 4px; border-radius: 4px; }
+img { max-width: 100%; display: block; }
+.nb { white-space: nowrap; }
+
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+
+/* The opening: what the page is, who each guide is for, and where to jump. */
+.head { padding-top: 72px; padding-bottom: 8px; }
+.head h1 { font-size: 64px; letter-spacing: -0.035em; }
+.lede { font-size: 19px; color: var(--t2); max-width: 30em; margin-top: 20px; }
+.examples { font-size: 14px; color: var(--t3); margin-top: 12px; max-width: 30em; }
+.index { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 28px; margin-top: 48px; }
+.index a { display: block; text-decoration: none; border-top: 1px solid var(--b2); padding: 16px 0 6px; }
+.index a:hover .t, .index a:focus-visible .t { color: var(--g); }
+.index .t { display: block; font-family: var(--disp); font-weight: 600; font-size: 20px; line-height: 1.25; }
+.index .w { display: block; font-size: 15px; color: var(--t2); margin-top: 6px; }
+
+/* A guide: a heading, who it is for, then its steps in order. The screens are the page. */
+.guide { padding-top: 96px; scroll-margin-top: 72px; }
+.guide-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px 32px; }
+.guide h2 { font-size: 40px; letter-spacing: -0.03em; }
+.guide .who { font-size: 17px; color: var(--t2); max-width: 30em; margin-top: 10px; }
+.act { display: inline-block; background: var(--g); color: #0A0A0A; font-weight: 600; font-size: 15px; text-decoration: none; padding: 12px 20px; border-radius: var(--r); white-space: nowrap; }
+.act:hover { background: var(--gl); }
+.swipe { display: none; }
+
+.steps { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 48px 28px; margin-top: 36px; }
+.screen { aspect-ratio: 390 / 844; border: 1px solid var(--b2); border-radius: 22px; overflow: hidden; background: #000; }
+.screen img { width: 100%; height: 100%; object-fit: cover; }
+.screen.paper { display: grid; place-items: center; background: var(--s2); padding: 0 12%; }
+.screen.paper img { height: auto; object-fit: contain; box-shadow: 0 12px 32px rgba(0, 0, 0, .45); }
+.step figcaption { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 0 10px; margin-top: 18px; }
+.step .n { font-family: var(--disp); font-weight: 600; font-size: 24px; line-height: 1; color: var(--g); }
+.step .d { font-size: 15px; line-height: 1.5; }
+
+.close { padding-top: 112px; padding-bottom: 96px; }
+.close h2 { font-size: 32px; letter-spacing: -0.02em; }
+.close p { font-size: 17px; color: var(--t2); max-width: 30em; margin-top: 12px; }
+.close a { color: var(--t); text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--g); }
+
+footer { border-top: 1px solid var(--b); padding: 32px 0 40px; }
+.footer-inner { max-width: 1160px; margin: 0 auto; padding: 0 24px; }
+.footer-links { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.footer-links a { font-size: 14px; color: var(--t2); text-decoration: none; }
+.footer-links a:hover { color: var(--t); }
+.footer-meta { font-size: 13px; color: var(--t3); margin-top: 16px; }
+
+@media (max-width: 960px) {
+  .index { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+/* On a phone the steps of one guide sit side by side and swipe, so a guide stays one screen tall; the next step
+   shows at the edge, so it reads as more to see. */
+@media (max-width: 700px) {
+  .head { padding-top: 48px; }
+  .head h1 { font-size: 40px; }
+  .lede { font-size: 17px; }
+  .index { grid-template-columns: minmax(0, 1fr); margin-top: 36px; }
+  .guide { padding-top: 72px; }
+  .guide h2 { font-size: 32px; }
+  .swipe { display: block; font-size: 14px; color: var(--t3); margin-top: 24px; }
+  .steps { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 68%; gap: 16px; margin: 12px -24px 0 0; padding: 0 24px 8px 0; overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; scrollbar-width: none; }
+  .steps::-webkit-scrollbar { display: none; }
+  .step { scroll-snap-align: start; }
+  .close { padding-top: 88px; padding-bottom: 72px; }
+  .close h2 { font-size: 28px; }
+}
+</style>
+<!-- Vercel Web Analytics: page counts with no cookie. Codes in personal links and every query value except campaign tags are removed before anything is sent. -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+window.va('beforeSend', function (event) {
+  try {
+    var u = new URL(event.url);
+    u.pathname = u.pathname.replace(/^\/(track|refund|invite|driver-invite|c)\/[^\/]+/, '/$1/code');
+    var names = ['s', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var kept = [];
+    for (var i = 0; i < names.length; i++) {
+      var v = u.searchParams.get(names[i]);
+      if (v !== null) kept.push([names[i], v]);
+    }
+    u.search = '';
+    for (var j = 0; j < kept.length; j++) u.searchParams.set(kept[j][0], kept[j][1]);
+    u.hash = '';
+    var out = {};
+    for (var k in event) out[k] = event[k];
+    out.url = u.toString();
+    return out;
+  } catch (e) { return null; }
+});
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+
+<nav id="main-nav" role="navigation" aria-label="Main navigation">
+ <div class="nav-inner">
+  <a href="/" class="nav-logo" aria-label="HALA MOVE home" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+   <!-- Truck icon: exact brand paths, 65×32px viewport -->
+   <svg width="65" height="32" viewBox="345 435 335 165" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="flex-shrink:0;">
+    <path d="M 354.408 469.552 C 356.245 466.203 359.123 466.381 362.556 466.379 C 365.871 466.377 369.186 466.392 372.5 466.394 C 390.003 466.408 407.504 466.51 425.002 466.57 C 429.837 466.586 434.676 466.537 439.51 466.636 C 441.93 466.687 444.547 466.88 445.793 464.316 C 446.102 463.68 446.166 462.895 446.148 462.198 C 446.004 456.53 439.356 457.76 435.463 457.754 C 426.321 457.738 417.179 457.749 408.038 457.766 C 403.808 457.773 398.737 458.523 394.611 457.515 C 387.378 455.748 391.404 445.554 396.237 443.505 C 399.764 442.01 404.737 442.817 408.499 442.818 C 416.999 442.821 425.498 442.792 433.998 442.805 C 463.498 442.848 492.998 442.747 522.498 442.834 C 530.831 442.858 539.163 442.854 547.495 442.855 C 552.6 442.856 557.811 442.853 561.49 447.001 C 565.848 451.916 564.32 459.941 564.317 466.001 C 564.307 481.501 564.312 497.001 564.306 512.501 C 564.301 525.5 564.316 538.5 564.36 551.499 C 564.371 554.831 564.372 558.163 564.383 561.494 C 564.386 562.335 564.688 564.369 564.149 565.031 C 561.832 565.44 559.35 565.213 557.005 565.224 C 552.672 565.244 548.338 565.233 544.005 565.235 C 530.838 565.241 517.672 565.248 504.505 565.235 C 497.673 565.229 490.84 565.242 484.007 565.2 C 480.969 565.181 477.146 565.701 474.224 564.881 C 472.645 557.317 470.884 550.739 465.652 544.756 C 453.899 531.318 432.774 529.677 419.256 541.464 C 414.632 545.497 411.154 550.625 409.227 556.459 C 408.576 558.431 407.969 560.414 407.721 562.484 C 407.679 562.84 407.755 564.195 407.467 564.333 C 403.829 564.493 400.161 564.369 396.517 564.383 C 394.223 564.392 391.57 564.658 389.388 563.83 C 384.049 561.806 382.98 553.899 385.66 549.451 C 386.694 547.734 388.353 547.184 389.8 545.957 C 391.013 542.138 389.88 536.921 390.049 532.92 C 390.157 530.359 390.817 527.776 393.364 526.579 C 395.306 525.666 397.916 526.091 400.005 526.086 C 404.985 526.074 410.058 526.389 415.026 526.045 C 418.104 525.831 420.585 522.804 419.083 519.703 C 417.57 516.576 412.844 517.431 410.004 517.413 C 401.361 517.356 392.709 517.544 384.069 517.372 C 382.539 517.341 380.684 517.505 379.255 516.871 C 376.44 515.623 375.298 511.637 376.907 509.016 C 379.23 505.233 385.258 506.435 389.002 506.441 C 400.336 506.458 411.669 506.412 423.002 506.44 C 426.196 506.448 430.309 507.14 433.388 506.222 C 435.68 505.539 436.263 502.49 435.663 500.514 C 434.225 495.781 425.586 497.424 421.866 497.419 C 407.579 497.403 393.292 497.338 379.005 497.312 C 374.035 497.303 362.43 499.334 362.914 491.33 C 363.236 486.009 368.732 486.4 372.668 486.449 C 383.776 486.588 394.89 486.585 406.001 486.599 C 410.485 486.604 418.966 488.343 418.661 481.525 C 418.572 479.542 417.062 477.97 415.191 477.424 C 411.99 476.489 407.834 477.118 404.51 477.091 C 391.118 476.983 377.715 476.942 364.324 476.966 C 360.335 476.973 354.539 477.44 354.164 472.029 C 354.105 471.187 354.181 470.363 354.408 469.552 Z" fill="#5CB558" fill-rule="evenodd"/>
+<path d="M 417.426 563.093 C 417.929 559.747 419.161 556.633 421.02 553.817 C 422.882 550.998 425.25 548.702 428.024 546.795 C 430.285 545.241 432.884 544.087 435.539 543.396 C 451.892 539.136 466.944 554.273 464.433 570.433 C 463.973 573.393 462.963 576.221 461.4 578.78 C 453.549 591.631 434.828 594.06 424.091 583.314 C 421.167 580.388 419.107 576.686 417.974 572.731 C 417.087 569.632 416.947 566.277 417.426 563.093 Z M 429.409 564.089 C 429.103 565.658 429.146 567.396 429.445 568.961 C 431.788 581.216 450.023 580.792 452.44 568.882 C 452.736 567.422 452.643 565.918 452.381 564.458 C 450.238 552.488 431.787 551.912 429.409 564.089 Z" fill="#5CB558" fill-rule="evenodd"/>
+<path d="M 573 475.626 C 573.083 474.973 573.101 474.324 573.105 473.666 C 581.317 472.513 590.196 473.309 598.497 473.272 C 601.315 473.26 605.962 472.456 608.452 473.998 C 611.659 475.984 614.299 479.742 616.808 482.516 C 621.574 487.785 626.439 492.979 631.314 498.147 C 633.79 500.773 636.137 503.934 639.091 506.034 C 647.222 511.814 660.889 511.17 666.461 520.583 C 669.794 526.214 669.209 532.937 669.159 539.239 C 669.141 541.496 668.527 544.962 669.366 547.052 C 670.65 548.095 672.18 548.7 673.002 550.224 C 675.517 554.887 673.623 561.246 669.13 563.762 C 666.914 565.003 663.961 564.714 661.518 564.71 C 659.891 564.708 658.267 564.725 656.641 564.747 C 656.08 564.754 655.2 564.967 654.759 564.62 C 653.359 539.086 621.429 524.334 601.422 540.542 C 596.475 544.55 592.687 549.874 590.746 555.956 C 590.091 558.01 589.574 560.172 589.396 562.325 C 589.346 562.931 589.527 564.54 589.096 564.977 C 583.929 565.512 578.474 565.078 573.282 565.043 C 572.368 548.606 573.077 531.963 573.069 515.5 C 573.065 507.17 573.141 498.822 573.058 490.501 C 573.009 485.57 572.699 480.556 573 475.626 Z M 581.939 483.085 C 581.479 485.137 581.748 487.41 581.761 489.501 C 581.784 493.167 581.747 496.834 581.752 500.501 C 581.755 502.649 581.207 505.782 582.131 507.744 C 582.871 508.565 583.978 508.442 585.001 508.436 C 587.126 508.424 589.252 508.463 591.377 508.45 C 599.987 508.398 608.656 508.168 617.26 508.5 C 619.828 508.6 622.721 508.854 625.268 508.533 C 626.061 508.434 627.226 508.394 627.519 507.512 C 627.616 506.511 625.945 505.208 625.31 504.496 C 623.077 501.995 620.752 499.582 618.509 497.093 C 615.413 493.657 612.369 490.18 609.2 486.809 C 607.887 485.413 606.326 483.186 604.552 482.373 C 602.922 481.627 600.274 482.035 598.507 482.029 C 594.984 482.017 591.462 482.027 587.939 482.035 C 586.019 482.039 584.006 481.725 582.172 482.409 C 582.095 482.634 582.017 482.859 581.939 483.085 Z" fill="#5CB558" fill-rule="evenodd"/>
+<path d="M 598.374 562.578 C 598.931 559.469 600.233 556.27 602.027 553.674 C 611.159 540.454 631.764 538.854 641.149 552.857 C 642.808 555.332 644.073 557.893 644.825 560.786 C 645.728 564.256 645.813 567.814 645.171 571.338 C 643.007 583.234 630.877 591.444 619.042 590.06 C 612.335 589.276 606.225 585.574 602.255 580.148 C 600.502 577.751 599.246 574.979 598.644 572.069 C 598.001 568.963 597.812 565.712 598.374 562.578 Z M 610.391 564.591 C 610.113 566.378 610.179 568.35 610.707 570.084 C 614.166 581.444 631.266 580.265 633.313 568.622 C 633.611 566.93 633.55 565.205 633.128 563.54 C 630.161 551.842 612.249 552.676 610.391 564.591 Z" fill="#5CB558" fill-rule="evenodd"/>
+   </svg>
+   <!-- HALA MOVE wordmark: Outfit Black, split color -->
+   <span style="font-family:var(--disp);font-weight:900;font-size:1.25rem;letter-spacing:0;word-spacing:.12em;line-height:1;white-space:nowrap;">
+    <span style="color:#5CB558;">HALA</span><span style="color:#FFFFFF;"> MOVE</span>
+   </span>
+  </a>
+
+
+  <ul class="nav-links" role="list">
+   <li><a href="/#customers">For Customers</a></li>
+   <li><a href="/#drivers">For Drivers</a></li>
+   <li><a href="/#business">For Business</a></li>
+   <li><a href="/guides" aria-current="page">Guides</a></li>
+   <li><a href="/quote">Get a Quote</a></li>
+   <li><a href="/download">Download</a></li>
+  </ul>
+
+
+ </div>
+</nav>
+
+<main>
+ <header class="head wrap">
+  <h1>How to use <span class="nb">HALA MOVE</span></h1>
+  <p class="lede">Each guide follows the real screens, one step at a time: booking a delivery on the web, paying cash at a store's till, running a business account, and watching a fleet.</p>
+  <p class="examples">Names, addresses and amounts on these screens are examples.</p>
+  <ul class="index" role="list">
+   <li><a href="#web"><span class="t">Book a delivery on the web</span><span class="w">For anyone sending goods, from any phone or computer.</span></a></li>
+   <li><a href="#till"><span class="t">Pay cash at a store's till</span><span class="w">For shoppers at a store with our sign, and its cashier.</span></a></li>
+   <li><a href="#business"><span class="t">Run a business account</span><span class="w">For companies that book on account and pay one invoice a month.</span></a></li>
+   <li><a href="#fleet"><span class="t">Watch your fleet</span><span class="w">For fleet owners whose drivers deliver on <span class="nb">HALA MOVE</span>.</span></a></li>
+  </ul>
+ </header>
+
+ <section class="guide wrap" id="web" aria-labelledby="web-h">
+  <div class="guide-head">
+   <div>
+    <h2 id="web-h">Book a delivery on the web</h2>
+    <p class="who">It runs in the browser on any phone or computer, with no app to install. Sign in with your email or mobile number.</p>
+   </div>
+   <a class="act" href="https://book.halamove.co.za/book/?s=guides">Open the booking page</a>
+  </div>
+  <p class="swipe">Swipe for the next step.</p>
+  <ol class="steps" tabindex="0" aria-label="Steps to book a delivery on the web">
+   <li class="step"><figure><div class="screen"><img src="/images/guides/web-1.v1-300.webp" srcset="/images/guides/web-1.v1-300.webp 300w, /images/guides/web-1.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The Book a delivery page with the Collect from and Deliver to address fields"></div><figcaption><span class="n" aria-hidden="true">1</span><span class="d">Say where to collect it and where it goes. Start typing and pick the address from the list.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/web-2.v1-300.webp" srcset="/images/guides/web-2.v1-300.webp 300w, /images/guides/web-2.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The goods described as cement, a wheelbarrow and tiles, with the Large bakkie chosen"></div><figcaption><span class="n" aria-hidden="true">2</span><span class="d">Say what you are sending and choose the size of vehicle. Photos help drivers price it.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/web-3.v1-300.webp" srcset="/images/guides/web-3.v1-300.webp 300w, /images/guides/web-3.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The suggested price of R350, the offer to drivers and the Post my delivery button"></div><figcaption><span class="n" aria-hidden="true">3</span><span class="d">See the suggested price, all in. Set your offer and post it; no driver is booked until you choose one.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/web-4.v1-300.webp" srcset="/images/guides/web-4.v1-300.webp 300w, /images/guides/web-4.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="Two driver offers, each with a rating, deliveries done, minutes away, vehicle and price"></div><figcaption><span class="n" aria-hidden="true">4</span><span class="d">Checked drivers near you send offers, each with their rating, deliveries done and how far away they are.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/web-5.v1-300.webp" srcset="/images/guides/web-5.v1-300.webp 300w, /images/guides/web-5.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The question Choose Sipho for R344, with Not yet and Choose Sipho buttons"></div><figcaption><span class="n" aria-hidden="true">5</span><span class="d">Choose the offer you want, then confirm it.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/web-6.v1-300.webp" srcset="/images/guides/web-6.v1-300.webp 300w, /images/guides/web-6.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="One step left: the delivery price, the payment fee and the Pay R344 securely button"></div><figcaption><span class="n" aria-hidden="true">6</span><span class="d">Pay on PayFast's secure page. Your money is held, and paid to the driver only once your delivery arrives.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/web-7.v1-300.webp" srcset="/images/guides/web-7.v1-300.webp 300w, /images/guides/web-7.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="Your deliveries, listing one waiting for offers and one done"></div><figcaption><span class="n" aria-hidden="true">7</span><span class="d">Follow each delivery under Your deliveries.</span></figcaption></figure></li>
+  </ol>
+ </section>
+
+ <section class="guide wrap" id="till" aria-labelledby="till-h">
+  <div class="guide-head">
+   <div>
+    <h2 id="till-h">Pay cash at a store's till</h2>
+    <p class="who">A store with the <span class="nb">HALA MOVE</span> sign at its till sends your goods home with a checked driver. You pay the fixed price in cash at the till.</p>
+   </div>
+   <a class="act" href="/#business">Get a sign for your till</a>
+  </div>
+  <p class="swipe">Swipe for the next step.</p>
+  <ol class="steps" tabindex="0" aria-label="Steps to pay cash at a store's till">
+   <li class="step"><figure><div class="screen paper"><img src="/images/guides/till-1.v1-300.webp" srcset="/images/guides/till-1.v1-300.webp 300w, /images/guides/till-1.v1-600.webp 600w" sizes="(max-width: 700px) 52vw, (max-width: 960px) 23vw, 200px" width="600" height="848" loading="lazy" decoding="async" alt="The printed HALA MOVE till sign: Delivery to your door, a QR code, and Scan the code, book your delivery, and pay cash at the till"></div><figcaption><span class="n" aria-hidden="true">1</span><span class="d">At the till, scan the sign with your phone's camera.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/till-2.v1-300.webp" srcset="/images/guides/till-2.v1-300.webp 300w, /images/guides/till-2.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="Delivery from Your store, with the Where to address field and the size of the load"></div><figcaption><span class="n" aria-hidden="true">2</span><span class="d">Say where it is going and what you are carrying. The store is the pickup, and the price is fixed.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/till-3.v1-300.webp" srcset="/images/guides/till-3.v1-300.webp 300w, /images/guides/till-3.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="Show this code to the cashier: code 4821, Pay R350 in cash"></div><figcaption><span class="n" aria-hidden="true">3</span><span class="d">Show your code to the cashier and pay the price in cash.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/till-4.v1-300.webp" srcset="/images/guides/till-4.v1-300.webp 300w, /images/guides/till-4.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The store's dashboard: code 4821 waiting for cash, with the Cash received button"></div><figcaption><span class="n" aria-hidden="true">4</span><span class="d">The cashier finds your code under Waiting for cash and taps Cash received. Your delivery is booked.</span></figcaption></figure></li>
+  </ol>
+ </section>
+
+ <section class="guide wrap" id="business" aria-labelledby="business-h">
+  <div class="guide-head">
+   <div>
+    <h2 id="business-h">Run a business account</h2>
+    <p class="who">For companies that book deliveries on account and pay one invoice a month. We set up your account and send you the sign-in.</p>
+   </div>
+   <a class="act" href="/#business">Ask for a business account</a>
+  </div>
+  <p class="swipe">Swipe for the next step.</p>
+  <ol class="steps" tabindex="0" aria-label="Steps to run a business account">
+   <li class="step"><figure><div class="screen"><img src="/images/guides/business-1.v1-300.webp" srcset="/images/guides/business-1.v1-300.webp 300w, /images/guides/business-1.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The business portal sign-in with email and password"></div><figcaption><span class="n" aria-hidden="true">1</span><span class="d">Sign in to your dashboard at admin.halamove.co.za/business with the email and password we send you.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/business-2.v1-300.webp" srcset="/images/guides/business-2.v1-300.webp 300w, /images/guides/business-2.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="One step left: R344 on your account and the Charge to your company account button"></div><figcaption><span class="n" aria-hidden="true">2</span><span class="d">Book on the booking page like anyone else. Once you choose a driver, charge it to your company account.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/business-3.v1-300.webp" srcset="/images/guides/business-3.v1-300.webp 300w, /images/guides/business-3.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The Live tab: deliveries under way, waiting for a driver, and your deliveries now"></div><figcaption><span class="n" aria-hidden="true">3</span><span class="d">See every delivery under way, and how much of your spending limit is left.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/business-4.v1-300.webp" srcset="/images/guides/business-4.v1-300.webp 300w, /images/guides/business-4.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The Jobs tab: each delivery with its date, driver, vehicle, route and status"></div><figcaption><span class="n" aria-hidden="true">4</span><span class="d">Every delivery your company booked, with its driver, vehicle, route and status.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/business-5.v1-300.webp" srcset="/images/guides/business-5.v1-300.webp 300w, /images/guides/business-5.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="One job: its pickup code, route, receiver, goods, driver and vehicle"></div><figcaption><span class="n" aria-hidden="true">5</span><span class="d">Open one for its route, its driver and the pickup code your team gives the driver at collection.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/business-6.v1-300.webp" srcset="/images/guides/business-6.v1-300.webp 300w, /images/guides/business-6.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The Invoices tab: the amount outstanding and each monthly invoice with PDF and CSV buttons"></div><figcaption><span class="n" aria-hidden="true">6</span><span class="d">One invoice a month. Download it as a PDF or CSV, and pay by EFT with the invoice number as the reference.</span></figcaption></figure></li>
+  </ol>
+ </section>
+
+ <section class="guide wrap" id="fleet" aria-labelledby="fleet-h">
+  <div class="guide-head">
+   <div>
+    <h2 id="fleet-h">Watch your fleet</h2>
+    <p class="who">For fleet owners whose drivers deliver on <span class="nb">HALA MOVE</span>. Each driver is paid directly; your dashboard shows their work and earnings.</p>
+   </div>
+   <a class="act" href="/#business">Ask for a fleet dashboard</a>
+  </div>
+  <p class="swipe">Swipe for the next step.</p>
+  <ol class="steps" tabindex="0" aria-label="Steps to watch your fleet">
+   <li class="step"><figure><div class="screen"><img src="/images/guides/fleet-1.v1-300.webp" srcset="/images/guides/fleet-1.v1-300.webp 300w, /images/guides/fleet-1.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="A map of Durban showing where the fleet's drivers are, and drivers online 2 of 4"></div><figcaption><span class="n" aria-hidden="true">1</span><span class="d">See where your drivers are, and how many are online right now.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/fleet-2.v1-300.webp" srcset="/images/guides/fleet-2.v1-300.webp 300w, /images/guides/fleet-2.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The Fleet tab: each driver with vehicle, registration, verification, rating and jobs done"></div><figcaption><span class="n" aria-hidden="true">2</span><span class="d">Your drivers, their vehicles, ratings and checks. A driver appears once they agree to share their job history with you.</span></figcaption></figure></li>
+   <li class="step"><figure><div class="screen"><img src="/images/guides/fleet-3.v1-300.webp" srcset="/images/guides/fleet-3.v1-300.webp 300w, /images/guides/fleet-3.v1-600.webp 600w" sizes="(max-width: 700px) 68vw, (max-width: 960px) 30vw, 260px" width="390" height="844" loading="lazy" decoding="async" alt="The Earnings tab: customer paid, driver earnings, released and awaiting release, with Download CSV"></div><figcaption><span class="n" aria-hidden="true">3</span><span class="d">What customers paid and what each driver earned, released or still held. Download it as a CSV.</span></figcaption></figure></li>
+  </ol>
+ </section>
+
+ <section class="close wrap" aria-labelledby="close-h">
+  <h2 id="close-h">Ask us anything</h2>
+  <p>Write to <a href="mailto:contact@halamove.co.za">contact@halamove.co.za</a>, or read the <a href="/faq">questions people ask most</a>.</p>
+ </section>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-links">
+      <a href="/">Home</a>
+      <a href="/about">About</a>
+      <a href="/faq">FAQ</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+      <a href="/driver-agreement">Driver Agreement</a>
+    </div>
+    <p class="footer-meta">
+      &copy; 2026 PROFITSAGE (PTY) LTD trading as <strong>HALA MOVE</strong>, registered with CIPC. Built in South Africa for Africa.
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
