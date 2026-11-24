@@ -31,11 +31,9 @@
 //      background towards the top of screens ... has to be removed across all materials, that extra green color".)
 //      Green marks a state (a badge, a step number, a button); it is never a light behind the page. The dashed rule
 //      and the download headline's green text are linear fills of a line and of letters, and stay.
-//   8. No file in this repository names a founder who works out of public view. The repository is public and every
-//      HTML comment is served in the page source; on 2026-11-24 a provenance mark carrying the name reached
-//      guides.html and four gates. The words are held as SHA-256 hashes, so this gate does not publish what it
-//      guards. Every word of every text file (html, txt, md, json, js, cjs, css, xml; not node_modules, .git,
-//      baselines or .bak) is hashed and compared.
+//   8. No text file carries a word from the private list. The list is held as SHA-256 hashes. Every word of every
+//      text file (html, txt, md, json, js, cjs, css, xml; not node_modules, .git, baselines or .bak) is hashed and
+//      compared.
 
 const fs = require('fs');
 const path = require('path');
@@ -83,7 +81,7 @@ function namesPrivate(files) {
   for (const [f, t] of files) {
     const hit = new Set();
     for (const w of new Set(t.toLowerCase().match(/[a-z]+/g) || [])) if (isPrivateWord(w)) hit.add(w);
-    if (hit.size) fails.push(f + ': names a founder who works out of public view (' + hit.size + ' private word(s))');
+    if (hit.size) fails.push(f + ': carries ' + hit.size + ' word(s) from the private list');
   }
   return fails;
 }
@@ -181,7 +179,7 @@ if (process.argv.includes('--prove')) {
   // The private-word rule reads files, not pages: plant a word whose hash is on the list (built from char codes so
   // this file still carries none of the words) into a comment of a page and of a gate.
   const planted = String.fromCharCode(101, 114, 105, 99);
-  for (const [label, file] of [['a founder named in a page comment', 'guides.html'], ['a founder named in a gate', 'verify-links.cjs']]) {
+  for (const [label, file] of [['a private word in a page comment', 'guides.html'], ['a private word in a gate', 'verify-links.cjs']]) {
     const mutatedFiles = files.map(([f, t]) => [f, f === file ? t + '\n<!-- ' + planted.toUpperCase() + ' said so -->' : t]);
     if (!files.some(([f]) => f === file)) { proveFails.push('PROVE: "' + label + '": ' + file + ' not found (the break is stale)'); continue; }
     if (namesPrivate(mutatedFiles.filter(([f]) => f === file)).length === 0) proveFails.push('PROVE: "' + label + '" stayed green');
@@ -192,4 +190,4 @@ if (process.argv.includes('--prove')) {
 
 res.fails.concat(proveFails).forEach((f) => console.log('  FAIL ' + f));
 if (res.fails.length || proveFails.length) { console.log('  SITE SYSTEM: FAIL'); process.exit(1); }
-console.log('  SITE SYSTEM: ' + res.system + ' pages in the system with one set of colours, ' + TASK_PAGES.length + ' task pages, ' + SHARED_BAR.length + ' on the shared bar, ' + files.length + ' text files free of private names');
+console.log('  SITE SYSTEM: ' + res.system + ' pages in the system with one set of colours, ' + TASK_PAGES.length + ' task pages, ' + SHARED_BAR.length + ' on the shared bar, ' + files.length + ' text files free of private words');
