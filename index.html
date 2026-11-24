@@ -287,37 +287,8 @@ nav.scrolled{background:rgba(10,10,10,.98)}
 .hero-h1{font-size:clamp(3rem,10vw,5rem);line-height:1.02;letter-spacing:-.025em;margin-bottom:16px;text-wrap:balance}
 .hero-sub{max-width:30em;margin:0 auto;line-height:1.6;color:var(--t2)}
 .hero-sub span{display:inline-block;text-wrap:balance}
-/* THE OPENING (2026-11-24): two doors, then the connection as one figure - four stations on a line, never four tiles.
-   The line runs through the icon centres (no column gap, so the centres sit at 12.5% and 87.5%) and draws itself once;
-   a visitor who asks for reduced motion gets it drawn. On a phone the line runs down the left. */
-.hero-doors{position:relative;z-index:2;display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin:28px auto 0}
-.door-book,.door-drive{display:inline-flex;align-items:center;justify-content:center;min-height:48px;min-width:160px;padding:0 28px;border-radius:999px;font-weight:600;font-size:1.0625rem;text-decoration:none;transition:transform .1s ease-out,background-color .2s,box-shadow .2s}
-.door-book{background:var(--g);color:#0A0A0A}
-.door-book:hover{background:var(--gl)}
-.door-drive{color:var(--t);box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
-.door-drive:hover{box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
-.door-book:active,.door-drive:active{transform:scale(.97)}
-.door-book:focus-visible,.door-drive:focus-visible{outline:2px solid var(--g);outline-offset:3px}
-.conn{position:relative;z-index:2;list-style:none;margin:44px auto 0;padding:0;max-width:1040px;display:grid;grid-template-columns:repeat(4,1fr)}
-.conn::before{content:'';position:absolute;top:24px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(90deg,rgba(92,181,88,.3),var(--g) 50%,rgba(92,181,88,.3));transform-origin:left center;animation:connDraw 1.1s cubic-bezier(.4,0,.2,1) .6s both}
-.conn li{position:relative;display:flex;flex-direction:column;align-items:center;text-align:center;gap:4px;padding:0 10px}
-.conn-ic{display:grid;place-items:center;width:48px;height:48px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 1.5px rgba(92,181,88,.6);color:var(--g);margin-bottom:10px}
-.conn-ic svg{fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
-.conn b{font-weight:600;font-size:1.0625rem;color:var(--t);line-height:1.3}
-.conn-l{font-size:.9375rem;color:var(--t2);line-height:1.45;max-width:15em;text-wrap:balance}
-@keyframes connDraw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
-@keyframes connDrawY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
-@media(max-width:640px){
-.hero-doors{flex-wrap:nowrap;max-width:380px}.door-book,.door-drive{min-width:0;flex:1 1 0;padding:0 14px;white-space:nowrap}
-.conn{grid-template-columns:1fr;row-gap:16px;max-width:21rem;margin-top:36px}
-.conn::before{top:24px;bottom:24px;left:23px;right:auto;width:2px;height:auto;background:linear-gradient(180deg,rgba(92,181,88,.3),var(--g) 50%,rgba(92,181,88,.3));transform-origin:center top;animation-name:connDrawY}
-.conn li{display:grid;grid-template-columns:48px 1fr;column-gap:14px;row-gap:0;align-items:center;text-align:left;padding:0}
-.conn-ic{grid-row:1 / span 2;margin:0}
-.conn b{align-self:end}.conn-l{align-self:start;max-width:none}
-}
-@media(prefers-reduced-motion:reduce){.conn::before{animation:none}}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.rail-wrap{position:relative;z-index:2;margin-top:56px;padding:0 12px}
+.rail-wrap{position:relative;z-index:2;margin-top:30px;padding:0 12px}
 .stage{position:relative;max-width:1400px;margin:0 auto;border-radius:28px;overflow:hidden;isolation:isolate;background:#F1F2F4}
 .rail{display:flex;list-style:none;margin:0;padding:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .rail::-webkit-scrollbar{display:none}
@@ -659,24 +630,6 @@ window.va('beforeSend', function (event) {
    </h1>
    <p class="hero-sub" data-motion-hero-el="sub"><span>Post your load and checked drivers send you offers.</span> <span>Your money is held until it arrives.</span></p>
   </div>
-  <!-- THE OPENING (2026-11-24, design review item 9). The first screen shows the connection, not a bakkie: the store,
-       a checked driver, the doorstep and the record, as one figure on a line. The station lines are approved claims
-       (backend docs/marketing/CLAIM_REGISTER.md): "you choose the price" (CR-20), identity-verified drivers (the trust
-       line), "Track your driver live" (CR-26), and "every job on record" from the investor deck.
-       The record line is replaced by the live record (recordView() below; no figure is written here). The doors keep
-       booking on the first screen now the vehicles sit one step in: Book goes to the web booking with a tag that names
-       no size, so the customer picks one there; the driver door goes to /drive, and a computer to /download.
-       verify-hero-rail.cjs (rules 9 and 10) and verify-record.cjs hold this. -->
-  <div class="hero-doors" data-motion-hero-el="cta">
-   <a class="door-book" href="https://book.halamove.co.za/book/?s=web-hero" aria-label="Book a move, no app needed">Book a move</a>
-   <a class="door-drive" href="/drive?s=web-herod" data-desk="/download">I'm a driver</a>
-  </div>
-  <ol class="conn" role="list" aria-label="How a load moves on HALA MOVE" data-motion-hero-el="trust">
-   <li><span class="conn-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M4 10v10h16V10"/><path d="M2.5 10 4.5 4h15l2 6z"/><path d="M10 20v-5h4v5"/></svg></span><b>The store</b><span class="conn-l">You choose the price</span></li>
-   <li><span class="conn-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><circle cx="10" cy="8" r="3.5"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0"/><path d="m16 11.5 2 2 4-4"/></svg></span><b>A checked driver</b><span class="conn-l">ID, licence and vehicle verified</span></li>
-   <li><span class="conn-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M3 11 12 4l9 7"/><path d="M5 9.5V20h14V9.5"/><path d="M10 20v-6h4v6"/></svg></span><b>The doorstep</b><span class="conn-l">Track your driver live</span></li>
-   <li><span class="conn-ic"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true" focusable="false"><path d="M6 3h9l4 4v14H6z"/><path d="M15 3v4h4"/><path d="M9 12h7M9 16h5"/></svg></span><b>The record</b><span class="conn-l" data-conn-rec>Every job on record</span></li>
-  </ol>
  </div>
 
  <!-- THE VEHICLES: the hero's picture. One frame per size, the same class pictures the app shows when a customer
@@ -803,7 +756,7 @@ window.va('beforeSend', function (event) {
          rule stands and is why the badge waited: a badge over a dead link is worse than a sentence.
          The new rule is the other half of it: a "coming soon" over a LIVE link costs installs. Probe
          before you write either one. Rule #24 wording: never "in review", never a date. -->
-    <div class="store-row">
+    <div class="store-row" data-motion-hero-el="cta">
      <a href="https://play.google.com/store/apps/details?id=com.hala.customer" class="play-badge-link" target="_blank" rel="noopener noreferrer" aria-label="Get HALA MOVE on Google Play">
       <img src="/assets/google-play-badge.png" alt="Get HALA MOVE on Google Play" width="646" height="250">
      </a>
@@ -1024,8 +977,7 @@ window.va('beforeSend', function (event) {
       refunds: [String(r.refunds), r.refunds === 1 ? 'refund on a completed delivery' : 'refunds on a completed delivery'],
       paid: r.paid_n > 0
         ? [r.paid_up + ' of ' + r.paid_n, r.paid_n === 1 ? 'customer gave paying a thumbs up' : 'customers gave paying a thumbs up']
-        : null,
-      short: r.completed + (r.completed === 1 ? ' delivery, ' : ' deliveries, ') + r.disputes + (r.disputes === 1 ? ' dispute' : ' disputes')
+        : null
     };
   }
 
@@ -1037,8 +989,6 @@ window.va('beforeSend', function (event) {
     .then(function (r) {
       var v = recordView(r);
       if (!v) return;
-      var connRec = document.querySelector('[data-conn-rec]');
-      if (connRec) connRec.textContent = v.short;
       var box = sec.querySelector('.rec-marks');
       if (v.marks.length) {
         box.style.setProperty('--cols', String(v.cols));
@@ -1515,7 +1465,7 @@ if(sl){
  } else { holds.away = false; }
  // A phone goes straight to its own store through /get and /drive; a computer goes to /download, which shows both.
  if(!/Android|iPhone|iPad|iPod/i.test(navigator.userAgent)){
-  document.querySelectorAll('.rail [data-desk], .hero-doors [data-desk]').forEach((a) => { a.href = a.getAttribute('data-desk'); });
+  document.querySelectorAll('.rail [data-desk]').forEach((a) => { a.href = a.getAttribute('data-desk'); });
  }
  setActive(current());
  rail.classList.add('is-live');
