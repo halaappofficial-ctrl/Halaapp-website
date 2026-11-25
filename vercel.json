@@ -6,7 +6,8 @@
     { "source": "/driver-invite/:code", "destination": "/driver-invite" },
     { "source": "/c/:code", "destination": "/creator" },
     { "source": "/track/:token", "destination": "/track" },
-    { "source": "/refund/:token", "destination": "/refund" }
+    { "source": "/refund/:token", "destination": "/refund" },
+    { "source": "/pool/:token", "destination": "/pool" }
   ],
   "redirects": [
     {
@@ -49,6 +50,14 @@
     },
     {
       "source": "/refund(.*)",
+      "headers": [
+        { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Cache-Control", "value": "no-store" }
+      ]
+    },
+    {
+      "source": "/pool(.*)",
       "headers": [
         { "key": "X-Robots-Tag", "value": "noindex, nofollow" },
         { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },

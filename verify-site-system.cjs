@@ -39,7 +39,7 @@ const fs = require('fs');
 const path = require('path');
 const ROOT = __dirname;
 
-const TASK_PAGES = ['delete-account.html', 'paid.html', 'payment-cancelled.html', 'quote.html', 'refund.html', 'reset-password.html', 'track.html'];
+const TASK_PAGES = ['delete-account.html', 'paid.html', 'payment-cancelled.html', 'pool.html', 'quote.html', 'refund.html', 'reset-password.html', 'track.html'];
 const SHARED_BAR = ['creator.html', 'download.html', 'driver-invite.html', 'guides.html', 'invite.html'];
 const OWN_LINK = { 'download.html': ['/download', 'Download'], 'guides.html': ['/guides', 'Guides'] };
 const CODE_PAGES = { 'invite.html': 'INVITE', 'driver-invite.html': 'DRIVER-INVITE', 'creator.html': 'CREATOR' };

@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<title>HALA MOVE - A store's drivers</title>
+<!-- An invite belongs to the one driver it was sent to: never indexed, and the token in the address never leaves this
+     site in a Referer. The API answer carries noindex + no-store too. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="preload" href="/fonts/outfit-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="/assets/type.css">
+<style>
+  .nb { white-space: nowrap; }
+  :root{--disp:'Outfit','Outfit Fallback',system-ui,sans-serif;--body:'Barlow','Barlow Fallback',system-ui,sans-serif}
+  :root{ --bg:#0A0A0A; --card:#151515; --line:#262626; --text:#FFFFFF; --muted:#A3A3A3; --green:#5CB558; --red:#FF5A5A; }
+  html,body{ margin:0; padding:0; background:var(--bg); color:var(--text); font-family:var(--body); }
+  *{ box-sizing:border-box; }
+  header{ display:flex; align-items:center; justify-content:space-between; padding:12px 16px; border-bottom:1px solid var(--line); }
+  .brand{ font-weight:900; font-size:20px; letter-spacing:0; color:var(--text);font-family:var(--disp);word-spacing:.12em}
+  .brand span{ color:var(--green); }
+  .panel{ max-width:520px; margin:0 auto; padding:24px 16px 40px; }
+  .hello{ font-size:15px; color:var(--muted); margin:0 0 6px; }
+  h1{ font-size:28px; font-weight:600; margin:0 0 12px;font-family:var(--disp);letter-spacing:-.012em;line-height:1.18;text-wrap:balance}
+  .lead{ font-size:17px; line-height:1.55; margin:0; }
+  .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:16px; margin-top:18px; }
+  .store{ font-weight:600; font-size:17px; margin:0 0 2px; }
+  .addr{ color:var(--muted); font-size:15px; margin:0; line-height:1.4; }
+  .steps{ margin:0; padding:0; list-style:none; }
+  .steps li{ display:flex; gap:12px; align-items:flex-start; font-size:17px; line-height:1.5; padding:8px 0; }
+  .steps li + li{ border-top:1px solid var(--line); }
+  .dot{ flex:0 0 26px; height:26px; border-radius:50%; background:rgba(92,181,88,0.16); color:var(--green); font-weight:600;
+    font-size:14px; display:flex; align-items:center; justify-content:center; margin-top:1px; }
+  .btn{ display:block; width:100%; text-align:center; background:var(--green); color:#0A0A0A; font-weight:600; font-size:19px;
+    text-decoration:none; padding:15px; border-radius:12px; margin-top:14px; border:0; cursor:pointer; min-height:52px; }
+  .btn[disabled]{ opacity:0.6; cursor:default; }
+  .btn.ghost{ background:transparent; color:var(--text); border:1px solid #3a3a3a; }
+  .ok{ color:var(--green); font-weight:600; font-size:17px; margin:0 0 6px; }
+  .error{ margin-top:14px; padding:12px; border-radius:10px; border:1px solid var(--red); background:rgba(255,90,90,0.12);
+    color:var(--red); font-size:15px; line-height:1.4; }
+  .note{ font-size:14px; color:var(--muted); margin-top:18px; line-height:1.55; }
+  .note a, .msg a{ color:var(--green); }
+  .msg{ text-align:center; padding:60px 20px; }
+  .msg h1{ font-size:24px; margin:0 0 10px; }
+  .msg p{ color:var(--muted); font-size:15px; line-height:1.5; margin:0 auto; max-width:28em; }
+  .hidden{ display:none !important; }
+</style>
+<!-- Vercel Web Analytics: page counts with no cookie. Codes in personal links and every query value except campaign tags are removed before anything is sent. -->
+<script>
+window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
+window.va('beforeSend', function (event) {
+  try {
+    var u = new URL(event.url);
+    u.pathname = u.pathname.replace(/^\/(track|refund|pool|invite|driver-invite|c)\/[^\/]+/, '/$1/code');
+    var names = ['s', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+    var kept = [];
+    for (var i = 0; i < names.length; i++) {
+      var v = u.searchParams.get(names[i]);
+      if (v !== null) kept.push([names[i], v]);
+    }
+    u.search = '';
+    for (var j = 0; j < kept.length; j++) u.searchParams.set(kept[j][0], kept[j][1]);
+    u.hash = '';
+    var out = {};
+    for (var k in event) out[k] = event[k];
+    out.url = u.toString();
+    return out;
+  } catch (e) { return null; }
+});
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body>
+<header>
+  <div class="brand"><span>HALA</span> MOVE</div>
+</header>
+
+<div id="main" class="panel hidden">
+  <p class="hello" id="hello"></p>
+  <h1 id="headline"></h1>
+  <p class="lead" id="lead"></p>
+
+  <div class="card">
+    <p class="store" id="store"></p>
+    <p class="addr" id="addr"></p>
+  </div>
+
+  <div class="card" id="how">
+    <ul class="steps">
+      <li><span class="dot">1</span><span id="step1"></span></li>
+      <li><span class="dot">2</span><span>You see the price before you accept. The first driver to accept gets the delivery.</span></li>
+      <li><span class="dot">3</span><span>Joining is free, and you can leave any time on this page.</span></li>
+    </ul>
+  </div>
+
+  <div id="state-in" class="card hidden">
+    <p class="ok" id="in-title"></p>
+    <p class="addr">Stay online in <span class="nb">HALA MOVE</span> near the store during its trading hours, so the orders find you.</p>
+  </div>
+
+  <div class="error hidden" id="error" role="alert"></div>
+  <button class="btn" id="yes" type="button"></button>
+  <button class="btn ghost" id="no" type="button"></button>
+
+  <p class="note">Joining does not give the store your phone number or any other details about you.
+    Questions? <a href="https://wa.me/27760525398" target="_blank" rel="noopener" data-last-resort="no-self-serve-path">WhatsApp <span class="nb">HALA MOVE</span> on <span class="nb">076 052 5398</span></a>.</p>
+</div>
+
+<div id="ended" class="msg hidden">
+  <h1>This invite has ended</h1>
+  <p id="ended-text"></p>
+</div>
+<div id="invalid" class="msg hidden">
+  <h1>This link is not valid</h1>
+  <p>Check that you opened the whole link you were sent. If it still does not work,
+    <a href="https://wa.me/27760525398" target="_blank" rel="noopener" data-last-resort="no-self-serve-path">WhatsApp <span class="nb">HALA MOVE</span> on <span class="nb">076 052 5398</span></a>.</p>
+</div>
+<div id="down" class="msg hidden">
+  <h1>We could not load your invite</h1>
+  <p>This is on our side. Please try again in a minute.</p>
+  <p style="margin-top:18px"><button class="btn" id="retry" type="button" style="max-width:240px;margin:0 auto">Try again</button></p>
+</div>
+<div id="loading" class="msg"><p>Loading your invite...</p></div>
+
+<script>
+// A STORE'S OWN DRIVERS (2026-11-25). halamove.co.za/pool/<token> (vercel.json rewrites it here). A driver invited to a
+// store's group says yes or no here; his yes is his recorded consent. The rules (who is told first, for how long, the
+// link's life) live on the SERVER (backend src/services/shopDriverPool.js and src/utils/nearestFirst.js); this page shows
+// what it is given and sends one word.
+(function () {
+  'use strict';
+  var API = 'https://hala-backend-production.up.railway.app/api/shop-pool/';
+  var m = /^\/pool\/([A-Za-z0-9_-]{32})\/?$/.exec(window.location.pathname || '');
+  var $ = function (id) { return document.getElementById(id); };
+  function show(id) { ['main', 'ended', 'invalid', 'down', 'loading'].forEach(function (k) { $(k).classList.toggle('hidden', k !== id); }); }
+  if (!m) { show('invalid'); return; }
+  var token = m[1];
+  var view = null;
+
+  function setError(msg) { $('error').textContent = msg || ''; $('error').classList.toggle('hidden', !msg); }
+
+  function render(v) {
+    view = v;
+    var store = v.store_name || 'the store';
+    var secs = Number(v.head_start_seconds);
+    $('hello').textContent = v.first_name ? 'Hi ' + v.first_name + ',' : '';
+    $('store').textContent = store;
+    $('addr').textContent = v.store_address || '';
+    $('step1').textContent = 'When ' + store + ' has a delivery, its drivers are told first'
+      + (isFinite(secs) && secs > 0 ? ' and have ' + secs + ' seconds to accept it' : '') + ', before other drivers hear about it.';
+    var inPool = v.status === 'active';
+    $('how').classList.toggle('hidden', inPool);
+    $('state-in').classList.toggle('hidden', !inPool);
+    if (inPool) {
+      $('headline').textContent = 'You are one of ' + store + "'s drivers";
+      $('lead').textContent = 'You are told first when it has a delivery.';
+      $('in-title').textContent = 'You are in';
+      $('yes').classList.add('hidden');
+      $('no').textContent = 'Leave ' + store + "'s drivers";
+    } else if (v.status === 'removed') {
+      $('headline').textContent = 'You are not one of ' + store + "'s drivers";
+      $('lead').textContent = 'Changed your mind? You can join again.';
+      $('yes').classList.remove('hidden');
+      $('yes').textContent = 'Yes, add me';
+      $('no').classList.add('hidden');
+    } else {
+      $('headline').textContent = 'Get ' + store + "'s delivery orders first";
+      $('lead').textContent = 'Would you like to join the drivers who hear about this store\'s deliveries before anyone else?';
+      $('yes').classList.remove('hidden');
+      $('yes').textContent = 'Yes, add me';
+      $('no').classList.remove('hidden');
+      $('no').textContent = 'No, thanks';
+    }
+    if (inPool) $('no').classList.remove('hidden');
+    show('main');
+  }
+
+  function call(method, body) {
+    return fetch(API + token, {
+      method: method, cache: 'no-store',
+      headers: body ? { 'Content-Type': 'application/json' } : undefined,
+      body: body ? JSON.stringify(body) : undefined,
+    }).then(function (res) {
+      return res.json().catch(function () { return {}; }).then(function (b) { return { status: res.status, body: b }; });
+    });
+  }
+
+  function handle(r) {
+    if (r.status === 200) return render(r.body);
+    if (r.status === 404) return show('invalid');
+    if (r.status === 410) { $('ended-text').textContent = r.body.message || ''; return show('ended'); }
+    if (r.status === 409) return load();
+    if (view) return setError(r.body.error || 'Your answer did not reach us. Please try again in a minute.');
+    show('down');
+  }
+
+  function load() { show('loading'); call('GET').then(handle).catch(function () { show('down'); }); }
+
+  function answer(word, btn) {
+    setError('');
+    var label = btn.textContent;
+    btn.disabled = true; btn.textContent = 'Sending...';
+    call('POST', { answer: word }).then(function (r) {
+      btn.disabled = false; btn.textContent = label;
+      handle(r);
+    }).catch(function () {
+      btn.disabled = false; btn.textContent = label;
+      setError('Your answer did not reach us. Check your connection and try again.');
+    });
+  }
+
+  $('retry').addEventListener('click', load);
+  $('yes').addEventListener('click', function () { answer('yes', $('yes')); });
+  $('no').addEventListener('click', function () { answer('no', $('no')); });
+  load();
+})();
+</script>
+</body>
+</html>
