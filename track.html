@@ -34,6 +34,12 @@
   .stale{ color:var(--amber); }
   .card{ background:var(--card); border:1px solid var(--line); border-radius:14px; padding:14px; margin-top:14px; }
   .driver{ display:flex; align-items:center; gap:14px; }
+  .dtext{ flex:1 1 auto; min-width:0; }
+  /* The vehicle, as the app shows it: its picture on a light tile, on the driver's row. */
+  .vpic{ width:112px; height:56px; object-fit:contain; background:#F5F5F5; border-radius:10px; flex:0 0 112px; }
+  /* Up to 374px (360px Androids and smaller) the row would squeeze the vehicle line into a column: the initial and
+     the text keep their row and the picture sits under the text, lined up with it (56px avatar + 14px gap). */
+  @media (max-width:374px){ .driver{ flex-wrap:wrap; } .dtext{ flex:1 1 calc(100% - 70px); } .vpic{ margin-left:70px; } }
   .avatar{ width:56px; height:56px; border-radius:28px; object-fit:cover; background:#262626; flex:0 0 56px;
     display:flex; align-items:center; justify-content:center; font-weight:600; font-size:24px; color:var(--green); }
   .dname{ font-size:19px; font-weight:600; }
@@ -123,11 +129,13 @@ window.va('beforeSend', function (event) {
     <div class="card hidden" id="driver">
       <div class="driver">
         <div class="avatar" id="avatar"></div>
-        <div>
+        <div class="dtext">
           <div class="dname" id="dname"></div>
           <div class="vehicle" id="vehicle"></div>
+          <div class="vehicle hidden" id="vcover">Covered</div>
           <div class="plate hidden" id="plate"></div>
         </div>
+        <img class="vpic hidden" id="vpic" alt="" width="112" height="56" decoding="async" />
       </div>
     </div>
 
@@ -256,6 +264,19 @@ window.va('beforeSend', function (event) {
     } catch (e) { return null; }
   }
 
+  // The picture of the vehicle (2026-11-25) comes from our own backend, the host this page already reads the trip from,
+  // and only from its vehicle pictures folder, so nothing in a driver's row can make the page load from anywhere else.
+  function vehiclePic(url, api) {
+    try {
+      if (!url) return null;
+      var s = String(url);
+      if (/['"<>()\\\s]/.test(s)) return null;
+      var u = new URL(s);
+      if (u.protocol !== 'https:' || u.host !== new URL(api).host) return null;
+      return /^\/assets\/vehicles\/[a-z0-9_.]+\.jpg$/.test(u.pathname) ? u.href : null;
+    } catch (e) { return null; }
+  }
+
   function pointText(p, i, last) {
     if (i === 0) return 'P';
     if (i === last) return 'D';
@@ -345,6 +366,19 @@ window.va('beforeSend', function (event) {
       $('dname').textContent = d.first_name || 'Your driver';
       var veh = d.vehicle || {};
       $('vehicle').textContent = vehicleLine(veh);
+      // What is coming to the gate: the picture of his vehicle in its colour, as the app's tracking card shows it.
+      var vp = $('vpic');
+      var pic = vehiclePic(veh.image_url, API);
+      if (pic) {
+        if (vp.getAttribute('src') !== pic) vp.src = pic;
+        vp.alt = vehicleLine(veh) || 'The vehicle';
+        vp.onerror = function () { vp.classList.add('hidden'); };
+        vp.classList.remove('hidden');
+      } else {
+        vp.classList.add('hidden');
+        vp.removeAttribute('src');
+      }
+      $('vcover').classList.toggle('hidden', veh.cover !== 'covered');
       $('plate').classList.toggle('hidden', !veh.registration);
       $('plate').textContent = veh.registration || '';
     }
